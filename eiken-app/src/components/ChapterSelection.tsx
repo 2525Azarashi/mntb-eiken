@@ -310,13 +310,21 @@ export function ChapterSelection({
           <button
             type="button"
             onClick={() => onOpenMock(isEikenListeningGroup || subject === 'eiken_1' ? 'listening' : 'written')}
-            className="shrink-0 rounded-xl border border-[#1e3a5f]/25 bg-[#1e3a5f] px-3 py-2 text-xs font-extrabold text-white shadow-xs transition hover:bg-[#162c49] cursor-pointer"
+            className="shrink-0 rounded-xl border border-[#1e3a5f]/25 bg-[#1e3a5f] px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-extrabold text-white shadow-xs transition hover:bg-[#162c49] cursor-pointer whitespace-nowrap"
             data-chapter-open-mock
           >
-            {isEikenListeningGroup || subject === 'eiken_1' ? 'リスニング模試へ' : '通し模試へ'}
+            <span className="sm:hidden">模試へ</span>
+            <span className="hidden sm:inline">
+              {isEikenListeningGroup || subject === 'eiken_1' ? 'リスニング模試へ' : '通し模試へ'}
+            </span>
           </button>
         )}
-        <DoorMascot subject={subject} showSpeech={false} size="mini" className="unit-head-mascot w-auto" />
+        <DoorMascot
+          subject={subject}
+          showSpeech={false}
+          size="mini"
+          className={`unit-head-mascot w-auto ${isEiken ? 'hidden sm:block' : ''}`}
+        />
       </header>
 
       <div

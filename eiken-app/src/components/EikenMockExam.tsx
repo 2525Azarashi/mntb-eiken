@@ -8,6 +8,7 @@ import {
   Flag,
   Headphones,
   LayoutGrid,
+  Maximize2,
   Pause,
   PenLine,
   Play,
@@ -339,7 +340,9 @@ export function EikenMockExam({
   );
 
   const grade: EikenGrade = availableGrades.some(g => g.id === initialGrade) ? initialGrade : 'eiken_3';
-  const gradeLabel = availableGrades.find(g => g.id === grade)?.label ?? '英検3級';
+  const gradeObj = availableGrades.find(g => g.id === grade);
+  const gradeLabel = gradeObj?.label ?? '英検3級';
+  const gradeShortLabel = gradeObj?.shortLabel ?? gradeLabel.replace(/^英検/, '');
 
   // Written specs
   const blueprint = WRITTEN_BLUEPRINTS[grade];
@@ -390,12 +393,14 @@ export function EikenMockExam({
   const [timedMode, setTimedMode] = useState<boolean>(true);
   const [activeExamId, setActiveExamId] = useState<string | null>(null);
   const [zoomedIllustration, setZoomedIllustration] = useState<{ src: string; caption: string } | null>(null);
+  const [expandedMaterial, setExpandedMaterial] = useState(false);
 
   // Running state
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [writing, setWriting] = useState<Record<string, MockWritingEntry>>({});
   const [flags, setFlags] = useState<string[]>([]);
   const [unitIndex, setUnitIndex] = useState(0);
+  const [subItemIndex, setSubItemIndex] = useState(0);
   const [elapsedSec, setElapsedSec] = useState(0);
   const [paused, setPaused] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -453,20 +458,25 @@ export function EikenMockExam({
     };
   }, [phase, onRunningChange]);
 
-  // Stop speech whenever question unit changes or phase exits running
+  // Reset sub-question index & overlays whenever unit changes
   useEffect(() => {
     stopSpeech();
+    setSubItemIndex(0);
     setZoomedIllustration(null);
+    setExpandedMaterial(false);
   }, [unitIndex, phase, examCategory]);
 
   useEffect(() => {
-    if (!zoomedIllustration) return;
+    if (!zoomedIllustration && !expandedMaterial) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setZoomedIllustration(null);
+      if (e.key === 'Escape') {
+        setZoomedIllustration(null);
+        setExpandedMaterial(false);
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [zoomedIllustration]);
+  }, [zoomedIllustration, expandedMaterial]);
 
   // Tick timer every second while running and not paused
   useEffect(() => {
@@ -505,7 +515,6 @@ export function EikenMockExam({
     setMockState(next);
   }, [phase, hasActiveExam, activeStorageSlot, answers, writing, flags, unitIndex, timedMode, limitSec, uid]);
 
-  // Save elapsedSec every 5s
   useEffect(() => {
     if (phase !== 'running' || !hasActiveExam || !activeStorageSlot || elapsedSec === 0 || elapsedSec % 5 !== 0) return;
     const cur = readMock(uid);
@@ -551,6 +560,7 @@ export function EikenMockExam({
       setElapsedSec(0);
       setUnitIndex(0);
     }
+    setSubItemIndex(0);
     setPaused(false);
     setPaletteOpen(false);
     setConfirmSubmit(false);
@@ -584,6 +594,7 @@ export function EikenMockExam({
       setElapsedSec(0);
       setUnitIndex(0);
     }
+    setSubItemIndex(0);
     setPaused(false);
     setPaletteOpen(false);
     setConfirmSubmit(false);
@@ -685,7 +696,6 @@ export function EikenMockExam({
         </header>
 
         <section className="em-control-card" aria-label="模試の種別と級・時間設定">
-          {/* Exam Category Switcher */}
           <div className="em-category-switch" role="tablist" aria-label="試験区分を選択" data-mock-category-tabs>
             <button
               type="button"
@@ -1104,7 +1114,7 @@ export function EikenMockExam({
   }
 
   // =========================================================================
-  // 2A. RUNNING LISTENING EXAM SCREEN
+  // 2A. RUNNING LISTENING EXAM SCREEN (SINGLE-VIEWPORT 100dvh FIT)
   // =========================================================================
   if (phase === 'running' && examCategory === 'listening' && activeListeningExam) {
     const currentAudioUnit = listeningUnits[unitIndex] ?? listeningUnits[0];
@@ -1121,60 +1131,123 @@ export function EikenMockExam({
     const answeredCount = scopedQuestions.filter(({ q }) => Number.isInteger(answers[q.id])).length;
 
     const bp = LISTENING_BLUEPRINTS[activeListeningExam.grade];
-    const partFirstUnit: { part: ListeningPartId; label: string; unitIdx: number }[] = [];
+    const partFirstUnit: { part: ListeningPartId; shortLabel: string; label: string; unitIdx: number }[] = [];
     listeningUnits.forEach((u, idx) => {
       if (!partFirstUnit.some(p => p.part === u.part)) {
-        const pSpec = bp.parts.find(p => p.id === u.part);
-        partFirstUnit.push({ part: u.part, label: pSpec?.label ?? u.part, unitIdx: idx });
+        const pIdx = bp.parts.findIndex(p => p.id === u.part);
+        const pSpec = bp.parts[pIdx];
+        partFirstUnit.push({
+          part: u.part,
+          shortLabel: `第${pIdx + 1}部`,
+          label: pSpec?.label ?? u.part,
+          unitIdx: idx,
+        });
       }
     });
 
-    const currentPartLabel = bp.parts.find(p => p.id === currentAudioUnit.part)?.label ?? currentAudioUnit.part;
+    const currentPartIdx = bp.parts.findIndex(p => p.id === currentAudioUnit.part);
+    const currentPartShort = currentPartIdx >= 0 ? `第${currentPartIdx + 1}部` : currentAudioUnit.part;
+    const safeSubIdx = Math.min(subItemIndex, Math.max(0, currentAudioUnit.questions.length - 1));
+    const activeMobileQuestion = currentAudioUnit.questions[safeSubIdx] ?? currentAudioUnit.questions[0];
 
     const jumpToQuestionId = (qId: string) => {
       const targetIdx = listeningUnits.findIndex(u => u.questions.some(q => q.id === qId));
       if (targetIdx >= 0) {
+        const targetSub = listeningUnits[targetIdx].questions.findIndex(q => q.id === qId);
         setUnitIndex(targetIdx);
+        setSubItemIndex(Math.max(0, targetSub));
         setPaletteOpen(false);
-        window.scrollTo(0, 0);
       }
+    };
+
+    const renderListeningQuestionCard = (q: ListeningQuestionItem, extraClass = '') => {
+      const flagged = flags.includes(q.id);
+      const picked = answers[q.id];
+      const isReadAloud = q.choicePresentation === 'read-aloud';
+
+      return (
+        <section key={q.id} className={`em-q-card ${extraClass}`} data-mock-q={q.questionNumber}>
+          <div className="em-q-head">
+            <div className="em-q-title">
+              <span className="em-q-num">No.{q.questionNumber}</span>
+              <span className="em-q-prompt-inline">
+                {isReadAloud ? `音声の選択肢 1〜${q.choices.length} から選ぶ` : q.questionPrompt}
+              </span>
+            </div>
+            <button
+              type="button"
+              className={`em-flag-btn ${flagged ? 'is-active' : ''}`}
+              onClick={() => toggleFlag(q.id)}
+              aria-pressed={flagged}
+              title="あとで見直す"
+            >
+              <Flag size={13} aria-hidden="true" />
+              <span className="em-hide-narrow">{flagged ? '見直し中' : '見直し'}</span>
+            </button>
+          </div>
+
+          <div className="em-choice-list" role="radiogroup" aria-label={`No.${q.questionNumber}の選択肢`}>
+            {q.choices.map((choiceText, cIdx) => {
+              const selected = picked === cIdx;
+              const displayLabel = isReadAloud ? `選択肢 ${cIdx + 1}（音声で読み上げ）` : choiceText;
+              return (
+                <button
+                  key={cIdx}
+                  type="button"
+                  role="radio"
+                  aria-checked={selected}
+                  className={`em-choice-btn ${selected ? 'is-selected' : ''}`}
+                  onClick={() => setAnswers(prev => ({ ...prev, [q.id]: cIdx }))}
+                  data-choice-idx={cIdx + 1}
+                >
+                  <span className="em-choice-no">{cIdx + 1}</span>
+                  <span className="em-choice-text">{displayLabel}</span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      );
     };
 
     return (
       <main className="em-runner" data-mock-runner data-mock-category="listening">
+        {/* Compact Top Bar: Title independently anchored top-left, compact controls top-right */}
         <header className="em-runner-bar">
-          <button
-            type="button"
-            className="em-runner-exit"
-            onClick={() => {
-              stopSpeech();
-              setPhase('select');
-            }}
-            title="解答は自動保存されます。あとで続きから再開できます"
-          >
-            <ArrowLeft size={16} aria-hidden="true" />
-            <span>中断して保存</span>
-          </button>
-
-          <div className="em-runner-center">
-            <strong className="em-runner-title">
-              {gradeLabel} リスニング 第{activeListeningExam.round}回
-              {activePartSpec ? `・第${activePartSpec.partNo}部` : ''}
-            </strong>
-            <span className="em-runner-progress">
-              解答 {answeredCount}/{scopedQuestions.length}
-            </span>
+          <div className="em-runner-brand">
+            <button
+              type="button"
+              className="em-runner-exit"
+              onClick={() => {
+                stopSpeech();
+                setPhase('select');
+              }}
+              aria-label="中断して保存"
+              title="解答は自動保存されます。あとで続きから再開できます"
+            >
+              <ArrowLeft size={16} aria-hidden="true" />
+              <span className="em-exit-label">中断して保存</span>
+            </button>
+            <div className="em-runner-title-box">
+              <strong className="em-runner-title">
+                {gradeShortLabel} 第{activeListeningExam.round}回
+                {activePartSpec ? `・第${activePartSpec.partNo}部` : `・${currentPartShort}`}
+              </strong>
+              <span className="em-runner-progress">
+                {answeredCount}/{scopedQuestions.length}
+              </span>
+            </div>
           </div>
 
           <div className="em-runner-right">
             <div className={`em-timer-chip ${isOvertime ? 'is-overtime' : ''}`} data-mock-timer>
-              <Clock size={15} aria-hidden="true" />
+              <Clock size={13} aria-hidden="true" />
               <span>
                 {timedMode
                   ? isOvertime
-                    ? `+${formatDuration(Math.abs(remainingSec))} 超過`
-                    : `残り ${formatDuration(remainingSec)}`
-                  : `経過 ${formatDuration(elapsedSec)}`}
+                    ? `+${formatDuration(Math.abs(remainingSec))}`
+                    : formatDuration(remainingSec)
+                  : formatDuration(elapsedSec)}
               </span>
               <button
                 type="button"
@@ -1182,7 +1255,7 @@ export function EikenMockExam({
                 onClick={() => setPaused(p => !p)}
                 aria-label={paused ? 'タイマーを再開' : 'タイマーを一時停止'}
               >
-                {paused ? <Play size={13} /> : <Pause size={13} />}
+                {paused ? <Play size={11} /> : <Pause size={11} />}
               </button>
             </div>
 
@@ -1191,9 +1264,10 @@ export function EikenMockExam({
               className="em-palette-toggle"
               onClick={() => setPaletteOpen(o => !o)}
               aria-expanded={paletteOpen}
+              aria-label="問題一覧を開く"
             >
-              <LayoutGrid size={15} aria-hidden="true" />
-              <span>問題一覧</span>
+              <LayoutGrid size={14} aria-hidden="true" />
+              <span className="em-hide-narrow">一覧</span>
             </button>
 
             <button
@@ -1202,37 +1276,37 @@ export function EikenMockExam({
               onClick={() => setConfirmSubmit(true)}
               data-mock-open-submit
             >
-              <Send size={14} aria-hidden="true" />
-              <span>採点・提出</span>
+              <Send size={13} aria-hidden="true" />
+              <span>採点</span>
             </button>
           </div>
         </header>
 
-        {/* Part Quick Jump Tabs */}
-        <nav className="em-section-tabs" aria-label="リスニング部移動">
-          {partFirstUnit.map(pt => {
-            const active = currentAudioUnit.part === pt.part;
-            return (
-              <button
-                key={pt.part}
-                type="button"
-                className={`em-section-tab ${active ? 'is-active' : ''}`}
-                onClick={() => {
-                  setUnitIndex(pt.unitIdx);
-                  window.scrollTo(0, 0);
-                }}
-              >
-                {pt.label}
-              </button>
-            );
-          })}
-        </nav>
+        {/* Part Quick Jump Tabs (shown only when 2+ parts exist in scope) */}
+        {partFirstUnit.length > 1 && (
+          <nav className="em-section-tabs" aria-label="リスニング部移動">
+            {partFirstUnit.map(pt => {
+              const active = currentAudioUnit.part === pt.part;
+              return (
+                <button
+                  key={pt.part}
+                  type="button"
+                  className={`em-section-tab ${active ? 'is-active' : ''}`}
+                  onClick={() => setUnitIndex(pt.unitIdx)}
+                >
+                  <span className="em-show-narrow">{pt.shortLabel}</span>
+                  <span className="em-hide-narrow">{pt.label}</span>
+                </button>
+              );
+            })}
+          </nav>
+        )}
 
-        {/* Question Palette */}
+        {/* Question Palette Overlay */}
         {paletteOpen && (
           <section className="em-palette-drawer" aria-label="設問番号パレット">
             <div className="em-palette-legend">
-              <span>設問番号（No.）をタップして直接移動できます</span>
+              <span>設問番号（No.）をタップして直接移動</span>
               <div className="em-legend-items">
                 <span className="is-answered">解答済</span>
                 <span className="is-flagged">見直し</span>
@@ -1297,6 +1371,29 @@ export function EikenMockExam({
           </div>
         )}
 
+        {/* Fullscreen Material Modal for narrow phones */}
+        {expandedMaterial && track?.material && (
+          <div
+            className="em-modal-backdrop"
+            role="dialog"
+            aria-modal="true"
+            aria-label="印刷資料の全画面表示"
+            onClick={() => setExpandedMaterial(false)}
+          >
+            <div className="em-zoom-dialog em-material-dialog" onClick={e => e.stopPropagation()}>
+              <div className="em-zoom-bar">
+                <strong>No.{currentAudioUnit.questions[0].questionNumber} 印刷資料</strong>
+                <button type="button" className="em-ghost-btn" onClick={() => setExpandedMaterial(false)}>
+                  選択肢へ戻る
+                </button>
+              </div>
+              <div className="em-material-dialog-body">
+                <ListeningMaterials material={track.material} activeSubId={firstSub?.id} />
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Illustration Zoom Lightbox */}
         {zoomedIllustration && (
           <div
@@ -1318,20 +1415,46 @@ export function EikenMockExam({
           </div>
         )}
 
-        {/* Main Listening Workspace */}
-        <div className={`em-workspace ${hasLeftMedia ? 'has-passage' : ''}`}>
+        {/* Compact Single-Row Audio Strip */}
+        {track && (
+          <div className="em-audio-strip" data-mock-audio-unit={currentAudioUnit.audioId}>
+            <div className="em-audio-strip-player">
+              <ListeningAudioPlayer
+                key={currentAudioUnit.audioId}
+                tracks={[track]}
+                mode="practice"
+                tone="light"
+                variant="inline"
+                orientation="horizontal"
+                readCount={currentAudioUnit.readCount}
+                playOnce={timedMode && currentAudioUnit.readCount === 1}
+              />
+            </div>
+            {track.material && (
+              <button
+                type="button"
+                className="em-expand-btn"
+                onClick={() => setExpandedMaterial(true)}
+              >
+                <Maximize2 size={12} aria-hidden="true" />
+                <span>資料拡大</span>
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Main Viewport-Fit Workspace */}
+        <div
+          className={`em-workspace ${hasLeftMedia ? 'has-passage' : 'no-passage'} ${
+            track?.material ? 'is-material-split' : illustrationUrl ? 'is-illustration-split' : ''
+          }`}
+        >
           {hasLeftMedia && (
             <article className="em-passage-pane em-listening-media-pane">
-              <div className="em-passage-head">
-                <span className="em-section-badge">{currentPartLabel}</span>
-                <h2>
-                  {track?.material
-                    ? `No.${currentAudioUnit.questions[0].questionNumber} 印刷資料（Real-Life形式）`
-                    : `No.${currentAudioUnit.questions[0].questionNumber} 問題イラスト`}
-                </h2>
-              </div>
               {track?.material ? (
-                <ListeningMaterials material={track.material} activeSubId={firstSub?.id} />
+                <div className="em-material-scroll">
+                  <ListeningMaterials material={track.material} activeSubId={firstSub?.id} />
+                </div>
               ) : illustrationUrl ? (
                 <figure className="em-illustration-figure">
                   <img
@@ -1339,105 +1462,54 @@ export function EikenMockExam({
                     alt={illustrationCaption}
                     onClick={() => setZoomedIllustration({ src: illustrationUrl, caption: illustrationCaption })}
                   />
-                  <figcaption>
-                    <span>イラストをタップすると拡大表示できます</span>
-                    <button
-                      type="button"
-                      className="em-zoom-trigger"
-                      onClick={() => setZoomedIllustration({ src: illustrationUrl, caption: illustrationCaption })}
-                    >
-                      拡大する
-                    </button>
-                  </figcaption>
+                  <button
+                    type="button"
+                    className="em-zoom-badge"
+                    onClick={() => setZoomedIllustration({ src: illustrationUrl, caption: illustrationCaption })}
+                  >
+                    拡大
+                  </button>
                 </figure>
               ) : null}
             </article>
           )}
 
           <div className="em-questions-pane">
-            {/* Audio Player Card */}
-            {track && (
-              <section className="em-audio-card" data-mock-audio-unit={currentAudioUnit.audioId}>
-                <div className="em-audio-card-head">
-                  <span className="em-audio-badge">
-                    <Headphones size={14} aria-hidden="true" />
-                    <span>
-                      音源 {unitIndex + 1} / {listeningUnits.length}（本試験 {currentAudioUnit.readCount}回読み）
-                    </span>
-                  </span>
-                  <span className="em-audio-note">
-                    {timedMode && currentAudioUnit.readCount === 1
-                      ? '本番タイマー中：1回読み制限'
-                      : '音声を聞いて下の選択肢から選んでください'}
-                  </span>
-                </div>
-                <ListeningAudioPlayer
-                  key={currentAudioUnit.audioId}
-                  tracks={[track]}
-                  mode="practice"
-                  tone="light"
-                  variant="inline"
-                  orientation="horizontal"
-                  readCount={currentAudioUnit.readCount}
-                  playOnce={timedMode && currentAudioUnit.readCount === 1}
-                />
-              </section>
+            {/* Sub-question switcher on mobile when 1 audio has 2 questions (Pre-1 Part 2, Grade 1 Part 2/4) */}
+            {currentAudioUnit.questions.length > 1 && (
+              <div className="em-subq-tabs em-show-mobile-flex" role="tablist" aria-label="設問切替">
+                {currentAudioUnit.questions.map((q, qIdx) => {
+                  const answered = Number.isInteger(answers[q.id]);
+                  const active = qIdx === safeSubIdx;
+                  return (
+                    <button
+                      key={q.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={active}
+                      className={`em-subq-tab ${active ? 'is-active' : ''} ${answered ? 'is-answered' : ''}`}
+                      onClick={() => setSubItemIndex(qIdx)}
+                    >
+                      No.{q.questionNumber} {answered ? '✓' : ''}
+                    </button>
+                  );
+                })}
+              </div>
             )}
 
-            {currentAudioUnit.questions.map(q => {
-              const flagged = flags.includes(q.id);
-              const picked = answers[q.id];
-              const isReadAloud = q.choicePresentation === 'read-aloud';
-
-              return (
-                <section key={q.id} className="em-q-card" data-mock-q={q.questionNumber}>
-                  <div className="em-q-head">
-                    <div className="em-q-title">
-                      <span className="em-q-num">No. {q.questionNumber}</span>
-                      <span className="em-q-sec">{currentPartLabel}</span>
-                    </div>
-                    <button
-                      type="button"
-                      className={`em-flag-btn ${flagged ? 'is-active' : ''}`}
-                      onClick={() => toggleFlag(q.id)}
-                      aria-pressed={flagged}
-                    >
-                      <Flag size={14} aria-hidden="true" />
-                      <span>{flagged ? '見直し中' : '見直し'}</span>
-                    </button>
-                  </div>
-
-                  <p className="em-q-prompt">
-                    {isReadAloud
-                      ? `音声で読み上げられる選択肢 1〜${q.choices.length} の中から、最も適切なものを1つ選んでください。`
-                      : q.questionPrompt}
-                  </p>
-
-                  <div className="em-choice-list" role="radiogroup" aria-label={`No.${q.questionNumber}の選択肢`}>
-                    {q.choices.map((choiceText, cIdx) => {
-                      const selected = picked === cIdx;
-                      const displayLabel = isReadAloud
-                        ? `選択肢 ${cIdx + 1}（音声で読み上げ）`
-                        : choiceText;
-                      return (
-                        <button
-                          key={cIdx}
-                          type="button"
-                          role="radio"
-                          aria-checked={selected}
-                          className={`em-choice-btn ${selected ? 'is-selected' : ''}`}
-                          onClick={() => setAnswers(prev => ({ ...prev, [q.id]: cIdx }))}
-                          data-choice-idx={cIdx + 1}
-                        >
-                          <span className="em-choice-no">{cIdx + 1}</span>
-                          <span className="em-choice-text">{displayLabel}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </section>
-              );
-            })}
+            {/* Mobile: show active question so all 4 choices fit in 1 screen; Desktop: show all questions of the audio unit */}
+            {currentAudioUnit.questions.length > 1 ? (
+              <>
+                <div className="em-only-mobile">
+                  {renderListeningQuestionCard(activeMobileQuestion)}
+                </div>
+                <div className="em-only-desktop">
+                  {currentAudioUnit.questions.map(q => renderListeningQuestionCard(q))}
+                </div>
+              </>
+            ) : (
+              renderListeningQuestionCard(currentAudioUnit.questions[0])
+            )}
           </div>
         </div>
 
@@ -1445,14 +1517,17 @@ export function EikenMockExam({
           <button
             type="button"
             className="em-nav-btn"
-            disabled={unitIndex === 0}
+            disabled={unitIndex === 0 && safeSubIdx === 0}
             onClick={() => {
+              if (currentAudioUnit.questions.length > 1 && safeSubIdx > 0) {
+                setSubItemIndex(i => i - 1);
+                return;
+              }
               setUnitIndex(i => Math.max(0, i - 1));
-              window.scrollTo(0, 0);
             }}
           >
-            <ChevronLeft size={18} aria-hidden="true" />
-            <span>前の音源</span>
+            <ChevronLeft size={16} aria-hidden="true" />
+            <span>前へ</span>
           </button>
 
           <span className="em-unit-counter">
@@ -1464,12 +1539,27 @@ export function EikenMockExam({
               type="button"
               className="em-nav-btn is-primary"
               onClick={() => {
+                if (
+                  typeof window !== 'undefined' &&
+                  window.innerWidth < 900 &&
+                  currentAudioUnit.questions.length > 1 &&
+                  safeSubIdx < currentAudioUnit.questions.length - 1
+                ) {
+                  setSubItemIndex(i => i + 1);
+                  return;
+                }
                 setUnitIndex(i => Math.min(listeningUnits.length - 1, i + 1));
-                window.scrollTo(0, 0);
               }}
             >
-              <span>次の音源</span>
-              <ChevronRight size={18} aria-hidden="true" />
+              <span>
+                {typeof window !== 'undefined' &&
+                window.innerWidth < 900 &&
+                currentAudioUnit.questions.length > 1 &&
+                safeSubIdx < currentAudioUnit.questions.length - 1
+                  ? `次の設問 (No.${currentAudioUnit.questions[safeSubIdx + 1].questionNumber})`
+                  : '次の音源'}
+              </span>
+              <ChevronRight size={16} aria-hidden="true" />
             </button>
           ) : (
             <button
@@ -1477,8 +1567,8 @@ export function EikenMockExam({
               className="em-nav-btn is-submit"
               onClick={() => setConfirmSubmit(true)}
             >
-              <Send size={16} aria-hidden="true" />
-              <span>採点・提出する</span>
+              <Send size={15} aria-hidden="true" />
+              <span>採点・提出</span>
             </button>
           )}
         </footer>
@@ -1487,7 +1577,7 @@ export function EikenMockExam({
   }
 
   // =========================================================================
-  // 2B. RUNNING WRITTEN EXAM SCREEN
+  // 2B. RUNNING WRITTEN EXAM SCREEN (SINGLE-VIEWPORT 100dvh FIT)
   // =========================================================================
   if (phase === 'running' && activeWrittenExam) {
     const units = writtenUnits;
@@ -1504,56 +1594,170 @@ export function EikenMockExam({
     const totalAnswered = answeredChoiceCount + answeredWritingCount;
 
     const examDaimonSpecs = getGradeDaimonSpecs(activeWrittenExam.grade);
-    const sectionFirstUnit: { section: WrittenSection; label: string; unitIdx: number }[] = [];
+    const sectionFirstUnit: { section: WrittenSection; shortLabel: string; label: string; unitIdx: number }[] = [];
     units.forEach((u, idx) => {
       if (!sectionFirstUnit.some(s => s.section === u.section)) {
         const dSpec = examDaimonSpecs.find(d => d.section === u.section);
         const label = dSpec ? `大問${dSpec.daimonNo} ${WRITTEN_SECTION_LABELS[u.section]}` : SECTION_LABELS[u.section];
-        sectionFirstUnit.push({ section: u.section, label, unitIdx: idx });
+        const shortLabel = dSpec ? `大問${dSpec.daimonNo}` : SECTION_LABELS[u.section];
+        sectionFirstUnit.push({ section: u.section, shortLabel, label, unitIdx: idx });
       }
     });
+
+    const currentDaimon = examDaimonSpecs.find(d => d.section === currentUnit.section);
+    const safeSubIdx = Math.min(subItemIndex, Math.max(0, currentUnit.items.length - 1));
+    const activeSubEntry = currentUnit.items[safeSubIdx] ?? currentUnit.items[0];
 
     const jumpToItemId = (itemId: string) => {
       const targetUnitIdx = units.findIndex(u => u.items.some(entry => entry.item.id === itemId));
       if (targetUnitIdx >= 0) {
+        const subIdx = units[targetUnitIdx].items.findIndex(entry => entry.item.id === itemId);
         setUnitIndex(targetUnitIdx);
+        setSubItemIndex(Math.max(0, subIdx));
         setPaletteOpen(false);
-        window.scrollTo(0, 0);
       }
+    };
+
+    const renderWrittenQuestionCard = ({ item, qNo }: { item: WrittenItem; qNo: number }) => {
+      const flagged = flags.includes(item.id);
+      if (item.kind === 'choice') {
+        const picked = answers[item.id];
+        return (
+          <section key={item.id} className="em-q-card" data-mock-q={qNo}>
+            <div className="em-q-head">
+              <div className="em-q-title">
+                <span className="em-q-num">問{qNo}</span>
+                <span className="em-q-sec">{SECTION_LABELS[item.section]}</span>
+              </div>
+              <button
+                type="button"
+                className={`em-flag-btn ${flagged ? 'is-active' : ''}`}
+                onClick={() => toggleFlag(item.id)}
+                aria-pressed={flagged}
+              >
+                <Flag size={13} aria-hidden="true" />
+                <span className="em-hide-narrow">{flagged ? '見直し中' : '見直し'}</span>
+              </button>
+            </div>
+
+            <p className="em-q-prompt">{item.prompt}</p>
+
+            {item.orderTokens && (
+              <div className="em-order-tokens" aria-label="並べ替え語群">
+                {item.orderTokens.map((tok, tIdx) => (
+                  <span key={tIdx} className="em-order-chip">
+                    <strong>{tIdx + 1}.</strong> {tok}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <div className="em-choice-list" role="radiogroup" aria-label={`問${qNo}の選択肢`}>
+              {item.choices!.map((choiceText, cIdx) => {
+                const selected = picked === cIdx;
+                return (
+                  <button
+                    key={cIdx}
+                    type="button"
+                    role="radio"
+                    aria-checked={selected}
+                    className={`em-choice-btn ${selected ? 'is-selected' : ''}`}
+                    onClick={() => setAnswers(prev => ({ ...prev, [item.id]: cIdx }))}
+                    data-choice-idx={cIdx + 1}
+                  >
+                    <span className="em-choice-no">{cIdx + 1}</span>
+                    <span className="em-choice-text">{choiceText}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        );
+      }
+
+      const wEntry = writing[item.id] ?? { text: '', checked: [] };
+      const words = countEnglishWords(wEntry.text);
+      const [minW, maxW] = item.wordRange ?? [25, 35];
+      const inRange = words >= minW && words <= maxW;
+
+      return (
+        <section key={item.id} className="em-q-card is-writing" data-mock-writing={item.id}>
+          <div className="em-q-head">
+            <div className="em-q-title">
+              <span className="em-q-num">英作</span>
+              <span className="em-q-sec">{SECTION_LABELS[item.section]}</span>
+            </div>
+            <button
+              type="button"
+              className={`em-flag-btn ${flagged ? 'is-active' : ''}`}
+              onClick={() => toggleFlag(item.id)}
+              aria-pressed={flagged}
+            >
+              <Flag size={13} aria-hidden="true" />
+              <span className="em-hide-narrow">{flagged ? '見直し中' : '見直し'}</span>
+            </button>
+          </div>
+
+          <p className="em-q-prompt">{item.prompt}</p>
+          <div className="em-writing-meta">
+            <span>目安：{minW}〜{maxW}語</span>
+            <strong className={inRange ? 'is-ok' : ''}>現在 {words} 語</strong>
+          </div>
+
+          <textarea
+            rows={6}
+            className="em-writing-box"
+            value={wEntry.text}
+            onChange={e =>
+              setWriting(prev => ({
+                ...prev,
+                [item.id]: { ...(prev[item.id] ?? { checked: [] }), text: e.target.value },
+              }))
+            }
+            placeholder="ここに英語の解答を入力してください（提出後に模範解答・自己点検ルーブリックと比較できます）"
+          />
+        </section>
+      );
     };
 
     return (
       <main className="em-runner" data-mock-runner data-mock-category="written">
         <header className="em-runner-bar">
-          <button
-            type="button"
-            className="em-runner-exit"
-            onClick={() => setPhase('select')}
-            title="解答は自動保存されます。あとで続きから再開できます"
-          >
-            <ArrowLeft size={16} aria-hidden="true" />
-            <span>中断して保存</span>
-          </button>
-
-          <div className="em-runner-center">
-            <strong className="em-runner-title">
-              {gradeLabel} 第{activeWrittenExam.round}回
-              {activeDaimonSpec ? `・大問${activeDaimonSpec.daimonNo}` : ''}
-            </strong>
-            <span className="em-runner-progress">
-              解答 {totalAnswered}/{scopedExamItems.length}
-            </span>
+          <div className="em-runner-brand">
+            <button
+              type="button"
+              className="em-runner-exit"
+              onClick={() => setPhase('select')}
+              aria-label="中断して保存"
+              title="解答は自動保存されます。あとで続きから再開できます"
+            >
+              <ArrowLeft size={16} aria-hidden="true" />
+              <span className="em-exit-label">中断して保存</span>
+            </button>
+            <div className="em-runner-title-box">
+              <strong className="em-runner-title">
+                {gradeShortLabel} 第{activeWrittenExam.round}回
+                {activeDaimonSpec
+                  ? `・大問${activeDaimonSpec.daimonNo}`
+                  : currentDaimon
+                  ? `・大問${currentDaimon.daimonNo}`
+                  : ''}
+              </strong>
+              <span className="em-runner-progress">
+                {totalAnswered}/{scopedExamItems.length}
+              </span>
+            </div>
           </div>
 
           <div className="em-runner-right">
             <div className={`em-timer-chip ${isOvertime ? 'is-overtime' : ''}`} data-mock-timer>
-              <Clock size={15} aria-hidden="true" />
+              <Clock size={13} aria-hidden="true" />
               <span>
                 {timedMode
                   ? isOvertime
-                    ? `+${formatDuration(Math.abs(remainingSec))} 超過`
-                    : `残り ${formatDuration(remainingSec)}`
-                  : `経過 ${formatDuration(elapsedSec)}`}
+                    ? `+${formatDuration(Math.abs(remainingSec))}`
+                    : formatDuration(remainingSec)
+                  : formatDuration(elapsedSec)}
               </span>
               <button
                 type="button"
@@ -1561,7 +1765,7 @@ export function EikenMockExam({
                 onClick={() => setPaused(p => !p)}
                 aria-label={paused ? 'タイマーを再開' : 'タイマーを一時停止'}
               >
-                {paused ? <Play size={13} /> : <Pause size={13} />}
+                {paused ? <Play size={11} /> : <Pause size={11} />}
               </button>
             </div>
 
@@ -1570,9 +1774,10 @@ export function EikenMockExam({
               className="em-palette-toggle"
               onClick={() => setPaletteOpen(o => !o)}
               aria-expanded={paletteOpen}
+              aria-label="問題一覧を開く"
             >
-              <LayoutGrid size={15} aria-hidden="true" />
-              <span>問題一覧</span>
+              <LayoutGrid size={14} aria-hidden="true" />
+              <span className="em-hide-narrow">一覧</span>
             </button>
 
             <button
@@ -1581,37 +1786,36 @@ export function EikenMockExam({
               onClick={() => setConfirmSubmit(true)}
               data-mock-open-submit
             >
-              <Send size={14} aria-hidden="true" />
-              <span>採点・提出</span>
+              <Send size={13} aria-hidden="true" />
+              <span>採点</span>
             </button>
           </div>
         </header>
 
-        {/* Section Tabs */}
-        <nav className="em-section-tabs" aria-label="大問セクション移動">
-          {sectionFirstUnit.map(sec => {
-            const active = currentUnit.section === sec.section;
-            return (
-              <button
-                key={sec.section}
-                type="button"
-                className={`em-section-tab ${active ? 'is-active' : ''}`}
-                onClick={() => {
-                  setUnitIndex(sec.unitIdx);
-                  window.scrollTo(0, 0);
-                }}
-              >
-                {sec.label}
-              </button>
-            );
-          })}
-        </nav>
+        {/* Section Tabs (only when 2+ sections exist in scope) */}
+        {sectionFirstUnit.length > 1 && (
+          <nav className="em-section-tabs" aria-label="大問セクション移動">
+            {sectionFirstUnit.map(sec => {
+              const active = currentUnit.section === sec.section;
+              return (
+                <button
+                  key={sec.section}
+                  type="button"
+                  className={`em-section-tab ${active ? 'is-active' : ''}`}
+                  onClick={() => setUnitIndex(sec.unitIdx)}
+                >
+                  <span className="em-show-narrow">{sec.shortLabel}</span>
+                  <span className="em-hide-narrow">{sec.label}</span>
+                </button>
+              );
+            })}
+          </nav>
+        )}
 
-        {/* Collapsible Question Palette */}
         {paletteOpen && (
           <section className="em-palette-drawer" aria-label="設問番号パレット">
             <div className="em-palette-legend">
-              <span>設問番号をタップして直接移動できます</span>
+              <span>設問番号をタップして直接移動</span>
               <div className="em-legend-items">
                 <span className="is-answered">解答済</span>
                 <span className="is-flagged">見直し</span>
@@ -1643,7 +1847,6 @@ export function EikenMockExam({
           </section>
         )}
 
-        {/* Submit Confirmation Modal */}
         {confirmSubmit && (
           <div className="em-modal-backdrop" role="dialog" aria-modal="true" aria-label="提出確認">
             <div className="em-modal">
@@ -1685,121 +1888,85 @@ export function EikenMockExam({
           </div>
         )}
 
+        {/* Fullscreen Passage Modal for Mobile */}
+        {expandedMaterial && currentUnit.passage && (
+          <div
+            className="em-modal-backdrop"
+            role="dialog"
+            aria-modal="true"
+            aria-label="長文の全画面表示"
+            onClick={() => setExpandedMaterial(false)}
+          >
+            <div className="em-zoom-dialog em-material-dialog" onClick={e => e.stopPropagation()}>
+              <div className="em-zoom-bar">
+                <strong>{currentUnit.passage.title}</strong>
+                <button type="button" className="em-ghost-btn" onClick={() => setExpandedMaterial(false)}>
+                  設問へ戻る
+                </button>
+              </div>
+              <div className="em-material-dialog-body">
+                <div className="em-passage-body">{currentUnit.passage.text}</div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Main Workspace */}
-        <div className={`em-workspace ${currentUnit.passage ? 'has-passage' : ''}`}>
+        <div className={`em-workspace ${currentUnit.passage ? 'has-passage is-reading-split' : 'no-passage'}`}>
           {currentUnit.passage && (
             <article className="em-passage-pane" data-passage-format={currentUnit.passage.format || 'article'}>
               <div className="em-passage-head">
-                <span className="em-section-badge">{SECTION_LABELS[currentUnit.section]}</span>
-                <h2>{currentUnit.passage.title}</h2>
+                <div className="em-passage-head-left">
+                  <span className="em-section-badge">{SECTION_LABELS[currentUnit.section]}</span>
+                  <h2>{currentUnit.passage.title}</h2>
+                </div>
+                <button
+                  type="button"
+                  className="em-expand-btn em-show-mobile-inline"
+                  onClick={() => setExpandedMaterial(true)}
+                >
+                  <Maximize2 size={12} aria-hidden="true" />
+                  <span>全文拡大</span>
+                </button>
               </div>
               <div className="em-passage-body">{currentUnit.passage.text}</div>
             </article>
           )}
 
           <div className="em-questions-pane">
-            {currentUnit.items.map(({ item, qNo }) => {
-              const flagged = flags.includes(item.id);
-              if (item.kind === 'choice') {
-                const picked = answers[item.id];
-                return (
-                  <section key={item.id} className="em-q-card" data-mock-q={qNo}>
-                    <div className="em-q-head">
-                      <div className="em-q-title">
-                        <span className="em-q-num">問 {qNo}</span>
-                        <span className="em-q-sec">{SECTION_LABELS[item.section]}</span>
-                      </div>
-                      <button
-                        type="button"
-                        className={`em-flag-btn ${flagged ? 'is-active' : ''}`}
-                        onClick={() => toggleFlag(item.id)}
-                        aria-pressed={flagged}
-                      >
-                        <Flag size={14} aria-hidden="true" />
-                        <span>{flagged ? '見直し中' : '見直し'}</span>
-                      </button>
-                    </div>
-
-                    <p className="em-q-prompt">{item.prompt}</p>
-
-                    {item.orderTokens && (
-                      <div className="em-order-tokens" aria-label="並べ替え語群">
-                        {item.orderTokens.map((tok, tIdx) => (
-                          <span key={tIdx} className="em-order-chip">
-                            <strong>{tIdx + 1}.</strong> {tok}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    <div className="em-choice-list" role="radiogroup" aria-label={`問${qNo}の選択肢`}>
-                      {item.choices!.map((choiceText, cIdx) => {
-                        const selected = picked === cIdx;
-                        return (
-                          <button
-                            key={cIdx}
-                            type="button"
-                            role="radio"
-                            aria-checked={selected}
-                            className={`em-choice-btn ${selected ? 'is-selected' : ''}`}
-                            onClick={() => setAnswers(prev => ({ ...prev, [item.id]: cIdx }))}
-                            data-choice-idx={cIdx + 1}
-                          >
-                            <span className="em-choice-no">{cIdx + 1}</span>
-                            <span className="em-choice-text">{choiceText}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </section>
-                );
-              }
-
-              // Writing item inside Mock Exam
-              const wEntry = writing[item.id] ?? { text: '', checked: [] };
-              const words = countEnglishWords(wEntry.text);
-              const [minW, maxW] = item.wordRange ?? [25, 35];
-              const inRange = words >= minW && words <= maxW;
-
-              return (
-                <section key={item.id} className="em-q-card is-writing" data-mock-writing={item.id}>
-                  <div className="em-q-head">
-                    <div className="em-q-title">
-                      <span className="em-q-num">ライティング</span>
-                      <span className="em-q-sec">{SECTION_LABELS[item.section]}</span>
-                    </div>
+            {currentUnit.items.length > 1 && (
+              <div className="em-subq-tabs em-show-mobile-flex" role="tablist" aria-label="小問切替">
+                {currentUnit.items.map(({ item, qNo }, sIdx) => {
+                  const answered = Number.isInteger(answers[item.id]);
+                  const active = sIdx === safeSubIdx;
+                  return (
                     <button
+                      key={item.id}
                       type="button"
-                      className={`em-flag-btn ${flagged ? 'is-active' : ''}`}
-                      onClick={() => toggleFlag(item.id)}
-                      aria-pressed={flagged}
+                      role="tab"
+                      aria-selected={active}
+                      className={`em-subq-tab ${active ? 'is-active' : ''} ${answered ? 'is-answered' : ''}`}
+                      onClick={() => setSubItemIndex(sIdx)}
                     >
-                      <Flag size={14} aria-hidden="true" />
-                      <span>{flagged ? '見直し中' : '見直し'}</span>
+                      問{qNo} {answered ? '✓' : ''}
                     </button>
-                  </div>
+                  );
+                })}
+              </div>
+            )}
 
-                  <p className="em-q-prompt">{item.prompt}</p>
-                  <div className="em-writing-meta">
-                    <span>目安語数：{minW}〜{maxW}語</span>
-                    <strong className={inRange ? 'is-ok' : ''}>現在 {words} 語</strong>
-                  </div>
-
-                  <textarea
-                    rows={8}
-                    className="em-writing-box"
-                    value={wEntry.text}
-                    onChange={e =>
-                      setWriting(prev => ({
-                        ...prev,
-                        [item.id]: { ...(prev[item.id] ?? { checked: [] }), text: e.target.value },
-                      }))
-                    }
-                    placeholder="ここに英語の解答を入力してください（提出後に模範解答・自己点検ルーブリックと比較できます）"
-                  />
-                </section>
-              );
-            })}
+            {currentUnit.items.length > 1 ? (
+              <>
+                <div className="em-only-mobile">
+                  {renderWrittenQuestionCard(activeSubEntry)}
+                </div>
+                <div className="em-only-desktop">
+                  {currentUnit.items.map(entry => renderWrittenQuestionCard(entry))}
+                </div>
+              </>
+            ) : (
+              renderWrittenQuestionCard(currentUnit.items[0])
+            )}
           </div>
         </div>
 
@@ -1807,14 +1974,22 @@ export function EikenMockExam({
           <button
             type="button"
             className="em-nav-btn"
-            disabled={unitIndex === 0}
+            disabled={unitIndex === 0 && safeSubIdx === 0}
             onClick={() => {
+              if (
+                typeof window !== 'undefined' &&
+                window.innerWidth < 900 &&
+                currentUnit.items.length > 1 &&
+                safeSubIdx > 0
+              ) {
+                setSubItemIndex(i => i - 1);
+                return;
+              }
               setUnitIndex(i => Math.max(0, i - 1));
-              window.scrollTo(0, 0);
             }}
           >
-            <ChevronLeft size={18} aria-hidden="true" />
-            <span>前の問題</span>
+            <ChevronLeft size={16} aria-hidden="true" />
+            <span>前へ</span>
           </button>
 
           <span className="em-unit-counter">
@@ -1826,12 +2001,27 @@ export function EikenMockExam({
               type="button"
               className="em-nav-btn is-primary"
               onClick={() => {
+                if (
+                  typeof window !== 'undefined' &&
+                  window.innerWidth < 900 &&
+                  currentUnit.items.length > 1 &&
+                  safeSubIdx < currentUnit.items.length - 1
+                ) {
+                  setSubItemIndex(i => i + 1);
+                  return;
+                }
                 setUnitIndex(i => Math.min(units.length - 1, i + 1));
-                window.scrollTo(0, 0);
               }}
             >
-              <span>次の問題</span>
-              <ChevronRight size={18} aria-hidden="true" />
+              <span>
+                {typeof window !== 'undefined' &&
+                window.innerWidth < 900 &&
+                currentUnit.items.length > 1 &&
+                safeSubIdx < currentUnit.items.length - 1
+                  ? `次の設問 (問${currentUnit.items[safeSubIdx + 1].qNo})`
+                  : '次の問題'}
+              </span>
+              <ChevronRight size={16} aria-hidden="true" />
             </button>
           ) : (
             <button
@@ -1839,8 +2029,8 @@ export function EikenMockExam({
               className="em-nav-btn is-submit"
               onClick={() => setConfirmSubmit(true)}
             >
-              <Send size={16} aria-hidden="true" />
-              <span>採点・提出する</span>
+              <Send size={15} aria-hidden="true" />
+              <span>採点・提出</span>
             </button>
           )}
         </footer>
@@ -2113,7 +2303,6 @@ export function EikenMockExam({
         </button>
       </header>
 
-      {/* Score Hero */}
       <section className="em-score-hero" aria-label="総合スコア">
         <div className="em-score-main">
           <span className="em-score-kicker">
@@ -2170,7 +2359,6 @@ export function EikenMockExam({
         </div>
       </section>
 
-      {/* Writing Self-Review Section */}
       {writingReviewItems.length > 0 && (
         <section className="em-writing-review-section" aria-label="ライティング振り返り">
           <h2 className="em-sub-heading">
@@ -2239,7 +2427,6 @@ export function EikenMockExam({
         </section>
       )}
 
-      {/* Choice Questions Review */}
       {summary.total > 0 && (
         <section className="em-choice-review-section" aria-label="4択問題の答え合わせ">
           <div className="em-review-toolbar">

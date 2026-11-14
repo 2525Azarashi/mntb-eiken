@@ -362,28 +362,123 @@
 
 @media (max-width: 820px) {
   .ew-page {
-    padding: 12px 12px 100px;
+    padding: 8px 10px 88px;
+    gap: 8px;
+  }
+  .ew-header {
+    gap: 8px;
   }
   .ew-header h1 {
-    font-size: 18px;
+    font-size: 16px;
+  }
+  .ew-page button {
+    min-height: 36px;
+    padding: 5px 10px;
+  }
+  .ew-picker {
+    padding: 10px 12px;
+    gap: 8px;
+    border-radius: 14px;
+  }
+  .ew-grade-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .ew-grade-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .ew-grade-tab {
+    flex-shrink: 0;
+    min-height: 32px !important;
+    padding: 4px 11px !important;
+    font-size: 12.5px;
   }
   .ew-rounds-strip {
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding-bottom: 4px;
-    scrollbar-width: thin;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .ew-rounds-strip::-webkit-scrollbar {
+    display: none;
   }
   .ew-round-chip {
     flex-shrink: 0;
+    min-height: 32px !important;
+    padding: 4px 10px !important;
+    font-size: 12px;
+  }
+  .ew-subtasks {
+    padding-top: 6px;
+    gap: 6px;
+  }
+  .ew-subtasks-label {
+    display: none;
+  }
+  .ew-subtasks-buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-width: 0;
+    gap: 6px;
+  }
+  .ew-task-card {
+    padding: 6px 10px !important;
+    border-radius: 10px !important;
+  }
+  .ew-task-card-text strong {
+    font-size: 12.5px;
+  }
+  .ew-task-card-text small {
+    font-size: 10.5px;
   }
   .ew-workspace {
     grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
   }
   .ew-prompt,
   .ew-answer {
-    padding: 15px;
+    padding: 10px 12px;
+    border-radius: 14px;
+  }
+  .ew-prompt {
+    max-height: 33dvh;
+    overflow-y: auto;
+  }
+  .ew-prompt .ew-disclaimer {
+    font-size: 11px;
+    line-height: 1.35;
+    margin: 4px 0 0;
+  }
+  .ew-prompt h2 {
+    font-size: 14.5px;
+    margin-bottom: 4px;
+  }
+  .ew-prompt p,
+  .ew-answer p {
+    font-size: 12.5px;
+    line-height: 1.45;
+    margin: 4px 0;
+  }
+  .ew-prompt blockquote {
+    padding: 8px 10px;
+    font-size: 12.5px;
+    line-height: 1.45;
+    margin: 6px 0;
+  }
+  .ew-target {
+    padding: 5px 9px;
+    font-size: 12px;
+  }
+  .ew-answer > label {
+    font-size: 13px;
+    margin-bottom: 4px;
   }
   .ew-answer textarea {
-    min-height: 200px;
+    min-height: 124px;
+    padding: 8px 10px;
+    font-size: 14px;
+    line-height: 1.5;
   }
 }

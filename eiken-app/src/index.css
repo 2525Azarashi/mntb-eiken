@@ -168,30 +168,75 @@ html[data-wallpaper] .home-lobby-lines { display: none; }
 .connection-check.is-compact { font-size: 11px; }
 .arena-connection-help > .connection-check { margin-top: 4px; }
 
-/* 英検 準1級・1級 第3部（Real-Life形式：比較表＋ヘッダー図版バナー併用時）で英文Situation/Notesが自然に折り返し、表と図版が両方1画面で見やすく収まるようにする */
+/* 英検 準1級・1級 第3部（Real-Life形式：比較表＋ヘッダー図版バナー併用時）で英文Situation/Notesが自然に折り返し、表と図版・設問・4選択肢すべてが1画面で見やすく収まるようにする */
 [data-listening-material] > p > span.whitespace-nowrap { white-space: normal; }
-[data-listening-material] [data-material-figures] { max-height: 112px; flex: 0 0 auto; }
+[data-listening-material] [data-material-figures] { max-height: 104px; flex: 0 0 auto; }
 @media (max-width: 767px) {
+  [data-listening-material-pane] > div:first-child {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+  }
+  [data-listening-material-pane] > div[aria-label="資料をスクロール"] {
+    padding: 4px 8px !important;
+  }
+  [data-listening-material] {
+    font-size: 12px !important;
+    line-height: 1.28 !important;
+  }
+  [data-listening-material] > h2 {
+    font-size: 12.5px !important;
+    line-height: 1.22 !important;
+    margin-bottom: 3px !important;
+  }
+  [data-listening-material] > div.mb-2 {
+    margin-bottom: 3px !important;
+  }
   [data-listening-material] table {
-    font-size: 11.5px;
-    line-height: 1.25;
+    font-size: 10.5px !important;
+    line-height: 1.18 !important;
     table-layout: auto;
   }
   [data-listening-material] th,
   [data-listening-material] td {
     min-width: 0 !important;
-    padding: 3px 4px !important;
+    padding: 2px 4px !important;
     word-break: normal;
     overflow-wrap: break-word;
   }
   [data-listening-material] th {
-    font-size: 11px;
-    line-height: 1.2;
+    font-size: 10.5px !important;
+    line-height: 1.16 !important;
   }
   [data-listening-material] [data-material-figures] {
-    min-height: 64px !important;
-    max-height: 76px;
-    flex: 0 0 auto;
+    min-height: 60px !important;
+    max-height: 96px !important;
+    flex: 1 1 64px !important;
+  }
+  [data-listening-material] > p {
+    margin-top: 2px !important;
+    font-size: 11px !important;
+    line-height: 1.24 !important;
+  }
+  /* 解答欄直上の [data-answer-prompt] に設問文が出るため、資料末尾の重複設問行はスマホでは畳む */
+  [data-listening-material-pane] [data-listening-material] > p.text-xs.text-gray-600 {
+    display: none !important;
+  }
+  [data-answer-prompt] {
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+  }
+  /* 資料つきリスニング問題のモバイル解答欄もコンパクトにして4選択肢＋資料を1画面に収める */
+  div:has(> [data-listening-material-pane]) > div:last-child nav[aria-label="小問の切り替え"] button {
+    min-height: 30px !important;
+    padding-inline: 6px !important;
+  }
+  div:has(> [data-listening-material-pane]) > div:last-child [role="radiogroup"] button,
+  div:has(> [data-listening-material-pane]) > div:last-child button[aria-pressed] {
+    min-height: 36px !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
   }
 }
 
