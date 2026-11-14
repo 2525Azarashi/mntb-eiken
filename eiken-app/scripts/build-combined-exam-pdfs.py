@@ -64,8 +64,8 @@ STYLES = {
 }
 
 
-def p(text: str, style: str = 'jp') -> Paragraph:
-    safe = escape(str(text)).replace('\n', '<br/>')
+def p(text: str, style: str = 'jp', raw_html: bool = False) -> Paragraph:
+    safe = str(text) if raw_html else escape(str(text)).replace('\n', '<br/>')
     return Paragraph(safe, STYLES[style])
 
 
@@ -179,27 +179,43 @@ def build_listening_questions_bytes(glabel: str, rnd: int, l_exam: dict, l_bp: d
         img_local = RESOLVED_IMAGES.get(unit['audioId'])
         if unit.get('material'):
             mat = unit['material']
+            inner_w = WIDTH - 104
+            card_elems: list = []
             if img_local and Path(img_local).exists():
-                u_elems.append(make_rl_image(img_local, 240, 52))
-                u_elems.append(Spacer(1, 2))
-            u_elems.append(p(f'【印刷資料】{mat["title"]}', 'jp'))
-            u_elems.append(p(f'Situation: {mat["situation"]}', 'en'))
+                card_elems.append(make_rl_image(img_local, min(260, inner_w), 54))
+                card_elems.append(Spacer(1, 3))
+            card_elems.append(p(f'【印刷資料】{mat["title"]}', 'h2'))
+            card_elems.append(p(f'Situation: {mat["situation"]}', 'en'))
             if mat.get('headers') and mat.get('rows'):
-                cw = (WIDTH - 96) / len(mat['headers'])
+                cw = inner_w / len(mat['headers'])
                 t_rows = [[p(h, 'meta') for h in mat['headers']]] + [[p(c, 'meta') for c in r] for r in mat['rows']]
                 tbl = Table(t_rows, colWidths=[cw] * len(mat['headers']), hAlign='LEFT')
                 tbl.setStyle(TableStyle([
-                    ('GRID', (0, 0), (-1, -1), 0.4, colors.HexColor('#94a3b8')),
+                    ('GRID', (0, 0), (-1, -1), 0.45, colors.HexColor('#64748b')),
                     ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#e2e8f0')),
+                    ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#ffffff')),
                     ('PADDING', (0, 0), (-1, -1), 4),
+                    ('VALIGN', (0, 0), (-1, -1), 'TOP'),
                 ]))
-                u_elems.append(tbl)
+                card_elems.append(tbl)
             if mat.get('notes'):
+                card_elems.append(Spacer(1, 2))
                 for nt in mat['notes']:
-                    u_elems.append(p(f'* {nt}', 'meta'))
+                    card_elems.append(p(f'* {nt}', 'meta'))
+            outer = Table([[card_elems]], colWidths=[WIDTH - 84], hAlign='LEFT')
+            outer.setStyle(TableStyle([
+                ('BOX', (0, 0), (-1, -1), 0.75, colors.HexColor('#334e68')),
+                ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#f8fafc')),
+                ('LEFTPADDING', (0, 0), (-1, -1), 10),
+                ('RIGHTPADDING', (0, 0), (-1, -1), 10),
+                ('TOPPADDING', (0, 0), (-1, -1), 8),
+                ('BOTTOMPADDING', (0, 0), (-1, -1), 8),
+            ]))
+            u_elems.append(outer)
+            u_elems.append(Spacer(1, 4))
         elif unit.get('image'):
             if img_local and Path(img_local).exists():
-                u_elems.append(make_rl_image(img_local, 168, 126))
+                u_elems.append(make_rl_image(img_local, 176, 132))
                 u_elems.append(Spacer(1, 3))
             else:
                 u_elems.append(p(f'［イラスト枠：{unit["image"]["targetPath"]}｜場面：{unit["image"]["sceneSummaryJa"]}］', 'meta'))
@@ -208,9 +224,9 @@ def build_listening_questions_bytes(glabel: str, rnd: int, l_exam: dict, l_bp: d
             if q['choicePresentation'] == 'read-aloud':
                 u_elems.append(p(f'No.{q["questionNumber"]}　（音声で読み上げられる選択肢 1〜{len(q["choices"])} から最も適切なものを1つ選ぶ）', 'jp'))
             else:
-                opts = '    '.join(f'{i + 1}. {c}' for i, c in enumerate(q['choices']))
-                u_elems.append(p(f'No.{q["questionNumber"]}  {q["questionPrompt"]}', 'en'))
-                u_elems.append(p(opts, 'en'))
+                opts_html = '<br/>'.join(f'&nbsp;&nbsp;&nbsp;{i + 1}.&nbsp;{escape(c)}' for i, c in enumerate(q['choices']))
+                u_elems.append(p(f'<b>No.{q["questionNumber"]}</b>&nbsp;&nbsp;{escape(q["questionPrompt"])}', 'en', raw_html=True))
+                u_elems.append(p(opts_html, 'en', raw_html=True))
         u_elems.append(Spacer(1, 4))
         story.append(KeepTogether(u_elems))
     return render_story_bytes(story, f'まなとび英検｜{glabel} 第{rnd}回 リスニング問題')

@@ -10,6 +10,7 @@
 import { getSubjectStats } from './chapterIndex.generated';
 import { EIKEN_GRADES } from '../eiken/config';
 import { EIKEN_UNITS } from '../eiken/questions';
+import { ALL_LISTENING_EXAMS } from '../eiken/materials/listening-booklets';
 import { WRITTEN_BOOKLETS } from '../eiken/materials/written-booklets';
 import { bookletWritingTasks } from '../eiken/writtenPractice';
 import { isSubjectEnabled } from '../config/features';
@@ -74,9 +75,9 @@ export const STUDY_CATALOG: readonly StudySubject[] = [{
       };
     }),
     {
-      id: 'eiken_mock', title: '一次筆記 通し演習', icon: 'briefcase', badge: 'NEW', section: 'memorize',
-      description: '全大問フル模試も大問1〜6別の通し演習もタイマー・一括採点対応',
-      meta: `7級・全${WRITTEN_BOOKLETS.length}回分`,
+      id: 'eiken_mock', title: '一次試験 通し演習', icon: 'briefcase', badge: 'NEW', section: 'memorize',
+      description: '筆記フル模試＆リスニング本番通し模試（大問別・部別もタイマー＆一括採点対応）',
+      meta: `筆記${WRITTEN_BOOKLETS.length}回・リスニング${ALL_LISTENING_EXAMS.length}回`,
       action: { kind: 'mock' },
     },
     {

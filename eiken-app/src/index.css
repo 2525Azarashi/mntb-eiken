@@ -172,10 +172,27 @@ html[data-wallpaper] .home-lobby-lines { display: none; }
 [data-listening-material] > p > span.whitespace-nowrap { white-space: normal; }
 [data-listening-material] [data-material-figures] { max-height: 112px; flex: 0 0 auto; }
 @media (max-width: 767px) {
-  [data-listening-material] table { font-size: 12.5px; line-height: 1.28; }
+  [data-listening-material] table {
+    font-size: 11.5px;
+    line-height: 1.25;
+    table-layout: auto;
+  }
   [data-listening-material] th,
-  [data-listening-material] td { min-width: 0 !important; padding: 4px 6px !important; overflow-wrap: anywhere; }
-  [data-listening-material] [data-material-figures] { min-height: 64px !important; max-height: 76px; }
+  [data-listening-material] td {
+    min-width: 0 !important;
+    padding: 3px 4px !important;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  [data-listening-material] th {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+  [data-listening-material] [data-material-figures] {
+    min-height: 64px !important;
+    max-height: 76px;
+    flex: 0 0 auto;
+  }
 }
 
 
@@ -282,7 +299,5 @@ html[data-wallpaper] .home-lobby-lines { display: none; }
 @media (max-width: 374px) { .friend-code-row-inline .friend-code-send { padding: 0 9px; } .friend-own-code { padding-inline: 6px; letter-spacing: 0; } .friend-own-copy-text { display: none; } }
 @media (max-width: 340px) { .friend-own-label { display: none; } }
 
-/* 英検 準1級・1級 Real-Life形式（資料テーブル＋ヘッダー図版バナー併用時）の表示調整 */
-[data-listening-material] > p > span.whitespace-nowrap { white-space: normal; }
-[data-listening-material] [data-material-figures] { max-height: 112px; flex: 0 0 104px; }
+/* Real-Life ルールは上部 171-193 行に集約済み */
 

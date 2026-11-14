@@ -76,8 +76,8 @@ STYLES = {
 }
 
 
-def p(text: str, style: str = 'jp') -> Paragraph:
-    safe = escape(str(text)).replace('\n', '<br/>')
+def p(text: str, style: str = 'jp', raw_html: bool = False) -> Paragraph:
+    safe = str(text) if raw_html else escape(str(text)).replace('\n', '<br/>')
     return Paragraph(safe, STYLES[style])
 
 
@@ -286,29 +286,44 @@ def build_chatgpt_image_pdfs() -> list[dict]:
     return reports
 
 
-def render_material_table(mat: dict) -> list:
-    elems = [
-        p(f'【印刷資料】{mat["title"]}', 'h2'),
-        p(f'Situation: {mat["situation"]}', 'en'),
-    ]
+def render_material_card(mat: dict, banner_local: str | None = None) -> Table:
+    inner_w = WIDTH - 104
+    card_elems: list = []
+    if banner_local and Path(banner_local).exists():
+        card_elems.append(make_rl_image(banner_local, min(260, inner_w), 54))
+        card_elems.append(Spacer(1, 3))
+    card_elems.append(p(f'【印刷資料】{mat["title"]}', 'h2'))
+    card_elems.append(p(f'Situation: {mat["situation"]}', 'en'))
     if mat.get('headers') and mat.get('rows'):
         col_count = len(mat['headers'])
-        col_w = (WIDTH - 96) / col_count
+        col_w = inner_w / col_count
         t_rows = [[p(h, 'meta') for h in mat['headers']]]
         for r in mat['rows']:
             t_rows.append([p(cell, 'meta') for cell in r])
         tbl = Table(t_rows, colWidths=[col_w] * col_count, hAlign='LEFT')
         tbl.setStyle(TableStyle([
-            ('GRID', (0, 0), (-1, -1), 0.4, colors.HexColor('#94a3b8')),
+            ('GRID', (0, 0), (-1, -1), 0.45, colors.HexColor('#64748b')),
             ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#e2e8f0')),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#ffffff')),
             ('PADDING', (0, 0), (-1, -1), 4),
+            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
         ]))
-        elems.append(tbl)
+        card_elems.append(tbl)
     if mat.get('notes'):
+        card_elems.append(Spacer(1, 2))
         for nt in mat['notes']:
-            elems.append(p(f'* {nt}', 'meta'))
-    elems.append(Spacer(1, 4))
-    return elems
+            card_elems.append(p(f'* {nt}', 'meta'))
+
+    outer = Table([[card_elems]], colWidths=[WIDTH - 84], hAlign='LEFT')
+    outer.setStyle(TableStyle([
+        ('BOX', (0, 0), (-1, -1), 0.75, colors.HexColor('#334e68')),
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#f8fafc')),
+        ('LEFTPADDING', (0, 0), (-1, -1), 10),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 10),
+        ('TOPPADDING', (0, 0), (-1, -1), 8),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 8),
+    ]))
+    return outer
 
 
 def build_question_and_explanation_booklets() -> list[dict]:
@@ -341,13 +356,11 @@ def build_question_and_explanation_booklets() -> list[dict]:
                 u_elems = []
                 img_local = RESOLVED_IMAGES.get(unit['audioId'])
                 if unit.get('material'):
-                    if img_local and Path(img_local).exists():
-                        u_elems.append(make_rl_image(img_local, 240, 52))
-                        u_elems.append(Spacer(1, 2))
-                    u_elems.extend(render_material_table(unit['material']))
+                    u_elems.append(render_material_card(unit['material'], img_local))
+                    u_elems.append(Spacer(1, 4))
                 elif unit.get('image'):
                     if img_local and Path(img_local).exists():
-                        u_elems.append(make_rl_image(img_local, 168, 126))
+                        u_elems.append(make_rl_image(img_local, 176, 132))
                         u_elems.append(Spacer(1, 3))
                     else:
                         u_elems.append(p(f'［図版枠：{unit["image"]["targetPath"]}｜場面：{unit["image"]["sceneSummaryJa"]}］', 'meta'))
@@ -356,9 +369,10 @@ def build_question_and_explanation_booklets() -> list[dict]:
                     if q['choicePresentation'] == 'read-aloud':
                         u_elems.append(p(f'No.{q["questionNumber"]}　（音声で読み上げられる 1〜{len(q["choices"])} から最も適切なものを1つ選ぶ）', 'jp'))
                     else:
-                        opts = '   '.join(f'{i + 1}. {c}' for i, c in enumerate(q['choices']))
-                        u_elems.append(p(f'No.{q["questionNumber"]}  {q["questionPrompt"]}', 'en'))
-                        u_elems.append(p(opts, 'en'))
+                        opts_html = '<br/>'.join(f'&nbsp;&nbsp;&nbsp;{i + 1}.&nbsp;{escape(c)}' for i, c in enumerate(q['choices']))
+                        u_elems.append(p(f'<b>No.{q["questionNumber"]}</b>&nbsp;&nbsp;{escape(q["questionPrompt"])}', 'en', raw_html=True))
+                        u_elems.append(p(opts_html, 'en', raw_html=True))
+                u_elems.append(Spacer(1, 4))
                 story.append(KeepTogether(u_elems))
 
             story.append(Spacer(1, 8))

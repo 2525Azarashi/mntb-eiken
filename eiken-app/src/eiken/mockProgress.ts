@@ -1,4 +1,9 @@
 import { perUserKey } from '../utils/userStorageKeys';
+import {
+  LISTENING_BLUEPRINTS,
+  type ListeningExamRound,
+  type ListeningPartId,
+} from './listeningExamCore';
 import { countEnglishWords, type WrittenExam, type WrittenSection } from './writtenExamCore';
 
 export const MOCK_STORAGE_KEY_PREFIX = 'eiken_mock_v1_';
@@ -97,7 +102,7 @@ export function parseMockState(raw: string | null): MockProgressState {
 }
 
 export interface SectionScoreBreakdown {
-  section: WrittenSection;
+  section: WrittenSection | ListeningPartId;
   label: string;
   kind: 'choice' | 'writing';
   correct: number;
@@ -183,6 +188,67 @@ export function scoreMockExam(
     writingDone,
     writingTotal,
     sections: [...bySection.values()],
+  };
+}
+
+export function scoreListeningMockExam(
+  exam: ListeningExamRound,
+  answers: Record<string, number>,
+  partFilter?: ListeningPartId | 'all',
+): MockScoreSummary {
+  const blueprint = LISTENING_BLUEPRINTS[exam.grade];
+  const partLabels = new Map<ListeningPartId, string>(
+    blueprint.parts.map(p => [p.id, p.label]),
+  );
+
+  let correct = 0;
+  let total = 0;
+  let answered = 0;
+  const byPart = new Map<ListeningPartId, SectionScoreBreakdown>();
+
+  const targetUnits =
+    partFilter && partFilter !== 'all'
+      ? exam.units.filter(u => u.part === partFilter)
+      : exam.units;
+
+  for (const unit of targetUnits) {
+    let entry = byPart.get(unit.part);
+    if (!entry) {
+      entry = {
+        section: unit.part,
+        label: partLabels.get(unit.part) ?? unit.part,
+        kind: 'choice',
+        correct: 0,
+        total: 0,
+        answered: 0,
+      };
+      byPart.set(unit.part, entry);
+    }
+
+    for (const q of unit.questions) {
+      total += 1;
+      entry.total += 1;
+      const picked = answers[q.id];
+      if (Number.isInteger(picked) && picked >= 0 && picked < q.choices.length) {
+        answered += 1;
+        entry.answered += 1;
+        if (picked === q.answer) {
+          correct += 1;
+          entry.correct += 1;
+        }
+      }
+    }
+  }
+
+  return {
+    correct,
+    total,
+    answered,
+    unanswered: total - answered,
+    accuracyPct: total > 0 ? Math.round((correct / total) * 100) : 0,
+    writingDone: 0,
+    writingTotal: 0,
+    sections: [...byPart.values()],
   };
 }
 

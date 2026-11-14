@@ -66,6 +66,69 @@
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
 }
 
+.em-category-switch {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.em-category-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1.5px solid #cbd5e1;
+  background: #f8fafc;
+  color: #334155;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.em-category-tab:hover {
+  border-color: #94a3b8;
+  background: #ffffff;
+}
+
+.em-category-tab div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.em-category-tab strong {
+  font-size: 0.86rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.em-category-tab small {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.em-category-tab.is-active {
+  background: #1e3a5f;
+  border-color: #1e3a5f;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(30, 58, 95, 0.18);
+}
+
+.em-category-tab.is-active small {
+  color: #bae6fd;
+}
+
+.em-round-badge.is-listening {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
 .em-grade-row {
   display: flex;
   flex-direction: column;
@@ -1257,4 +1320,163 @@
   border: 1px solid #e2e8f0;
   font-weight: 700;
   color: #0f766e;
+}
+
+/* ============================================================
+   Listening Mock Exam Workspace & Review Extensions
+   ============================================================ */
+.em-listening-media-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.em-illustration-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.em-illustration-figure img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  cursor: zoom-in;
+}
+
+.em-illustration-figure figcaption {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: #475569;
+  font-weight: 600;
+}
+
+.em-zoom-trigger {
+  min-height: 32px;
+  padding: 0 11px;
+  border-radius: 999px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #1e3a5f;
+  font-size: 0.76rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.em-zoom-dialog {
+  background: #ffffff;
+  border-radius: 16px;
+  max-width: min(92vw, 760px);
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.35);
+}
+
+.em-zoom-dialog img {
+  width: 100%;
+  max-height: 74dvh;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+
+.em-zoom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.em-audio-card {
+  background: #f2fbf9;
+  border: 1.5px solid #5bc0be;
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.em-audio-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.em-audio-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #0f766e;
+}
+
+.em-audio-note {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.em-review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.em-rev-audio-row {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #f2fbf9;
+  border: 1px solid #99f6e4;
+}
+
+.em-rev-thumb-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.em-rev-thumb {
+  width: 136px;
+  max-height: 102px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+}
+
+.em-rev-script-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.em-rev-script-title {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #0369a1;
 }
