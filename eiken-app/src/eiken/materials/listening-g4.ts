@@ -96,7 +96,7 @@ function buildG4Part1(examId: string, round: number, u: number): ListeningAudioU
         placeEn: 'a school courtyard with a bench',
         propsEn: 'a wooden bench and two backpacks',
         actionEn: 'chatting happily face to face',
-        summaryJa: '中庭のベンチ近くで思い出話をしている補助イラスト',
+        summaryJa: '中庭のベンチ近くで思い出話をしている場面',
         line1: `Hi ${m}, I heard about ${evEn}.`,
         line2: `Really, ${f}? Well, how was ${evEn.replace('your ', 'the ')}?`,
         ja1: `ねえ${m}、${evJa}のことを聞いたよ。`,
@@ -137,7 +137,7 @@ function buildG4Part1(examId: string, round: number, u: number): ListeningAudioU
         placeEn: 'a school cafeteria table',
         propsEn: 'a lunch table and two chairs',
         actionEn: 'talking casually across the table',
-        summaryJa: '食堂のテーブルを挟んで2人が話している補助イラスト',
+        summaryJa: '食堂のテーブルを挟んで2人が話している場面',
         line1: `I cannot decide today, ${f}.`,
         line2: `Tell me, ${m}. Which do you prefer, ${optA} or ${optB}?`,
         ja1: `今日は決められないなあ、${f}。`,
@@ -178,7 +178,7 @@ function buildG4Part1(examId: string, round: number, u: number): ListeningAudioU
         placeEn: 'near a school shoe locker entrance',
         propsEn: 'shoe lockers and an entrance mat',
         actionEn: 'turning back while speaking',
-        summaryJa: '昇降口付近で声をかけている補助イラスト',
+        summaryJa: '昇降口付近で声をかけている場面',
         line1: `Wait a second, ${m}! You look busy.`,
         line2: `Why are you ${actEn}?`,
         ja1: `ちょっと待って、${m}！忙しそうね。`,
@@ -219,7 +219,7 @@ function buildG4Part1(examId: string, round: number, u: number): ListeningAudioU
         placeEn: 'an information desk or classroom table',
         propsEn: 'a counter desk and a wall clock',
         actionEn: 'asking a question with a notebook',
-        summaryJa: '机の前でメモを取りながら質問している補助イラスト',
+        summaryJa: '机の前でメモを取りながら質問している場面',
         line1: `Excuse me, ${f}. I have one question.`,
         line2: `Sure, ${m}. Oh, do you know how long it takes to ${topicEn}?`,
         ja1: `すみません、${f}。1つ質問があるんだ。`,
@@ -260,7 +260,7 @@ function buildG4Part1(examId: string, round: number, u: number): ListeningAudioU
         placeEn: 'a room with a cordless telephone on a stand',
         propsEn: 'a small table, a phone handset, and a memo pad',
         actionEn: 'holding a telephone receiver to the ear',
-        summaryJa: '電話の受話器を持って話している補助イラスト',
+        summaryJa: '電話の受話器を持って話している場面',
         line1: `Hello, this is ${m} calling on ${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday morning', 'Tuesday evening', 'Wednesday noon', 'Thursday night', 'Friday morning', 'Saturday noon', 'Sunday night', 'holiday morning'][round - 1]}.`,
         line2: `Hello ${m}. Do you want to speak to ${personEn}?`,
         ja1: `もしもし、${m}ですが。`,
@@ -301,7 +301,7 @@ function buildG4Part1(examId: string, round: number, u: number): ListeningAudioU
         placeEn: 'a classroom between desks',
         propsEn: 'two school desks and chairs',
         actionEn: 'bowing slightly with an apologetic gesture',
-        summaryJa: '教室の机の間で少し頭を下げて謝っている補助イラスト',
+        summaryJa: '教室の机の間で少し頭を下げて謝っている場面',
         line1: `Oh, ${f}, I have to tell you something.`,
         line2: `I am really sorry! I ${errEn}.`,
         ja1: `あ、${f}、言わなきゃいけないことがあるんだ。`,
@@ -342,7 +342,7 @@ function buildG4Part1(examId: string, round: number, u: number): ListeningAudioU
         placeEn: 'a bench in a school hallway',
         propsEn: 'a bulletin board and a bench',
         actionEn: 'discussing an idea enthusiastically',
-        summaryJa: '掲示板の近くでアイデアを話し合っている補助イラスト',
+        summaryJa: '掲示板の近くでアイデアを話し合っている場面',
         line1: `We have some free time now, ${m}.`,
         line2: `Why don't we ${sugEn}?`,
         ja1: `いま少し時間があるね、${m}。`,
@@ -383,7 +383,7 @@ function buildG4Part1(examId: string, round: number, u: number): ListeningAudioU
         placeEn: 'a home entryway with a shoe rack',
         propsEn: 'a front door, a shoe cabinet, and an umbrella stand',
         actionEn: 'putting on shoes before going out',
-        summaryJa: '玄関で靴を履いて出かけようとしている補助イラスト',
+        summaryJa: '玄関で靴を履いて出かけようとしている場面',
         line1: `I am leaving now, ${f}! The news says we will have ${weaEn}.`,
         line2: `Really, ${m}? Should I take my ${itemEn} with me too?`,
         ja1: `もう出かけるよ、${f}！ニュースによると${weaJa}になるって。`,
@@ -424,7 +424,7 @@ function buildG4Part1(examId: string, round: number, u: number): ListeningAudioU
         placeEn: 'a street corner near a crosswalk',
         propsEn: 'a street corner, a blank signpost, and buildings',
         actionEn: 'asking for directions politely on the sidewalk',
-        summaryJa: '街角の歩道で道を尋ねている補助イラスト',
+        summaryJa: '街角の歩道で道を尋ねている場面',
         line1: `Pardon me. I am looking for ${spotEn}.`,
         line2: `Could you tell me how to get to ${spotEn} from here?`,
         ja1: `すみません。${spotJa}を探しています。`,
@@ -484,7 +484,7 @@ function buildG4Part1(examId: string, round: number, u: number): ListeningAudioU
     unitIndex: u,
     readCount: 2,
     turns,
-    translation: `${sp1.roleLabel === 'Man' ? '男性' : '女性'}：${t.ja1}\n${sp2.roleLabel === 'Woman' ? '女性' : '男性'}：${t.ja2}\n（選択肢1〜3が読み上げられる）`,
+    translation: `${sp1.roleLabel === 'Man' ? '男性' : '女性'}：${t.ja1}\n${sp2.roleLabel === 'Woman' ? '女性' : '男性'}：${t.ja2}`,
     image,
     questions: [qItem],
   });
@@ -502,13 +502,13 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
     // 1: 予定変更（雨天や都合で変更）
     () => {
       const plans = [
-        ['play tennis', 'watch a space movie', 'clean the garage', 'go fishing', '宇宙の映画を見る'],
-        ['have a barbecue', 'make homemade pizza', 'visit the zoo', 'wash the car', '手作りピザを作る'],
-        ['go cycling', 'play board games', 'swim in the river', 'paint the fence', 'ボードゲームをする'],
-        ['pick strawberries', 'visit the science center', 'camp in the hills', 'play soccer', '科学センターへ行く'],
-        ['sketch in the park', 'bake apple muffins', 'fly kites', 'walk the dog', 'アップルマフィンを焼く'],
+        ['play tennis', 'watch a space movie', 'clean the garage', 'go fishing', '宇宙の映画を見る', 'テニスをする'],
+        ['have a barbecue', 'make homemade pizza', 'visit the zoo', 'wash the car', '手作りピザを作る', 'バーベキューをする'],
+        ['go cycling', 'play board games', 'swim in the river', 'paint the fence', 'ボードゲームをする', 'サイクリングに行く'],
+        ['pick strawberries', 'visit the science center', 'camp in the hills', 'play soccer', '科学センターへ行く', 'いちご狩りをする'],
+        ['sketch in the park', 'bake apple muffins', 'fly kites', 'walk the dog', 'アップルマフィンを焼く', '公園でスケッチをする'],
       ];
-      const [oldPlan, newPlan, w2, w3, newJa] = plans[(round - 1) % 5];
+      const [oldPlan, newPlan, w2, w3, newJa, oldJa] = plans[(round - 1) % 5];
       const dayTag = ['this Saturday', 'tomorrow afternoon', 'this Sunday', 'on Friday', 'after lunch today'][Math.floor((round - 1) / 3)];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Hi ${sp2.roleLabel === 'Woman' ? f : m}, are we still going to ${oldPlan} ${dayTag} in round ${round}?`.replace(` in round ${round}`, '') },
@@ -521,10 +521,10 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
       turns[0] = { ...sp1, text: `${PART1_OPENERS[round - 1]} ${sp2.roleLabel === 'Woman' ? f : m}, are we going to ${oldPlan} ${dayTag}?` };
       return {
         turns,
-        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：予定どおり${oldPlan}をする？\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：天気予報では強い雨が降るそうだから、代わりに私の家で${newJa}をしよう。\n${sp1.roleLabel === 'Man' ? '男子' : '女子'}：いい考えだね！1時にジュースを持っていくよ。\n質問：2人は何をしますか。`,
+        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：予定どおり${oldJa}？\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：天気予報では強い雨が降るそうだから、代わりに私の家で${newJa}ことにしよう。\n${sp1.roleLabel === 'Man' ? '男子' : '女子'}：いい考えだね！1時にジュースを持っていくよ。\n質問：2人は何をしますか。`,
         prompt: `What will they do ${dayTag}?`,
         correct: newPlan[0].toUpperCase() + newPlan.slice(1) + '.',
-        correctReason: `雨の予報を受けて Let's ${newPlan} at my house instead.（代わりに家で${newJa}をしよう）と変更し合意している。`,
+        correctReason: `雨の予報を受けて Let's ${newPlan} at my house instead.（代わりに家で${newJa}）と変更し合意している。`,
         wrongs: [
           oldPlan[0].toUpperCase() + oldPlan.slice(1) + '.',
           w2[0].toUpperCase() + w2.slice(1) + '.',
@@ -543,15 +543,17 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
     // 2: 値段・合計金額や割引の聞き取り
     () => {
       const items = [
-        ['strawberry cake', 'four hundred yen', 'three hundred yen', 'five hundred yen', 'six hundred yen', 'いちごケーキ', '400円'],
-        ['ham sandwich set', 'six hundred yen', 'five hundred yen', 'seven hundred yen', 'eight hundred yen', 'ハムサンドセット', '600円'],
-        ['museum student ticket', 'three hundred yen', 'two hundred yen', 'four hundred yen', 'six hundred yen', '博物館の学生券', '300円'],
-        ['wooden keychain', 'five hundred yen', 'three hundred yen', 'seven hundred yen', 'nine hundred yen', '木製キーホルダー', '500円'],
-        ['melon smoothie', 'four hundred fifty yen', 'three hundred fifty yen', 'five hundred fifty yen', 'six hundred yen', 'メロンスムージー', '450円'],
+        ['strawberry cake', 'four hundred yen', 'three hundred yen', 'five hundred yen', 'six hundred yen', 'いちごケーキ', '400円', '500円'],
+        ['ham sandwich set', 'six hundred yen', 'five hundred yen', 'seven hundred yen', 'eight hundred yen', 'ハムサンドセット', '600円', '700円'],
+        ['museum student ticket', 'three hundred yen', 'two hundred yen', 'four hundred yen', 'six hundred yen', '博物館の学生券', '300円', '400円'],
+        ['wooden keychain', 'five hundred yen', 'three hundred yen', 'seven hundred yen', 'nine hundred yen', '木製キーホルダー', '500円', '700円'],
+        ['melon smoothie', 'four hundred fifty yen', 'three hundred fifty yen', 'five hundred fifty yen', 'six hundred yen', 'メロンスムージー', '450円', '550円'],
       ];
-      const [itemEn, ansPrice, w1, w2, w3, itemJa, ansJa] = items[(round - 1) % 5];
+      const [itemEn, ansPrice, w1, w2, w3, itemJa, ansJa, w2Ja] = items[(round - 1) % 5];
       const shopAdjs = ['Sunny', 'Maple', 'Harbor', 'Clover', 'Rainbow', 'Hilltop', 'Breeze', 'Star', 'Acorn', 'Cherry', 'River', 'Forest', 'Crown', ' Coral', 'Amber'];
+      const shopAdjsJa = ['サニー', 'メイプル', 'ハーバー', 'クローバー', 'レインボー', 'ヒルトップ', 'ブリーズ', 'スター', 'エイコーン', 'チェリー', 'リバー', 'フォレスト', 'クラウン', 'コーラル', 'アンバー'];
       const shopName = `${shopAdjs[round - 1].trim()} Cafe`;
+      const shopNameJa = `${shopAdjsJa[round - 1]}カフェ`;
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Welcome to ${shopName}! Would you like to try our ${itemEn} today?` },
         { ...sp2, text: `Yes, it looks delicious. Is it ${w2}?` },
@@ -561,7 +563,7 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
       ];
       return {
         turns,
-        translation: `店員：${shopName}へようこそ！本日${itemJa}はいかがですか。\n客：おいしそうですね。${w2}ですか？\n店員：実は今日は学割があるので、${ansJa}になります。\n客：嬉しいです！1つください。\n質問：いくら支払いますか。`,
+        translation: `店員：${shopNameJa}へようこそ！本日${itemJa}はいかがですか。\n客：おいしそうですね。${w2Ja}ですか？\n店員：実は今日は学割があるので、${ansJa}になります。\n客：嬉しいです！1つください。\n質問：いくら支払いますか。`,
         prompt: `How much will ${sp2Label} pay?`,
         correct: ansPrice[0].toUpperCase() + ansPrice.slice(1) + '.',
         correctReason: `学割が適用されて so it is ${ansPrice}（${ansJa}になる）と店員が伝えている。`,
@@ -583,13 +585,13 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
     // 3: 忘れ物を取りに行く／これからすること
     () => {
       const tasks = [
-        ['go back to the classroom', 'buy a new textbook', 'call the bus company', 'wait at the gate', '教室へ戻る', 'science notebook'],
-        ['stop by the bakery', 'clean the music room', 'borrow a bicycle', 'write a letter', 'パン屋に寄る', 'fresh rolls for breakfast'],
-        ['return books to the library', 'watch soccer practice', 'visit the nurse', 'wash gym shoes', '図書館に本を返す', 'two history books'],
-        ['buy batteries at the store', 'fix the computer', 'paint a poster', 'practice the flute', '店で電池を買う', 'flashlight batteries'],
-        ['ask the teacher for a handout', 'copy notes at home', 'go to the bookstore', 'play badminton', '先生にプリントをもらいに行く', 'math worksheet'],
+        ['go back to the classroom', 'buy a new textbook', 'call the bus company', 'wait at the gate', '教室へ戻る', 'science notebook', '理科のノート'],
+        ['stop by the bakery', 'clean the music room', 'borrow a bicycle', 'write a letter', 'パン屋に寄る', 'fresh rolls for breakfast', '朝食用の焼きたてパン'],
+        ['return books to the library', 'watch soccer practice', 'visit the nurse', 'wash gym shoes', '図書館に本を返す', 'two history books', '歴史の本2冊'],
+        ['buy batteries at the store', 'fix the computer', 'paint a poster', 'practice the flute', '店で電池を買う', 'flashlight batteries', '懐中電灯の電池'],
+        ['ask the teacher for a handout', 'copy notes at home', 'go to the bookstore', 'play badminton', '先生にプリントをもらいに行く', 'math worksheet', '数学のプリント'],
       ];
-      const [ansAct, w1, w2, w3, ansJa, objEn] = tasks[(round - 1) % 5];
+      const [ansAct, w1, w2, w3, ansJa, objEn, objJa] = tasks[(round - 1) % 5];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `School is over for day ${round}, ${sp2.roleLabel === 'Woman' ? f : m}! Let's walk home together.` },
         { ...sp2, text: `Oh, wait! I need my ${objEn}, so I have to ${ansAct} first.` },
@@ -599,7 +601,7 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
       ];
       return {
         turns,
-        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：学校が終わったね！一緒に歩いて帰ろう。\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：あ、待って！${objEn}が必要だから、先に${ansJa}必要があるんだ。\n${sp1.roleLabel === 'Man' ? '男子' : '女子'}：いいよ、下駄箱のところで待っているね。\n質問：最初に何をしますか。`,
+        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：学校が終わったね！一緒に歩いて帰ろう。\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：あ、待って！${objJa}が必要だから、先に${ansJa}必要があるんだ。\n${sp1.roleLabel === 'Man' ? '男子' : '女子'}：いいよ、下駄箱のところで待っているね。\n質問：最初に何をしますか。`,
         prompt: `What will ${sp2Label} do first?`,
         correct: ansAct[0].toUpperCase() + ansAct.slice(1) + '.',
         correctReason: `so I have to ${ansAct} first（まず${ansJa}必要がある）と自分の行動を述べている。`,
@@ -631,7 +633,13 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
         'the science hall', 'the river park', 'the drum concert', 'the craft fair', 'the history museum',
         'the youth center', 'the ice show', 'the autumn fair', 'the botanical dome', 'the food expo',
       ];
+      const destsJa = [
+        '花祭り', 'ブックフェア', '市営スタジアム', '美術館', '夏のマーケット',
+        '科学館', 'リバーパーク', 'ドラムコンサート', 'クラフトフェア', '歴史博物館',
+        '青少年センター', 'アイスショー', '秋のフェア', '植物ドーム', 'フードエキスポ',
+      ];
       const dest = dests[round - 1];
+      const destJa = destsJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `How should we go to ${dest} today, ${sp2.roleLabel === 'Woman' ? f : m}? Shall we go ${w1}?` },
         { ...sp2, text: `The roads are very crowded this morning. Going ${ans} is much faster.` },
@@ -640,7 +648,7 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
       ];
       return {
         turns,
-        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：今日はどうやって${dest}へ行こうか？\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：今朝は道路がとても混んでいるから、${ansJa}行くほうがずっと速いよ。\n${sp1.roleLabel === 'Man' ? '男子' : '女子'}：そうだね。じゃあ${ansJa}行こう。\n質問：どうやって向かいますか。`,
+        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：今日はどうやって${destJa}へ行こうか？\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：今朝は道路がとても混んでいるから、${ansJa}行くほうがずっと速いよ。\n${sp1.roleLabel === 'Man' ? '男子' : '女子'}：そうだね。じゃあ${ansJa}行こう。\n質問：どうやって向かいますか。`,
         prompt: `How will they go to ${dest}?`,
         correct: ans[0].toUpperCase() + ans.slice(1) + '.',
         correctReason: `道路の混雑を避けて Let's go ${ans} then.（では${ansJa}行こう）と決定している。`,
@@ -662,15 +670,17 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
     // 5: プレゼント選び
     () => {
       const gifts = [
-        ['a leather wallet', 'a silk necktie', 'a coffee mug', 'a golf cap', '革の財布'],
-        ['a cooking apron', 'a flower vase', 'a hand mirror', 'a tea pot', 'エプロン'],
-        ['a sports towel', 'a wristwatch', 'a music CD', 'a backpack', 'スポーツタオル'],
-        ['a fountain pen', 'a desk lamp', 'a photo frame', 'a calendar', '万年筆'],
-        ['a pair of warm gloves', 'a wool hat', 'a long scarf', 'a sweater', '暖かい手袋'],
+        ['a leather wallet', 'a silk necktie', 'a coffee mug', 'a golf cap', '革の財布', 'シルクのネクタイ'],
+        ['a cooking apron', 'a flower vase', 'a hand mirror', 'a tea pot', 'エプロン', '花瓶'],
+        ['a sports towel', 'a wristwatch', 'a music CD', 'a backpack', 'スポーツタオル', '腕時計'],
+        ['a fountain pen', 'a desk lamp', 'a photo frame', 'a calendar', '万年筆', '電気スタンド'],
+        ['a pair of warm gloves', 'a wool hat', 'a long scarf', 'a sweater', '暖かい手袋', '毛糸の帽子'],
       ];
-      const [ans, w1, w2, w3, ansJa] = gifts[(round - 1) % 5];
+      const [ans, w1, w2, w3, ansJa, w1Ja] = gifts[(round - 1) % 5];
       const targets = ['Grandfather', 'Aunt Mari', 'Brother Koji', 'Uncle Shin', 'Sister Aya', 'Mother', 'Father', 'Grandmother', 'Cousin Rui', 'Coach Toda', 'Ms. Ono', 'Mr. Hori', 'Sister Nao', 'Uncle Dan', 'Aunt Emi'];
+      const targetsJa = ['おじいちゃん', '真理おばさん', '浩二兄さん', '慎おじさん', '彩姉さん', 'お母さん', 'お父さん', 'おばあちゃん', 'いとこのルイ', '戸田コーチ', '小野先生', '堀先生', '奈央姉さん', 'ダンおじさん', '恵美おばさん'];
       const target = targets[round - 1];
+      const targetJa = targetsJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Next Sunday is ${target}'s birthday. Should we buy ${w1}?` },
         { ...sp2, text: `${target} already got ${w1} last year. How about ${ans} this time?` },
@@ -679,7 +689,7 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
       ];
       return {
         turns,
-        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：来週の日曜は${target}の誕生日だね。${w1}を買おうか？\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：去年もうもらっていたよ。今回は${ansJa}はどう？\n${sp1.roleLabel === 'Man' ? '男子' : '女子'}：ぴったりだね！2階で探そう。\n質問：何を買いますか。`,
+        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：来週の日曜は${targetJa}の誕生日だね。${w1Ja}を買おうか？\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：去年もうもらっていたよ。今回は${ansJa}はどう？\n${sp1.roleLabel === 'Man' ? '男子' : '女子'}：ぴったりだね！2階で探そう。\n質問：何を買いますか。`,
         prompt: `What will they buy for ${target}?`,
         correct: ans[0].toUpperCase() + ans.slice(1) + '.',
         correctReason: `How about ${ans} this time? に対して That is perfect! と購入を決めている。`,
@@ -701,13 +711,15 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
     // 6: 集合場所の確認
     () => {
       const spots = [
-        ['in front of the ticket gate', 'inside the bookstore', 'by the bus stop', 'at the park entrance', '改札の前'],
-        ['beside the big fountain', 'near the clock tower', 'in front of the cafe', 'inside the lobby', '大きな噴水の横'],
-        ['at the library entrance', 'on the second floor', 'near the flower bed', 'by the postbox', '図書館の入口'],
+        ['in front of the ticket gate', 'inside the bookstore', 'by the bus stop', 'at the park entrance', '改札の前', '書店の中'],
+        ['beside the big fountain', 'near the clock tower', 'in front of the cafe', 'inside the lobby', '大きな噴水の横', '時計台の近く'],
+        ['at the library entrance', 'on the second floor', 'near the flower bed', 'by the postbox', '図書館の入口', '2階'],
       ];
-      const [ans, w1, w2, w3, ansJa] = spots[(round - 1) % 3];
+      const [ans, w1, w2, w3, ansJa, w1Ja] = spots[(round - 1) % 3];
       const times = ['nine thirty', 'ten o\'clock', 'ten fifteen', 'eleven o\'clock', 'one fifteen', 'one thirty', 'two o\'clock', 'two thirty', 'three o\'clock', 'three fifteen', 'nine forty', 'ten twenty', 'one forty', 'two twenty', 'four o\'clock'];
+      const timesJa = ['9時30分', '10時', '10時15分', '11時', '1時15分', '1時30分', '2時', '2時30分', '3時', '3時15分', '9時40分', '10時20分', '1時40分', '2時20分', '4時'];
       const tm = times[round - 1];
+      const tmJa = timesJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `We are meeting at ${tm} tomorrow, ${sp2.roleLabel === 'Woman' ? f : m}. Should we meet ${w1}?` },
         { ...sp2, text: `It is always crowded ${w1}. Let's meet ${ans} instead.` },
@@ -716,7 +728,7 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
       ];
       return {
         turns,
-        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：明日は${tm}に待ち合わせだね。${w1}で会おうか？\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：そこはいつも混んでいるから、代わりに${ansJa}で会おう。\n${sp1.roleLabel === 'Man' ? '男子' : '女子'}：了解！${tm}にそこでね。\n質問：明日どこで待ち合わせますか。`,
+        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：明日は${tmJa}に待ち合わせだね。${w1Ja}で会おうか？\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：そこはいつも混んでいるから、代わりに${ansJa}で会おう。\n${sp1.roleLabel === 'Man' ? '男子' : '女子'}：了解！${tmJa}にそこでね。\n質問：明日どこで待ち合わせますか。`,
         prompt: 'Where will they meet tomorrow?',
         correct: ans[0].toUpperCase() + ans.slice(1) + '.',
         correctReason: `混雑を避けて Let's meet ${ans} instead.（${ansJa}で会おう）と決まり、相手も復唱している。`,
@@ -753,7 +765,15 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
         'the glassblowing workshop', 'the outdoor jazz event', 'the lantern night walk',
         'the marine life center', 'the historical castle tour', 'the planetarium special night',
       ];
+      const eventsJa = [
+        '秋のクラフトマーケット', 'クラシックバイオリン演奏会', 'いちごフェスティバル',
+        '恐竜展', '川辺の花火大会', 'アイススケートショー',
+        '陶芸の里', 'バラ園フェア', '市民ブックフェスティバル',
+        '吹きガラス工房', '野外ジャズイベント', 'ランタンナイトウォーク',
+        '海洋生物センター', '歴史城郭ツアー', 'プラネタリウム特別夜間上映',
+      ];
       const ev = events[round - 1];
+      const evJa = eventsJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Did you go to ${ev} last weekend, ${isGirl ? f : m}?` },
         { ...sp2, text: `Yes! ${w1[0].toUpperCase()}${w1.slice(1)} caught a cold, so I went there with ${ans.replace(/^(her|his) /, 'my ')}.` },
@@ -762,7 +782,7 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
       ];
       return {
         turns,
-        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：先週末、${ev}へ行った？\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：うん！風邪をひいた家族の代わりに、${ansJa}と一緒に行ったよ。\n質問：誰と一緒に行きましたか。`,
+        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：先週末、${evJa}へ行った？\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：うん！風邪をひいた家族の代わりに、${ansJa}と一緒に行ったよ。\n質問：誰と一緒に行きましたか。`,
         prompt: `Who went to ${ev} with ${sp2Label}?`,
         correct: ans[0].toUpperCase() + ans.slice(1) + '.',
         correctReason: `so I went there with my ...（${ansJa}と行った）と実際の同伴者を述べている。`,
@@ -784,17 +804,23 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
     // 8: 頻度（How often）
     () => {
       const freqs = [
-        ['twice a week', 'once a week', 'every day', 'once a month', '週に2回'],
-        ['three times a week', 'twice a month', 'every morning', 'once a week', '週に3回'],
-        ['every Saturday morning', 'every Tuesday night', 'twice a day', 'once a year', '毎週土曜の朝'],
+        ['twice a week', 'once a week', 'every day', 'once a month', '週に2回', '週に1回'],
+        ['three times a week', 'twice a month', 'every morning', 'once a week', '週に3回', '月に2回'],
+        ['every Saturday morning', 'every Tuesday night', 'twice a day', 'once a year', '毎週土曜の朝', '毎週火曜の夜'],
       ];
-      const [ans, w1, w2, w3, ansJa] = freqs[(round - 1) % 3];
+      const [ans, w1, w2, w3, ansJa, w1Ja] = freqs[(round - 1) % 3];
       const lessons = [
         'swimming lessons', 'calligraphy class', 'junior tennis practice', 'abacus lessons', 'conversation class',
         'violin lessons', 'karate practice', 'ballet class', 'coding workshop', 'drum lessons',
         'basketball club', 'choir practice', 'chess club', 'painting studio', 'table tennis club',
       ];
+      const lessonsJa = [
+        '水泳教室', '書道教室', 'ジュニアテニス練習', 'そろばん教室', '英会話教室',
+        'バイオリン教室', '空手の練習', 'バレエ教室', 'プログラミング教室', 'ドラム教室',
+        'バスケットボールクラブ', '合唱の練習', 'チェスクラブ', '絵画教室', '卓球クラブ',
+      ];
       const les = lessons[round - 1];
+      const lesJa = lessonsJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `You are really good at your hobby, ${sp2.roleLabel === 'Woman' ? f : m}! Do you have ${les} ${w1}?` },
         { ...sp2, text: `Last year it was ${w1}, but now I go ${ans}.` },
@@ -803,7 +829,7 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
       ];
       return {
         turns,
-        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：すごく上手だね！${les}には${w1}通っているの？\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：去年まではそうだったけれど、今は${ansJa}通っているよ。\n質問：現在はどのくらいの頻度で通っていますか。`,
+        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：すごく上手だね！${lesJa}には${w1Ja}通っているの？\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：去年まではそうだったけれど、今は${ansJa}通っているよ。\n質問：現在はどのくらいの頻度で通っていますか。`,
         prompt: `How often does ${sp2Label} have ${les} now?`,
         correct: ans[0].toUpperCase() + ans.slice(1) + '.',
         correctReason: `but now I go ${ans}（今は${ansJa}通っている）と現在の頻度を述べている。`,
@@ -825,17 +851,23 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
     // 9: 探している物の場所
     () => {
       const locs = [
-        ['on the piano bench', 'inside the backpack', 'under the sofa', 'on the kitchen counter', 'ピアノの椅子の上'],
-        ['in the top drawer', 'on the bookshelf', 'beside the television', 'inside the shoe box', '一番上の引き出しの中'],
-        ['next to the telephone', 'under the bed', 'in the washing machine', 'on the balcony chair', '電話の隣'],
+        ['on the piano bench', 'inside the backpack', 'under the sofa', 'on the kitchen counter', 'ピアノの椅子の上', 'リュックの中'],
+        ['in the top drawer', 'on the bookshelf', 'beside the television', 'inside the shoe box', '一番上の引き出しの中', '本棚の上'],
+        ['next to the telephone', 'under the bed', 'in the washing machine', 'on the balcony chair', '電話の隣', 'ベッドの下'],
       ];
-      const [ans, w1, w2, w3, ansJa] = locs[(round - 1) % 3];
+      const [ans, w1, w2, w3, ansJa, w1Ja] = locs[(round - 1) % 3];
       const items = [
         'library card', 'blue watch', 'student ID card', 'train pass', 'hairbrush',
         'red sketchbook', 'pair of scissors', 'bicycle key', 'recorder case', 'pocket notebook',
         'swimming goggles', 'knitting needle', 'stamp album', 'magnifying glass', 'pencil sharpener',
       ];
+      const itemsJa = [
+        '図書カード', '青い腕時計', '生徒証', '定期券', 'ヘアブラシ',
+        '赤いスケッチブック', 'はさみ', '自転車の鍵', 'リコーダーケース', 'ポケット手帳',
+        '水泳用ゴーグル', '編み針', '切手アルバム', '虫眼鏡', '鉛筆削り',
+      ];
       const item = items[round - 1];
+      const itemJa = itemsJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Have you seen my ${item}, ${sp2.roleLabel === 'Woman' ? f : m}? It is not ${w1}.` },
         { ...sp2, text: `Oh, I cleaned the room earlier, and I saw your ${item} ${ans}.` },
@@ -844,7 +876,7 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
       ];
       return {
         turns,
-        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：私の${item}を見なかった？${w1}にはないんだ。\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：さっき掃除をしたときに、${ansJa}にあるのを見たよ。\n${sp1.roleLabel === 'Man' ? '男子' : '女子'}：あった！ありがとう。\n質問：${item}はどこにありましたか。`,
+        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：私の${itemJa}を見なかった？${w1Ja}にはないんだ。\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：さっき掃除をしたときに、${ansJa}にあるのを見たよ。\n${sp1.roleLabel === 'Man' ? '男子' : '女子'}：あった！ありがとう。\n質問：${itemJa}はどこにありましたか。`,
         prompt: `Where was the ${item}?`,
         correct: ans[0].toUpperCase() + ans.slice(1) + '.',
         correctReason: `I saw your ${item} ${ans}（${ansJa}にあるのを見た）とあり、実際に見つかっている。`,
@@ -866,17 +898,23 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
     // 10: 手伝い・役割分担
     () => {
       const jobs = [
-        ['make the welcome sign', 'blow up balloons', 'arrange the chairs', 'buy paper plates', '歓迎看板を作る'],
-        ['write the team report', 'draw the graph', 'take photographs', 'print the handouts', 'チームのレポートを書く'],
-        ['wash the strawberries', 'whip the fresh cream', 'bake the sponge cake', 'cut the oranges', 'いちごを洗う'],
+        ['make the welcome sign', 'blow up balloons', 'arrange the chairs', 'buy paper plates', '歓迎看板を作る', '風船をふくらませる'],
+        ['write the team report', 'draw the graph', 'take photographs', 'print the handouts', 'チームのレポートを書く', 'グラフを描く'],
+        ['wash the strawberries', 'whip the fresh cream', 'bake the sponge cake', 'cut the oranges', 'いちごを洗う', '生クリームを泡立てる'],
       ];
-      const [ans, w1, w2, w3, ansJa] = jobs[(round - 1) % 3];
+      const [ans, w1, w2, w3, ansJa, w1Ja] = jobs[(round - 1) % 3];
       const events = [
         'welcome party', 'science presentation', 'cooking class cake', 'farewell meeting', 'open school day',
         'english club fair', 'birthday surprise', 'reading week display', 'charity bazaar', 'harvest party',
         'drama stage prep', 'chorus tea party', 'summer camp supper', 'astronomy night', 'junior quiz bowl',
       ];
+      const eventsJa = [
+        '歓迎パーティー', '理科の発表会', '料理教室のケーキ作り', 'お別れ会', '学校公開日',
+        '英語部フェア', '誕生日サプライズ', '読書週間の展示', 'チャリティーバザー', '収穫パーティー',
+        '演劇の舞台準備', '合唱部のお茶会', '夏キャンプの夕食', '星空観察会', 'ジュニアクイズ大会',
+      ];
       const ev = events[round - 1];
+      const evJa = eventsJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Let's finish preparing for our ${ev}, ${sp2.roleLabel === 'Woman' ? f : m}. I will ${w1}.` },
         { ...sp2, text: `Okay! Then I will ${ans} before four o'clock.` },
@@ -885,7 +923,7 @@ function buildG4Part2(examId: string, round: number, u: number): ListeningAudioU
       ];
       return {
         turns,
-        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：${ev}の準備を仕上げよう。私は${w1}をするね。\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：いいよ！じゃあ私は4時までに${ansJa}をするね。\n質問：${sp2Label === 'the girl' ? '女の子' : '男の子'}は何を担当しますか。`,
+        translation: `${sp1.roleLabel === 'Man' ? '男子' : '女子'}：${evJa}の準備を仕上げよう。私は${w1Ja}ね。\n${sp2.roleLabel === 'Woman' ? '女子' : '男子'}：いいよ！じゃあ私は4時までに${ansJa}ね。\n質問：${sp2Label === 'the girl' ? '女の子' : '男の子'}は何を担当しますか。`,
         prompt: `What will ${sp2Label} do for the ${ev}?`,
         correct: ans[0].toUpperCase() + ans.slice(1) + '.',
         correctReason: `Then I will ${ans}（では私が${ansJa}をする）と自分の担当を明言している。`,
@@ -944,14 +982,19 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
     // 1: 学校案内アナウンス
     () => {
       const clubs = ['Gardening Club', 'Astronomy Club', 'Cooking Club', 'Photography Club', 'Calligraphy Club', 'Drama Club', 'Chess Club', 'Chorus Club', 'Science Club', 'Art Club', 'Badminton Club', 'Table Tennis Club', ' Craft Club', 'Dance Club', 'Quiz Club'].map(s => s.trim());
+      const clubsJa = ['園芸部', '天文部', '料理部', '写真部', '書道部', '演劇部', 'チェス部', '合唱部', '科学部', '美術部', 'バドミントン部', '卓球部', '手芸部', 'ダンス部', 'クイズ部'];
       const items = ['work gloves', 'a flashlight', 'a clean apron', 'a digital camera', 'an ink brush', 'your script book', 'a notebook', 'a bottle of water', 'safety glasses', 'a sketchbook', 'indoor shoes', 'your own paddle', 'a pair of scissors', 'a sports towel', 'two black pencils'];
+      const itemsJa = ['軍手', '懐中電灯', '清潔なエプロン', 'デジタルカメラ', '筆', '台本', 'ノート', '水筒の水', '保護メガネ', 'スケッチブック', '上履き', 'マイラケット', 'はさみ', 'スポーツタオル', '黒鉛筆2本'];
       const wrongItems = ['a raincoat', 'a swimming cap', 'a dictionary'];
       const club = clubs[round - 1];
+      const clubJa = clubsJa[round - 1];
       const item = items[round - 1];
+      const itemJa = itemsJa[round - 1];
       const text = `Attention, members of the ${club}. Because Room One is being painted today, we will meet in Room Five at four fifteen. Please remember to bring ${item} for today's activity. See you soon!`;
       return {
         text,
-        ja: `${club}の部員にお知らせします。今日1番教室は塗装中のため、4時15分に5番教室に集まります。今日の活動のために忘れずに${item}を持ってきてください。`,
+        ja: `${clubJa}の部員にお知らせします。今日1番教室は塗装中のため、4時15分に5番教室に集まります。今日の活動のために忘れずに${itemJa}を持ってきてください。`,
+        qJa: `${clubJa}の部員は今日何を持っていくべきですか。`,
         prompt: `What should the ${club} members bring today?`,
         correct: item[0].toUpperCase() + item.slice(1) + '.',
         correctReason: `Please remember to bring ${item} for today's activity. と持参物が明示されている。`,
@@ -969,13 +1012,18 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
     // 2: 週末の家族体験ストーリー
     () => {
       const places = ['an apple orchard', 'a pottery village', 'a marine aquarium', 'a bamboo forest', 'a cheese farm', 'a glass studio', 'a maple valley', 'a lighthouse island', 'a tea plantation', 'a dinosaur museum', 'a noodle factory', 'a lavender hill', 'a historical castle', 'a canoe lake', 'a bird park'];
+      const placesJa = ['りんご園', '陶芸の里', '海洋水族館', '竹林', 'チーズ農場', 'ガラス工房', '紅葉の渓谷', '灯台のある島', '茶畑', '恐竜博物館', '製麺工場', 'ラベンダーの丘', '歴史ある城', 'カヌーのできる湖', '野鳥公園'];
       const souvenirs = ['homemade apple jam', 'a blue teacup', 'a dolphin postcard', 'bamboo chopsticks', 'fresh butter', 'a glass wind bell', 'maple cookies', 'shell keychains', 'green tea leaves', 'a fossil guidebook', 'fresh udon packs', 'lavender soap', 'a castle magnet', 'wooden spoons', 'a bird calendar'];
+      const souvenirsJa = ['自家製りんごジャム', '青い湯のみ', 'イルカの絵はがき', '竹のお箸', '新鮮なバター', 'ガラスの風鈴', 'メープルクッキー', '貝殻のキーホルダー', '緑茶の茶葉', '化石ガイドブック', '生うどんセット', 'ラベンダー石けん', 'お城のマグネット', '木製スプーン', '野鳥カレンダー'];
       const pl = places[round - 1];
+      const plJa = placesJa[round - 1];
       const sv = souvenirs[round - 1];
+      const svJa = souvenirsJa[round - 1];
       const text = `Last Saturday, ${girl} visited ${pl} with her parents. In the morning, she walked around and learned many interesting things from a guide. Before going home, she bought ${sv} for her grandmother.`;
       return {
         text,
-        ja: `先週の土曜日、${girl}は両親と${pl}を訪れました。午前中はガイドから興味深い話をたくさん学びました。帰る前に、祖母への土産に${sv}を買いました。`,
+        ja: `先週の土曜日、${girl}は両親と${plJa}を訪れました。午前中はガイドから興味深い話をたくさん学びました。帰る前に、祖母への土産に${svJa}を買いました。`,
+        qJa: `${girl}は祖母のために何を買いましたか。`,
         prompt: `What did ${girl} buy for her grandmother?`,
         correct: sv[0].toUpperCase() + sv.slice(1) + '.',
         correctReason: `she bought ${sv} for her grandmother と明確に述べられている。`,
@@ -993,13 +1041,18 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
     // 3: ペット・動物の世話
     () => {
       const pets = ['brown beagle', 'white rabbit', 'green parakeet', 'golden hamster', 'orange cat', 'spotted turtle', 'black puppy', 'fluffy guinea pig', 'yellow canary', 'silver kitten', 'miniature dachshund', 'white duck', 'small hedgehog', 'gray parrot', 'Welsh corgi'];
+      const petsJa = ['茶色のビーグル犬', '白いウサギ', '緑のインコ', 'ゴールデンハムスター', '茶トラ猫', '模様のあるカメ', '黒い子犬', 'ふわふわのモルモット', '黄色いカナリア', '銀色の毛の子猫', 'ミニチュアダックスフンド', '白いアヒル', '小さなハリネズミ', '灰色のオウム', 'ウェルシュ・コーギー'];
       const habits = ['chasing a red ball in the yard', 'eating fresh cabbage leaves', 'singing to morning music', 'running on a wheel at night', 'sleeping on a sunny cushion', 'swimming in a shallow tub', 'fetching a soft frisbee', 'hiding inside a paper tunnel', 'listening to the flute', 'playing with a yarn ball', 'walking along the river path', 'splashing water in the garden', 'eating sweet apple pieces', 'learning simple greetings', 'waiting by the front gate'];
+      const habitsJa = ['庭で赤いボールを追いかけること', '新鮮なキャベツの葉を食べること', '朝の音楽に合わせてさえずること', '夜に回し車で走ること', '日当たりのよいクッションで眠ること', '浅い桶で泳ぐこと', '柔らかいフリスビーを取ってくること', '紙のトンネルの中に隠れること', 'フルートの音を聴くこと', '毛糸玉で遊ぶこと', '川沿いの小道を散歩すること', '庭で水しぶきを上げて遊ぶこと', '甘いりんごのかけらを食べること', '簡単なあいさつを覚えること', '玄関の門のそばで待つこと'];
       const pet = pets[round - 1];
+      const petJa = petsJa[round - 1];
       const hab = habits[round - 1];
+      const habJa = habitsJa[round - 1];
       const text = `${boy} got a ${pet} two months ago. Every morning before school, ${boy} gives it fresh water and cleans its space. The pet especially loves ${hab} every afternoon.`;
       return {
         text,
-        ja: `${boy}は2か月前に${pet}を飼い始めました。毎朝登校前に新鮮な水をやり掃除をします。そのペットは特に毎午後${hab}のが大好きです。`,
+        ja: `${boy}は2か月前に${petJa}を飼い始めました。毎朝登校前に新鮮な水をやり掃除をします。そのペットは特に毎午後、${habJa}が大好きです。`,
+        qJa: `${boy}のペットは毎午後、特に何をするのが大好きですか。`,
         prompt: `What does ${boy}'s pet especially love doing every afternoon?`,
         correct: hab[0].toUpperCase() + hab.slice(1) + '.',
         correctReason: `The pet especially loves ${hab} every afternoon. と本文の最後に述べられている。`,
@@ -1017,13 +1070,18 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
     // 4: 店舗のセール・案内放送
     () => {
       const stores = ['Green Leaf Bookstore', 'Asahi Sports Mart', 'Harbor Bakery', 'komorebi Stationery', 'Sakura Shoe Shop', 'Maple Music Store', 'Sunny Toy World', 'Clover Kitchen Shop', 'Blue Sky Camping', 'Starlight Optical', 'Town Pet Shop', 'Fresh Fruit Corner', 'bergamot Flower Shop', 'Crown Watch Shop', 'Breeze Bike Center'].map(s => s[0].toUpperCase() + s.slice(1));
+      const storesJa = ['グリーンリーフ書店', 'アサヒスポーツマート', 'ハーバーベーカリー', 'こもれび文具店', 'さくら靴店', 'メイプル楽器店', 'サニートイワールド', 'クローバーキッチン用品店', 'ブルースカイキャンプ用品店', 'スターライト眼鏡店', 'タウンペットショップ', 'フレッシュフルーツコーナー', 'ベルガモット生花店', 'クラウン時計店', 'ブリーズ自転車センター'];
       const gifts = ['a colorful bookmark', 'a pair of cotton socks', 'a cup of hot milk', 'a mini memo pad', 'shoe cleaning cloth', 'a guitar pick set', 'animal stickers', 'a wooden coaster', 'a carabiner clip', 'a lens cleaning cloth', 'a pet treat sample', 'a cup of orange juice', 'plant food packets', 'a spare battery coupon', 'a reflective sticker'];
+      const giftsJa = ['カラフルなしおり', '綿の靴下1足', 'ホットミルク1杯', 'ミニメモ帳', '靴磨きクロス', 'ギターピックセット', '動物シール', '木製コースター', 'カラビナクリップ', 'レンズ拭きクロス', 'ペット用おやつサンプル', 'オレンジジュース1杯', '植物の栄養剤パック', '予備電池クーポン', '反射ステッカー'];
       const st = stores[round - 1];
+      const stJa = storesJa[round - 1];
       const gf = gifts[round - 1];
+      const gfJa = giftsJa[round - 1];
       const text = `Welcome to ${st}! Today we are celebrating our fifth anniversary. Customers who spend over one thousand yen will receive ${gf} at the main counter on the first floor. Enjoy your shopping!`;
       return {
         text,
-        ja: `${st}へようこそ！本日は5周年記念日です。1,000円以上お買い上げのお客様には、1階メインカウンターで${gf}を差し上げます。`,
+        ja: `${stJa}へようこそ！本日は5周年記念日です。1,000円以上お買い上げのお客様には、1階メインカウンターで${gfJa}を差し上げます。`,
+        qJa: '1,000円以上買い物をしたお客さんは何がもらえますか。',
         prompt: 'What will customers receive if they spend over one thousand yen?',
         correct: gf[0].toUpperCase() + gf.slice(1) + '.',
         correctReason: `will receive ${gf} at the main counter と特典の品物が明言されている。`,
@@ -1041,8 +1099,10 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
     // 5: 将来の夢・きっかけ
     () => {
       const jobs = ['a pastry chef', 'an airline pilot', 'a veterinarian', 'a picture book writer', 'a mountain guide', 'a marine biologist', 'a train driver', 'a florist', 'a weather forecaster', 'an architect', 'a translator', 'a museum curator', 'a sports trainer', 'a firefighter', 'a botanical gardener'];
+      const jobsJa = ['パティシエ（菓子職人）', '旅客機のパイロット', '獣医', '絵本作家', '山岳ガイド', '海洋生物学者', '電車の運転士', 'フローリスト（花屋）', '気象予報士', '建築家', '翻訳家', '博物館の学芸員', 'スポーツトレーナー', '消防士', '植物園の庭師'];
       const reasons = ['her uncle baked a wonderful cake for her', 'she visited an airport cockpit tour', 'a kind doctor helped her sick cat', 'she loved drawing stories for her sister', 'she climbed a high peak with her father', 'she saw sea turtles in Okinawa', 'he rode in the front car of an express train', 'her mother grew beautiful roses at home', 'he watched cloud programs every evening', 'she saw a wooden library in Kanazawa', 'she talked with visitors from Australia', 'he loved old maps at the city museum', 'a coach helped him recover from an injury', 'firefighters visited his elementary school', 'she enjoyed caring for school flowerbeds'];
       const jb = jobs[round - 1];
+      const jbJa = jobsJa[round - 1];
       const rsn = reasons[round - 1];
       const person = round % 2 === 1 ? girl : boy;
       const pron = round % 2 === 1 ? 'she' : 'he';
@@ -1050,7 +1110,8 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
       const text = `${person} wants to become ${jb} in the future. ${poss} dream started two years ago after ${rsn}. Now ${pron} reads books about that job every weekend.`;
       return {
         text,
-        ja: `${person}は将来${jb}になりたいと思っています。その夢は2年前にきっかけがあって始まり、今は毎週末それに関する本を読んでいます。`,
+        ja: `${person}は将来、${jbJa}になりたいと思っています。その夢は2年前にきっかけがあって始まり、今は毎週末それに関する本を読んでいます。`,
+        qJa: `${person}は将来何になりたいですか。`,
         prompt: `What does ${person} want to become in the future?`,
         correct: jb[0].toUpperCase() + jb.slice(1) + '.',
         correctReason: `第1文で ${person} wants to become ${jb} in the future. と明確に述べられている。`,
@@ -1068,13 +1129,18 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
     // 6: 図書館・公共施設の利用ルール
     () => {
       const halls = ['Midori City Library', 'Aoba Youth Center', 'Sakura Music Studio', 'West Study Hall', 'Harbor Craft Room', 'Maple Sports Gym', 'Hilltop Science Lab', 'Central Computer Room', 'Riverbank Reading Room', 'Clover Cooking Studio', 'Starlight Planetarium', 'Forest Nature House', 'Sunrise Community Hall', 'Breeze Tennis Park', 'Acorn Children\'s Plaza'];
+      const hallsJa = ['みどり市立図書館', '青葉青少年センター', 'さくら音楽スタジオ', '西学習ホール', 'ハーバー工作ルーム', 'メイプル体育館', 'ヒルトップ科学ラボ', '中央パソコン室', '川辺の読書室', 'クローバー料理スタジオ', 'スターライト・プラネタリウム', '森の自然の家', 'サンライズ公民館', 'ブリーズテニス公園', 'どんぐり子どもプラザ'];
       const times = ['five thirty', 'six o\'clock', 'four forty-five', 'seven o\'clock', 'five fifteen', 'six thirty', 'four thirty', 'seven thirty', 'five forty-five', 'six fifteen', 'five o\'clock', 'six forty-five', 'four fifteen', 'seven fifteen', 'eight o\'clock'];
+      const timesJa = ['5時30分', '6時', '4時45分', '7時', '5時15分', '6時30分', '4時30分', '7時30分', '5時45分', '6時15分', '5時', '6時45分', '4時15分', '7時15分', '8時'];
       const hall = halls[round - 1];
+      const hallJa = hallsJa[round - 1];
       const tm = times[round - 1];
+      const tmJa = timesJa[round - 1];
       const text = `Thank you for visiting ${hall} today. Usually we stay open until eight thirty, but today we will close early at ${tm} for floor cleaning. Please return all borrowed items ten minutes before closing.`;
       return {
         text,
-        ja: `本日は${hall}にご来館いただきありがとうございます。通常は8時30分まで開館していますが、本日は床清掃のため${tm}に繰り上げて閉館します。`,
+        ja: `本日は${hallJa}にご来館いただきありがとうございます。通常は8時30分まで開館していますが、本日は床清掃のため${tmJa}に繰り上げて閉館します。`,
+        qJa: `${hallJa}は今日何時に閉館しますか。`,
         prompt: `What time will ${hall} close today?`,
         correct: `At ${tm}.`,
         correctReason: `but today we will close early at ${tm} と本日の閉館時刻が案内されている。`,
@@ -1092,13 +1158,18 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
     // 7: 留守番電話・伝言メッセージ
     () => {
       const callers = ['Aunt Yoko', 'Uncle Takeshi', 'Grandma Haruko', 'Cousin Reina', 'Coach Nishida', 'Ms. Fujita', 'Mr. Kuroda', 'Older brother Shin', 'Sisteroka', 'Neighbor Mr. Kato', 'Dr. Mori\'s office', 'Aunt Naomi', 'Uncle Makoto', 'Teacher Ms. Doi', 'Friend Kazuki'].map(s => s === 'Sisteroka' ? 'Sister Moka' : s);
+      const callersJa = ['陽子おばさん', '武おじさん', '春子おばあちゃん', 'いとこの玲奈', '西田コーチ', '藤田先生', '黒田先生', '兄の慎', '姉の萌花', '近所の加藤さん', '森医院', '直美おばさん', '誠おじさん', '担任の土井先生', '友人の一樹'];
       const places = ['at the south exit', 'in front of the bakery', 'inside the hotel lobby', 'near the taxi stand', 'by the flower clock', 'at Gate Two', 'beside the ticket booth', 'in the station cafe', 'at the museum shop', 'near the north fountain', 'by the information board', 'at Bus Stop Four', 'in front of the bank', 'near the west elevator', 'beside the bookshop'];
+      const placesJa = ['南口で', 'パン屋の前で', 'ホテルのロビーの中で', 'タクシー乗り場の近くで', '花時計のそばで', '2番ゲートで', '切符売り場の横で', '駅のカフェの中で', 'ミュージアムショップで', '北の噴水の近くで', '案内板のそばで', '4番バス停で', '銀行の前で', '西エレベーターの近くで', '書店の横で'];
       const caller = callers[round - 1];
+      const callerJa = callersJa[round - 1];
       const pl = places[round - 1];
+      const plJa = placesJa[round - 1];
       const text = `Hi, this is ${caller} calling on Friday afternoon. My train is running ten minutes late because of strong wind. Please wait for me ${pl} instead of standing outside in the cold. See you soon!`;
       return {
         text,
-        ja: `こんにちは、金曜の午後に${caller}から電話しています。強風で電車が10分遅れています。寒い外に立つ代わりに${pl}で待っていてください。`,
+        ja: `こんにちは、金曜の午後に${callerJa}から電話しています。強風で電車が10分遅れています。寒い外に立つ代わりに${plJa}待っていてください。`,
+        qJa: `${callerJa}は聞き手にどこで待っていてほしいと頼んでいますか。`,
         prompt: `Where does ${caller} ask the listener to wait?`,
         correct: pl[0].toUpperCase() + pl.slice(1) + '.',
         correctReason: `Please wait for me ${pl} と待つ場所を具体的に指定している。`,
@@ -1116,9 +1187,13 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
     // 8: 料理・工作の手順（最初／最後にすること）
     () => {
       const dishes = ['banana smoothies', 'paper airplanes', 'pressed flower cards', 'fruit jelly cups', 'vegetable sandwiches', 'clay keychains', 'origami cranes', 'lemonade pitchers', 'rice ball bento', 'hand-painted tote bags', 'strawberry parfaits', 'wooden bookends', 'mini herb pots', 'popcorn bowls', 'greeting posters'];
+      const dishesJa = ['バナナスムージー', '紙飛行機', '押し花カード', 'フルーツゼリーカップ', '野菜サンドイッチ', '粘土のキーホルダー', '折り鶴', 'レモネードピッチャー', 'おにぎり弁当', '手描きトートバッグ', 'いちごパフェ', '木製ブックエンド', 'ミニハーブ鉢', 'ポップコーンボウル', 'あいさつポスター'];
       const firstSteps = ['wash your hands with soap', 'fold the blue paper in half', 'choose three dry flowers', 'cut the peaches into small cubes', 'toast two slices of bread', 'warm the white clay in your hands', 'prepare a square sheet of paper', 'squeeze three fresh lemons', 'wet your hands with clean water', 'place cardboard inside the bag', 'slice four sweet strawberries', 'sand the wooden edges smoothly', 'put small stones in the pot', 'heat a spoonful of oil in a pan', 'draw a light border with a pencil'];
+      const firstStepsJa = ['石けんで手を洗って', '青い紙を半分に折って', '押し花を3つ選んで', '桃を小さな角切りにして', '食パンを2枚焼いて', '白い粘土を手の中で温めて', '正方形の紙を1枚用意して', '新鮮なレモンを3個搾って', 'きれいな水で手をぬらして', 'バッグの中に厚紙を敷いて', '甘いいちごを4粒薄切りにして', '木の角を紙やすりで滑らかにして', '鉢の底に小石を入れて', 'フライパンで油をひとさじ熱して', '鉛筆で薄く枠線を描いて'];
       const dish = dishes[round - 1];
+      const dishJa = dishesJa[round - 1];
       const step = firstSteps[round - 1];
+      const stepJa = firstStepsJa[round - 1];
       const workshops = [
         'morning cooking club', 'craft studio class', 'spring card session', 'summer dessert lab', 'lunch making class',
         'clay art workshop', 'Japanese paper class', 'citrus drink workshop', 'picnic bento class', 'canvas bag studio',
@@ -1127,7 +1202,8 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
       const text = `Welcome to our ${workshops[round - 1]}! Today we are going to make ${dish}. Before touching any tools or ingredients, first please ${step}. After that, look at the board for step two.`;
       return {
         text,
-        ja: `みなさんこんにちは！今日のワークショップでは${dish}を作ります。道具や材料に触る前に、まず${step}してください。そのあと黒板でステップ2を確認しましょう。`,
+        ja: `みなさんこんにちは！今日のワークショップでは${dishJa}を作ります。道具や材料に触る前に、まず${stepJa}ください。そのあと黒板でステップ2を確認しましょう。`,
+        qJa: '参加者は最初に何をすべきですか。',
         prompt: 'What should the participants do first?',
         correct: step[0].toUpperCase() + step.slice(1) + '.',
         correctReason: `first please ${step} と最初の工程が明示されている。`,
@@ -1145,15 +1221,20 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
     // 9: 留学生・転校生の自己紹介
     () => {
       const cities = ['Vancouver in Canada', 'Perth in Australia', 'Auckland in New Zealand', 'Boston in America', 'Edinburgh in Scotland', 'Toronto in Canada', 'Melbourne in Australia', 'Seattle in America', 'Dublin in Ireland', 'Ottawa in Canada', 'Brisbane in Australia', 'Portland in America', 'Cardiff in Wales', 'Calgary in Canada', 'Adelaide in Australia'];
+      const citiesJa = ['カナダのバンクーバー', 'オーストラリアのパース', 'ニュージーランドのオークランド', 'アメリカのボストン', 'スコットランドのエディンバラ', 'カナダのトロント', 'オーストラリアのメルボルン', 'アメリカのシアトル', 'アイルランドのダブリン', 'カナダのオタワ', 'オーストラリアのブリスベン', 'アメリカのポートランド', 'ウェールズのカーディフ', 'カナダのカルガリー', 'オーストラリアのアデレード'];
       const hobbies = ['taking photos of trains', 'collecting foreign coins', 'playing badminton', 'baking cinnamon rolls', 'drawing comic strips', 'watching baseball games', 'playing the ukulele', 'growing small cacti', 'riding mountain bikes', 'making origami animals', 'swimming butterfly stroke', 'reading space magazines', 'cooking pasta dishes', 'learning Japanese kanji', 'jogging in big parks'];
+      const hobbiesJa = ['電車の写真を撮ること', '外国の硬貨を集めること', 'バドミントンをすること', 'シナモンロールを焼くこと', '4コマ漫画を描くこと', '野球の試合を見ること', 'ウクレレを弾くこと', '小さなサボテンを育てること', 'マウンテンバイクに乗ること', '折り紙で動物を作ること', 'バタフライで泳ぐこと', '宇宙の雑誌を読むこと', 'パスタ料理を作ること', '日本の漢字を学ぶこと', '大きな公園でジョギングすること'];
       const city = cities[round - 1];
+      const cityJa = citiesJa[round - 1];
       const hob = hobbies[round - 1];
+      const hobJa = hobbiesJa[round - 1];
       const newNames = ['Alex', 'Emma', 'Liam', 'Chloe', 'Noah', 'Olivia', 'Lucas', 'Sophia', 'Ethan', 'Mia', 'Mason', 'Ava', 'Logan', 'Ella', 'grace'].map(s => s[0].toUpperCase() + s.slice(1));
       const nm = newNames[round - 1];
       const text = `Hello Class ${round}! My name is ${nm}, and I moved here from ${city} last month. In my free time, I really enjoy ${hob}. I hope to make many friends in this class!`;
       return {
         text,
-        ja: `みなさんこんにちは！私の名前は${nm}で、先月${city}から引っ越してきました。自由時間には${hob}をとても楽しんでいます。`,
+        ja: `みなさんこんにちは！私の名前は${nm}で、先月${cityJa}から引っ越してきました。自由時間には${hobJa}をとても楽しんでいます。`,
+        qJa: `${nm}は自由時間に何をするのを楽しんでいますか。`,
         prompt: `What does ${nm} enjoy doing in free time?`,
         correct: hob[0].toUpperCase() + hob.slice(1) + '.',
         correctReason: `In my free time, I really enjoy ${hob}. と自分の趣味を述べている。`,
@@ -1171,9 +1252,13 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
     // 10: 忘れ物・落とし物のお知らせ
     () => {
       const losts = ['a blue sports watch', 'a red tartan scarf', 'a silver flute case', 'a pair of black glasses', 'a green water bottle', 'a brown leather key case', 'a white tennis cap', 'a yellow folding umbrella', 'a small navy wallet', 'a striped lunch bag', 'an English-Japanese dictionary', 'a wooden violin bow', 'a pink knit hat', 'a black calculator', 'a pair of swimming goggles'];
+      const lostsJa = ['青いスポーツウォッチ', '赤いチェックのマフラー', '銀色のフルートケース', '黒いメガネ', '緑の水筒', '茶色い革のキーケース', '白いテニス帽', '黄色い折りたたみ傘', '小さな紺色の財布', 'しま模様のお弁当袋', '英和辞典', '木製のバイオリンの弓', 'ピンクのニット帽', '黒い電卓', '水泳用ゴーグル'];
       const foundAt = ['near the gymnasium benches', 'in the library reading corner', 'on the music room piano', 'beside the science lab sink', 'at the bicycle parking rack', 'in front of the nurse office', 'by the tennis court gate', 'inside the main entrance stand', 'near the cafeteria vending machine', 'on a bench in the courtyard', 'on Desk Four in Room Six', 'behind the auditorium stage', 'on the art room stool', 'next to the computer printer', 'by the pool locker door'];
+      const foundAtJa = ['体育館のベンチの近く', '図書館の読書コーナー', '音楽室のピアノの上', '理科室の流しの横', '駐輪場のラック', '保健室の前', 'テニスコートの入口そば', '正面玄関の傘立ての中', '食堂の自動販売機の近く', '中庭のベンチの上', '6番教室の4番の机の上', '講堂のステージ裏', '美術室の丸椅子の上', 'パソコン室のプリンターの隣', 'プールのロッカー扉のそば'];
       const lost = losts[round - 1];
+      const lostJa = lostsJa[round - 1];
       const loc = foundAt[round - 1];
+      const locJa = foundAtJa[round - 1];
       const offices = [
         'main school office', 'first-floor counter', 'student council room', 'gymnasium desk', 'library service desk',
         'nurse station', 'west building office', 'east gate desk', 'cafeteria counter', 'courtyard booth',
@@ -1182,7 +1267,8 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
       const text = `This is a message from the ${offices[round - 1]}. Yesterday afternoon, a student found ${lost} ${loc}. If it is yours, please come to the ${offices[round - 1]} before four thirty today.`;
       return {
         text,
-        ja: `事務室からお知らせします。昨日の午後、生徒が${loc}で${lost}を見つけました。心当たりのある人は本日4時30分までに事務室へ来てください。`,
+        ja: `事務室からお知らせします。昨日の午後、生徒が${locJa}で${lostJa}を見つけました。心当たりのある人は本日4時30分までに事務室へ来てください。`,
+        qJa: `昨日の午後、${lostJa}はどこで見つかりましたか。`,
         prompt: `Where was ${lost} found yesterday afternoon?`,
         correct: loc[0].toUpperCase() + loc.slice(1) + '.',
         correctReason: `a student found ${lost} ${loc} と発見場所が明言されている。`,
@@ -1226,7 +1312,7 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
     unitIndex: u,
     readCount: 2,
     turns,
-    translation: `${st.ja}\n質問：${st.prompt}`,
+    translation: `${st.ja}\n質問：${st.qJa}`,
     image: null,
     questions: [qItem],
   });

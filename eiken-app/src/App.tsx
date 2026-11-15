@@ -199,7 +199,7 @@ export default function App() {
   const [chapterGroups, setChapterGroups] = useState<Record<string, string>>({});
   const [battleActive, setBattleActive] = useState(false);
   const [mockRunning, setMockRunning] = useState(false);
-  const [mockInitialCategory, setMockInitialCategory] = useState<'written' | 'listening'>('written');
+  const [mockInitialKind, setMockInitialKind] = useState<'written' | 'listening'>('written');
   const [mockBackTo, setMockBackTo] = useState<'study' | 'chapters'>('study');
   const [writingInitialTaskKey, setWritingInitialTaskKey] = useState<string | null>(null);
   const [writingBackTo, setWritingBackTo] = useState<'study' | 'chapters'>('study');
@@ -317,7 +317,12 @@ export default function App() {
     setStudyLastContent(content.id);
     safeSetItem(STORAGE_KEYS.studyCatalogLast, content.id);
     if (content.action.kind === 'writing') { setWritingInitialTaskKey(null); setWritingBackTo('study'); setAppState('writing'); return; }
-    if (content.action.kind === 'mock') { setMockInitialCategory(selectedSubject === 'eiken_1' ? 'listening' : 'written'); setMockBackTo('study'); setAppState('mock'); return; }
+    if (content.action.kind === 'mock') {
+      setMockInitialKind(selectedSubject === 'eiken_1' ? 'listening' : 'written');
+      setMockBackTo('study');
+      setAppState('mock');
+      return;
+    }
     if (content.action.kind === 'units') {
       if (isSubjectId(content.action.subject)) openSubjectUnits(content.action.subject, 'study');
       return;
@@ -668,7 +673,11 @@ export default function App() {
                   mode={appMode as 'mini_test' | 'practice'}
                   onChangeSubject={handleChangeStudySubject}
                   onSelectChapter={handleSelectChapter}
-                  onOpenMock={(category) => { setMockInitialCategory(category ?? (selectedSubject === 'eiken_1' ? 'listening' : 'written')); setMockBackTo('chapters'); setAppState('mock'); }}
+                  onOpenMock={(kind) => {
+                    setMockInitialKind(kind ?? (selectedSubject === 'eiken_1' ? 'listening' : 'written'));
+                    setMockBackTo('chapters');
+                    setAppState('mock');
+                  }}
                   onOpenWriting={(taskKey) => { setWritingInitialTaskKey(taskKey); setWritingBackTo('chapters'); setAppState('writing'); }}
                   onBack={() => setAppState(chaptersBackTo === 'study' ? 'study' : chaptersBackTo === 'foundation' ? 'foundation' : studyEntry(selectedSubject) === 'chapters' ? 'home' : 'mode_selection')}
                   backLabel={chaptersBackTo === 'study' ? '演習' : chaptersBackTo === 'foundation' ? '固める' : studyEntry(selectedSubject) === 'chapters' ? 'ホーム' : '学習モード'}
@@ -736,7 +745,7 @@ export default function App() {
               />
             </React.Suspense>}
             {appState === 'writing' && <React.Suspense fallback={<ScreenLoading />}><EikenWriting key={auth.currentUser?.uid || 'guest'} uid={auth.currentUser?.uid || 'guest'} grade={selectedSubject as import('./eiken/config').EikenGrade} onGrade={setSelectedSubject} initialTaskKey={writingInitialTaskKey} onBack={() => setAppState(writingBackTo)} /></React.Suspense>}
-            {appState === 'mock' && <React.Suspense fallback={<ScreenLoading />}><EikenMockExam key={auth.currentUser?.uid || 'guest'} uid={auth.currentUser?.uid || 'guest'} grade={selectedSubject as import('./eiken/config').EikenGrade} initialCategory={mockInitialCategory} onGrade={setSelectedSubject} onBack={() => setAppState(mockBackTo)} onRunningChange={setMockRunning} /></React.Suspense>}
+            {appState === 'mock' && <React.Suspense fallback={<ScreenLoading />}><EikenMockExam key={auth.currentUser?.uid || 'guest'} uid={auth.currentUser?.uid || 'guest'} grade={selectedSubject as import('./eiken/config').EikenGrade} onGrade={setSelectedSubject} initialExamKind={mockInitialKind} backLabel={mockBackTo === 'chapters' ? '大問別へ' : '学習へ'} onBack={() => setAppState(mockBackTo)} onRunningChange={setMockRunning} /></React.Suspense>}
             {appState === 'foundation' && <React.Suspense fallback={<ScreenLoading />}>
               <FoundationPage key={auth.currentUser?.uid || 'guest'}
                 tab={foundationTab}

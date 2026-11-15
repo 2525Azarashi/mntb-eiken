@@ -110,8 +110,9 @@ export function bookletItemToProblem(exam: WrittenExam, item: WrittenItem): Prob
     },
   ];
 
-  // 単問（短文・会話・語句整序）はまなとび英文法と同じ 1問ずつカード表示（stepwise: true）にする。
-  // 空行を含めず「問N　本文」の形にすることで、会話文 A:/B: や整序トークンも prose: true（Inter ゴシック）で欠落なく描画される。
+  // 短文・会話は5問一括採点（EikenClozePageQuiz）で描画されるため問番号プレフィックスを付けず原文を維持し、
+  // 語句整序（reorder）のみ QuizBody 1問ずつ表示（stepwise: true）向けに「問N　本文」形式で描画する。
+  const isBatchCloze = item.section === 'short' || item.section === 'conversation';
   const compactPrompt = item.prompt
     .split('\n')
     .map(line => line.trim())
@@ -119,6 +120,8 @@ export function bookletItemToProblem(exam: WrittenExam, item: WrittenItem): Prob
     .join('\n');
   const text = item.passage
     ? [`${item.passage.title}\n${item.passage.text}`, item.prompt, tokens].filter(Boolean).join('\n\n')
+    : isBatchCloze
+    ? compactPrompt
     : [`問${number}　${compactPrompt}`, tokens].filter(Boolean).join('\n');
 
   return {
@@ -126,17 +129,26 @@ export function bookletItemToProblem(exam: WrittenExam, item: WrittenItem): Prob
     title: `筆記 第${exam.round}回 問${number}`,
     category: WRITTEN_SECTION_LABELS[item.section],
     text,
-    ...(item.passage ? {} : { stepwise: true }),
+    ...(item.passage || isBatchCloze ? {} : { stepwise: true }),
     explanationTracks,
     subQuestions: [sub],
-    explanation: [
-      item.passage?.translation ? `【本文の和訳】\n${item.passage.translation}` : '',
-      item.explanation,
-      '【選択肢】',
-      ...formatChoiceReasons(item),
-    ]
-      .filter(Boolean)
-      .join('\n'),
+    explanation: isBatchCloze
+      ? [
+          item.completedSentence,
+          `【訳】${item.translation || ''}`,
+          item.explanation,
+          ...item.choices!.map((choiceText, index) => `${index + 1}. ${choiceText} — ${item.distractorReasons![index]}`),
+        ]
+          .filter(Boolean)
+          .join('\n')
+      : [
+          item.passage?.translation ? `【本文の和訳】\n${item.passage.translation}` : '',
+          item.explanation,
+          '【選択肢】',
+          ...formatChoiceReasons(item),
+        ]
+          .filter(Boolean)
+          .join('\n'),
     surroundingKnowledge: [],
     deepDiveTopics: [],
   };
@@ -253,7 +265,7 @@ export function bookletWritingTasks(): BookletWritingEntry[] {
           title: `筆記 第${exam.round}回｜${WRITTEN_SECTION_LABELS[item.section]}`,
           instruction: item.prompt,
           source: item.passage ? `${item.passage.title}\n\n${item.passage.text}` : undefined,
-          target: `目安語数：${item.wordRange![0]}〜${item.wordRange![1]}語（印刷用冊子 第${exam.round}回と共通課題）`,
+          target: `目安語数：${item.wordRange![0]}〜${item.wordRange![1]}語`,
           model: item.model!,
           modelTranslation: item.translation!,
           commentary: [

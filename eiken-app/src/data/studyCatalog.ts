@@ -67,16 +67,23 @@ export const STUDY_CATALOG: readonly StudySubject[] = [{
   contents: [
     ...EIKEN_GRADES.filter(grade => isSubjectEnabled(grade.id)).map((grade): StudyContent => {
       const stats = getSubjectStats(grade.id);
+      const descByGrade: Record<string, string> = {
+        eiken_5: '筆記・リスニング全15回（専用音声375本完備・図271枚）',
+        eiken_4: '筆記・リスニング全15回（第1部イラスト150枚完備）',
+        eiken_3: '筆記・リスニング全15回（第1部イラスト150枚完備）',
+        eiken_pre1: '筆記・リスニング全15回（Real-Life図版75枚完備）',
+        eiken_1: 'リスニング第1〜4部 全15回（Real-Life図版75枚完備）',
+      };
       return {
         id: grade.id, title: grade.label, primary: true, icon: 'book',
-        description: grade.id === 'eiken_1' ? 'リスニング第1〜4部（各15回）の通し演習' : '筆記大問別・リスニング部別の通し演習',
+        description: descByGrade[grade.id] ?? '筆記大問別・リスニング部別の通し演習（全15回）',
         meta: `${stats.chapters}回・${stats.marks}問`, progressSubject: grade.id,
         action: { kind: 'units', subject: grade.id },
       };
     }),
     {
-      id: 'eiken_mock', title: '一次試験 通し演習', icon: 'briefcase', badge: 'NEW', section: 'memorize',
-      description: '筆記フル模試＆リスニング本番通し模試（大問別・部別もタイマー＆一括採点対応）',
+      id: 'eiken_mock', title: '英検 通し模試（筆記・リスニング）', icon: 'briefcase', badge: 'NEW', section: 'memorize',
+      description: '一次筆記105回＋リスニング120回（8級対応）。全パート本番模試も大問・部別の通し演習も一括採点',
       meta: `筆記${WRITTEN_BOOKLETS.length}回・リスニング${ALL_LISTENING_EXAMS.length}回`,
       action: { kind: 'mock' },
     },

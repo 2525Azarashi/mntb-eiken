@@ -26,6 +26,16 @@ import { initializeApp, deleteApp } from 'firebase/app';
 import { getFirestore, collection as rawCollection } from 'firebase/firestore';
 import { EIKEN_GRADES, validateEikenTarget, eikenCollection } from '../src/eiken/config';
 import { EIKEN_QUESTIONS, partsForGrade, toProblem, validateQuestion } from '../src/eiken/questions';
+import { WRITTEN_BOOKLETS } from '../src/eiken/materials/written-booklets';
+import { buildExamUnits, EikenMockExam } from '../src/components/EikenMockExam';
+import {
+  buildEikenClozePages,
+  EIKEN_CLOZE_PER_PAGE,
+  extractEikenGradeFromChapterId,
+  isEikenBatchClozeChapter,
+  parseEikenClozeExplanation,
+  splitEikenDialogueTurns,
+} from '../src/components/eikenClozePageModel';
 import { eikenStorage } from '../src/eiken/storage';
 import { doc, collection, collectionGroup } from '../src/utils/firestoreMetered';
 
@@ -252,10 +262,27 @@ describe('Release content completeness', () => {
         for (const problem of chapter.practiceProblems) {
           expect(ids.has(problem.id)).toBe(false); ids.add(problem.id);
           for (const question of problem.subQuestions) {
-            expect([3, 4]).toContain(question.optionTexts?.length);
-            expect(question.optionTexts![Number(question.correctAnswer) - 1]).toBeTruthy();
-            expect(question.distractors).toHaveLength(question.optionTexts!.length);
+            expect([3, 4]).toContain(question.options?.length);
+            if (question.optionTexts) {
+              expect(question.optionTexts).toHaveLength(question.options.length);
+              expect(question.optionTexts[Number(question.correctAnswer) - 1]).toBeTruthy();
+              for (const optText of question.optionTexts) {
+                expect(optText).not.toMatch(/音声で読み上げ/);
+              }
+            }
+            expect(question.imageCaption).toBeUndefined();
+            expect(question.label ?? '').not.toMatch(/音声の選択肢|冊子と共通|補助イラスト/);
+            expect(question.distractors).toHaveLength(question.options.length);
             expect(question.explainJa).toBeTruthy();
+          }
+          expect(problem.text).not.toMatch(/補助イラスト|場面ガイド|音声で読み上げ|冊子と共通/);
+          expect(problem.explanation ?? '').not.toMatch(/補助イラスト|図版設定|予定パス/);
+          for (const track of problem.audioTracks ?? []) {
+            expect(track.hint ?? '').not.toMatch(/フォールバック|ElevenLabs|音声を聞いて答えを選んでください/);
+            expect(track.translation ?? '').not.toMatch(/読み上げられる/);
+            for (const img of track.material?.images ?? []) {
+              expect(img.caption ?? '').not.toMatch(/補助イラスト|白紙枠/);
+            }
           }
           if (chapter.questionGroup === 'リーディング') {
             readings++; marks += problem.subQuestions.length;
@@ -291,11 +318,15 @@ describe('Release content completeness', () => {
       for (let i = 0; i < 1000; i++) expect(items).toContain(pickGachaItem(i / 1000, 'N', pool.id)?.item);
     }
     expect(GACHA_PRINTS.filter(print => print.id.startsWith('print_eiken_wordbook_'))).toHaveLength(7);
-    expect(GACHA_PRINTS.filter(print => print.id.includes('_written_'))).toHaveLength(29);
-    expect(GACHA_PRINTS).toHaveLength(36);
+    expect(GACHA_PRINTS.filter(print => print.id.startsWith('print_eiken_wordbook2_'))).toHaveLength(7);
+    expect(GACHA_PRINTS.filter(print => print.id.startsWith('print_eiken_drill_short_'))).toHaveLength(7);
+    expect(GACHA_PRINTS.filter(print => print.id.startsWith('print_eiken_guide_'))).toHaveLength(7);
+    expect(GACHA_PRINTS.filter(print => print.id.startsWith('print_eiken_writing_'))).toHaveLength(5);
+    expect(GACHA_PRINTS.filter(print => print.id.includes('_written_'))).toHaveLength(105);
+    expect(GACHA_PRINTS).toHaveLength(138);
     for (const print of GACHA_PRINTS) {
       expect(print.subject).toMatch(/^eiken_/);
-      expect(print.pages).toBe(print.variants ? print.variants.reduce((n, part) => n + part.pages, 0) : 5);
+      expect(print.pages).toBe(print.variants ? print.variants.reduce((n, part) => n + part.pages, 0) : print.id.startsWith('print_eiken_wordbook') ? 5 : 4);
       expect(readFileSync(`public${print.file}`).subarray(0, 4).toString()).toBe('%PDF');
       expect(existsSync(`public${print.thumb}`)).toBe(true);
       expect(GACHA_PREVIEWS[print.id].every(path => existsSync(`public${path}`))).toBe(true);
@@ -326,5 +357,59 @@ describe('Release content completeness', () => {
         }
       }
     }
+  });
+
+  it('splits Eiken cloze chapters into 5-question pages and aligns MockExam UI with Eiken round cards', () => {
+    expect(EIKEN_CLOZE_PER_PAGE).toBe(5);
+
+    const g2Chapters = partsForGrade('eiken_2').flatMap(part => part.chapters);
+    const g2Short = g2Chapters.find(c => c.id === 'eiken_2_written_04_short')!;
+    const g2Cloze = g2Chapters.find(c => c.id === 'eiken_2_written_04_cloze')!;
+    const g2VocabWarmup = g2Chapters.find(c => c.id === 'eiken_2_vocabulary_01')!;
+
+    expect(isEikenBatchClozeChapter(g2Short)).toBe(true);
+    expect(isEikenBatchClozeChapter(g2Cloze)).toBe(false);
+    expect(isEikenBatchClozeChapter(g2VocabWarmup)).toBe(false);
+
+    // 2級 大問1（17問）は 5・5・5・2 の 4ページに分割される
+    const pages = buildEikenClozePages(g2Short.practiceProblems, 0, g2Short.practiceProblems.length - 1);
+    expect(pages.map(p => p.length)).toEqual([5, 5, 5, 2]);
+    expect(pages[0].map(e => e.displayNo)).toEqual([1, 2, 3, 4, 5]);
+    expect(pages[3].map(e => e.displayNo)).toEqual([16, 17]);
+    const parsedEx = parseEikenClozeExplanation(pages[0][0]);
+    expect(parsedEx.why.length).toBeGreaterThan(5);
+    expect(parsedEx.translation.length).toBeGreaterThan(5);
+    expect(parsedEx.correctWord.length).toBeGreaterThan(1);
+    expect(parsedEx.completedSentence).toContain(parsedEx.correctWord);
+    expect(parsedEx.choices).toHaveLength(4);
+
+    // 級ID抽出・対話（A: / B:）パーサーの検証
+    expect(extractEikenGradeFromChapterId('eiken_2_written_04_short')).toBe('eiken_2');
+    expect(extractEikenGradeFromChapterId('eiken_pre2plus_written_01_short')).toBe('eiken_pre2plus');
+    const turns = splitEikenDialogueTurns('A: What is the (     ) now?\nB: It is ten thirty.');
+    expect(turns).toEqual([
+      { speaker: 'A', text: 'What is the (     ) now?' },
+      { speaker: 'B', text: 'It is ten thirty.' },
+    ]);
+    expect(splitEikenDialogueTurns('The harbor authority decided to (     ) the old stone pier.')).toBeNull();
+
+    // 一次筆記 通し演習（EikenMockExam）でも short / conversation が 5問ずつのバッチユニットになり、カードは eiken-round-card を使う
+    const g2Exam = WRITTEN_BOOKLETS.find(b => b.id === 'eiken_2_written_04')!;
+    const mockShortUnits = buildExamUnits(g2Exam, 'short');
+    expect(mockShortUnits.map(u => u.items.length)).toEqual([5, 5, 5, 2]);
+    expect(mockShortUnits.every(u => u.batchCloze)).toBe(true);
+
+    vi.stubGlobal('localStorage', new MemoryStorage());
+    const mockHtml = renderToStaticMarkup(
+      createElement(EikenMockExam, {
+        uid: 'guest',
+        grade: 'eiken_2',
+        onGrade: () => {},
+        onBack: () => {},
+      }),
+    );
+    expect(mockHtml).toContain('eiken-round-card');
+    expect(mockHtml).toContain('通しで解く');
+    expect(mockHtml).not.toContain('模試をはじめる');
   });
 });
