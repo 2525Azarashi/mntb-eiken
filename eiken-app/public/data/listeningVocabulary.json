@@ -4713,7 +4713,7 @@
           "chapterTitle": "英検5級 第4回（全5問）",
           "problemId": "eiken_5_written_04_q21",
           "problemIndex": 0,
-          "script": "私は毎晩、英語の日記を書きます。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every night ／ 2. an English diary ／ 3. write ／ 4. at home",
+          "script": "私は毎晩、家で英語の日記を書きます。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every night ／ 2. an English diary ／ 3. write ／ 4. at home",
           "audioUrl": "",
           "translation": ""
         },
@@ -4722,7 +4722,7 @@
           "chapterTitle": "英検5級 第7回（全5問）",
           "problemId": "eiken_5_written_07_q21",
           "problemIndex": 0,
-          "script": "私の姉は毎朝ピアノを練習します。\nMy sister ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every morning ／ 2. the piano ／ 3. practices ／ 4. at home",
+          "script": "私の姉は毎朝、家でピアノを練習します。\nMy sister ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every morning ／ 2. the piano ／ 3. practices ／ 4. at home",
           "audioUrl": "",
           "translation": ""
         }
@@ -6037,6 +6037,7 @@
       "exampleTranslation": "ドアを開けてください。",
       "chapterIds": [
         "eiken_5_listening_r03_part1",
+        "eiken_5_written_14_short",
         "eiken_5_written_06_conversation",
         "eiken_5_written_07_conversation",
         "eiken_5_written_13_conversation",
@@ -6053,6 +6054,15 @@
           "script": "Woman: Supper for round our family is almost ready, Sho. Can you open that kitchen window?\nMan: Do you want me to do it right now?\nNumber one. Yes, please. Thank you for helping me. Number two. We ate spaghetti last night. Number three. He is cooking at a restaurant.",
           "audioUrl": "/eiken_audio/eiken_5/eiken_5_listening_r03_part1_06.mp3",
           "translation": "女性：もうすぐ家族の夕食ができるわよ、Sho。あの台所の窓を開けてくれる？\n男性：今すぐやったほうがいい？"
+        },
+        {
+          "chapterId": "eiken_5_written_14_short",
+          "chapterTitle": "英検5級 第14回（全15問）",
+          "problemId": "eiken_5_written_14_q01",
+          "problemIndex": 0,
+          "script": "A: What (     ) does the library open on Saturdays?\nB: At nine thirty.",
+          "audioUrl": "",
+          "translation": ""
         },
         {
           "chapterId": "eiken_5_written_06_conversation",
@@ -7831,7 +7841,7 @@
           "chapterTitle": "英検5級 第7回（全5問）",
           "problemId": "eiken_5_written_07_q21",
           "problemIndex": 0,
-          "script": "私の姉は毎朝ピアノを練習します。\nMy sister ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every morning ／ 2. the piano ／ 3. practices ／ 4. at home",
+          "script": "私の姉は毎朝、家でピアノを練習します。\nMy sister ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every morning ／ 2. the piano ／ 3. practices ／ 4. at home",
           "audioUrl": "",
           "translation": ""
         },
@@ -11635,7 +11645,7 @@
           "chapterTitle": "英検5級 第4回（全5問）",
           "problemId": "eiken_5_written_04_q21",
           "problemIndex": 0,
-          "script": "私は毎晩、英語の日記を書きます。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every night ／ 2. an English diary ／ 3. write ／ 4. at home",
+          "script": "私は毎晩、家で英語の日記を書きます。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every night ／ 2. an English diary ／ 3. write ／ 4. at home",
           "audioUrl": "",
           "translation": ""
         },
@@ -13930,8 +13940,7 @@
         "eiken_4_listening_r15_part3",
         "eiken_4_written_04_reading",
         "eiken_4_written_14_reading",
-        "eiken_4_written_04_short",
-        "eiken_4_written_10_short"
+        "eiken_4_written_04_short"
       ],
       "examples": [
         {
@@ -14516,15 +14525,6 @@
           "problemId": "eiken_4_written_04_q09",
           "problemIndex": 8,
           "script": "Let's wait under this roof (     ) the heavy rain stops.",
-          "audioUrl": "",
-          "translation": ""
-        },
-        {
-          "chapterId": "eiken_4_written_10_short",
-          "chapterTitle": "英検4級 第10回（全15問）",
-          "problemId": "eiken_4_written_10_q09",
-          "problemIndex": 8,
-          "script": "Let's wait under this roof (     ) the rain stops.",
           "audioUrl": "",
           "translation": ""
         }
@@ -16798,7 +16798,7 @@
           "chapterTitle": "英検4級 第4回（全5問）",
           "problemId": "eiken_4_written_04_q22",
           "problemIndex": 1,
-          "script": "明日の朝は早く起きなければなりません。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. up ／ 2. early ／ 3. have to ／ 4. get",
+          "script": "私は早く起きなければなりません。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. up ／ 2. early ／ 3. have to ／ 4. get",
           "audioUrl": "",
           "translation": ""
         },
@@ -16807,7 +16807,7 @@
           "chapterTitle": "英検4級 第10回（全5問）",
           "problemId": "eiken_4_written_10_q22",
           "problemIndex": 1,
-          "script": "明日の朝は早く起きる必要はありません。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. early ／ 2. get up ／ 3. don't ／ 4. have to",
+          "script": "私は早く起きる必要はありません。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. early ／ 2. get up ／ 3. don't ／ 4. have to",
           "audioUrl": "",
           "translation": ""
         },
@@ -25487,7 +25487,8 @@
         "eiken_pre2plus_listening_r02_part2",
         "eiken_pre2plus_listening_r07_part2",
         "eiken_pre2plus_listening_r12_part2",
-        "eiken_pre2plus_written_06_cloze"
+        "eiken_pre2plus_written_06_cloze",
+        "eiken_pre2plus_written_11_short"
       ],
       "examples": [
         {
@@ -25523,6 +25524,15 @@
           "problemId": "eiken_pre2plus_written_06_rplusr6-cloze-b",
           "problemIndex": 1,
           "script": "How Ferries Cut Fuel Use with Wind Rotor Sails\n\nWhen people picture wind-powered ships, they usually imagine canvas sails billowing from wooden masts. Modern car ferries and cargo vessels look nothing like nineteenth-century clippers, yet a growing number now carry tall, spinning white cylinders on their decks to capture wind energy alongside regular engines.\n\nThese cylinders, known as rotor sails, rely on a physical principle familiar to baseball pitchers and tennis players. When a motor spins the vertical cylinder slowly in a crosswind, air speeds up on one side of the drum and slows down on the other. The resulting pressure difference pushes the ship forward at right angles to the wind. Because the motor spinning the cylinder uses only a tiny fraction of the thrust generated, ferries crossing windy straits can throttle back their main diesel engines. (21), operators on North Sea routes have recorded fuel savings of eight to fifteen percent.\n\nUnlike fabric sails, rotor cylinders require no extra deck crew to hoist or fold when squalls hit; bridge computers adjust rotation speed automatically as wind direction changes. (22), some designs tilt flat onto the deck at the push of a button so the ship can pass safely beneath low harbor bridges.\n\nRotor sails cannot power a heavy ferry on calm days, nor are they meant to work alone. Rather, combining aerodynamic physics with modern automation gives shipping lines (23) while cleaner fuels are still scaling up.",
+          "audioUrl": "",
+          "translation": ""
+        },
+        {
+          "chapterId": "eiken_pre2plus_written_11_short",
+          "chapterTitle": "英検準2級プラス 第11回（全17問）",
+          "problemId": "eiken_pre2plus_written_11_q01",
+          "problemIndex": 0,
+          "script": "To (     ) eye strain during long spreadsheet tasks, adjust your monitor brightness to match the surrounding room light.",
           "audioUrl": "",
           "translation": ""
         }
@@ -30269,15 +30279,6 @@
         {
           "chapterId": "eiken_5_written_14_short",
           "chapterTitle": "英検5級 第14回（全15問）",
-          "problemId": "eiken_5_written_14_q01",
-          "problemIndex": 0,
-          "script": "A: What (     ) do you usually eat lunch?\nB: At twelve fifteen.",
-          "audioUrl": "",
-          "translation": ""
-        },
-        {
-          "chapterId": "eiken_5_written_14_short",
-          "chapterTitle": "英検5級 第14回（全15問）",
           "problemId": "eiken_5_written_14_q11",
           "problemIndex": 10,
           "script": "Please eat your soup with this silver (     ).",
@@ -30289,7 +30290,7 @@
           "chapterTitle": "英検5級 第6回（全5問）",
           "problemId": "eiken_5_written_06_q22",
           "problemIndex": 1,
-          "script": "図書館の机の上で食べないでください。\nDo not ( ____ / ____ / ____ / ____ )?\n1番目・3番目の語句番号の組を選んでください。\n\n1. the library ／ 2. eat ／ 3. in ／ 4. lunch",
+          "script": "図書館の中で昼食を食べないでください。\nDo not ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. the library ／ 2. eat ／ 3. in ／ 4. lunch",
           "audioUrl": "",
           "translation": ""
         },
@@ -33445,7 +33446,7 @@
           "chapterTitle": "英検5級 第7回（全5問）",
           "problemId": "eiken_5_written_07_q21",
           "problemIndex": 0,
-          "script": "私の姉は毎朝ピアノを練習します。\nMy sister ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every morning ／ 2. the piano ／ 3. practices ／ 4. at home",
+          "script": "私の姉は毎朝、家でピアノを練習します。\nMy sister ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every morning ／ 2. the piano ／ 3. practices ／ 4. at home",
           "audioUrl": "",
           "translation": ""
         },
@@ -35215,7 +35216,6 @@
         "eiken_5_listening_r10_part1",
         "eiken_5_written_03_short",
         "eiken_5_written_10_short",
-        "eiken_5_written_13_short",
         "eiken_5_written_07_reorder"
       ],
       "examples": [
@@ -35252,15 +35252,6 @@
           "problemId": "eiken_5_written_10_q07",
           "problemIndex": 6,
           "script": "My brother (     ) his bicycle every Sunday morning.",
-          "audioUrl": "",
-          "translation": ""
-        },
-        {
-          "chapterId": "eiken_5_written_13_short",
-          "chapterTitle": "英検5級 第13回（全15問）",
-          "problemId": "eiken_5_written_13_q01",
-          "problemIndex": 0,
-          "script": "A: What (     ) is your new bicycle?\nB: It is light green.",
           "audioUrl": "",
           "translation": ""
         },
@@ -36804,7 +36795,7 @@
           "chapterTitle": "英検5級 第4回（全5問）",
           "problemId": "eiken_5_written_04_q21",
           "problemIndex": 0,
-          "script": "私は毎晩、英語の日記を書きます。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every night ／ 2. an English diary ／ 3. write ／ 4. at home",
+          "script": "私は毎晩、家で英語の日記を書きます。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every night ／ 2. an English diary ／ 3. write ／ 4. at home",
           "audioUrl": "",
           "translation": ""
         },
@@ -36813,7 +36804,7 @@
           "chapterTitle": "英検5級 第7回（全5問）",
           "problemId": "eiken_5_written_07_q21",
           "problemIndex": 0,
-          "script": "私の姉は毎朝ピアノを練習します。\nMy sister ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every morning ／ 2. the piano ／ 3. practices ／ 4. at home",
+          "script": "私の姉は毎朝、家でピアノを練習します。\nMy sister ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. every morning ／ 2. the piano ／ 3. practices ／ 4. at home",
           "audioUrl": "",
           "translation": ""
         },
@@ -37641,7 +37632,7 @@
           "chapterTitle": "英検4級 第8回（全5問）",
           "problemId": "eiken_4_written_08_q23",
           "problemIndex": 2,
-          "script": "あなたが先週訪れた博物館はどこですか。\nWhere ( ____ / ____ / ____ / ____ )?\n1番目・3番目の語句番号の組を選んでください。\n\n1. museum ／ 2. is ／ 3. you visited ／ 4. the",
+          "script": "あなたが訪れた博物館はどこですか。\nWhere ( ____ / ____ / ____ / ____ )?\n1番目・3番目の語句番号の組を選んでください。\n\n1. museum ／ 2. is ／ 3. you visited ／ 4. the",
           "audioUrl": "",
           "translation": ""
         },
@@ -39082,7 +39073,7 @@
           "chapterTitle": "英検4級 第9回（全5問）",
           "problemId": "eiken_4_written_09_q21",
           "problemIndex": 0,
-          "script": "私の母は私に新しい水筒を買ってくれました。\nMy mother ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. a new water bottle ／ 2. bought ／ 3. me ／ 4. yesterday",
+          "script": "昨日、私の母は私に新しい水筒を買ってくれました。\nMy mother ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。\n\n1. a new water bottle ／ 2. bought ／ 3. me ／ 4. yesterday",
           "audioUrl": "",
           "translation": ""
         }
@@ -47006,6 +46997,7 @@
         "eiken_pre2_listening_r15_part2",
         "eiken_pre2_written_06_reading",
         "eiken_pre2_written_10_short",
+        "eiken_pre2_written_13_short",
         "eiken_pre2_written_14_conversation"
       ],
       "examples": [
@@ -47159,6 +47151,15 @@
           "problemId": "eiken_pre2_written_10_q06",
           "problemIndex": 5,
           "script": "There was (     ) traffic on the highway early Sunday morning.",
+          "audioUrl": "",
+          "translation": ""
+        },
+        {
+          "chapterId": "eiken_pre2_written_13_short",
+          "chapterTitle": "英検準2級 第13回（全15問）",
+          "problemId": "eiken_pre2_written_13_q12",
+          "problemIndex": 11,
+          "script": "Even when two witnesses describe the same traffic accident, their memories rarely agree in every (     ).",
           "audioUrl": "",
           "translation": ""
         },

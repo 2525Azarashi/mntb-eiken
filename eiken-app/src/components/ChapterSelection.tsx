@@ -319,10 +319,10 @@ export function ChapterSelection({
           <button
             type="button"
             onClick={() => onOpenMock(isEikenListeningGroup || subject === 'eiken_1' ? 'listening' : 'written')}
-            className="shrink-0 rounded-xl border border-[#1e3a5f]/25 bg-[#1e3a5f] px-3 py-2 text-xs font-extrabold text-white shadow-xs transition hover:bg-[#162c49] cursor-pointer"
+            className="shrink-0 rounded-full border border-[#3e9c93]/55 bg-[#fffdf8] px-3 py-2 text-xs font-extrabold text-[#1f5c53] shadow-[0_2px_0_#d8ebe6] transition hover:bg-[#edf9f6] cursor-pointer"
             data-chapter-open-mock
           >
-            {isEikenListeningGroup || subject === 'eiken_1' ? 'リスニング通し模試へ' : '通し模試へ'}
+            {isEikenListeningGroup || subject === 'eiken_1' ? 'リスニング通しへ' : '通し演習へ'}
           </button>
         )}
         <DoorMascot subject={subject} showSpeech={false} size="mini" className="unit-head-mascot w-auto" />
