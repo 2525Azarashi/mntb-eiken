@@ -26,6 +26,14 @@ import { initializeApp, deleteApp } from 'firebase/app';
 import { getFirestore, collection as rawCollection } from 'firebase/firestore';
 import { EIKEN_GRADES, validateEikenTarget, eikenCollection } from '../src/eiken/config';
 import { EIKEN_QUESTIONS, partsForGrade, toProblem, validateQuestion } from '../src/eiken/questions';
+import { WRITTEN_BOOKLETS } from '../src/eiken/materials/written-booklets';
+import { buildExamUnits, EikenMockExam } from '../src/components/EikenMockExam';
+import {
+  buildEikenClozePages,
+  EIKEN_CLOZE_PER_PAGE,
+  isEikenBatchClozeChapter,
+  parseEikenClozeExplanation,
+} from '../src/components/eikenClozePageModel';
 import { eikenStorage } from '../src/eiken/storage';
 import { doc, collection, collectionGroup } from '../src/utils/firestoreMetered';
 
@@ -347,5 +355,47 @@ describe('Release content completeness', () => {
         }
       }
     }
+  });
+
+  it('splits Eiken cloze chapters into 5-question pages and aligns MockExam UI with Eiken round cards', () => {
+    expect(EIKEN_CLOZE_PER_PAGE).toBe(5);
+
+    const g2Chapters = partsForGrade('eiken_2').flatMap(part => part.chapters);
+    const g2Short = g2Chapters.find(c => c.id === 'eiken_2_written_04_short')!;
+    const g2Cloze = g2Chapters.find(c => c.id === 'eiken_2_written_04_cloze')!;
+    const g2VocabWarmup = g2Chapters.find(c => c.id === 'eiken_2_vocabulary_01')!;
+
+    expect(isEikenBatchClozeChapter(g2Short)).toBe(true);
+    expect(isEikenBatchClozeChapter(g2Cloze)).toBe(false);
+    expect(isEikenBatchClozeChapter(g2VocabWarmup)).toBe(false);
+
+    // 2級 大問1（17問）は 5・5・5・2 の 4ページに分割される
+    const pages = buildEikenClozePages(g2Short.practiceProblems, 0, g2Short.practiceProblems.length - 1);
+    expect(pages.map(p => p.length)).toEqual([5, 5, 5, 2]);
+    expect(pages[0].map(e => e.displayNo)).toEqual([1, 2, 3, 4, 5]);
+    expect(pages[3].map(e => e.displayNo)).toEqual([16, 17]);
+    const parsedEx = parseEikenClozeExplanation(pages[0][0]);
+    expect(parsedEx.why.length).toBeGreaterThan(5);
+    expect(parsedEx.translation.length).toBeGreaterThan(5);
+    expect(parsedEx.choices).toHaveLength(4);
+
+    // 一次筆記 通し演習（EikenMockExam）でも short / conversation が 5問ずつのバッチユニットになり、カードは eiken-round-card を使う
+    const g2Exam = WRITTEN_BOOKLETS.find(b => b.id === 'eiken_2_written_04')!;
+    const mockShortUnits = buildExamUnits(g2Exam, 'short');
+    expect(mockShortUnits.map(u => u.items.length)).toEqual([5, 5, 5, 2]);
+    expect(mockShortUnits.every(u => u.batchCloze)).toBe(true);
+
+    vi.stubGlobal('localStorage', new MemoryStorage());
+    const mockHtml = renderToStaticMarkup(
+      createElement(EikenMockExam, {
+        uid: 'guest',
+        grade: 'eiken_2',
+        onGrade: () => {},
+        onBack: () => {},
+      }),
+    );
+    expect(mockHtml).toContain('eiken-round-card');
+    expect(mockHtml).toContain('通しで解く');
+    expect(mockHtml).not.toContain('模試をはじめる');
   });
 });
