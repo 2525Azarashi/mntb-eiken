@@ -1377,7 +1377,11 @@ export function EikenMockExam({
               const subQ = currentProblem.subQuestions[qIdx];
               const flagged = flags.includes(q.id);
               const picked = answers[q.id];
-              const optionTexts = subQ?.optionTexts ?? q.choices;
+              const optionTexts =
+                subQ?.optionTexts ??
+                (q.choicePresentation === 'read-aloud'
+                  ? q.choices.map((_, idx) => `選択肢 ${idx + 1}（音声から選ぶ）`)
+                  : q.choices);
 
               return (
                 <section key={q.id} className="em-q-card" data-mock-q={q.questionNumber}>
