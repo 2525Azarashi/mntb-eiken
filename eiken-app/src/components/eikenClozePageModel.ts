@@ -1,11 +1,12 @@
 /**
  * 英検「短文の語句空所補充（short）」「会話文の空所補充（conversation）」の
- * 1ページ5問ずつ・一括採点（「このページを採点する」）ページ計算モデル。
+ * 1ページ5問ずつ・一括採点（「このページを採点する」）ページ計算・対話整形モデル。
  *
  * TOEIC Part 5（ToeicPageQuiz）と同じ見やすさ・テンポ感を英検の穴埋め大問向けに構築する。
  * 継承保護ファイル（ToeicPageQuiz.tsx / QuizScreens.tsx / ProblemPane.tsx 等）は一切変更しない。
  */
-import type { Chapter, Problem, SubQuestion } from '../../types/curriculum';
+import type { Chapter, Problem, SubQuestion } from '../types/curriculum';
+import type { EikenGrade } from '../eiken/config';
 
 /** ご要望：「穴埋めのところの問題をさ、1ページに5問ずつ載せて一括で採点できるようにしよう」 */
 export const EIKEN_CLOZE_PER_PAGE = 5;
@@ -22,6 +23,37 @@ export const EIKEN_LONG_CHOICE_CHARS = 20;
 export function isEikenBatchClozeChapter(chapter: Pick<Chapter, 'id'> | null | undefined): boolean {
   if (!chapter?.id) return false;
   return /^eiken_[a-z0-9]+_written_\d+_(?:short|conversation)$/.test(chapter.id);
+}
+
+/** 章ID（`eiken_2_written_04_short` 等）から級のキー（`eiken_2`）を取り出す */
+export function extractEikenGradeFromChapterId(chapterId: string | undefined): EikenGrade | undefined {
+  if (!chapterId) return undefined;
+  const m = chapterId.match(/^(eiken_[a-z0-9]+)_written_\d+_/);
+  return m ? (m[1] as EikenGrade) : undefined;
+}
+
+export interface EikenDialogueTurn {
+  speaker: string;
+  text: string;
+}
+
+/**
+ * `A: ...\nB: ...` 形式の対話文であれば話者ターンの配列に分解する。
+ * 通常の1文（話者ラベルなし）は null を返す。
+ */
+export function splitEikenDialogueTurns(text: string): EikenDialogueTurn[] | null {
+  const lines = String(text || '')
+    .split('\n')
+    .map(l => l.trim())
+    .filter(Boolean);
+  if (lines.length < 2) return null;
+  const turns: EikenDialogueTurn[] = [];
+  for (const line of lines) {
+    const m = line.match(/^([A-Za-z][A-Za-z0-9 .]{0,12}):\s*(.+)$/);
+    if (!m) return null;
+    turns.push({ speaker: m[1].trim(), text: m[2].trim() });
+  }
+  return turns.length >= 2 ? turns : null;
 }
 
 export interface EikenClozeEntry {
@@ -81,6 +113,8 @@ export function prefersSingleColumnChoices(texts: readonly string[] | undefined)
 export interface ParsedEikenExplanation {
   why: string;
   translation: string;
+  stem: string;
+  correctWord: string;
   completedSentence: string;
   choices: {
     mark: string;
@@ -125,11 +159,14 @@ export function parseEikenClozeExplanation(entry: EikenClozeEntry): ParsedEikenE
   // 空所に正解語を入れた完成文を組み立てる
   const correctIdx = Math.max(0, sq.options.indexOf(sq.correctAnswer));
   const correctWord = texts[correctIdx] ?? '';
-  const completedSentence = String(problem.text || '').replace(/\(\s*_{0,6}\s*\)/, correctWord);
+  const stem = String(problem.text || '');
+  const completedSentence = stem.replace(/\(\s*_{0,6}\s*\)/, correctWord);
 
   return {
     why,
     translation,
+    stem,
+    correctWord,
     completedSentence,
     choices,
   };

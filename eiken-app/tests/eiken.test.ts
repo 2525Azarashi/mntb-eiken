@@ -31,8 +31,10 @@ import { buildExamUnits, EikenMockExam } from '../src/components/EikenMockExam';
 import {
   buildEikenClozePages,
   EIKEN_CLOZE_PER_PAGE,
+  extractEikenGradeFromChapterId,
   isEikenBatchClozeChapter,
   parseEikenClozeExplanation,
+  splitEikenDialogueTurns,
 } from '../src/components/eikenClozePageModel';
 import { eikenStorage } from '../src/eiken/storage';
 import { doc, collection, collectionGroup } from '../src/utils/firestoreMetered';
@@ -377,7 +379,19 @@ describe('Release content completeness', () => {
     const parsedEx = parseEikenClozeExplanation(pages[0][0]);
     expect(parsedEx.why.length).toBeGreaterThan(5);
     expect(parsedEx.translation.length).toBeGreaterThan(5);
+    expect(parsedEx.correctWord.length).toBeGreaterThan(1);
+    expect(parsedEx.completedSentence).toContain(parsedEx.correctWord);
     expect(parsedEx.choices).toHaveLength(4);
+
+    // 級ID抽出・対話（A: / B:）パーサーの検証
+    expect(extractEikenGradeFromChapterId('eiken_2_written_04_short')).toBe('eiken_2');
+    expect(extractEikenGradeFromChapterId('eiken_pre2plus_written_01_short')).toBe('eiken_pre2plus');
+    const turns = splitEikenDialogueTurns('A: What is the (     ) now?\nB: It is ten thirty.');
+    expect(turns).toEqual([
+      { speaker: 'A', text: 'What is the (     ) now?' },
+      { speaker: 'B', text: 'It is ten thirty.' },
+    ]);
+    expect(splitEikenDialogueTurns('The harbor authority decided to (     ) the old stone pier.')).toBeNull();
 
     // 一次筆記 通し演習（EikenMockExam）でも short / conversation が 5問ずつのバッチユニットになり、カードは eiken-round-card を使う
     const g2Exam = WRITTEN_BOOKLETS.find(b => b.id === 'eiken_2_written_04')!;
