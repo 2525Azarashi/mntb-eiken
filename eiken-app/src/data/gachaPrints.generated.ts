@@ -185,7 +185,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [...WRITTEN_PRINTS,
     "file": "/prints/print_eiken_drill_short_5.pdf",
     "thumb": "/prints/thumbs/print_eiken_drill_short_5.webp",
     "pages": 4,
-    "kb": 78,
+    "kb": 77,
     "description": "英検5級の大問1（短文空所）から頻出パターン12問を抜粋した4ページのスピード確認プリント。"
   },
   {
@@ -196,7 +196,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [...WRITTEN_PRINTS,
     "file": "/prints/print_eiken_drill_short_4.pdf",
     "thumb": "/prints/thumbs/print_eiken_drill_short_4.webp",
     "pages": 4,
-    "kb": 81,
+    "kb": 85,
     "description": "英検4級の大問1（短文空所）から頻出パターン12問を抜粋した4ページのスピード確認プリント。"
   },
   {
@@ -207,7 +207,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [...WRITTEN_PRINTS,
     "file": "/prints/print_eiken_drill_short_3.pdf",
     "thumb": "/prints/thumbs/print_eiken_drill_short_3.webp",
     "pages": 4,
-    "kb": 97,
+    "kb": 103,
     "description": "英検3級の大問1（短文空所）から頻出パターン12問を抜粋した4ページのスピード確認プリント。"
   },
   {
@@ -218,7 +218,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [...WRITTEN_PRINTS,
     "file": "/prints/print_eiken_drill_short_pre2.pdf",
     "thumb": "/prints/thumbs/print_eiken_drill_short_pre2.webp",
     "pages": 4,
-    "kb": 99,
+    "kb": 100,
     "description": "英検準2級の大問1（短文空所）から頻出パターン12問を抜粋した4ページのスピード確認プリント。"
   },
   {
@@ -229,7 +229,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [...WRITTEN_PRINTS,
     "file": "/prints/print_eiken_drill_short_pre2plus.pdf",
     "thumb": "/prints/thumbs/print_eiken_drill_short_pre2plus.webp",
     "pages": 4,
-    "kb": 117,
+    "kb": 115,
     "description": "英検準2級プラスの大問1（短文空所）から頻出パターン12問を抜粋した4ページのスピード確認プリント。"
   },
   {
@@ -240,7 +240,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [...WRITTEN_PRINTS,
     "file": "/prints/print_eiken_drill_short_2.pdf",
     "thumb": "/prints/thumbs/print_eiken_drill_short_2.webp",
     "pages": 4,
-    "kb": 127,
+    "kb": 124,
     "description": "英検2級の大問1（短文空所）から頻出パターン12問を抜粋した4ページのスピード確認プリント。"
   },
   {
@@ -251,7 +251,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [...WRITTEN_PRINTS,
     "file": "/prints/print_eiken_drill_short_pre1.pdf",
     "thumb": "/prints/thumbs/print_eiken_drill_short_pre1.webp",
     "pages": 4,
-    "kb": 146,
+    "kb": 141,
     "description": "英検準1級の大問1（短文空所）から頻出パターン12問を抜粋した4ページのスピード確認プリント。"
   },
   {

@@ -9,18 +9,24 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
+  ExternalLink,
   FileText,
   Flag,
   Headphones,
   KeyRound,
   LayoutGrid,
   ListChecks,
+  Maximize2,
   MinusCircle,
   Pause,
   Play,
   RotateCcw,
   Send,
   Sparkles,
+  Square,
+  Undo2,
+  Volume2,
+  X,
   XCircle,
 } from 'lucide-react';
 import { DoorMascot } from './DoorMascot';
@@ -60,6 +66,16 @@ import {
 import { parseWriting, writingKey, type WritingDraft } from '../eiken/writingProgress';
 import { EikenQuestionStem } from './EikenClozePageQuiz';
 import { splitEikenDialogueTurns } from './eikenClozePageModel';
+import {
+  extractMatchedEikenVocab,
+  findMatchingReorderChoiceIndex,
+  formatVocabGradeBadge,
+  isSpeechSupported,
+  parsePassageEmailAndParagraphs,
+  parseReorderChoicePair,
+  speakEikenCompletedText,
+  useEikenVocabMap,
+} from './eikenStudyHelpers';
 import { ListeningAudioPlayer } from './ListeningAudioPlayer';
 import { ListeningMaterials } from './ListeningMaterials';
 import { stopSpeech } from '../utils/listeningSpeech';
@@ -213,8 +229,58 @@ function MockCompactStem({
   );
 }
 
+/** 段落内の `__underlined__` や長文空所 `( 21 )` をリッチに描画する */
+function renderRichPassageParagraph(
+  para: string,
+  section: WrittenSection,
+  unitItems: { item: WrittenItem; qNo: number }[],
+  answers: Record<string, number>,
+  onJumpToQuestionNo?: (qNo: number) => void,
+) {
+  if (section === 'cloze') {
+    const parts = para.split(/(\(\s*\d+\s*\))/g);
+    return parts.map((part, idx) => {
+      const m = part.match(/^\(\s*(\d+)\s*\)$/);
+      if (!m) return <React.Fragment key={idx}>{part}</React.Fragment>;
+      const num = Number(m[1]);
+      const matched = unitItems.find(u => u.qNo === num);
+      const pickedIdx = matched ? answers[matched.item.id] : undefined;
+      const pickedWord =
+        matched && Number.isInteger(pickedIdx) ? matched.item.choices?.[pickedIdx!] ?? '' : '';
+      return (
+        <button
+          key={idx}
+          type="button"
+          className={`em-passage-cloze-slot ${pickedWord ? 'is-filled' : ''}`}
+          onClick={() => onJumpToQuestionNo?.(num)}
+          title={pickedWord ? `空所(${num})：${pickedWord}（クリックで設問へ）` : `空所(${num})の設問へ移動`}
+        >
+          <span className="em-slot-num">({num})</span>
+          {pickedWord && <span className="em-slot-word">{pickedWord}</span>}
+        </button>
+      );
+    });
+  }
+
+  if (para.includes('__')) {
+    const segments = para.split(/(__[^_]+__)/g);
+    return segments.map((seg, idx) => {
+      if (seg.startsWith('__') && seg.endsWith('__') && seg.length > 4) {
+        return (
+          <u key={idx} className="em-passage-underline">
+            {seg.slice(2, -2)}
+          </u>
+        );
+      }
+      return <React.Fragment key={idx}>{seg}</React.Fragment>;
+    });
+  }
+
+  return para;
+}
+
 /**
- * 長文の語句空所補充（cloze）・Eメール返信の下線部（`__...__`）をリッチに描画する本文コンポーネント。
+ * 長文の語句空所補充（cloze）・Eメールヘッダー（From/To/Date/Subject）・Eメール返信の下線部（`__...__`）をリッチに描画する本文コンポーネント。
  * 長文空所 `( 21 )` などは、すでに選んだ選択肢があればその語句も並記し、クリックすると設問カードへスクロールする。
  */
 function PassageBodyRich({
@@ -230,57 +296,27 @@ function PassageBodyRich({
   answers: Record<string, number>;
   onJumpToQuestionNo?: (qNo: number) => void;
 }) {
-  if (section === 'cloze') {
-    const parts = text.split(/(\(\s*\d+\s*\))/g);
-    return (
-      <div className="em-passage-body" lang="en">
-        {parts.map((part, idx) => {
-          const m = part.match(/^\(\s*(\d+)\s*\)$/);
-          if (!m) return <React.Fragment key={idx}>{part}</React.Fragment>;
-          const num = Number(m[1]);
-          const matched = unitItems.find(u => u.qNo === num);
-          const pickedIdx = matched ? answers[matched.item.id] : undefined;
-          const pickedWord =
-            matched && Number.isInteger(pickedIdx) ? matched.item.choices?.[pickedIdx!] ?? '' : '';
-          return (
-            <button
-              key={idx}
-              type="button"
-              className={`em-passage-cloze-slot ${pickedWord ? 'is-filled' : ''}`}
-              onClick={() => onJumpToQuestionNo?.(num)}
-              title={pickedWord ? `空所(${num})：${pickedWord}（クリックで設問へ）` : `空所(${num})の設問へ移動`}
-            >
-              <span className="em-slot-num">({num})</span>
-              {pickedWord && <span className="em-slot-word">{pickedWord}</span>}
-            </button>
-          );
-        })}
-      </div>
-    );
-  }
-
-  // Eメール課題などの `__How long did you skate there?__` 下線強調を綺麗に表示
-  if (text.includes('__')) {
-    const segments = text.split(/(__[^_]+__)/g);
-    return (
-      <div className="em-passage-body" lang="en">
-        {segments.map((seg, idx) => {
-          if (seg.startsWith('__') && seg.endsWith('__') && seg.length > 4) {
-            return (
-              <u key={idx} className="em-passage-underline">
-                {seg.slice(2, -2)}
-              </u>
-            );
-          }
-          return <React.Fragment key={idx}>{seg}</React.Fragment>;
-        })}
-      </div>
-    );
-  }
+  const { headers, paragraphs } = parsePassageEmailAndParagraphs(text);
 
   return (
     <div className="em-passage-body" lang="en">
-      {text}
+      {headers.length > 0 && (
+        <dl className="em-email-meta" aria-label="メールヘッダー">
+          {headers.map((h, i) => (
+            <div key={i} className="em-email-meta-row">
+              <dt>{h.key}:</dt>
+              <dd>{h.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+      <div className="em-passage-paras">
+        {paragraphs.map((para, pIdx) => (
+          <p key={pIdx} className="em-passage-para">
+            {renderRichPassageParagraph(para, section, unitItems, answers, onJumpToQuestionNo)}
+          </p>
+        ))}
+      </div>
     </div>
   );
 }
@@ -577,6 +613,10 @@ export function EikenMockExam({
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [writing, setWriting] = useState<Record<string, MockWritingEntry>>({});
   const [flags, setFlags] = useState<string[]>([]);
+  const [eliminated, setEliminated] = useState<Record<string, number[]>>({});
+  const [orderDrafts, setOrderDrafts] = useState<Record<string, number[]>>({});
+  const [mobilePane, setMobilePane] = useState<'both' | 'passage' | 'questions'>('both');
+  const [zoomImage, setZoomImage] = useState<{ src: string; alt: string } | null>(null);
   const [unitIndex, setUnitIndex] = useState(0);
   const [elapsedSec, setElapsedSec] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -586,6 +626,9 @@ export function EikenMockExam({
   // Result state
   const [resultFilter, setResultFilter] = useState<'all' | 'wrong' | 'flagged'>('all');
   const [submittedRecord, setSubmittedRecord] = useState<MockSubmittedRecord | null>(null);
+  const [speakingKey, setSpeakingKey] = useState<string | null>(null);
+  const canSpeak = useMemo(() => isSpeechSupported(), []);
+  const vocabMap = useEikenVocabMap(phase === 'result');
   const [savedNotes, setSavedNotes] = useState<Record<string, boolean>>(() => {
     const existing = readJsonArray<{ questionId?: string }>(`notes_${uid || 'guest'}`);
     const map: Record<string, boolean> = {};
@@ -641,11 +684,77 @@ export function EikenMockExam({
 
   // Stop speech when leaving running/result or switching unit
   useEffect(() => {
+    setSpeakingKey(null);
+    setMobilePane('both');
     if (phase === 'select') {
       stopSpeech();
     }
     return () => stopSpeech();
   }, [phase, unitIndex]);
+
+  const selectMockChoice = (qKey: string, cIdx: number) => {
+    setAnswers(prev => {
+      const next = { ...prev };
+      if (next[qKey] === cIdx) delete next[qKey];
+      else next[qKey] = cIdx;
+      return next;
+    });
+    setEliminated(prev => {
+      const cur = prev[qKey];
+      if (!cur || !cur.includes(cIdx)) return prev;
+      return { ...prev, [qKey]: cur.filter(x => x !== cIdx) };
+    });
+  };
+
+  const toggleMockEliminate = (qKey: string, cIdx: number) => {
+    setEliminated(prev => {
+      const cur = prev[qKey] || [];
+      const nextList = cur.includes(cIdx) ? cur.filter(x => x !== cIdx) : [...cur, cIdx];
+      return { ...prev, [qKey]: nextList };
+    });
+    setAnswers(prev => {
+      if (prev[qKey] !== cIdx) return prev;
+      const next = { ...prev };
+      delete next[qKey];
+      return next;
+    });
+  };
+
+  const handleToggleReorderToken = (item: WrittenItem, tokenNo: number) => {
+    setOrderDrafts(prev => {
+      const cur = prev[item.id] || [];
+      const nextSeq = cur.includes(tokenNo)
+        ? cur.filter(n => n !== tokenNo)
+        : cur.length < 4
+        ? [...cur, tokenNo]
+        : cur;
+      const matchedChoice = findMatchingReorderChoiceIndex(nextSeq, item.choices);
+      if (matchedChoice !== null) {
+        setAnswers(ans => ({ ...ans, [item.id]: matchedChoice }));
+        setEliminated(el => {
+          const curEl = el[item.id];
+          if (!curEl || !curEl.includes(matchedChoice)) return el;
+          return { ...el, [item.id]: curEl.filter(x => x !== matchedChoice) };
+        });
+      }
+      return { ...prev, [item.id]: nextSeq };
+    });
+  };
+
+  const handleToggleResultSpeak = (id: string, stem: string, word: string, completed: string, rate = 1) => {
+    const key = `${id}:${rate}`;
+    if (speakingKey === key) {
+      stopSpeech();
+      setSpeakingKey(null);
+      return;
+    }
+    setSpeakingKey(key);
+    const ok = speakEikenCompletedText(key, stem, word, completed, {
+      rate,
+      onEnd: () => setSpeakingKey(cur => (cur === key ? null : cur)),
+    });
+    if (!ok) setSpeakingKey(null);
+  };
 
   // Tick timer every second while running and not paused
   useEffect(() => {
@@ -729,6 +838,10 @@ export function EikenMockExam({
       setElapsedSec(0);
       setUnitIndex(0);
     }
+    if (!savedSession) {
+      setEliminated({});
+      setOrderDrafts({});
+    }
     setPaused(false);
     setPaletteOpen(false);
     setConfirmSubmit(false);
@@ -760,6 +873,9 @@ export function EikenMockExam({
       setFlags([]);
       setElapsedSec(0);
       setUnitIndex(0);
+    }
+    if (!savedSession) {
+      setEliminated({});
     }
     setPaused(false);
     setPaletteOpen(false);
@@ -1456,6 +1572,17 @@ export function EikenMockExam({
                       </div>
 
                       <div className="eiken-round-actions">
+                        <a
+                          href={`/prints/print_${exam.id}_questions.pdf`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="eiken-round-audio em-round-pdf-link"
+                          title="問題冊子PDFを別タブで開く"
+                          aria-label={`第${exam.round}回の問題冊子PDFを開く`}
+                          onClick={e => e.stopPropagation()}
+                        >
+                          <ExternalLink size={11} aria-hidden="true" />
+                        </a>
                         {history.length > 0 && (
                           <button
                             type="button"
@@ -1729,6 +1856,27 @@ export function EikenMockExam({
           </div>
         )}
 
+        {zoomImage && (
+          <div
+            className="em-modal-backdrop em-lightbox-backdrop"
+            role="dialog"
+            aria-modal="true"
+            aria-label="問題イラスト拡大表示"
+            onClick={() => setZoomImage(null)}
+          >
+            <div className="em-lightbox" onClick={e => e.stopPropagation()}>
+              <img src={zoomImage.src} alt={zoomImage.alt} />
+              <button
+                type="button"
+                className="em-ghost-btn"
+                onClick={() => setZoomImage(null)}
+              >
+                閉じる
+              </button>
+            </div>
+          </div>
+        )}
+
         <section className="em-listening-deck" aria-label="リスニング音源プレーヤー">
           <ListeningAudioPlayer
             key={currentUnit.audioId}
@@ -1743,7 +1891,42 @@ export function EikenMockExam({
           />
         </section>
 
-        <div className={`em-workspace ${hasLeftVisualPane ? 'has-passage' : ''}`}>
+        {hasLeftVisualPane && (
+          <div className="em-mobile-pane-bar" role="tablist" aria-label="表示切り替え（スマホ用）">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mobilePane === 'both'}
+              className={mobilePane === 'both' ? 'is-active' : ''}
+              onClick={() => setMobilePane('both')}
+            >
+              上下両方
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mobilePane === 'passage'}
+              className={mobilePane === 'passage' ? 'is-active' : ''}
+              onClick={() => setMobilePane('passage')}
+            >
+              {materialData ? '資料のみ' : 'イラストのみ'}
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mobilePane === 'questions'}
+              className={mobilePane === 'questions' ? 'is-active' : ''}
+              onClick={() => setMobilePane('questions')}
+            >
+              設問のみ（未回答 {unansweredInUnit}）
+            </button>
+          </div>
+        )}
+
+        <div
+          className={`em-workspace ${hasLeftVisualPane ? 'has-passage' : ''}`}
+          data-mobile-pane={hasLeftVisualPane ? mobilePane : undefined}
+        >
           {hasLeftVisualPane && (
             <article className="em-passage-pane em-visual-pane">
               <div className="em-passage-head">
@@ -1758,14 +1941,32 @@ export function EikenMockExam({
                 <ListeningMaterials material={materialData} />
               ) : resolvedImgUrl ? (
                 <figure className="em-illustration-figure">
-                  <img
-                    src={resolvedImgUrl}
-                    alt={
-                      currentUnit.image?.sceneSummaryJa ||
-                      `No.${currentUnit.questions[0].questionNumber}のイラスト`
+                  <button
+                    type="button"
+                    className="em-zoom-trigger"
+                    onClick={() =>
+                      setZoomImage({
+                        src: resolvedImgUrl,
+                        alt:
+                          currentUnit.image?.sceneSummaryJa ||
+                          `No.${currentUnit.questions[0].questionNumber}のイラスト`,
+                      })
                     }
-                    className="em-illustration-img"
-                  />
+                    title="タップしてイラストを拡大"
+                  >
+                    <img
+                      src={resolvedImgUrl}
+                      alt={
+                        currentUnit.image?.sceneSummaryJa ||
+                        `No.${currentUnit.questions[0].questionNumber}のイラスト`
+                      }
+                      className="em-illustration-img"
+                    />
+                    <span className="em-zoom-chip">
+                      <Maximize2 size={12} aria-hidden="true" />
+                      <span>拡大</span>
+                    </span>
+                  </button>
                 </figure>
               ) : (
                 <div className="em-scene-fallback">
@@ -1821,28 +2022,50 @@ export function EikenMockExam({
                   <div className="em-choice-list" role="radiogroup" aria-label={`No.${q.questionNumber}の選択肢`}>
                     {optionTexts.map((choiceText, cIdx) => {
                       const selected = picked === cIdx;
+                      const isElim = (eliminated[q.id] || []).includes(cIdx);
                       return (
-                        <button
+                        <div
                           key={cIdx}
-                          type="button"
                           role="radio"
                           aria-checked={selected}
-                          className={`em-choice-btn ${selected ? 'is-selected' : ''}`}
-                          onClick={() =>
-                            setAnswers(prev => {
-                              const next = { ...prev };
-                              if (next[q.id] === cIdx) delete next[q.id];
-                              else next[q.id] = cIdx;
-                              return next;
-                            })
-                          }
+                          tabIndex={0}
+                          className={`em-choice-btn ${selected ? 'is-selected' : ''} ${
+                            isElim ? 'is-eliminated' : ''
+                          }`}
+                          onClick={() => selectMockChoice(q.id, cIdx)}
+                          onContextMenu={e => {
+                            e.preventDefault();
+                            toggleMockEliminate(q.id, cIdx);
+                          }}
+                          onKeyDown={e => {
+                            if (e.key === ' ' || e.key === 'Enter') {
+                              e.preventDefault();
+                              selectMockChoice(q.id, cIdx);
+                            }
+                          }}
                           data-choice-idx={cIdx + 1}
                         >
                           <span className="em-choice-no">{cIdx + 1}</span>
                           <span className="em-choice-text" lang="en">
                             {choiceText}
                           </span>
-                        </button>
+                          {!selected && (
+                            <button
+                              type="button"
+                              className="em-elim-btn"
+                              data-active={isElim || undefined}
+                              aria-label={`選択肢${cIdx + 1}を${isElim ? '消去解除' : '消去する'}`}
+                              title={isElim ? '消去メモを解除' : '消去法スラッシュ（右クリックでも可）'}
+                              tabIndex={-1}
+                              onClick={e => {
+                                e.stopPropagation();
+                                toggleMockEliminate(q.id, cIdx);
+                              }}
+                            >
+                              <X size={13} strokeWidth={2.5} aria-hidden="true" />
+                            </button>
+                          )}
+                        </div>
                       );
                     })}
                   </div>
@@ -1961,6 +2184,14 @@ export function EikenMockExam({
     };
 
     const jumpToQuestionNo = (qNo: number) => {
+      if (mobilePane === 'passage') {
+        setMobilePane('questions');
+        window.requestAnimationFrame(() => {
+          const el = document.querySelector(`[data-mock-q="${qNo}"]`);
+          el?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        });
+        return;
+      }
       const el = document.querySelector(`[data-mock-q="${qNo}"]`);
       el?.scrollIntoView({ block: 'center', behavior: 'smooth' });
     };
@@ -2156,11 +2387,45 @@ export function EikenMockExam({
           </div>
         )}
 
+        {/* スマホ用「本文 ⇄ 設問」クイック切替バー（長文・Eメール・要約ページのみ） */}
+        {currentUnit.passage && (
+          <div className="em-mobile-pane-bar" role="tablist" aria-label="本文と設問の表示切り替え">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mobilePane === 'both'}
+              className={mobilePane === 'both' ? 'is-active' : ''}
+              onClick={() => setMobilePane('both')}
+            >
+              上下両方
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mobilePane === 'passage'}
+              className={mobilePane === 'passage' ? 'is-active' : ''}
+              onClick={() => setMobilePane('passage')}
+            >
+              本文を読む
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mobilePane === 'questions'}
+              className={mobilePane === 'questions' ? 'is-active' : ''}
+              onClick={() => setMobilePane('questions')}
+            >
+              設問を解く（未回答 {unansweredInUnit}）
+            </button>
+          </div>
+        )}
+
         {/* Main Workspace */}
         <div
           className={`em-workspace ${currentUnit.passage ? 'has-passage' : ''} ${
             isBatchClozePage ? 'is-batch-cloze' : ''
           }`}
+          data-mobile-pane={currentUnit.passage ? mobilePane : undefined}
         >
           {currentUnit.passage && (
             <article className="em-passage-pane" data-passage-format={currentUnit.passage.format || 'article'}>
@@ -2220,43 +2485,57 @@ export function EikenMockExam({
                         tabIndex={0}
                         onKeyDown={e => {
                           if (e.metaKey || e.ctrlKey || e.altKey) return;
-                          const idx = ['1', '2', '3', '4', 'a', 'b', 'c', 'd'].indexOf(e.key.toLowerCase());
+                          const digitFromCode = e.code.startsWith('Digit') ? e.code.slice(5) : '';
+                          const keyStr = (digitFromCode || e.key).toLowerCase();
+                          const idx = ['1', '2', '3', '4', 'a', 'b', 'c', 'd'].indexOf(keyStr);
                           if (idx >= 0) {
                             const cIdx = idx % 4;
                             e.preventDefault();
-                            setAnswers(prev => {
-                              const next = { ...prev };
-                              if (next[item.id] === cIdx) delete next[item.id];
-                              else next[item.id] = cIdx;
-                              return next;
-                            });
+                            if (e.shiftKey) toggleMockEliminate(item.id, cIdx);
+                            else selectMockChoice(item.id, cIdx);
                           }
                         }}
                       >
                         {item.choices!.map((choiceText, cIdx) => {
                           const selected = picked === cIdx;
+                          const isElim = (eliminated[item.id] || []).includes(cIdx);
                           return (
-                            <button
+                            <div
                               key={cIdx}
-                              type="button"
                               role="radio"
                               aria-checked={selected}
-                              className={`em-compact-choice ${selected ? 'is-selected' : ''}`}
-                              onClick={() =>
-                                setAnswers(prev => {
-                                  const next = { ...prev };
-                                  if (next[item.id] === cIdx) delete next[item.id];
-                                  else next[item.id] = cIdx;
-                                  return next;
-                                })
-                              }
+                              tabIndex={-1}
+                              className={`em-compact-choice ${selected ? 'is-selected' : ''} ${
+                                isElim ? 'is-eliminated' : ''
+                              }`}
+                              onClick={() => selectMockChoice(item.id, cIdx)}
+                              onContextMenu={e => {
+                                e.preventDefault();
+                                toggleMockEliminate(item.id, cIdx);
+                              }}
                               data-choice-idx={cIdx + 1}
                             >
                               <span className="em-compact-bubble">{cIdx + 1}</span>
                               <span className="em-compact-choice-text" lang="en">
                                 {choiceText}
                               </span>
-                            </button>
+                              {!selected && (
+                                <button
+                                  type="button"
+                                  className="em-elim-btn is-compact"
+                                  data-active={isElim || undefined}
+                                  aria-label={`選択肢${cIdx + 1}を${isElim ? '消去解除' : '消去する'}`}
+                                  title={isElim ? '消去メモを解除' : '消去法スラッシュ（右クリックでも可）'}
+                                  tabIndex={-1}
+                                  onClick={e => {
+                                    e.stopPropagation();
+                                    toggleMockEliminate(item.id, cIdx);
+                                  }}
+                                >
+                                  <X size={12} strokeWidth={2.5} aria-hidden="true" />
+                                </button>
+                              )}
+                            </div>
                           );
                         })}
                       </div>
@@ -2290,40 +2569,148 @@ export function EikenMockExam({
                     <p className="em-q-prompt">{item.prompt}</p>
 
                     {item.orderTokens && (
-                      <div className="em-order-tokens" aria-label="並べ替え語群">
-                        {item.orderTokens.map((tok, tIdx) => (
-                          <span key={tIdx} className="em-order-chip" lang="en">
-                            <strong>{tIdx + 1}.</strong> {tok}
-                          </span>
-                        ))}
+                      <div className="em-reorder-builder" aria-label="語句整序の組み立てパレット">
+                        <div className="em-reorder-hint-row">
+                          <span>語群をタップして並べ替えを試せます（★1番目・3番目が選択肢に対応）</span>
+                          {(orderDrafts[item.id]?.length ?? 0) > 0 && (
+                            <div className="em-reorder-actions">
+                              <button
+                                type="button"
+                                className="em-reorder-mini-btn"
+                                onClick={() =>
+                                  setOrderDrafts(prev => ({
+                                    ...prev,
+                                    [item.id]: (prev[item.id] || []).slice(0, -1),
+                                  }))
+                                }
+                              >
+                                <Undo2 size={11} aria-hidden="true" />
+                                <span>1つ戻す</span>
+                              </button>
+                              <button
+                                type="button"
+                                className="em-reorder-mini-btn"
+                                onClick={() =>
+                                  setOrderDrafts(prev => {
+                                    const next = { ...prev };
+                                    delete next[item.id];
+                                    return next;
+                                  })
+                                }
+                              >
+                                クリア
+                              </button>
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="em-order-tokens" role="group" aria-label="並べ替え語群">
+                          {item.orderTokens.map((tok, tIdx) => {
+                            const tokenNo = tIdx + 1;
+                            const seq = orderDrafts[item.id] || [];
+                            const pos = seq.indexOf(tokenNo);
+                            const isUsed = pos >= 0;
+                            return (
+                              <button
+                                key={tIdx}
+                                type="button"
+                                className={`em-order-chip is-interactive ${isUsed ? 'is-used' : ''}`}
+                                onClick={() => handleToggleReorderToken(item, tokenNo)}
+                                lang="en"
+                              >
+                                <strong>{tokenNo}.</strong> {tok}
+                                {isUsed && <em className="em-order-pos">{pos + 1}番目</em>}
+                              </button>
+                            );
+                          })}
+                        </div>
+
+                        {(() => {
+                          const seq = orderDrafts[item.id] || [];
+                          const fallbackPair =
+                            seq.length === 0 && Number.isInteger(picked)
+                              ? parseReorderChoicePair(item.choices?.[picked!] ?? '')
+                              : null;
+                          return (
+                            <div className="em-reorder-slots" lang="en">
+                              {item.orderPrefix && <span className="em-reorder-prefix">{item.orderPrefix}</span>}
+                              {[0, 1, 2, 3].map(slotIdx => {
+                                const isKeySlot = slotIdx === 0 || slotIdx === 2;
+                                const tokNo =
+                                  seq[slotIdx] ??
+                                  (fallbackPair ? (slotIdx === 0 ? fallbackPair[0] : slotIdx === 2 ? fallbackPair[1] : undefined) : undefined);
+                                const tokText = tokNo ? item.orderTokens?.[tokNo - 1] ?? '' : '';
+                                return (
+                                  <span
+                                    key={slotIdx}
+                                    className={`em-reorder-slot ${isKeySlot ? 'is-key' : ''} ${
+                                      tokNo ? 'is-filled' : ''
+                                    }`}
+                                  >
+                                    <small lang="ja">{isKeySlot ? `★${slotIdx + 1}` : slotIdx + 1}</small>
+                                    {tokNo ? (
+                                      <b>
+                                        [{tokNo}] {tokText}
+                                      </b>
+                                    ) : (
+                                      <i aria-hidden="true">___</i>
+                                    )}
+                                  </span>
+                                );
+                              })}
+                            </div>
+                          );
+                        })()}
                       </div>
                     )}
 
                     <div className="em-choice-list" role="radiogroup" aria-label={`問${qNo}の選択肢`}>
                       {item.choices!.map((choiceText, cIdx) => {
                         const selected = picked === cIdx;
+                        const isElim = (eliminated[item.id] || []).includes(cIdx);
                         return (
-                          <button
+                          <div
                             key={cIdx}
-                            type="button"
                             role="radio"
                             aria-checked={selected}
-                            className={`em-choice-btn ${selected ? 'is-selected' : ''}`}
-                            onClick={() =>
-                              setAnswers(prev => {
-                                const next = { ...prev };
-                                if (next[item.id] === cIdx) delete next[item.id];
-                                else next[item.id] = cIdx;
-                                return next;
-                              })
-                            }
+                            tabIndex={0}
+                            className={`em-choice-btn ${selected ? 'is-selected' : ''} ${
+                              isElim ? 'is-eliminated' : ''
+                            }`}
+                            onClick={() => selectMockChoice(item.id, cIdx)}
+                            onContextMenu={e => {
+                              e.preventDefault();
+                              toggleMockEliminate(item.id, cIdx);
+                            }}
+                            onKeyDown={e => {
+                              if (e.key === ' ' || e.key === 'Enter') {
+                                e.preventDefault();
+                                selectMockChoice(item.id, cIdx);
+                              }
+                            }}
                             data-choice-idx={cIdx + 1}
                           >
                             <span className="em-choice-no">{cIdx + 1}</span>
                             <span className="em-choice-text" lang="en">
                               {choiceText}
                             </span>
-                          </button>
+                            {!selected && (
+                              <button
+                                type="button"
+                                className="em-elim-btn"
+                                data-active={isElim || undefined}
+                                aria-label={`選択肢${cIdx + 1}を${isElim ? '消去解除' : '消去する'}`}
+                                title={isElim ? '消去メモを解除' : '消去法スラッシュ（右クリックでも可）'}
+                                tabIndex={-1}
+                                onClick={e => {
+                                  e.stopPropagation();
+                                  toggleMockEliminate(item.id, cIdx);
+                                }}
+                              >
+                                <X size={13} strokeWidth={2.5} aria-hidden="true" />
+                              </button>
+                            )}
+                          </div>
                         );
                       })}
                     </div>
@@ -3043,6 +3430,11 @@ export function EikenMockExam({
                   const correctWord = item.choices?.[item.answer!] ?? '';
                   const pickedWord = hasPicked ? item.choices?.[picked!] ?? '' : '';
                   const singleCol = (item.choices ?? []).some(c => c.length > 22);
+                  const autoCompleted =
+                    item.completedSentence ||
+                    (/\(\s*_{0,6}\s*\)/.test(item.prompt)
+                      ? item.prompt.replace(/\(\s*_{0,6}\s*\)/, correctWord)
+                      : '');
                   const status: 'correct' | 'wrong' | 'blank' = isCorrect ? 'correct' : hasPicked ? 'wrong' : 'blank';
 
                   return (
@@ -3141,8 +3533,40 @@ export function EikenMockExam({
                               </div>
                             )}
 
-                            {item.distractorReasons && item.distractorReasons.some(Boolean) && (
-                              <div className="ecp-choice-reasons-fold">
+                            <div className="ecp-ex-subtools">
+                              {canSpeak && autoCompleted && (
+                                <div className="em-rev-audio-btns" lang="ja">
+                                  <button
+                                    type="button"
+                                    className="em-speak-btn"
+                                    data-speaking={speakingKey === `${item.id}:1` || undefined}
+                                    onClick={() =>
+                                      handleToggleResultSpeak(item.id, item.prompt, correctWord, autoCompleted, 1)
+                                    }
+                                    title="完成文の英語音声を再生"
+                                  >
+                                    {speakingKey === `${item.id}:1` ? (
+                                      <Square size={11} aria-hidden="true" />
+                                    ) : (
+                                      <Volume2 size={12} aria-hidden="true" />
+                                    )}
+                                    <span>{speakingKey === `${item.id}:1` ? '停止' : '英文を聞く'}</span>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="em-speak-btn is-slow"
+                                    data-speaking={speakingKey === `${item.id}:0.8` || undefined}
+                                    onClick={() =>
+                                      handleToggleResultSpeak(item.id, item.prompt, correctWord, autoCompleted, 0.8)
+                                    }
+                                    title="ゆっくり再生（0.8倍速）"
+                                  >
+                                    <span>{speakingKey === `${item.id}:0.8` ? '停止' : '0.8x'}</span>
+                                  </button>
+                                </div>
+                              )}
+
+                              {item.distractorReasons && item.distractorReasons.some(Boolean) && (
                                 <button
                                   type="button"
                                   className="ecp-reasons-toggle-btn"
@@ -3158,32 +3582,69 @@ export function EikenMockExam({
                                     aria-hidden="true"
                                   />
                                 </button>
-                                {openRevReasons[item.id] && (
-                                  <ul className="ecp-ex-choices">
-                                    {item.choices!.map((cText, cIdx) => {
-                                      const isAns = cIdx === item.answer;
-                                      return (
-                                        <li key={cIdx} data-correct={isAns || undefined}>
-                                          <span className="ecp-ex-mark" aria-hidden="true">
-                                            {isAns ? '○' : '×'}
-                                          </span>
-                                          <span>
-                                            <b lang="en">
-                                              {cIdx + 1}. {cText}
-                                            </b>
-                                            {item.distractorReasons?.[cIdx]
-                                              ? ` — ${item.distractorReasons[cIdx]}`
-                                              : isAns
-                                              ? ' — 正解'
-                                              : ''}
-                                          </span>
-                                        </li>
-                                      );
-                                    })}
-                                  </ul>
-                                )}
-                              </div>
+                              )}
+                            </div>
+
+                            {openRevReasons[item.id] && item.distractorReasons && item.distractorReasons.some(Boolean) && (
+                              <ul className="ecp-ex-choices">
+                                {item.choices!.map((cText, cIdx) => {
+                                  const isAns = cIdx === item.answer;
+                                  return (
+                                    <li key={cIdx} data-correct={isAns || undefined}>
+                                      <span className="ecp-ex-mark" aria-hidden="true">
+                                        {isAns ? '○' : '×'}
+                                      </span>
+                                      <span>
+                                        <b lang="en">
+                                          {cIdx + 1}. {cText}
+                                        </b>
+                                        {item.distractorReasons?.[cIdx]
+                                          ? ` — ${item.distractorReasons[cIdx]}`
+                                          : isAns
+                                          ? ' — 正解'
+                                          : ''}
+                                      </span>
+                                    </li>
+                                  );
+                                })}
+                              </ul>
                             )}
+
+                            {(() => {
+                              const vocabHits = extractMatchedEikenVocab(
+                                vocabMap,
+                                item.choices ?? [],
+                                [item.prompt, item.completedSentence ?? ''],
+                                3,
+                              );
+                              if (vocabHits.length === 0) return null;
+                              return (
+                                <div className="em-vocab-chips" aria-label="重要語チェック">
+                                  {vocabHits.map(v => {
+                                    const vKey = `mvocab:${item.id}:${v.word}`;
+                                    const isSpeakingWord = speakingKey === `${vKey}:1`;
+                                    return (
+                                      <button
+                                        key={v.word}
+                                        type="button"
+                                        className="em-vocab-chip"
+                                        data-speaking={isSpeakingWord || undefined}
+                                        onClick={() => {
+                                          if (!canSpeak) return;
+                                          handleToggleResultSpeak(vKey, v.word, '', v.word, 1);
+                                        }}
+                                        title={v.exampleSentence ? `例文: ${v.exampleSentence}` : v.word}
+                                      >
+                                        {canSpeak && <Volume2 size={11} aria-hidden="true" />}
+                                        <strong lang="en">{v.word}</strong>
+                                        <span>{v.meaning}</span>
+                                        <small>{formatVocabGradeBadge(v.level)}</small>
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              );
+                            })()}
                           </div>
                         </details>
 

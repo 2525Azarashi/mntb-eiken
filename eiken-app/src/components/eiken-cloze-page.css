@@ -215,6 +215,258 @@
   overflow: hidden;
 }
 
+/* サブバー内の設問ミニ進捗ドット＆消去法ワンポイント案内 */
+.ecp-subbar-qstrip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 12px 5px;
+}
+
+.ecp-q-dots {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ecp-q-dots::-webkit-scrollbar {
+  display: none;
+}
+
+.ecp-q-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid #dfd5c2;
+  background: #ffffff;
+  color: #54626f;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.12s ease, background-color 0.12s ease, color 0.12s ease;
+}
+
+.ecp-q-dot:hover {
+  border-color: var(--ecp-accent);
+  color: #1f2937;
+}
+
+.ecp-q-dot em {
+  font-style: normal;
+  font-weight: 900;
+}
+
+.ecp-q-dot[data-qstate='answered'] {
+  border-color: var(--ecp-accent);
+  background: color-mix(in srgb, var(--ecp-accent) 15%, #ffffff);
+  color: #133c36;
+}
+
+.ecp-q-dot[data-qstate='working'] {
+  border-style: dashed;
+  border-color: #94a3b8;
+  background: #f8fafc;
+}
+
+.ecp-q-dot[data-qstate='correct'] {
+  border-color: #3fae7d;
+  background: #eaf8f1;
+  color: #166534;
+}
+
+.ecp-q-dot[data-qstate='wrong'],
+.ecp-q-dot[data-qstate='blank'] {
+  border-color: #e0786f;
+  background: #fdeeed;
+  color: #991b1b;
+}
+
+.ecp-elim-tip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+@media (max-width: 639px) {
+  .ecp-elim-tip {
+    display: none;
+  }
+}
+
+/* 消去法スラッシュ（除外メモ）のスタイリング */
+.ecp-choice[data-eliminated] {
+  background: #f6f4ef;
+  border-color: #ded7c9;
+  border-style: dashed;
+}
+
+.ecp-choice[data-eliminated] .ecp-bubble {
+  border-color: #b4b9c2;
+  background: #eceae4;
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+.ecp-choice[data-eliminated] .ecp-choice-text {
+  color: #9ca3af;
+  text-decoration: line-through;
+  text-decoration-thickness: 1.8px;
+  text-decoration-color: #94a3b8;
+}
+
+.ecp-elim-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #b0b7c3;
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.12s ease, background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.ecp-choice:hover .ecp-elim-btn,
+.ecp-elim-btn:focus-visible {
+  opacity: 1;
+  color: #64748b;
+  background: #f1ede4;
+}
+
+.ecp-elim-btn[data-active] {
+  opacity: 1;
+  color: #991b1b;
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+/* 完成文の音声再生ボタン＆重要語チップ */
+.ecp-recap-audio {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ecp-speak-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 26px;
+  padding: 0 9px;
+  border-radius: 999px;
+  border: 1px solid #a7d7c8;
+  background: #ffffff;
+  color: #165b4c;
+  font-size: 11.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+.ecp-speak-btn:hover {
+  background: #ecfdf5;
+  border-color: #3e9c93;
+}
+
+.ecp-speak-btn.is-slow {
+  padding: 0 7px;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+
+.ecp-speak-btn[data-speaking] {
+  background: #1f7a52;
+  border-color: #1f7a52;
+  color: #ffffff;
+}
+
+.ecp-sec-vocab {
+  padding-top: 2px;
+}
+
+.ecp-lbl[data-role='vocab'] {
+  background: #3b6978;
+}
+
+.ecp-vocab-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.ecp-vocab-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid #dce6ea;
+  background: #f8fbfc;
+  color: #1e293b;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.ecp-vocab-chip:hover {
+  border-color: #3e9c93;
+  background: #eef9f7;
+}
+
+.ecp-vocab-chip[data-speaking] {
+  border-color: #1f7a52;
+  background: #ecfdf5;
+}
+
+.ecp-vocab-chip strong {
+  font-family: var(--font-modern, var(--mt-font-body));
+  font-weight: 800;
+  color: #0f3d3e;
+}
+
+.ecp-vocab-chip span {
+  color: #334155;
+  font-weight: 600;
+}
+
+.ecp-vocab-chip small {
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #e2eef2;
+  color: #3b6978;
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+@media (min-width: 1024px) {
+  .ecp-subbar-qstrip {
+    padding: 0 24px 5px;
+  }
+}
+
 .ecp-timer-fill {
   height: 100%;
   background: var(--ecp-accent);
@@ -975,6 +1227,22 @@
 .ecp-ex-line[data-role='why'] .ecp-ex-text {
   font-weight: 700;
   color: #111827;
+}
+
+.ecp-ex-subtools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 2px;
+  padding-top: 4px;
+  border-top: 1px dashed #d6e3de;
+}
+
+.ecp-vocab-icon {
+  color: #2f7c74;
+  flex-shrink: 0;
 }
 
 .ecp-choice-reasons-fold {
