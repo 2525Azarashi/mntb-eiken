@@ -1,4 +1,5 @@
-import type { Chapter, Problem, SubQuestion } from '../types/curriculum';
+import type { AudioTrack, Chapter, Problem, SubQuestion } from '../types/curriculum';
+import { SQ_BODY_MARK, SQ_MARK } from '../utils/explanationFormat';
 import type { EikenGrade } from './config';
 import type { WritingTask } from './materials/original-types';
 import { WRITTEN_BOOKLETS } from './materials/written-booklets';
@@ -42,19 +43,47 @@ export function getGradeDaimonSpecs(grade: EikenGrade): GradeDaimonSpec[] {
   });
 }
 
+const CIRCLED_MARKS = ['①', '②', '③', '④'] as const;
+
+function formatChoiceReasons(item: WrittenItem): string[] {
+  return item.choices!.map((text, index) => {
+    const mark = CIRCLED_MARKS[index] ?? `${index + 1}.`;
+    const verdict = index === item.answer ? '○' : '×';
+    return `${mark} ${text} — ${verdict} ${item.distractorReasons![index]}`;
+  });
+}
+
+function fillPromptBlank(prompt: string, answerText: string): string {
+  if (/\(\s*\)/.test(prompt)) {
+    return prompt.replace(/\(\s*\)/, answerText);
+  }
+  return prompt;
+}
+
 function subQuestion(exam: WrittenExam, item: WrittenItem): SubQuestion {
+  const number = exam.items.indexOf(item) + 1;
+  const label = !item.passage
+    ? `問${number}`
+    : item.section === 'cloze'
+    ? `問${number} (${number})`
+    : `問${number} ${item.prompt}`;
   return {
     id: `${item.id}_answer`,
-    label: `問${exam.items.indexOf(item) + 1}（第${exam.round}回冊子と共通）${item.passage ? ' ' + item.prompt : ''}`,
+    label,
     type: 'multiple_choice',
     options: ['1', '2', '3', '4'],
     optionTexts: [...item.choices!],
     correctAnswer: String(item.answer! + 1),
+    ...(item.passage
+      ? {
+          blankHint: item.section === 'cloze' ? `空所 ( ${number} ) に入る最も適切な語句` : item.prompt,
+        }
+      : {}),
     skill: WRITTEN_SECTION_LABELS[item.section],
     explainJa: item.explanation,
     detailedExplanation: {
       theme: WRITTEN_SECTION_LABELS[item.section],
-      steps: [item.completedSentence || '', item.explanation!].filter(Boolean),
+      steps: [],
     },
     distractors: item.distractorReasons!.map((why, index) => ({ no: index + 1, why })),
   };
@@ -66,17 +95,45 @@ export function bookletItemToProblem(exam: WrittenExam, item: WrittenItem): Prob
   const number = exam.items.indexOf(item) + 1;
   if (number < 1) throw new Error('ITEM_NOT_IN_BOOKLET');
   const tokens = item.orderTokens?.map((text, index) => `${index + 1}. ${text}`).join(' ／ ');
+  const sub = subQuestion(exam, item);
+  const answerText = item.choices![item.answer!];
+  const completed = item.completedSentence || fillPromptBlank(item.prompt, answerText);
+
+  const explanationTracks: AudioTrack[] = [
+    {
+      subId: sub.id,
+      label: `問${number}`,
+      hint: WRITTEN_SECTION_LABELS[item.section],
+      script: completed,
+      translation: item.translation || '',
+      keyPhrases: answerText ? [{ phrase: answerText, meaning: `正解（${WRITTEN_SECTION_LABELS[item.section]}）` }] : [],
+    },
+  ];
+
+  // 単問（短文・会話・語句整序）はまなとび英文法と同じ 1問ずつカード表示（stepwise: true）にする。
+  // 空行を含めず「問N　本文」の形にすることで、会話文 A:/B: や整序トークンも prose: true（Inter ゴシック）で欠落なく描画される。
+  const compactPrompt = item.prompt
+    .split('\n')
+    .map(line => line.trim())
+    .filter(Boolean)
+    .join('\n');
+  const text = item.passage
+    ? [`${item.passage.title}\n${item.passage.text}`, item.prompt, tokens].filter(Boolean).join('\n\n')
+    : [`問${number}　${compactPrompt}`, tokens].filter(Boolean).join('\n');
+
   return {
     id: item.id,
     title: `筆記 第${exam.round}回 問${number}`,
     category: WRITTEN_SECTION_LABELS[item.section],
-    text: [item.passage && `${item.passage.title}\n${item.passage.text}`, item.prompt, tokens].filter(Boolean).join('\n\n'),
-    subQuestions: [subQuestion(exam, item)],
+    text,
+    ...(item.passage ? {} : { stepwise: true }),
+    explanationTracks,
+    subQuestions: [sub],
     explanation: [
-      item.completedSentence,
-      `【訳】${item.translation || ''}`,
+      item.passage?.translation ? `【本文の和訳】\n${item.passage.translation}` : '',
       item.explanation,
-      ...item.choices!.map((text, index) => `${index + 1}. ${text} — ${item.distractorReasons![index]}`),
+      '【選択肢】',
+      ...formatChoiceReasons(item),
     ]
       .filter(Boolean)
       .join('\n'),
@@ -91,23 +148,44 @@ function passageProblems(exam: WrittenExam, items: WrittenItem[]): Problem[] {
     const key = item.passage!.id;
     groups.set(key, [...(groups.get(key) || []), item]);
   }
-  return [...groups.values()].map(group => ({
-    id: `${exam.id}_${group[0].passage!.id}`,
-    title: group[0].passage!.title,
-    category: WRITTEN_SECTION_LABELS[group[0].section],
-    text: `${group[0].passage!.title}\n\n${group[0].passage!.text}`,
-    subQuestions: group.map(item => subQuestion(exam, item)),
-    explanation: `【本文の和訳】\n${group[0].passage!.translation}\n\n${group
-      .map(
-        item =>
-          `問${exam.items.indexOf(item) + 1}：${item.explanation}\n${item.choices!
-            .map((text, i) => `${i + 1}. ${text} — ${item.distractorReasons![i]}`)
-            .join('\n')}`,
-      )
-      .join('\n\n')}`,
-    surroundingKnowledge: [],
-    deepDiveTopics: [],
-  }));
+  return [...groups.values()].map(group => {
+    const subs = group.map(item => subQuestion(exam, item));
+    const passage = group[0].passage!;
+    const firstNo = exam.items.indexOf(group[0]) + 1;
+    const lastNo = exam.items.indexOf(group[group.length - 1]) + 1;
+    const explanationTracks: AudioTrack[] = [
+      {
+        subId: subs[0].id,
+        subIds: subs.map(s => s.id),
+        label: passage.title,
+        hint: `${WRITTEN_SECTION_LABELS[group[0].section]}（問${firstNo}〜問${lastNo}）`,
+        script: `${passage.title}\n\n${passage.text}`,
+        translation: passage.translation || '',
+        keyPhrases: group.map(item => ({
+          phrase: item.choices![item.answer!],
+          meaning: `問${exam.items.indexOf(item) + 1} 正解`,
+        })),
+      },
+    ];
+    return {
+      id: `${exam.id}_${passage.id}`,
+      title: passage.title,
+      category: WRITTEN_SECTION_LABELS[group[0].section],
+      text: `【${passage.title}】\n${passage.text}`,
+      explanationTracks,
+      subQuestions: subs,
+      explanation: `【本文の和訳】\n${passage.translation}\n\n${group
+        .map((item, idx) => {
+          const sqId = subs[idx].id;
+          return `${SQ_MARK(sqId)}${SQ_BODY_MARK}${
+            item.section === 'reading' ? `設問：${item.prompt}\n` : ''
+          }${item.explanation}\n【選択肢】\n${formatChoiceReasons(item).join('\n')}`;
+        })
+        .join('\n\n')}`,
+      surroundingKnowledge: [],
+      deepDiveTopics: [],
+    };
+  });
 }
 
 /** 特定の1つの大問セクション（short / conversation / reorder / cloze / reading）だけを第1回〜第N回の順で並べた Chapter 配列を返す */

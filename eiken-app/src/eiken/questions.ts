@@ -1,5 +1,6 @@
 import type { OriginalQuestion } from './materials/original-types';
-import type { Problem, Chapter, Part } from '../types/curriculum';
+import type { Problem, Chapter, Part, SubQuestion } from '../types/curriculum';
+import { SQ_BODY_MARK, SQ_MARK } from '../utils/explanationFormat';
 import { FOUNDATION_UNITS } from './materials/original-foundation';
 import { INTERMEDIATE_UNITS } from './materials/original-intermediate';
 import { BRIDGE_UNIT } from './materials/original-bridge';
@@ -90,12 +91,12 @@ export function toProblem(q: EikenQuestion): Problem {
   };
 }
 /** 語彙・文法と読解も共通の採点・間違い復習に登録する。音源とは混同しない。 */
-function writtenSubQuestion(question: OriginalQuestion, id: string) {
-  return { id, label: question.prompt, type: 'multiple_choice',
+function writtenSubQuestion(question: OriginalQuestion, id: string, labelOverride?: string): SubQuestion {
+  return { id, label: labelOverride ?? question.prompt, type: 'multiple_choice',
     options: question.choices.map((_, index) => String(index + 1)), optionTexts: [...question.choices],
     correctAnswer: String(question.answer + 1), skill: question.skill,
     explainJa: `${question.reasons[question.answer]}\n根拠：${question.evidence}`,
-    detailedExplanation: { theme: question.skill, steps: [question.evidence, question.reasons[question.answer]] },
+    detailedExplanation: { theme: question.skill, steps: [] },
     distractors: question.reasons.map((why, index) => ({ no: index + 1, why })),
   };
 }
@@ -155,13 +156,40 @@ export function partsForGrade(grade: EikenGrade): Part[] {
     miniTest: [],
     practiceProblems: unit.vocabulary.map((question, index): Problem => {
       const id = `${grade}_vocabulary_01_${index + 1}`;
+      const subId = `${id}_answer`;
+      const ansText = question.choices[question.answer];
+      const completed = /\(\s*\)/.test(question.prompt)
+        ? question.prompt.replace(/\(\s*\)/, ansText)
+        : question.prompt;
+      const compactPrompt = question.prompt
+        .split('\n')
+        .map(line => line.trim())
+        .filter(Boolean)
+        .join('\n');
       return {
         id,
         title: question.skill,
         category: '語彙・文法',
-        text: question.prompt,
-        subQuestions: [writtenSubQuestion(question, `${id}_answer`)],
-        explanation: `根拠：${question.evidence}\n${question.reasons.map((reason, i) => `${i + 1}. ${question.choices[i]} — ${reason}`).join('\n')}`,
+        text: `問${index + 1}　${compactPrompt}`,
+        stepwise: true,
+        explanationTracks: [
+          {
+            subId,
+            label: `問${index + 1}`,
+            hint: question.skill,
+            script: completed,
+            translation: `手がかり：${question.evidence}`,
+            keyPhrases: [{ phrase: ansText, meaning: `正解（${question.skill}）` }],
+          },
+        ],
+        subQuestions: [writtenSubQuestion(question, subId, `問${index + 1}`)],
+        explanation: [
+          `根拠：${question.evidence}`,
+          '【選択肢】',
+          ...question.reasons.map(
+            (reason, i) => `${'①②③④'[i] ?? `${i + 1}.`} ${question.choices[i]} — ${i === question.answer ? '○' : '×'} ${reason}`,
+          ),
+        ].join('\n'),
         surroundingKnowledge: [question.evidence],
         deepDiveTopics: [],
       };
@@ -179,13 +207,40 @@ export function partsForGrade(grade: EikenGrade): Part[] {
     miniTest: [],
     practiceProblems: unit.readings.map((block, index): Problem => {
       const id = `${grade}_reading_01_${index + 1}`;
+      const subs = block.questions.map((question, i) =>
+        writtenSubQuestion(question, `${id}_answer_${i + 1}`, `問${i + 1} ${question.prompt}`),
+      );
       return {
         id,
         title: block.title,
         category: 'リーディング',
-        text: `${block.title}\n\n${block.text}`,
-        subQuestions: block.questions.map((question, i) => writtenSubQuestion(question, `${id}_answer_${i + 1}`)),
-        explanation: `【全文和訳】\n${TRANSLATIONS[unit.grade].readings[index]}\n\n${block.questions.map(q => `根拠：${q.evidence}\n${q.reasons[q.answer]}`).join('\n\n')}`,
+        text: `【${block.title}】\n${block.text}`,
+        explanationTracks: [
+          {
+            subId: subs[0].id,
+            subIds: subs.map(s => s.id),
+            label: block.title,
+            hint: `リーディング（全${subs.length}問）`,
+            script: `${block.title}\n\n${block.text}`,
+            translation: TRANSLATIONS[unit.grade].readings[index],
+            keyPhrases: block.questions.map((q, i) => ({
+              phrase: q.evidence,
+              meaning: `問${i + 1} 根拠`,
+            })),
+          },
+        ],
+        subQuestions: subs,
+        explanation: `【全文和訳】\n${TRANSLATIONS[unit.grade].readings[index]}\n\n${block.questions
+          .map(
+            (q, i) =>
+              `${SQ_MARK(subs[i].id)}${SQ_BODY_MARK}設問：${q.prompt}\n根拠：${q.evidence}\n【選択肢】\n${q.reasons
+                .map(
+                  (reason, ri) =>
+                    `${'①②③④'[ri] ?? `${ri + 1}.`} ${q.choices[ri]} — ${ri === q.answer ? '○' : '×'} ${reason}`,
+                )
+                .join('\n')}`,
+          )
+          .join('\n\n')}`,
         surroundingKnowledge: [],
         deepDiveTopics: [],
       };

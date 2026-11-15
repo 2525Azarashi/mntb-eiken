@@ -344,5 +344,68 @@ html[data-wallpaper] .home-lobby-lines { display: none; }
 @media (max-width: 374px) { .friend-code-row-inline .friend-code-send { padding: 0 9px; } .friend-own-code { padding-inline: 6px; letter-spacing: 0; } .friend-own-copy-text { display: none; } }
 @media (max-width: 340px) { .friend-own-label { display: none; } }
 
-/* Real-Life ルールは上部 171-193 行に集約済み */
+/* 英語散文（リーディング長文・設問一覧・解説見出し）の書体統一：
+   ProblemPane の !listeningUnified 経路（長文読解・長文空所補充）では ExplanationBody が prose 未指定で呼ばれるため、
+   化学式フォーマッタが全英単語に Cambria Math のインライン style を付け、1文字語（I / A / a）を font-serif italic にしていた。
+   数学（.font-math / .katex）や添字つき化学式（sub / sup）には触れず、.font-modern 内の英語散文をまなとび標準ゴシック（--font-modern）に統一する。 */
+.font-modern span[style*="Cambria Math"]:not(:has(sub)),
+.font-modern:not(.font-math) span.font-serif:not(.katex *):not(:has(sub)) {
+  font-family: var(--font-modern) !important;
+  font-style: normal !important;
+  font-size: inherit !important;
+  letter-spacing: normal !important;
+  margin-inline: 0 !important;
+}
+/* 英文のハイフン複合語（low-flow / well-known 等）が化学イオン（Cl⁻）扱いで上付き sup に化けるのを通常ハイフンに戻す */
+.font-modern:not(.font-math) span.font-serif:not(.katex *) > sup {
+  position: static !important;
+  font-family: var(--font-modern) !important;
+  font-size: inherit !important;
+  vertical-align: baseline !important;
+  line-height: inherit !important;
+}
+.font-modern span.font-serif.italic:not(.katex *) {
+  font-family: var(--font-modern) !important;
+  font-style: normal !important;
+  padding-inline: 0 !important;
+}
+/* 解答カードの設問マーカー（問21(21) など）も英語問題ではゴシックに揃える */
+div:has(> .font-modern) + div span.bg-blue-50\/45 span[style*="Cambria Math"],
+.lx-choices-head span[style*="Cambria Math"],
+.lx-fold span[style*="Cambria Math"] {
+  font-family: var(--font-modern) !important;
+  font-style: normal !important;
+}
+
+/* MultipleChoiceControl で選択中（bg-[#F4D03F]/25 淡い金背景）の選択肢番号が text-white で薄く見えにくくなるのを、濃琥珀色でくっきり視認可能にする */
+button[aria-pressed="true"] > span.flex > span.shrink-0.text-white {
+  color: #7c5800 !important;
+  font-weight: 800;
+}
+
+/* リーディング長文（スマホ上下分割）で上ペインの長文と下ペインの4択すべてが1画面に見やすく収まるよう調整 */
+@media (max-width: 767px) {
+  div:has(> div > .font-modern) + div.flex-1.pt-4 {
+    padding-top: 6px !important;
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom)) !important;
+  }
+  div:has(> div > .font-modern) + div.flex-1.pt-4 .p-5 {
+    padding: 8px 10px !important;
+    gap: 6px !important;
+  }
+  div:has(> div > .font-modern) + div.flex-1.pt-4 .p-5 > div {
+    gap: 6px !important;
+  }
+  div:has(> div > .font-modern) + div.flex-1.pt-4 span.bg-blue-50\/45 {
+    padding: 3px 10px !important;
+    font-size: 12.5px !important;
+  }
+  div:has(> div > .font-modern) + div.flex-1.pt-4 button[aria-pressed] {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    min-height: 44px !important;
+  }
+}
+
+/* Real-Life ルールは上部 171-241 行に集約済み */
 

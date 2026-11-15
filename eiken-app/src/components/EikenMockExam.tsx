@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import {
   ArrowLeft,
   CheckCircle2,
@@ -65,6 +65,116 @@ interface ExamUnit {
   kind: 'choice' | 'writing';
   passage?: WrittenItem['passage'];
   items: { item: WrittenItem; qNo: number }[];
+}
+
+const CIRCLED_CHOICES = ['①', '②', '③', '④'] as const;
+
+/** 短い語彙・番号選択肢（4択すべて表示幅16以下）は MultipleChoiceControl と同じ 2×2 グリッドにする */
+function isCompactChoiceSet(choices: readonly string[], isReadAloud = false): boolean {
+  if (isReadAloud) return true;
+  if (choices.length !== 4) return false;
+  return choices.every(c => {
+    const text = String(c ?? '').trim();
+    const width = [...text].reduce((sum, ch) => sum + (ch.charCodeAt(0) < 0x80 ? 0.58 : 1), 0);
+    return width <= 16;
+  });
+}
+
+/** 空所 (      ) をまなとびの下線ピル枠にし、会話文の A:/B: 話者ラベルも見やすいゴシックで組む */
+function renderStemWithBlanks(prompt: string, filledText?: string): ReactNode {
+  const lines = String(prompt ?? '').split('\n');
+  return lines.map((line, lIdx) => {
+    const speakerMatch = line.match(/^([A-Za-z][A-Za-z\s]{0,12}):\s*(.*)$/);
+    const speaker = speakerMatch ? speakerMatch[1] : null;
+    const body = speakerMatch ? speakerMatch[2] : line;
+    const parts = body.split(/(\(\s*\))/g);
+    return (
+      <span key={lIdx} className="em-stem-line">
+        {speaker && <b className="em-speaker-tag">{speaker}:</b>}
+        {parts.map((part, pIdx) => {
+          if (/^\(\s*\)$/.test(part)) {
+            return (
+              <span key={pIdx} className={`em-blank-slot ${filledText ? 'is-filled' : ''}`}>
+                {filledText || '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0'}
+              </span>
+            );
+          }
+          return <Fragment key={pIdx}>{part}</Fragment>;
+        })}
+        {lIdx < lines.length - 1 ? '\n' : null}
+      </span>
+    );
+  });
+}
+
+/** 長文（Eメールヘッダー From/To/Date/Subject や空所 ( 21 )）をまなとび TOEIC Part 6/7 と同じ組版で描く */
+function renderPassageRich(
+  text: string,
+  unitItems: readonly { item: WrittenItem; qNo: number }[],
+  answers: Record<string, number>,
+  activeQNo?: number,
+): ReactNode {
+  const lines = String(text ?? '').split('\n');
+  const metaRows: [string, string][] = [];
+  let idx = 0;
+  while (idx < lines.length) {
+    const m = lines[idx].match(/^(From|To|Date|Subject):\s*(.+)$/);
+    if (!m) break;
+    metaRows.push([m[1], m[2]]);
+    idx += 1;
+  }
+  while (idx < lines.length && lines[idx].trim() === '') idx += 1;
+  const bodyText = metaRows.length >= 2 ? lines.slice(idx).join('\n') : text;
+
+  const qMap = new Map<number, WrittenItem>();
+  for (const entry of unitItems) {
+    qMap.set(entry.qNo, entry.item);
+  }
+
+  const paragraphs = bodyText.split(/\n{2,}/);
+
+  return (
+    <>
+      {metaRows.length >= 2 && (
+        <dl className="em-email-meta" lang="en">
+          {metaRows.map(([k, v], i) => (
+            <div key={i}>
+              <dt>{k}:</dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+      {paragraphs.map((para, pIdx) => {
+        const tokens = para.split(/(\(\s*\d+\s*\))/g);
+        return (
+          <p key={pIdx} className="em-passage-para" lang="en">
+            {tokens.map((tok, tIdx) => {
+              const bm = tok.match(/^\(\s*(\d+)\s*\)$/);
+              if (!bm) return <Fragment key={tIdx}>{tok}</Fragment>;
+              const bNo = Number(bm[1]);
+              const bItem = qMap.get(bNo);
+              const pickedIdx = bItem ? answers[bItem.id] : undefined;
+              const filled =
+                bItem && Number.isInteger(pickedIdx) && bItem.choices?.[pickedIdx!]
+                  ? bItem.choices[pickedIdx!]
+                  : '';
+              const isFocus = activeQNo === bNo;
+              return (
+                <span
+                  key={tIdx}
+                  className={`em-doc-blank ${filled ? 'is-filled' : ''} ${isFocus ? 'is-focus' : ''}`}
+                >
+                  <b className="em-doc-blank-no">({bNo})</b>
+                  {filled ? <span>{filled}</span> : null}
+                </span>
+              );
+            })}
+          </p>
+        );
+      })}
+    </>
+  );
 }
 
 function buildExamUnits(exam: WrittenExam, sectionFilter: 'all' | WrittenSection = 'all'): ExamUnit[] {
@@ -1186,10 +1296,14 @@ export function EikenMockExam({
             </button>
           </div>
 
-          <div className="em-choice-list" role="radiogroup" aria-label={`No.${q.questionNumber}の選択肢`}>
+          <div
+            className={`em-choice-list ${isCompactChoiceSet(q.choices, isReadAloud) ? 'is-grid-2' : ''}`}
+            role="radiogroup"
+            aria-label={`No.${q.questionNumber}の選択肢`}
+          >
             {q.choices.map((choiceText, cIdx) => {
               const selected = picked === cIdx;
-              const displayLabel = isReadAloud ? `選択肢 ${cIdx + 1}（音声で読み上げ）` : choiceText;
+              const displayLabel = isReadAloud ? `選択肢 ${cIdx + 1}` : choiceText;
               return (
                 <button
                   key={cIdx}
@@ -1199,8 +1313,9 @@ export function EikenMockExam({
                   className={`em-choice-btn ${selected ? 'is-selected' : ''}`}
                   onClick={() => setAnswers(prev => ({ ...prev, [q.id]: cIdx }))}
                   data-choice-idx={cIdx + 1}
+                  lang={isReadAloud ? 'ja' : 'en'}
                 >
-                  <span className="em-choice-no">{cIdx + 1}</span>
+                  <span className="em-choice-no">{CIRCLED_CHOICES[cIdx] ?? cIdx + 1}</span>
                   <span className="em-choice-text">{displayLabel}</span>
                 </button>
               );
@@ -1622,12 +1737,26 @@ export function EikenMockExam({
       const flagged = flags.includes(item.id);
       if (item.kind === 'choice') {
         const picked = answers[item.id];
+        const filledWord =
+          !item.passage && item.section !== 'reorder' && Number.isInteger(picked) && item.choices?.[picked]
+            ? item.choices[picked]
+            : undefined;
+        const compactGrid = isCompactChoiceSet(item.choices ?? []);
+        const isCloze = item.section === 'cloze';
         return (
           <section key={item.id} className="em-q-card" data-mock-q={qNo}>
             <div className="em-q-head">
               <div className="em-q-title">
                 <span className="em-q-num">問{qNo}</span>
-                <span className="em-q-sec">{SECTION_LABELS[item.section]}</span>
+                {isCloze ? (
+                  <span className="em-q-prompt-inline">空所 ( {qNo} ) に入る最も適切なもの</span>
+                ) : item.passage ? (
+                  <span className="em-q-prompt-inline" lang="en">
+                    {item.prompt}
+                  </span>
+                ) : (
+                  <span className="em-q-sec">{SECTION_LABELS[item.section]}</span>
+                )}
               </div>
               <button
                 type="button"
@@ -1640,10 +1769,14 @@ export function EikenMockExam({
               </button>
             </div>
 
-            <p className="em-q-prompt">{item.prompt}</p>
+            {!item.passage && (
+              <p className="em-q-prompt" lang="en">
+                {renderStemWithBlanks(item.prompt, filledWord)}
+              </p>
+            )}
 
             {item.orderTokens && (
-              <div className="em-order-tokens" aria-label="並べ替え語群">
+              <div className="em-order-tokens" aria-label="並べ替え語群" lang="en">
                 {item.orderTokens.map((tok, tIdx) => (
                   <span key={tIdx} className="em-order-chip">
                     <strong>{tIdx + 1}.</strong> {tok}
@@ -1652,7 +1785,11 @@ export function EikenMockExam({
               </div>
             )}
 
-            <div className="em-choice-list" role="radiogroup" aria-label={`問${qNo}の選択肢`}>
+            <div
+              className={`em-choice-list ${compactGrid ? 'is-grid-2' : ''}`}
+              role="radiogroup"
+              aria-label={`問${qNo}の選択肢`}
+            >
               {item.choices!.map((choiceText, cIdx) => {
                 const selected = picked === cIdx;
                 return (
@@ -1664,8 +1801,9 @@ export function EikenMockExam({
                     className={`em-choice-btn ${selected ? 'is-selected' : ''}`}
                     onClick={() => setAnswers(prev => ({ ...prev, [item.id]: cIdx }))}
                     data-choice-idx={cIdx + 1}
+                    lang="en"
                   >
-                    <span className="em-choice-no">{cIdx + 1}</span>
+                    <span className="em-choice-no">{CIRCLED_CHOICES[cIdx] ?? cIdx + 1}</span>
                     <span className="em-choice-text">{choiceText}</span>
                   </button>
                 );
@@ -1905,7 +2043,9 @@ export function EikenMockExam({
                 </button>
               </div>
               <div className="em-material-dialog-body">
-                <div className="em-passage-body">{currentUnit.passage.text}</div>
+                <div className="em-passage-body" lang="en">
+                  {renderPassageRich(currentUnit.passage.text, currentUnit.items, answers, activeSubEntry?.qNo)}
+                </div>
               </div>
             </div>
           </div>
@@ -1918,7 +2058,7 @@ export function EikenMockExam({
               <div className="em-passage-head">
                 <div className="em-passage-head-left">
                   <span className="em-section-badge">{SECTION_LABELS[currentUnit.section]}</span>
-                  <h2>{currentUnit.passage.title}</h2>
+                  <h2 lang="en">{currentUnit.passage.title}</h2>
                 </div>
                 <button
                   type="button"
@@ -1929,7 +2069,9 @@ export function EikenMockExam({
                   <span>全文拡大</span>
                 </button>
               </div>
-              <div className="em-passage-body">{currentUnit.passage.text}</div>
+              <div className="em-passage-body" lang="en">
+                {renderPassageRich(currentUnit.passage.text, currentUnit.items, answers, activeSubEntry?.qNo)}
+              </div>
             </article>
           )}
 
@@ -2492,35 +2634,45 @@ export function EikenMockExam({
                     {item.passage && (
                       <details className="em-wr-source">
                         <summary>本文・和訳を開く（{item.passage.title}）</summary>
-                        <p className="em-wr-en">{item.passage.text}</p>
+                        <p className="em-wr-en" lang="en">{item.passage.text}</p>
                         {item.passage.translation && <p className="em-wr-ja">{item.passage.translation}</p>}
                       </details>
                     )}
 
-                    <p className="em-rev-prompt">{item.prompt}</p>
-                    {item.completedSentence && (
-                      <p className="em-rev-completed">完成文：{item.completedSentence}</p>
+                    <p className="em-rev-prompt" lang="en">{item.prompt}</p>
+                    {(item.completedSentence || item.translation) && (
+                      <div className="em-rev-script-box">
+                        {item.completedSentence && (
+                          <p className="em-wr-en" lang="en">{item.completedSentence}</p>
+                        )}
+                        {item.translation && <p className="em-wr-ja">{item.translation}</p>}
+                      </div>
                     )}
-                    {item.translation && <p className="em-rev-ja">訳：{item.translation}</p>}
                     <p className="em-rev-exp">{item.explanation}</p>
 
-                    <ul className="em-rev-choices">
+                    <ol className="em-rev-choice-cards">
                       {item.choices!.map((cText, cIdx) => {
                         const isAns = cIdx === item.answer;
                         const isUser = cIdx === picked;
+                        const tone = isAns ? 'right' : isUser ? 'wrong' : 'plain';
                         return (
-                          <li
-                            key={cIdx}
-                            className={`${isAns ? 'is-ans' : ''} ${isUser && !isAns ? 'is-user-wrong' : ''}`}
-                          >
-                            <strong>
-                              {cIdx + 1}. {cText}
-                            </strong>
-                            <span> — {item.distractorReasons?.[cIdx]}</span>
+                          <li key={cIdx} className="em-rev-choice-card" data-tone={tone}>
+                            <div className="em-rev-choice-top">
+                              <span className="em-rev-choice-mark">{CIRCLED_CHOICES[cIdx] ?? `${cIdx + 1}.`}</span>
+                              <strong lang="en">{cText}</strong>
+                              {(isAns || isUser) && (
+                                <span className="em-rev-choice-tag" data-tone={isAns ? 'right' : 'wrong'}>
+                                  {isAns && isUser ? 'あなた・正解' : isAns ? '正解' : 'あなた'}
+                                </span>
+                              )}
+                            </div>
+                            {item.distractorReasons?.[cIdx] && (
+                              <p className="em-rev-choice-why">{item.distractorReasons[cIdx]}</p>
+                            )}
                           </li>
                         );
                       })}
-                    </ul>
+                    </ol>
                   </article>
                 );
               })}
