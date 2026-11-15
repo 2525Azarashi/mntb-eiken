@@ -1,0 +1,918 @@
+/* 英検「短文の語句空所補充」「会話文の空所補充」：1ページ5問ずつ・一括採点UI
+   TOEIC Part 5（toeic-page.css）と同じ見やすさ・フォント・コントラストを踏襲し、
+   1ページ最大5問を PC 2列（左列3問・右列2問）／スマホ1列に整列する。 */
+
+.ecp-root {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  background: #f9fafb;
+  color: #1f2937;
+  font-family: var(--mt-font-body);
+}
+
+.ecp-battle-return {
+  min-height: 44px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #bfdbfe;
+  background: #eff6ff;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e3a8a;
+  cursor: pointer;
+}
+
+/* 上の帯（固定）：戻る・演習バッジ・単元名・ページ位置・回答済み */
+.ecp-head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: calc(6px + env(safe-area-inset-top, 0px)) 8px 6px;
+  border-bottom: 1px solid #eadfc8;
+  background: #fffaf0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.ecp-back {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.ecp-back:hover {
+  background: var(--mt-rare-n-bg, #f3f0e6);
+}
+
+.ecp-mode {
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: #f3c64f;
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 20px;
+  color: #5b3d00;
+}
+
+.ecp-title {
+  margin: 0;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.ecp-stats {
+  display: flex;
+  flex-shrink: 0;
+  gap: 4px;
+  margin: 0;
+}
+
+.ecp-stats > div {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 999px;
+  background: var(--mt-rare-n-bg, #f3efe4);
+  padding: 4px 10px;
+}
+
+.ecp-stats dt {
+  display: flex;
+  color: #4b5563;
+}
+
+.ecp-stats dd {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #4b5563;
+  white-space: nowrap;
+}
+
+.ecp-stats dd b {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+.ecp-stats dd small {
+  margin-left: 1px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* タイマー＋ページ番号ステップバー */
+.ecp-subbar {
+  flex: none;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ecp-subbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 12px 4px;
+}
+
+.ecp-timer-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  font-variant-numeric: tabular-nums;
+}
+
+.ecp-timer-limit {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.ecp-subbar[data-state='low'] .ecp-timer-label {
+  color: #7c4a03;
+}
+
+.ecp-subbar[data-state='over'] .ecp-timer-label,
+.ecp-subbar[data-state='done'] .ecp-timer-label {
+  color: #475569;
+}
+
+.ecp-page-pills {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ecp-page-pill {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 22px;
+  padding: 0;
+  border-radius: 6px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  font-size: 11.5px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ecp-page-pill[data-progress='current'] {
+  border-color: #2c3e50;
+  background: #2c3e50;
+  color: #ffffff;
+}
+
+.ecp-page-pill[data-progress='done'] {
+  border-color: #3fae7d;
+  background: #eaf8f1;
+  color: #166534;
+}
+
+.ecp-timer-track {
+  height: 2px;
+  background: #eef2f7;
+  overflow: hidden;
+}
+
+.ecp-timer-fill {
+  height: 100%;
+  background: #3e9c93;
+  transition: width 0.25s linear;
+}
+
+.ecp-subbar[data-state='low'] .ecp-timer-fill {
+  background: #b7791f;
+}
+
+.ecp-subbar[data-state='over'] .ecp-timer-fill,
+.ecp-subbar[data-state='done'] .ecp-timer-fill {
+  background: #94a3b8;
+}
+
+/* スクロール領域 */
+.ecp-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* 1ページ5問の一覧カード */
+.ecp-list {
+  display: grid;
+  gap: 10px;
+  padding: 12px 12px 16px;
+}
+
+.ecp-item {
+  border: 1px solid #e5e7eb;
+  border-left-width: 4px;
+  border-left-color: #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 12px 13px 10px;
+}
+
+.ecp-item[data-status='answered'] {
+  border-left-color: #3e9c93;
+}
+
+.ecp-item[data-status='unanswered'] {
+  border-left-color: #d97706;
+}
+
+.ecp-item[data-status='correct'] {
+  border-color: #9fd8c3;
+}
+
+.ecp-item[data-status='wrong'],
+.ecp-item[data-status='blank'] {
+  border-color: #f0b8b3;
+}
+
+.ecp-sentence {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.75;
+  color: #111827;
+  font-family: var(--font-modern, var(--mt-font-body));
+  overflow-wrap: anywhere;
+}
+
+.ecp-no {
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #2c3e50;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+  vertical-align: 2px;
+}
+
+.ecp-tag {
+  display: inline-block;
+  margin-left: 6px;
+  border-radius: 999px;
+  border: 1px solid #f5c26b;
+  background: #fff7e6;
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #92400e;
+  vertical-align: 2px;
+}
+
+.ecp-blank {
+  display: inline-block;
+  min-width: 4.5em;
+  margin: 0 2px;
+  padding: 0 6px;
+  border-bottom: 3px solid #2c3e50;
+  border-radius: 4px 4px 0 0;
+  background: #eef6f4;
+  line-height: 1.45;
+  text-align: center;
+  vertical-align: baseline;
+}
+
+.ecp-blank[data-filled] {
+  color: #164841;
+  border-bottom-color: #3e9c93;
+}
+
+.ecp-blank[data-result='right'] {
+  border-bottom-color: var(--mt-done, #1f7a4d);
+  background: #ecfdf5;
+  color: #166534;
+}
+
+.ecp-blank[data-result='wrong'] {
+  border-bottom-color: var(--mt-danger, #b3261e);
+  background: #fef2f2;
+  color: #991b1b;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.ecp-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* 選択肢：2×2（1・2が上段、3・4が下段）。長い英文選択肢は1列 */
+.ecp-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 8px;
+  margin: 8px 0 0;
+  border-radius: 10px;
+  outline: none;
+}
+
+.ecp-choices.is-single {
+  grid-template-columns: 1fr;
+}
+
+.ecp-choices:focus-visible {
+  box-shadow: 0 0 0 3px #3e9c93;
+}
+
+.ecp-choices.is-scored {
+  row-gap: 14px;
+  padding-top: 8px;
+}
+
+.ecp-choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 4px 8px 4px 4px;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ecp-choice:hover {
+  background: #f8fafc;
+}
+
+.ecp-choices[aria-disabled='true'] .ecp-choice {
+  cursor: default;
+}
+
+.ecp-choices[aria-disabled='true'] .ecp-choice:hover {
+  background: none;
+}
+
+.ecp-bubble {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1.5px solid #6b7280;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  color: #374151;
+  transition: background-color 0.12s, border-color 0.12s, color 0.12s;
+}
+
+.ecp-choice-body {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ecp-choice-text {
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #1f2937;
+  font-family: var(--font-modern, var(--mt-font-body));
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+
+.ecp-choice-check {
+  margin-left: auto;
+  flex-shrink: 0;
+  color: #2f7c74;
+}
+
+.ecp-choice[data-checked] {
+  border-color: #3e9c93;
+  background: #ecf8f6;
+}
+
+.ecp-choice[data-checked] .ecp-choice-text {
+  font-weight: 700;
+  color: #164841;
+}
+
+.ecp-choice[data-checked] .ecp-bubble {
+  border-width: 3px;
+  border-color: #3e9c93;
+  background: #3e9c93;
+  color: #ffffff;
+}
+
+.ecp-choice[data-result='right'] {
+  border-color: var(--mt-done, #1f7a4d);
+  background: #ecfdf5;
+}
+
+.ecp-choice[data-result='right'] .ecp-bubble {
+  border-width: 3px;
+  border-color: var(--mt-done, #1f7a4d);
+  background: var(--mt-done, #1f7a4d);
+  color: #ffffff;
+}
+
+.ecp-choice[data-result='wrong'] {
+  border-color: var(--mt-danger, #b3261e);
+  background: #fef2f2;
+}
+
+.ecp-choice[data-result='wrong'] .ecp-bubble {
+  border-color: var(--mt-danger, #b3261e);
+  background: var(--mt-danger, #b3261e);
+  color: #ffffff;
+}
+
+.ecp-choice-badge {
+  position: absolute;
+  top: -9px;
+  right: 6px;
+  z-index: 1;
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 16px;
+  color: #ffffff;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.14);
+}
+
+.ecp-choice-badge[data-tone='right'] {
+  background: #1f7a52;
+}
+
+.ecp-choice-badge[data-tone='wrong'] {
+  background: #c9483e;
+}
+
+/* 採点後のページ結果サマリー帯 */
+.ecp-result {
+  display: grid;
+  gap: 8px;
+  margin: 12px 12px 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid #b6ddd2;
+  background: #f2faf8;
+  color: #164841;
+}
+
+.ecp-result[data-perfect] {
+  border-color: #9fd8c3;
+  background: #ecfdf5;
+  color: #14532d;
+}
+
+.ecp-result-score {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.ecp-result-score svg {
+  align-self: center;
+}
+
+.ecp-result-score b {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 24px;
+  line-height: 1;
+  margin-left: 2px;
+}
+
+.ecp-result-marks {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ecp-result-mark {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  border-radius: 10px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.ecp-result-no {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #475569;
+}
+
+.ecp-result-sym {
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.ecp-result-mark[data-result='correct'] {
+  border-color: #3fae7d;
+  background: #eaf8f1;
+}
+
+.ecp-result-mark[data-result='correct'] .ecp-result-sym {
+  color: #166534;
+}
+
+.ecp-result-mark[data-result='wrong'] {
+  border-color: #e0786f;
+  background: #fdeeed;
+}
+
+.ecp-result-mark[data-result='wrong'] .ecp-result-sym {
+  color: var(--mt-danger, #b3261e);
+}
+
+.ecp-result-mark[data-result='blank'] .ecp-result-sym {
+  color: #475569;
+}
+
+/* 問ごとの正誤＋ノート保存＋解説アコーディオン */
+.ecp-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin: 10px 0 0;
+}
+
+.ecp-judge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.ecp-judge[data-result='correct'] {
+  color: #166534;
+}
+
+.ecp-judge[data-result='wrong'],
+.ecp-judge[data-result='blank'] {
+  color: #991b1b;
+}
+
+.ecp-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 36px;
+  margin-left: auto;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid #fcd34d;
+  background: #fffbeb;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #92400e;
+  cursor: pointer;
+}
+
+.ecp-save:hover:not(:disabled) {
+  background: #fef3c7;
+}
+
+.ecp-save[data-saved] {
+  border-color: #e5e7eb;
+  background: #f3f4f6;
+  color: #374151;
+  cursor: default;
+}
+
+.ecp-ex {
+  margin: 8px 0 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.ecp-ex > summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 800;
+  color: #1f5c53;
+  list-style: none;
+}
+
+.ecp-ex > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ecp-ex-chev {
+  margin-left: auto;
+  transition: transform 0.15s;
+}
+
+.ecp-ex[open] .ecp-ex-chev {
+  transform: rotate(180deg);
+}
+
+.ecp-ex-body {
+  display: grid;
+  gap: 10px;
+  padding: 2px 0 6px;
+}
+
+.ecp-sec {
+  display: grid;
+  gap: 4px;
+}
+
+.ecp-sec p,
+.ecp-sec li {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #1f2937;
+}
+
+.ecp-lbl {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  justify-self: start;
+  margin: 0;
+  padding: 1px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 20px;
+  color: #ffffff;
+  background: #5a6573;
+}
+
+.ecp-lbl[data-role='tr'] {
+  background: none;
+  color: #475569;
+  padding: 0;
+}
+
+.ecp-sec-key {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #eef8f6;
+  box-shadow: inset 4px 0 0 #2f7c74;
+}
+
+.ecp-sec-key .ecp-lbl {
+  background: #2f7c74;
+  font-size: 12.5px;
+}
+
+.ecp-sec-key p {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.ecp-ex-choices {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 4px;
+}
+
+.ecp-ex-choices li {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.ecp-ex-mark {
+  flex-shrink: 0;
+  width: 1.2em;
+  font-weight: 900;
+  color: var(--mt-danger, #b3261e);
+}
+
+.ecp-ex-choices li[data-correct] .ecp-ex-mark,
+.ecp-ex-choices li[data-correct] b {
+  color: #166534;
+}
+
+/* 下の帯（固定）：前のページ・未回答数・「このページを採点する」 */
+.ecp-foot {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.ecp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 48px;
+  border-radius: 999px;
+  padding: 0 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ecp-btn-sub {
+  flex-shrink: 0;
+  border: 2px solid #e5e7eb;
+  background: #ffffff;
+  color: #374151;
+}
+
+.ecp-btn-sub:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.ecp-btn-main {
+  margin-left: auto;
+  min-width: 0;
+  flex: 1;
+  max-width: 420px;
+  border: 0;
+  background: #2c3e50;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+@media (max-width: 430px) {
+  .ecp-btn-main {
+    padding: 0 12px;
+    font-size: 14px;
+  }
+}
+
+.ecp-btn:focus-visible {
+  outline: 3px solid #3e9c93;
+  outline-offset: 2px;
+}
+
+.ecp-unanswered {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #92400e;
+}
+
+.ecp-empty {
+  padding: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+/* 狭いスマホ */
+@media (max-width: 380px) {
+  .ecp-head {
+    gap: 4px;
+    padding-left: 4px;
+    padding-right: 6px;
+  }
+  .ecp-stats > div {
+    padding: 4px 7px;
+    gap: 2px;
+  }
+  .ecp-list {
+    padding: 10px 8px 14px;
+    gap: 8px;
+  }
+  .ecp-item {
+    padding: 10px 9px 8px;
+  }
+  .ecp-choices {
+    gap: 2px 6px;
+  }
+  .ecp-btn {
+    padding: 0 12px;
+  }
+  .ecp-btn-sub span {
+    display: none;
+  }
+  .ecp-btn-sub {
+    width: 48px;
+    padding: 0;
+  }
+}
+
+/* 広い画面：1ページ最大5問を2列（左列3問・右列2問）にして一覧性を高める */
+@media (min-width: 1024px) {
+  .ecp-head {
+    padding: 10px 24px;
+    gap: 12px;
+  }
+  .ecp-title {
+    font-size: 17px;
+  }
+  .ecp-subbar-row {
+    padding: 5px 24px 4px;
+  }
+  .ecp-list {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(3, auto);
+    align-items: start;
+    gap: 12px 16px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 16px 24px 24px;
+  }
+  /* 端数（2問・3問の最終ページ）でも左列3段→右列へ綺麗に流れる */
+  .ecp-list[data-page-count='1'],
+  .ecp-list[data-page-count='2'] {
+    grid-template-rows: none;
+    grid-auto-flow: row;
+  }
+  /* 採点後は解説を開閉しても段ズレしないよう1列（中央最大880px）に整列 */
+  .ecp-list.is-scored {
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-flow: row;
+    grid-template-rows: none;
+    max-width: 880px;
+  }
+  .ecp-result {
+    max-width: 880px;
+    margin: 16px auto 0;
+  }
+  .ecp-foot {
+    padding: 10px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ecp-bubble,
+  .ecp-ex-chev,
+  .ecp-timer-fill {
+    transition: none;
+  }
+  .ecp-scroll {
+    scroll-behavior: auto;
+  }
+}
