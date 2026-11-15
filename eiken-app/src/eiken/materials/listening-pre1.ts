@@ -58,12 +58,14 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
     // 1: 企業・研究所での予算配分と優先順位の見直し
     () => {
       const depts = ['biochemistry wing', 'materials testing lab', 'acoustic research unit', 'clean-energy division', 'packaging design studio'];
+      const deptsJa = ['生化学研究棟', '材料試験ラボ', '音響研究ユニット', 'クリーンエネルギー部門', '包装デザインスタジオ'];
       const cuts = [
         ['postpone upgrading the hallway display monitors until next fiscal year', '廊下の表示モニター更新を来年度まで延期する'],
         ['consolidate two external software subscriptions into a single license', '外部ソフトウェア契約2件を1つのライセンスに統合する'],
         ['hold the quarterly regional workshops online rather than booking hotels', '四半期ごとの地域研修をホテル手配ではなくオンライン開催にする'],
       ];
       const dept = depts[(round - 1) % 5];
+      const deptJa = deptsJa[(round - 1) % 5];
       const [cutEn, cutJa] = cuts[(round - 1) % 3];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Good morning ${nTo1}, regarding our ${rWord.toLowerCase()} ${sWord.toLowerCase()} budget review for the ${dept}, finance asked us to trim expenses by eight percent before Friday.` },
@@ -75,7 +77,7 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
       ];
       return {
         turns,
-        ja: `${dept}の予算を8%削減するよう財務部から求められたが、若手技師2名の採用凍結は避け、「${cutJa}」ことで削減目標を賄う方針で合意した。`,
+        ja: `${deptJa}の予算を8%削減するよう財務部から求められたが、若手技師2名の採用凍結は避け、「${cutJa}」ことで削減目標を賄う方針で合意した。`,
         prompt: `How have the speakers decided to reduce expenses in the ${dept}?`,
         correct: `They will ${cutEn}.`,
         cReason: `why don't we ${cutEn}? に対して相手が Spot on. I will revise the spreadsheet と賛同している。`,
@@ -97,12 +99,14 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
     // 2: 大学ゼミ・学会発表の原稿修正
     () => {
       const topics = ['coastal wetland restoration', 'nineteenth-century textile trade', 'municipal transit electrification', 'adolescent sleep chronobiology', 'medieval manuscript preservation'];
+      const topicsJa = ['沿岸湿地の再生', '19世紀の繊維貿易', '市営交通の電動化', '思春期の睡眠時間生物学', '中世写本の保存修復'];
       const fixes = [
         ['add a comparison table contrasting rural and metropolitan data', '地方と大都市のデータを対比する比較表を追加する'],
         ['shorten the literature review and expand the methodology section', '先行研究の要約を縮めて調査手法の節を拡充する'],
         ['include interviews with three local practitioners as case evidence', '実務家3名への聞き取りを事例根拠として盛り込む'],
       ];
       const tp = topics[(round - 1) % 5];
+      const tpJa = topicsJa[(round - 1) % 5];
       const [fxEn, fxJa] = fixes[(round + 1) % 3];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Hello ${nTo1}, I just finished reading your ${rWord.toLowerCase()} ${sWord.toLowerCase()} draft on ${tp} for next month's colloquium.` },
@@ -114,7 +118,7 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
       ];
       return {
         turns,
-        ja: `${tp}に関する発表草稿の講評。数値と冒頭の主張は明確だが中盤が抽象的なため、水曜までに「${fxJa}」対応を行うことになった。`,
+        ja: `「${tpJa}」に関する発表草稿の講評。数値と冒頭の主張は明確だが中盤が抽象的なため、水曜までに「${fxJa}」対応を行うことになった。`,
         prompt: `What will ${who2} do before submitting the final paper?`,
         correct: fxEn[0].toUpperCase() + fxEn.slice(1) + '.',
         cReason: `Would it strengthen my argument if I ${fxEn} ...? に教授が Definitely と承認している。`,
@@ -136,12 +140,14 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
     // 3: 賃貸・店舗契約・施設修繕の交渉
     () => {
       const properties = ['corner bakery space', 'second-floor dental clinic', 'riverside design office', 'downtown bookshop unit', 'station-front tutoring suite'];
+      const propertiesJa = ['角地のベーカリー店舗区画', '2階の歯科クリニック区画', '川沿いのデザイン事務所', '中心街の書店テナント', '駅前の学習塾スペース'];
       const terms = [
         ['waive the first month\'s rent while the ventilation ducts are replaced', '換気ダクト交換の工事期間にあたる初月賃料を免除する'],
         ['cover half the cost of installing soundproof double-pane windows', '防音複層ガラス窓の設置費用の半分を負担する'],
         ['include two dedicated parking spaces behind the building at no extra charge', '建物裏の専用駐車場2台分を追加料金なしで含める'],
       ];
       const prop = properties[(round - 1) % 5];
+      const propJa = propertiesJa[(round - 1) % 5];
       const [tmEn, tmJa] = terms[round % 3];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Good afternoon ${nTo1}, calling from ${rWord} ${sWord} Realty about the lease for the ${prop} you inspected yesterday.` },
@@ -154,7 +160,7 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
       ];
       return {
         turns,
-        ja: `${prop}の賃貸交渉。基本家賃の引き下げは不可だが、2年契約を今週結べばオーナーが「${tmJa}」という譲歩案を出し、借主も契約に同意した。`,
+        ja: `${propJa}の賃貸交渉。基本家賃の引き下げは不可だが、2年契約を今週結べばオーナーが「${tmJa}」という譲歩案を出し、借主も契約に同意した。`,
         prompt: `What concession did the building owner offer regarding the ${prop}?`,
         correct: `To ${tmEn}.`,
         cReason: `the owner will ${tmEn} という提案に対して契約書を送るよう応じている。`,
@@ -176,12 +182,14 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
     // 4: 医療・健康相談での生活習慣と検査提案
     () => {
       const symptoms = ['persistent afternoon headaches', 'stiffness in your right shoulder', 'frequent eye fatigue after noon', 'mild dizziness when standing up', 'trouble falling asleep before midnight'];
+      const symptomsJa = ['午後になると続く頭痛', '右肩のこわばり', '正午過ぎに頻発する眼精疲労', '立ち上がるときの軽いめまい', '夜12時前になかなか寝つけない症状'];
       const advices = [
         ['switch to an anti-glare monitor filter and take brief breaks every hour', '反射防止モニターフィルターに替え、1時間ごとに小休止を取る'],
         ['keep a two-week hydration and meal log before trying any medication', '薬を試す前に2週間の水分摂取・食事記録をつける'],
         ['work with a physical therapist on posture exercises twice a week', '週2回理学療法士と姿勢改善エクササイズに取り組む'],
       ];
       const sym = symptoms[(round - 1) % 5];
+      const symJa = symptomsJa[(round - 1) % 5];
       const [advEn, advJa] = advices[(round + 2) % 3];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Come in, ${nTo1}. Looking at your ${rWord.toLowerCase()} ${sWord.toLowerCase()} checkup chart, your blood work came back completely normal, yet you mentioned ${sym}.` },
@@ -193,7 +201,7 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
       ];
       return {
         turns,
-        ja: `血液検査は正常だったが「${sym}」が続いている患者に対し、強い鎮痛薬は避け、まず「${advJa}」を行って2週間後に再評価するよう医師が助言した。`,
+        ja: `血液検査は正常だったが「${symJa}」が続いている患者に対し、強い鎮痛薬は避け、まず「${advJa}」対策を行って2週間後に再評価するよう医師が助言した。`,
         prompt: `What does the doctor advise ${who2} to do first?`,
         correct: advEn[0].toUpperCase() + advEn.slice(1) + '.',
         cReason: `First, please ${advEn} と医師が最初の対処法を具体的に指示している。`,
@@ -215,12 +223,14 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
     // 5: 製造・物流サプライチェーンの遅延と代替手配
     () => {
       const parts = ['tempered glass panels', 'ceramic heating elements', 'recycled aluminum frames', 'lithium sensor modules', 'precision brass valves'];
+      const partsJa = ['強化ガラスパネル', 'セラミック発熱素子', '再生アルミフレーム', 'リチウムセンサーモジュール', '精密真鍮バルブ'];
       const solutions = [
         ['source an emergency batch from our certified supplier in Nagoya', '名古屋の認定サプライヤーから緊急ロットを調達する'],
-        ['air-freight the critical components ahead of the bulk sea shipment', '船便の本貨物に先立って重要部品だけ航空便で取り寄せ'],
+        ['air-freight the critical components ahead of the bulk sea shipment', '船便の本貨物に先立って重要部品だけ航空便で取り寄せる'],
         ['prioritize assembling the domestic orders while export crates wait', '輸出向け梱包を後回しにして国内受注分の組立を優先する'],
       ];
       const pt = parts[(round - 1) % 5];
+      const ptJa = partsJa[(round - 1) % 5];
       const [solEn, solJa] = solutions[(round - 1) % 3];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Hi ${nTo1}, urgent ${rWord.toLowerCase()} ${sWord.toLowerCase()} logistics update: port congestion has delayed our shipment of ${pt} by nine days.` },
@@ -232,7 +242,7 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
       ];
       return {
         turns,
-        ja: `港湾混雑で${pt}の到着が9日遅れる事態に対し、工場停止による違約金を防ぐため「${solJa}」ことでラインを止めずに乗り切る決定をした。`,
+        ja: `港湾混雑で${ptJa}の到着が9日遅れる事態に対し、工場停止による違約金を防ぐため「${solJa}」ことでラインを止めずに乗り切る決定をした。`,
         prompt: `How will the speakers deal with the delayed shipment of ${pt}?`,
         correct: `They will ${solEn}.`,
         cReason: `Can we ${solEn} ...? に対し Let's authorize it now. と承認している。`,
@@ -254,12 +264,14 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
     // 6: 博物館・文化イベントでの広報戦略変更
     () => {
       const exhibits = ['Edo botanical woodblock exhibition', 'Nordic glassblowing retrospective', 'ancient Silk Road coin collection', 'contemporary kinetic sculpture show', 'oceanographic cartography exhibit'];
+      const exhibitsJa = ['江戸植物木版画展', '北欧吹きガラス回顧展', '古代シルクロード貨幣コレクション展', '現代キネティック彫刻展', '海洋地図学特別展'];
       const tactics = [
         ['offer free twilight admission for university students on Thursday evenings', '木曜夕方に大学生向けの夜間無料入館を実施する'],
         ['partner with commuter rail lines to display QR preview posters in stations', '通勤鉄道と提携して駅構内にQRプレビュー付きポスターを掲示する'],
         ['host live weekend demonstrations by master artisans in the courtyard', '週末に中庭で熟練職人による実演イベントを開催する'],
       ];
       const ex = exhibits[(round - 1) % 5];
+      const exJa = exhibitsJa[(round - 1) % 5];
       const [tcEn, tcJa] = tactics[round % 3];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Looking at our ${rWord.toLowerCase()} ${sWord.toLowerCase()} attendance figures, ${nTo1}, weekday turnout for the ${ex} is strong among retirees, whereas visitors in their twenties remain scarce.` },
@@ -271,7 +283,7 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
       ];
       return {
         turns,
-        ja: `${ex}で20代の来場者が少ない課題に対し、高額なテレビCMではなく「${tcJa}」施策を来週から実施することにした。`,
+        ja: `「${exJa}」で20代の来場者が少ない課題に対し、高額なテレビCMではなく「${tcJa}」施策を来週から実施することにした。`,
         prompt: `What will the museum do to attract younger visitors to the ${ex}?`,
         correct: tcEn[0].toUpperCase() + tcEn.slice(1) + '.',
         cReason: `Instead, it would be far more effective to ${tcEn}. に Let's launch it next week. と合意している。`,
@@ -296,48 +308,66 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
       const themes = [
         {
           ctx: 'municipal recycling pilot',
+          ctxJa: '市のリサイクル実証事業',
           issue: 'residents in apartment complexes are mixing food scraps into plastic bins',
+          issueJa: '集合住宅の住民がプラスチック回収箱に生ごみを混入させてしまう',
           rejected: 'imposing immediate municipal fines',
+          rejectedJa: '直ちに市の罰金を科すこと',
           chosen: 'distribute color-coded countertop caddies with illustrated sorting magnets',
           chosenJa: 'イラスト付き分別マグネットと色分け卓上容器を配布する',
           sk: '会話：問題点',
         },
         {
           ctx: 'software platform migration',
+          ctxJa: '社内ソフトウェア基盤の移行',
           issue: 'regional sales reps find the new reporting dashboard confusing',
+          issueJa: '地方営業担当者が新しい報告ダッシュボードの操作に戸惑っている',
           rejected: 'reverting to the legacy spreadsheet system',
+          rejectedJa: '従来の表計算システムへ逆戻りすること',
           chosen: 'record five-minute interactive walkthrough clips for the three core tasks',
           chosenJa: '主要3業務について5分間の対話型解説動画を収録する',
           sk: '会話：意図',
         },
         {
           ctx: 'historical biography publication',
+          ctxJa: '歴史評伝の出版企画',
           issue: 'obtaining copyright clearance for six archival photographs is taking months',
+          issueJa: '記録写真6点の著作権許諾取得に数か月かかっている',
           rejected: 'delaying the autumn hardcover release until spring',
+          rejectedJa: '秋の単行本発売を来春まで延期すること',
           chosen: 'commission an illustrator to draw accurate architectural maps instead',
           chosenJa: '代わりにイラストレーターへ正確な建築地図の作画を依頼する',
           sk: '会話：交渉',
         },
         {
           ctx: 'hospital cafeteria overhaul',
+          ctxJa: '病院職員食堂の運用見直し',
           issue: 'night-shift nurses have no hot meal options after nine p.m.',
+          issueJa: '夜勤の看護師が午後9時以降に温かい食事を取れない',
           rejected: 'keeping the full kitchen staff on duty all night',
+          rejectedJa: '調理スタッフ全員を徹夜で常駐させること',
           chosen: 'install refrigerated smart lockers stocked daily with freshly prepared bowls',
           chosenJa: '毎日作りたての食事を補充する冷蔵スマートロッカーを設置する',
           sk: '会話：条件',
         },
         {
           ctx: 'botanical conservatory tour program',
+          ctxJa: '植物園温室の見学ツアー運営',
           issue: 'narrow glasshouse pathways get overcrowded when two school buses arrive together',
+          issueJa: 'スクールバス2台が同時到着すると温室内の狭い通路が混雑してしまう',
           rejected: 'cutting the total number of school visits in half',
+          rejectedJa: '学校団体の受入総数を半減させること',
           chosen: 'stagger group entries by thirty minutes and rotate half through the seed lab',
           chosenJa: '入場を30分ずらし半数を種子ラボ見学とローテーションさせる',
           sk: '会話：評価',
         },
         {
           ctx: 'independent coffee roastery expansion',
+          ctxJa: '独立系コーヒー焙煎店の店舗拡張',
           issue: 'peak morning queues are causing commuters to walk away without ordering',
+          issueJa: '朝ラッシュ時の行列で通勤客が注文せず帰ってしまう',
           rejected: 'removing pour-over coffee from the menu altogether',
+          rejectedJa: 'ハンドドリップコーヒーをメニューから完全になくすこと',
           chosen: 'set up a dedicated express pickup window for mobile pre-orders',
           chosenJa: 'モバイル事前注文専用のエクスプレス受取窓口を設ける',
           sk: '会話：含意',
@@ -354,7 +384,7 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
       ];
       return {
         turns,
-        ja: `${th.ctx}の進捗確認。「${th.issue}」という課題に対し、極端な案（${th.rejected}）は避け、「${th.chosenJa}」施策を導入することで合意した。`,
+        ja: `${th.ctxJa}の進捗確認。「${th.issueJa}」という課題に対し、極端な案（${th.rejectedJa}）は避け、「${th.chosenJa}」施策を導入することで合意した。`,
         prompt: `What have the speakers decided to do regarding the ${th.ctx}?`,
         correct: th.chosen[0].toUpperCase() + th.chosen.slice(1) + '.',
         cReason: `What if we ${th.chosen}? に対して Excellent proposal. と採用が決定している。`,
@@ -416,13 +446,17 @@ function buildPre1Part2Unit(examId: string, round: number, u: number): Listening
     // Passage 1: 生態学・土壌菌根ネットワーク研究
     () => {
       const trees = ['Douglas fir stands', 'northern birch groves', 'subalpine spruce forests', 'coastal cedar woodlands', 'temperate beech canopies'];
+      const treesJa = ['ベイマツ林', '北方のシラカバ林', '亜高山帯のトウヒ林', '沿岸のスギ林', '温帯のブナ林'];
       const nutrients = ['phosphorus compounds', 'dissolved nitrogen', 'trace magnesium ions', 'carbon isotopes', 'soluble potassium'];
+      const nutrientsJa = ['リン化合物', '溶存窒素', '微量マグネシウムイオン', '炭素同位体', '可溶性カリウム'];
       const tree = trees[(round - 1) % 5];
+      const treeJa = treesJa[(round - 1) % 5];
       const nut = nutrients[(round + 1) % 5];
+      const nutJa = nutrientsJa[(round + 1) % 5];
       const body = `Academic Briefing ${rWord} ${sWord}: Forest ecologists have long known that tree roots partner with underground fungi to exchange sugars for minerals. Recent field experiments in ${tree}, however, revealed something more intricate. When researchers shaded young saplings to restrict photosynthesis, mature neighboring trees transferred measurable amounts of ${nut} through shared fungal threads. Even more surprisingly, the fungal network did not distribute resources evenly; instead, it directed larger shares toward genetically diverse saplings, increasing overall stand resilience against drought. Critics caution, nevertheless, that logging heavy machinery compacts topsoil and severs these delicate filaments, meaning restoration projects must protect soil structure rather than merely planting seedlings.`;
       return {
         body,
-        ja: `${tree}での最新野外実験に関する学術解説。日陰に置かれた若木に対し、周囲の成木が菌糸ネットワークを通じて「${nut}」を供給し、特に遺伝的多様性の高い若木へ多く配分して乾燥耐性を高めていた。一方、重機による土壌圧縮は菌糸を切断するため、植林だけでなく土壌構造の保全が不可欠だと指摘されている。`,
+        ja: `${treeJa}での最新野外実験に関する学術解説。日陰に置かれた若木に対し、周囲の成木が菌糸ネットワークを通じて「${nutJa}」を供給し、特に遺伝的多様性の高い若木へ多く配分して乾燥耐性を高めていた。一方、重機による土壌圧縮は菌糸を切断するため、植林だけでなく土壌構造の保全が不可欠だと指摘されている。`,
         q1Prompt: `What did researchers observe in the shaded saplings in ${tree}?`,
         q1Correct: `They received ${nut} from mature trees via fungal threads.`,
         q1CReason: `mature neighboring trees transferred measurable amounts of ${nut} through shared fungal threads と明言されている。`,
@@ -460,17 +494,19 @@ function buildPre1Part2Unit(examId: string, round: number, u: number): Listening
     // Passage 2: 都市交通・渋滞課金とバス専用レーンの効果
     () => {
       const cities = ['Porthaven', 'Veridian Bay', 'Northbridge', 'Calderon', 'westerham'].map(s => s[0].toUpperCase() + s.slice(1));
+      const citiesJa = ['ポートヘイブン市', 'ベリディアン・ベイ市', 'ノースブリッジ市', 'カルデロン市', 'ウェスターハム市'];
       const uses = [
         ['expanding electric tram frequency during early morning rush hours', '早朝ラッシュ時の電動トラム運行本数の拡充'],
         ['building covered bicycle highways connecting suburban rail hubs', '郊外鉄道駅を結ぶ屋根付き自転車専用道の整備'],
         ['subsidizing off-peak freight deliveries using quiet electric vans', '静音電動バンによるオフピーク貨物配送への補助'],
       ];
       const city = cities[(round - 1) % 5];
+      const cityJa = citiesJa[(round - 1) % 5];
       const [useEn, useJa] = uses[(round - 1) % 3];
       const body = `Policy Review ${rWord} ${sWord}: Three years ago, the port municipality of ${city} introduced a variable congestion fee for private cars entering its historic downtown between seven and ten a.m. Initially, downtown retailers feared that motorists would shop at suburban malls instead. Follow-up tax receipts, however, showed a twelve percent rise in foot-traffic sales within eighteen months, largely because faster bus lanes brought more commuters straight to shopping streets. Equally important, city law required every dollar collected from the fee to be earmarked for ${useEn}, which helped win durable public backing from skeptical suburban voters.`;
       return {
         body,
-        ja: `${city}が3年前に導入した朝ラッシュ時の変動型渋滞課金の政策検証。当初は小売店が売上減を懸念したが、バス高速化により18か月で来店売上が12%増加した。さらに徴収金をすべて「${useJa}」に充当する法的義務を設けたことで郊外有権者の支持も定着した。`,
+        ja: `${cityJa}が3年前に導入した朝ラッシュ時の変動型渋滞課金の政策検証。当初は小売店が売上減を懸念したが、バス高速化により18か月で来店売上が12%増加した。さらに徴収金をすべて「${useJa}」に充当する法的義務を設けたことで郊外有権者の支持も定着した。`,
         q1Prompt: `What happened in downtown ${city} within eighteen months of introducing the fee?`,
         q1Correct: 'Retail sales from pedestrian traffic rose by twelve percent.',
         q1CReason: 'showed a twelve percent rise in foot-traffic sales within eighteen months と結果が明示されている。',
@@ -508,7 +544,9 @@ function buildPre1Part2Unit(examId: string, round: number, u: number): Listening
     // Passage 3: 科学史・海図とクロノメーター／気象観測の歴史
     () => {
       const instruments = ['standardized marine barometers', 'copper-sheathed hull plates', 'chromatic lighthouse lenses', 'printed wind-current atlases', 'sealed botanical wardian cases'];
+      const instrumentsJa = ['標準化された船舶用気圧計', '銅板張りの船底外板', '色収差補正の灯台レンズ', '印刷された風向・海流図帳', '密閉式の植物輸送用ウォーディアンケース'];
       const inst = instruments[(round - 1) % 5];
+      const instJa = instrumentsJa[(round - 1) % 5];
       const benefits = [
         ['shortened transoceanic voyage times by nearly three weeks on average', '大洋横断の航海日数を平均で約3週間短縮した'],
         ['enabled small merchant vessels to anticipate sudden coastal gales hours ahead', '小型商船が突発的な沿岸暴風を数時間前に予測できるようにした'],
@@ -518,7 +556,7 @@ function buildPre1Part2Unit(examId: string, round: number, u: number): Listening
       const body = `Historical Lecture ${rWord} ${sWord}: Maritime historians often credit steam engines alone for transforming nineteenth-century sea trade, yet earlier adoption of ${inst} played a decisive role even during the age of sail. At first, veteran captains distrusted the unfamiliar gear because early prototypes were expensive and awkward to calibrate on rolling decks. Once naval observatories began lending calibrated units free of charge in exchange for standardized logbook entries, adoption spread rapidly. Within a decade, widespread use of the system ${benEn}, reshaping insurance rates across global ports.`;
       return {
         body,
-        ja: `19世紀の海運を変えた「${inst}」の歴史講義。当初は高価で揺れる甲板での調整が難しく船長たちに敬遠されたが、海軍天文台が航海日誌データの提供と引き換えに校正済み機器を無償貸与したことで普及し、10年以内に「${benJa}」という成果を生んだ。`,
+        ja: `19世紀の海運を変えた「${instJa}」の歴史講義。当初は高価で揺れる甲板での調整が難しく船長たちに敬遠されたが、海軍天文台が航海日誌データの提供と引き換えに校正済み機器を無償貸与したことで普及し、10年以内に「${benJa}」という成果を生んだ。`,
         q1Prompt: `Why were captains initially reluctant to use ${inst}?`,
         q1Correct: 'Early models were costly and difficult to adjust at sea.',
         q1CReason: 'early prototypes were expensive and awkward to calibrate on rolling decks と理由が述べられている。',
@@ -556,17 +594,19 @@ function buildPre1Part2Unit(examId: string, round: number, u: number): Listening
     // Passage 4: 医療・遠隔リハビリとウェアラブルセンサー
     () => {
       const conditions = ['post-knee-surgery recovery', 'chronic lower-back rehabilitation', 'wrist tendon physical therapy', 'cardiac endurance conditioning', 'balance training for seniors'];
+      const conditionsJa = ['膝手術後の回復リハビリ', '慢性腰痛のリハビリ', '手首腱の理学療法', '心臓持久力コンディショニング', '高齢者向けバランストレーニング'];
       const findings = [
         ['patients completed eighty-five percent of assigned routines when given instant posture audio cues', '即時の姿勢音声ガイドがあると患者が課題の85%を完遂した'],
         ['clinicians detected subtle range-of-motion plateaus two weeks earlier than in monthly clinic visits', '月1回の通院よりも2週間早く可動域の停滞を臨床医が検知できた'],
         ['rural participants saved an average of four hours of travel per week without sacrificing recovery speed', '地方の参加者が回復速度を落とさずに週平均4時間の移動時間を節約できた'],
       ];
       const cond = conditions[(round - 1) % 5];
+      const condJa = conditionsJa[(round - 1) % 5];
       const [fdEn, fdJa] = findings[round % 3];
       const body = `Medical Report ${rWord} ${sWord}: Outpatient clinics managing ${cond} have long struggled with low adherence once patients return home. Printed exercise sheets are easily forgotten, and patients often perform movements too rapidly without realizing it. To address this, a consortium of regional hospitals tested lightweight fabric sensors paired with a tablet app over six months. Data from four hundred participants showed that ${fdEn}. Researchers emphasized, however, that digital coaching worked best when combined with a brief biweekly video check-in from a human therapist rather than full automation.`;
       return {
         body,
-        ja: `${cond}の外来リハビリにおける軽量布センサーの6か月・400人臨床試験。紙の指示書では動作が速くなりがちだったが、試験の結果「${fdJa}」。ただし完全自動化ではなく2週間に1度の療法士との短いビデオ面談を併用したときに最も効果が高かった。`,
+        ja: `${condJa}の外来リハビリにおける軽量布センサーの6か月・400人臨床試験。紙の指示書では動作が速くなりがちだったが、試験の結果「${fdJa}」。ただし完全自動化ではなく2週間に1度の療法士との短いビデオ面談を併用したときに最も効果が高かった。`,
         q1Prompt: `What did the six-month hospital study on ${cond} reveal?`,
         q1Correct: fdEn[0].toUpperCase() + fdEn.slice(1) + '.',
         q1CReason: `Data from four hundred participants showed that ${fdEn}. とそのまま述べられている。`,
@@ -604,17 +644,19 @@ function buildPre1Part2Unit(examId: string, round: number, u: number): Listening
     // Passage 5: 芸術保存・美術館の照明技術と顔料劣化防止
     () => {
       const artworks = ['sixteenth-century silk tapestries', 'early Japanese woodblock prints', 'nineteenth-century watercolor sketches', 'ancient mineral-pigment murals', 'illuminated parchment manuscripts'];
+      const artworksJa = ['16世紀の絹タペストリー', '初期の浮世絵木版画', '19世紀の水彩スケッチ', '古代の鉱物顔料壁画', '彩色羊皮紙写本'];
       const techs = [
         ['narrow-spectrum LEDs tuned to omit the specific wavelengths that trigger dye fading', '染料退色を引き起こす特定波長を除去した狭帯域LED照明'],
         ['micro-climate display cases buffered with silica gel to stabilize humidity swings', '湿度変動を抑えるシリカゲル緩衝マイクロクライメート展示ケース'],
         ['motion-activated dimming systems that lower light levels whenever galleries are empty', '展示室が無人のときに照度を下げる人感調光システム'],
       ];
       const art = artworks[(round - 1) % 5];
+      const artJa = artworksJa[(round - 1) % 5];
       const [tcEn, tcJa] = techs[(round + 1) % 3];
       const body = `Conservation Note ${rWord} ${sWord}: Displaying ${art} presents curators with a persistent dilemma: bright light reveals delicate brushwork to visitors, yet cumulative exposure irreversibly alters organic dyes. Historically, museums rotated fragile works into dark storage after just six weeks on view. Recently, conservation scientists tested ${tcEn}. Spectrophotometer readings after twelve months confirmed negligible color shift while preserving crisp visual contrast for viewers. Even so, conservators still enforce strict total-exposure budgets for irreplaceable masterpieces.`;
       return {
         body,
-        ja: `${art}の展示保存におけるジレンマと新技術。「${tcJa}」を試験導入したところ、12か月後の分光測色でも色変化がごくわずかに抑えられ視認性も保たれた。それでも代替不可能な名品には総露光量の上限管理が継続されている。`,
+        ja: `${artJa}の展示保存におけるジレンマと新技術。「${tcJa}」を試験導入したところ、12か月後の分光測色でも色変化がごくわずかに抑えられ視認性も保たれた。それでも代替不可能な名品には総露光量の上限管理が継続されている。`,
         q1Prompt: `How did museums traditionally protect ${art} from light damage?`,
         q1Correct: 'They returned them to dark storage after brief display periods.',
         q1CReason: 'rotated fragile works into dark storage after just six weeks on view と従来の方法が説明されている。',
@@ -652,17 +694,19 @@ function buildPre1Part2Unit(examId: string, round: number, u: number): Listening
     // Passage 6: 農業経済・再生型農業とコーヒー／カカオ日陰栽培
     () => {
       const crops = ['highland arabica coffee', 'fine-flavor cacao beans', 'organic cardamom pods', 'artisanal vanilla vines', 'shade-grown tea cultivars'];
+      const cropsJa = ['高地産アラビカコーヒー', 'ファインフレーバー・カカオ豆', '有機カルダモン', '伝統製法のバニラ', '被覆栽培の茶品種'];
       const gains = [
         ['stabilized soil moisture and cut irrigation costs by thirty percent during dry spells', '土壌水分を安定させ乾季の灌漑コストを30%削減した'],
         ['attracted insect-eating songbirds that naturally suppressed crop-damaging beetles', '害虫の甲虫を自然に抑える食虫性の野鳥を呼び寄せた'],
         ['provided farmers with secondary autumn income from timber and fruit trees', '果樹や木材による秋の副収入を農家にもたらした'],
       ];
       const crop = crops[(round - 1) % 5];
+      const cropJa = cropsJa[(round - 1) % 5];
       const [gnEn, gnJa] = gains[(round - 1) % 3];
       const body = `Economic Commentary ${rWord} ${sWord}: For decades, growers of ${crop} were encouraged to clear canopy trees and plant dense single-crop rows to maximize short-term yields. Although harvests spiked during the first few seasons, exposed hillsides soon suffered rapid erosion and rising fertilizer bills. Over the past eight years, farmer cooperatives have reintroduced native shade trees across thousands of hectares. Field audits show that while per-hectare yield is slightly lower in year one, the mixed canopy ${gnEn}, resulting in higher net farm profit by the fourth year.`;
       return {
         body,
-        ja: `${crop}栽培における単一密植から在来日陰樹の再導入への転換。単一栽培は短期収量こそ増えたが土壌侵食と肥料費高騰を招いた。日陰樹の混植は初年度収量こそやや下がるものの「${gnJa}」効果を生み、4年目までに純利益を上回らせた。`,
+        ja: `${cropJa}栽培における単一密植から在来日陰樹の再導入への転換。単一栽培は短期収量こそ増えたが土壌侵食と肥料費高騰を招いた。日陰樹の混植は初年度収量こそやや下がるものの「${gnJa}」効果を生み、4年目までに純利益を上回らせた。`,
         q1Prompt: `What problem resulted from clearing canopy trees to grow ${crop}?`,
         q1Correct: 'Hillsides experienced erosion and higher fertilizer expenses.',
         q1CReason: 'exposed hillsides soon suffered rapid erosion and rising fertilizer bills と明記されている。',
