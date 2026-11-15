@@ -252,10 +252,27 @@ describe('Release content completeness', () => {
         for (const problem of chapter.practiceProblems) {
           expect(ids.has(problem.id)).toBe(false); ids.add(problem.id);
           for (const question of problem.subQuestions) {
-            expect([3, 4]).toContain(question.optionTexts?.length);
-            expect(question.optionTexts![Number(question.correctAnswer) - 1]).toBeTruthy();
-            expect(question.distractors).toHaveLength(question.optionTexts!.length);
+            expect([3, 4]).toContain(question.options?.length);
+            if (question.optionTexts) {
+              expect(question.optionTexts).toHaveLength(question.options.length);
+              expect(question.optionTexts[Number(question.correctAnswer) - 1]).toBeTruthy();
+              for (const optText of question.optionTexts) {
+                expect(optText).not.toMatch(/音声で読み上げ/);
+              }
+            }
+            expect(question.imageCaption).toBeUndefined();
+            expect(question.label ?? '').not.toMatch(/音声の選択肢|冊子と共通|補助イラスト/);
+            expect(question.distractors).toHaveLength(question.options.length);
             expect(question.explainJa).toBeTruthy();
+          }
+          expect(problem.text).not.toMatch(/補助イラスト|場面ガイド|音声で読み上げ|冊子と共通/);
+          expect(problem.explanation ?? '').not.toMatch(/補助イラスト|図版設定|予定パス/);
+          for (const track of problem.audioTracks ?? []) {
+            expect(track.hint ?? '').not.toMatch(/フォールバック|ElevenLabs|音声を聞いて答えを選んでください/);
+            expect(track.translation ?? '').not.toMatch(/読み上げられる/);
+            for (const img of track.material?.images ?? []) {
+              expect(img.caption ?? '').not.toMatch(/補助イラスト|白紙枠/);
+            }
           }
           if (chapter.questionGroup === 'リーディング') {
             readings++; marks += problem.subQuestions.length;
@@ -291,11 +308,15 @@ describe('Release content completeness', () => {
       for (let i = 0; i < 1000; i++) expect(items).toContain(pickGachaItem(i / 1000, 'N', pool.id)?.item);
     }
     expect(GACHA_PRINTS.filter(print => print.id.startsWith('print_eiken_wordbook_'))).toHaveLength(7);
-    expect(GACHA_PRINTS.filter(print => print.id.includes('_written_'))).toHaveLength(29);
-    expect(GACHA_PRINTS).toHaveLength(36);
+    expect(GACHA_PRINTS.filter(print => print.id.startsWith('print_eiken_wordbook2_'))).toHaveLength(7);
+    expect(GACHA_PRINTS.filter(print => print.id.startsWith('print_eiken_drill_short_'))).toHaveLength(7);
+    expect(GACHA_PRINTS.filter(print => print.id.startsWith('print_eiken_guide_'))).toHaveLength(7);
+    expect(GACHA_PRINTS.filter(print => print.id.startsWith('print_eiken_writing_'))).toHaveLength(5);
+    expect(GACHA_PRINTS.filter(print => print.id.includes('_written_'))).toHaveLength(105);
+    expect(GACHA_PRINTS).toHaveLength(138);
     for (const print of GACHA_PRINTS) {
       expect(print.subject).toMatch(/^eiken_/);
-      expect(print.pages).toBe(print.variants ? print.variants.reduce((n, part) => n + part.pages, 0) : 5);
+      expect(print.pages).toBe(print.variants ? print.variants.reduce((n, part) => n + part.pages, 0) : print.id.startsWith('print_eiken_wordbook') ? 5 : 4);
       expect(readFileSync(`public${print.file}`).subarray(0, 4).toString()).toBe('%PDF');
       expect(existsSync(`public${print.thumb}`)).toBe(true);
       expect(GACHA_PREVIEWS[print.id].every(path => existsSync(`public${path}`))).toBe(true);
