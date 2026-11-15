@@ -218,7 +218,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [...WRITTEN_PRINTS,
     "file": "/prints/print_eiken_drill_short_pre2.pdf",
     "thumb": "/prints/thumbs/print_eiken_drill_short_pre2.webp",
     "pages": 4,
-    "kb": 100,
+    "kb": 101,
     "description": "英検準2級の大問1（短文空所）から頻出パターン12問を抜粋した4ページのスピード確認プリント。"
   },
   {
@@ -306,7 +306,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [...WRITTEN_PRINTS,
     "file": "/prints/print_eiken_guide_pre2plus.pdf",
     "thumb": "/prints/thumbs/print_eiken_guide_pre2plus.webp",
     "pages": 4,
-    "kb": 104,
+    "kb": 105,
     "description": "英検準2級プラスの大問構成・目標タイム・解法手順と15回達成チェック表をまとめた4ページ攻略ガイド。"
   },
   {
@@ -317,7 +317,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [...WRITTEN_PRINTS,
     "file": "/prints/print_eiken_guide_2.pdf",
     "thumb": "/prints/thumbs/print_eiken_guide_2.webp",
     "pages": 4,
-    "kb": 103,
+    "kb": 104,
     "description": "英検2級の大問構成・目標タイム・解法手順と15回達成チェック表をまとめた4ページ攻略ガイド。"
   },
   {
@@ -328,7 +328,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [...WRITTEN_PRINTS,
     "file": "/prints/print_eiken_guide_pre1.pdf",
     "thumb": "/prints/thumbs/print_eiken_guide_pre1.webp",
     "pages": 4,
-    "kb": 111,
+    "kb": 112,
     "description": "英検準1級の大問構成・目標タイム・解法手順と15回達成チェック表をまとめた4ページ攻略ガイド。"
   },
   {

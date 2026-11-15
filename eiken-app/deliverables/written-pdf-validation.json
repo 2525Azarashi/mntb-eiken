@@ -3,8 +3,8 @@
     "id": "eiken_5_written_01",
     "round": 1,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "4a192496826b6310a0257c59f3505e45342cc92d612c12db9b2ef1cb8d861d64",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "f6ab03a54f1d83ffcf37f7344d219212601f6b0b34ad7858d719ccd4fbf7dd88",
     "pages": 14,
     "parts": [
       {
@@ -255,8 +255,8 @@
     "id": "eiken_5_written_02",
     "round": 2,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "4b026298cb3c94d7bc9130866d7cfd62f0ba225cbd80c71c53595e7886b59d94",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "8234dd3df69ac8b6ef6b52c15b14d64ce13075606b126a65f58498d4f6e71b44",
     "pages": 14,
     "parts": [
       {
@@ -507,8 +507,8 @@
     "id": "eiken_5_written_03",
     "round": 3,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "540fe3bc384fc38bd5f507a198dbcf1bb492b1c5732d877f849de878668f38c5",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "5d01060dcbb7f26e2aa2f866fdc28de2daf7fe2bc85a0e9a663cc4253db1e1cd",
     "pages": 14,
     "parts": [
       {
@@ -759,8 +759,8 @@
     "id": "eiken_5_written_04",
     "round": 4,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "522ccaf845b8fa8ca881e4abae3ddd9195032cb23f2da4f296830f8d0a95d465",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "e6c351695f917b4ab7f6f677e2451bd3ff854c563f76901afc7c9a7a24514cb9",
     "pages": 14,
     "parts": [
       {
@@ -1011,8 +1011,8 @@
     "id": "eiken_5_written_05",
     "round": 5,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "360cb362211f88e188b0d3f614976fe6ee411d4190982b7749f50696c6514544",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "ff82dc39eb72ff4bf6f594b635dc836bda2812f2aefa12f23957f801f4a90032",
     "pages": 14,
     "parts": [
       {
@@ -1263,8 +1263,8 @@
     "id": "eiken_5_written_06",
     "round": 6,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "cf59b0f5d5b180f691a22a02e309c971d5a34f75a6cc7fbe437e7546d933d79d",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "062d44dfad4273491b2ef5e24f8381f1d0d7aa23ee57446b7dcd9aed73203565",
     "pages": 14,
     "parts": [
       {
@@ -1515,8 +1515,8 @@
     "id": "eiken_5_written_07",
     "round": 7,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "76160998fd50677d24ee6685227d51441679364703bee82d10ef469c8864075d",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "6c9f06bbfd9c86735b95eda164490445ddb41e3844f180043434201f69c0c2e4",
     "pages": 14,
     "parts": [
       {
@@ -1767,8 +1767,8 @@
     "id": "eiken_5_written_08",
     "round": 8,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "6129ea7cefb109b4046edca3f376c24e3f1cc646daf24d4a03e20a6014c6244b",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "06ee41f97b6f0175ccd753fc25670356a6fe10aa72dc531227d5a8d6bae26dee",
     "pages": 14,
     "parts": [
       {
@@ -2019,8 +2019,8 @@
     "id": "eiken_5_written_09",
     "round": 9,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "a47bac40bd8fce068dbeb1197967c86464ded7be6029d0820acd5176d0d290a7",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "105a54b839cc7db7d2aaf2de4708b1242268fd941c014c4e8f97f428777ee268",
     "pages": 14,
     "parts": [
       {
@@ -2263,7 +2263,7 @@
         "id": "eiken_5_written_09_q25",
         "number": 25,
         "answer": 4,
-        "explanation": "Which＋does＋your sister＋play, the piano or the guitar? の語順。"
+        "explanation": "Does＋主語（your sister）＋動詞の原形（play）＋目的語（the guitar）＋時（on Sundays）の語順。1番目は④your sister、3番目は②the guitar。"
       }
     ]
   },
@@ -2271,8 +2271,8 @@
     "id": "eiken_5_written_10",
     "round": 10,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "8562e411d9fe6278a60e72fdf2694d966119ddbdb5142d8ac8acd14d5af95e62",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "964a044dc6d54f25df5b801756ad0dff2eb72ec1d6e8afa512e05635938f483d",
     "pages": 14,
     "parts": [
       {
@@ -2523,8 +2523,8 @@
     "id": "eiken_5_written_11",
     "round": 11,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "e4e31b1674d56d02e4187a9c410d2865f00d6b73077a1402f10d6c0417dce5cf",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "c516a38afced3e68d82cf4d80349f3e552a5be6e54a3a669ed16d443399d6a3a",
     "pages": 14,
     "parts": [
       {
@@ -2775,8 +2775,8 @@
     "id": "eiken_5_written_12",
     "round": 12,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "ccd8bef13983bb91828483384f5293ad97c379b4da2b1060ebe387332b385b2a",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "1a7644f578b730ec4fc8d5257abfd1ac7b989aae67a4ec58fc411d22c52ffcef",
     "pages": 14,
     "parts": [
       {
@@ -3027,8 +3027,8 @@
     "id": "eiken_5_written_13",
     "round": 13,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "82e998da0313eec790844826ab36370bb452a2225be89271b076385c3b79e27a",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "6201bea8f8276e0ef708fadc400d145233f612e2f65d299ab95a03aeb7c86c56",
     "pages": 14,
     "parts": [
       {
@@ -3279,8 +3279,8 @@
     "id": "eiken_5_written_14",
     "round": 14,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "54b3bc43340e2edaf5a8852eb7ed382260d9b7ab51a626c73ccf1c640a014e4c",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "4158d447788fc733fb629be3446bc19f5014a680afef77792b137639ebc1a81b",
     "pages": 14,
     "parts": [
       {
@@ -3531,8 +3531,8 @@
     "id": "eiken_5_written_15",
     "round": 15,
     "grade": "eiken_5",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "e40354894e92ca4f07ae13e4f4ca13785e14596205fc53e6c7a09ea497e93fd9",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "6cf7abb2e600febd893985cb0787bc3903caf6fccd46a29abd58dd12b40b5f75",
     "pages": 14,
     "parts": [
       {
@@ -3783,8 +3783,8 @@
     "id": "eiken_4_written_01",
     "round": 1,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "e1eac78c9d42fc66819f413afee66a016d7edf287f1ed212f160aa93f67fe956",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "1e3952ab2444fc510e3cb48f486c5da9bf1e6020c03c4106cd6170906f70bc1f",
     "pages": 24,
     "parts": [
       {
@@ -4173,8 +4173,8 @@
     "id": "eiken_4_written_02",
     "round": 2,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "a8dca40ad77f34d30a09f4d41de0a4f676bff3cfce0ee336fb802945e9d75e32",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "98d89fbef61b549e3d1881df2d2320ff4698dc72cac8b099f4a7546dc2c361bc",
     "pages": 24,
     "parts": [
       {
@@ -4563,8 +4563,8 @@
     "id": "eiken_4_written_03",
     "round": 3,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "6d2a9d7512bf4ab710b9fdc59deee0b18b00acb55e022756676f69a3d6626def",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "c620c27c731d2a008d625f796840db9fa9dfb9524137237f77c2fab2a7098f3f",
     "pages": 24,
     "parts": [
       {
@@ -4953,8 +4953,8 @@
     "id": "eiken_4_written_04",
     "round": 4,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "d1c0805835a12b6629b5586d22611c286638dde3230393d54919665950a25df1",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "e36d952fbfb0a73d2c5ffb5a3bffb6760c177098c8c728de65bdc9332fdb0764",
     "pages": 24,
     "parts": [
       {
@@ -5343,8 +5343,8 @@
     "id": "eiken_4_written_05",
     "round": 5,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "3bc127c40e9caf5253ce8f6d1bbf62719528212929ac383c4a317de630de4ee2",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "6ccb7cbd64ea141331366f44ef9c44edf76d3015a2cd2f2eab71d73900059ce8",
     "pages": 24,
     "parts": [
       {
@@ -5733,8 +5733,8 @@
     "id": "eiken_4_written_06",
     "round": 6,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "8ec6b3b66b26453e63c7c0bfafebb7db5d3ea0b32b8dc97a3c4180924306a73b",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "a753fc78f5370ab07470f51303de5ae4c62ba43ada26581627f38bbd7c3ce32b",
     "pages": 24,
     "parts": [
       {
@@ -6123,8 +6123,8 @@
     "id": "eiken_4_written_07",
     "round": 7,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "d7ac8da4f26afd78990c9d4d674c62a1e9b8b7fce4d137c67c4645b1c3e7ff05",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "08447dca12bdb481e5a172678056e4333dd97d635813d67ea2af4fdf455a3d96",
     "pages": 24,
     "parts": [
       {
@@ -6513,8 +6513,8 @@
     "id": "eiken_4_written_08",
     "round": 8,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "ae8f6cda6dc8dc76358e835e81ce30dc1931e0d47a5dca3a5ff200c0ca5b91be",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "b157e65d6e19ea0dd4f889bf182a901751db39f16114569869bd1fd5a6ecb042",
     "pages": 24,
     "parts": [
       {
@@ -6903,8 +6903,8 @@
     "id": "eiken_4_written_09",
     "round": 9,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "735d751e3759b2e199fddc2f80c4faed8fef2b905ef0fcbecfa43836a9a23b84",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "7abdaab47d45239e9cbfbef34727729f2c25b3f48ce09cebc775499ec413646a",
     "pages": 24,
     "parts": [
       {
@@ -7293,8 +7293,8 @@
     "id": "eiken_4_written_10",
     "round": 10,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "e145ddbfe470abacfe88a69ebc804b3f50ee82036a9404735016dd179f88e9dd",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "f77bd9930e782aebd7e8df60138c22ba6ed3ce89ee6625c0691e6179ea49707d",
     "pages": 24,
     "parts": [
       {
@@ -7683,8 +7683,8 @@
     "id": "eiken_4_written_11",
     "round": 11,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "00fec69260ab8dc1ee8a95480e4f1f96947670c727a179280cd9d39602d1c64b",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "441e1bd3265485c30618a2a1aa9640adf81f79f64976007520ffb56c2f2310b2",
     "pages": 24,
     "parts": [
       {
@@ -8073,8 +8073,8 @@
     "id": "eiken_4_written_12",
     "round": 12,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "5338d0787b97a36777d5ef4b7e71026850bc76eef9a4231c95dd78398d2abbdc",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "d7cb1d6bc448fe516ae82fa36d6f484528c4cbb5f416691d49ebfbe26fd523f3",
     "pages": 24,
     "parts": [
       {
@@ -8463,8 +8463,8 @@
     "id": "eiken_4_written_13",
     "round": 13,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "aa14cef8741b0e52464c6d05bec52e9720052fc241d876fcacb06ff70decf2b0",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "2b68c765a0e8cc2e39602d4b7fd73fe2f35cbe17e4324db9ae81e87a79f75e02",
     "pages": 24,
     "parts": [
       {
@@ -8853,8 +8853,8 @@
     "id": "eiken_4_written_14",
     "round": 14,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "5ba760298c657d16df945434a8877dc2c8d156c8130f5d21515816c001b20724",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "f3d9b2118b3a5593f43e538a201dafdc2eaaba65c553ed28ec3bd0aad1f5bb06",
     "pages": 24,
     "parts": [
       {
@@ -9243,8 +9243,8 @@
     "id": "eiken_4_written_15",
     "round": 15,
     "grade": "eiken_4",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "115a51204a47070abb1e19ebad0bedc69a7bd86493af95ad02ee0ee84f521f72",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "a24bff30c5976ee0dcdb0e9ea1dceae476e06d26de47de604bb9fe6bd82ceca0",
     "pages": 24,
     "parts": [
       {
@@ -9633,8 +9633,8 @@
     "id": "eiken_3_written_01",
     "round": 1,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "70d6a6a3dac71263be206c49e0824c0555f0e26c4d1e2731775399f35634fcd3",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "79e022db2bb7edeba3cf1b4114fcfd702b5d3e72f709fda4bd589b034f420493",
     "pages": 26,
     "parts": [
       {
@@ -9987,8 +9987,8 @@
     "id": "eiken_3_written_02",
     "round": 2,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "01cef2a5166a5fa8fb84ee59564e2b2cd61a300dfd87b4c107e0177c7fbc45f3",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "b2b007bcfa9cbb2f26d189b1a13438ab115f6d87108c8efc5e98d5dbef0386f0",
     "pages": 26,
     "parts": [
       {
@@ -10341,8 +10341,8 @@
     "id": "eiken_3_written_03",
     "round": 3,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "ef26921979e5761324677dd198bf78dbb54d59073729735fc88da18a403f5d6a",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "6cec4e45f90590ff0a731305179e6ba5e6a7500d4cb549d4fdfb26a5c2ae0ee3",
     "pages": 26,
     "parts": [
       {
@@ -10695,8 +10695,8 @@
     "id": "eiken_3_written_04",
     "round": 4,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "17a95b82511d2516ef0c88588a22f5a60d4d4884bd55c0c6b7cdc5c2f785910d",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "b39e4fcb74e98f52c736c0b90f2160a3585d60dff44306072030e7919c762f34",
     "pages": 27,
     "parts": [
       {
@@ -11049,8 +11049,8 @@
     "id": "eiken_3_written_05",
     "round": 5,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "1286f711cfb67ea579eaa5fbbc5afbd680c753c637ec9f6b1dcd094d323f5d0e",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "547f99cc5f4c494cd7692a261f1415bf6af2c8c94f97a685793bd3435eee56e2",
     "pages": 26,
     "parts": [
       {
@@ -11403,8 +11403,8 @@
     "id": "eiken_3_written_06",
     "round": 6,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "6ae0a748928d71475fda5ccfd1528640b83b9c50ce54ce3649cb94d74082a3ea",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "0dd07cbd63fa16f6ead98b8aa484578ff467d932a35cb1a441f2651de0efc6f5",
     "pages": 26,
     "parts": [
       {
@@ -11757,8 +11757,8 @@
     "id": "eiken_3_written_07",
     "round": 7,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "f82f9286b6a9e76027ce156e9e02cef4e9679e0982902e0765892fd9d9f7a88f",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "feeca752834683a15e8ffbceea8ff49ff84e182909471b4c981b3592459da991",
     "pages": 27,
     "parts": [
       {
@@ -12111,8 +12111,8 @@
     "id": "eiken_3_written_08",
     "round": 8,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "9e02dacf67a5185b5b3dff06934c029690e9dceccd55484d98e4587a1907e34d",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "6b9bd3ae65c4affb72543647fb1ca8951157f9624b00e3f059d1551e164ab384",
     "pages": 26,
     "parts": [
       {
@@ -12465,8 +12465,8 @@
     "id": "eiken_3_written_09",
     "round": 9,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "09a96d2d3338c2c866110b214fba8873fe6acdda03d74ead45251cd13aee8c9c",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "a1f2dd43fd5c428f5d84f4a86826c55f9fcfdb339ec96644cf019f68fb385f9d",
     "pages": 26,
     "parts": [
       {
@@ -12819,8 +12819,8 @@
     "id": "eiken_3_written_10",
     "round": 10,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "f8c3fff9764e3d89fd63de93f2d83269e87fe201ca5a28ed384af2d96c21296d",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "3c211ca970605a361711be526ee23d74f7c69c813ff77e613263de10c3dadb46",
     "pages": 27,
     "parts": [
       {
@@ -13173,8 +13173,8 @@
     "id": "eiken_3_written_11",
     "round": 11,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "f5d7bfec4707eba52e603e9b9f0c3f9a541d787350f017847cc47898984b2cf2",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "2c6aa4b430ae6f4d214835b584261e2d82cf90ee514d58168cef21e51ac1cc16",
     "pages": 27,
     "parts": [
       {
@@ -13527,8 +13527,8 @@
     "id": "eiken_3_written_12",
     "round": 12,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "01139beae21391ff12529a3bfab46d3ce5929e83df38ea6765048f68344153d3",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "19aaac4cf5ae7745fa40a051f5c1f010bee6b7f86e3133ceb99344a7cac5c910",
     "pages": 27,
     "parts": [
       {
@@ -13881,8 +13881,8 @@
     "id": "eiken_3_written_13",
     "round": 13,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "246b0e045509c8302e069c6b14ca2265be8236cddbe3b8edf2eb7cf14ac32126",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "292daba1d7db72d5641c35ebf9dfef3757c978f9ed9294adc4a2f6f34649cf06",
     "pages": 28,
     "parts": [
       {
@@ -14235,8 +14235,8 @@
     "id": "eiken_3_written_14",
     "round": 14,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "a948fa9ce452eb601f917b675dfb791504a4f9a3313589c1cc8d7fca031fdf8a",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "5129d6e987db62ac2f2009387c201d1064cb354936a22696ad5e8e3c0f3b9c30",
     "pages": 28,
     "parts": [
       {
@@ -14589,8 +14589,8 @@
     "id": "eiken_3_written_15",
     "round": 15,
     "grade": "eiken_3",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "cb851679615fbc80641720e011c2d551204f7f362740c23f56ffc2a12aa9449b",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "0123b9e134cc8470525783a189c158d337294cfda2a0fc8a93db9e25cb00e8ec",
     "pages": 28,
     "parts": [
       {
@@ -14943,8 +14943,8 @@
     "id": "eiken_pre2_written_01",
     "round": 1,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "a3d903038f9a605024e17c772e4f6fddc59f858f305d511bbe76ceedf5f77a6e",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "dc3fb415ca1b7a7291a644e035df05ba305f7368c41d5c182225f2424efee200",
     "pages": 26,
     "parts": [
       {
@@ -15233,7 +15233,7 @@
         "id": "eiken_pre2_written_01_q21",
         "number": 21,
         "answer": 1,
-        "explanation": "車いすで通れない問題を直すので、より多くの人が利用できる道にする。"
+        "explanation": "直前の「単に見た目を良くすることではなかった」を受け、「そうではなく（それどころか）、より多くの人が通れる道にすることだった」と対比・言い換えでつなぐInstead。"
       },
       {
         "id": "eiken_pre2_written_01_q22",
@@ -15289,8 +15289,8 @@
     "id": "eiken_pre2_written_02",
     "round": 2,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "01c0cc27a0295bae3a7b0777f022307deae0e416c3cf0bbd3a202c146be6d187",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "87afcf0dfbd0dc2ce12596b58a0087303587252286b76e49c0a4a44d8a6b2c62",
     "pages": 28,
     "parts": [
       {
@@ -15579,7 +15579,7 @@
         "id": "eiken_pre2_written_02_q21",
         "number": 21,
         "answer": 1,
-        "explanation": "ヘルメットや靴底を入念に調べ、破損品は渡さないようにしていることから「寄贈品が安全に使えることを確かめる」が入る。"
+        "explanation": "安全性を入念に点検する取り組みの結果として、摩耗・破損した用品は引き渡さずリサイクルへ回される流れを示すAs a result（または点検基準の帰結）。"
       },
       {
         "id": "eiken_pre2_written_02_q22",
@@ -15635,8 +15635,8 @@
     "id": "eiken_pre2_written_03",
     "round": 3,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "5add76ff1d5ed21d960e5b130b7a5b106537804aef9df061342dab5f4ea1622a",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "e2e3be405cd5b7ad4fa77b964e7df00659c811dd2b3ffa4ab9be7237b03e6553",
     "pages": 27,
     "parts": [
       {
@@ -15925,7 +15925,7 @@
         "id": "eiken_pre2_written_03_q21",
         "number": 21,
         "answer": 4,
-        "explanation": "1枚のシールだと隙間を通れると鳥が誤認してしまうため、手のひら幅以下の細かな模様によって「面全体が通り抜けられない障害物である」と知らせる必要がある。"
+        "explanation": "タカのステッカー1枚では効果がなかったという否定的な結果を受け、「そうではなく、実際に鳥に必要なのは…」と正しい対策へ切り替えるInstead。"
       },
       {
         "id": "eiken_pre2_written_03_q22",
@@ -15981,8 +15981,8 @@
     "id": "eiken_pre2_written_04",
     "round": 4,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "0a17ce7950261e57f2af1086f085381feb42fcbe888b75b8186ec00752304513",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "e1e2b1f519ad37559f80f4ecbe5bab3f7b82a1bb647217a974639d2c2df74915",
     "pages": 21,
     "parts": [
       {
@@ -16261,7 +16261,7 @@
         "id": "eiken_pre2_written_04_q21",
         "number": 21,
         "answer": 3,
-        "explanation": "パンを乾燥させることなく午前中ずっと陳列窓を曇らせず透明に保った。"
+        "explanation": "天井ファンと換気口の工夫によって湿った空気がガラス面に滞留しなくなった「結果として」窓が曇らずパンも乾かなかったことを示すAs a result。"
       },
       {
         "id": "eiken_pre2_written_04_q22",
@@ -16317,9 +16317,9 @@
     "id": "eiken_pre2_written_05",
     "round": 5,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "64b4234c68f607f51027681dea467d2e91f06497eb0d2bf928e2c8394530eff2",
-    "pages": 21,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "c18c7a7ae265315591325c46e08aa96af379acd41c1314c639941934a6995f51",
+    "pages": 22,
     "parts": [
       {
         "label": "問題冊子",
@@ -16338,9 +16338,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_pre2_written_05_explanations.pdf",
-        "pages": 11,
+        "pages": 12,
         "start": 11,
-        "end": 21
+        "end": 22
       }
     ],
     "questionPages": [
@@ -16597,7 +16597,7 @@
         "id": "eiken_pre2_written_05_q21",
         "number": 21,
         "answer": 2,
-        "explanation": "テントウムシなどの天敵がアブラムシを食べてくれることで農薬散布を減らせる。"
+        "explanation": "受粉を助けるハチやハナアブの定着という1つ目の利点に、「さらに加えて」テントウムシなどが害虫アブラムシを食べて農薬削減にも役立つという2つ目の利点を重ねるIn addition。"
       },
       {
         "id": "eiken_pre2_written_05_q22",
@@ -16653,8 +16653,8 @@
     "id": "eiken_pre2_written_06",
     "round": 6,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "cf7612d82f2fefe9dedb616a33b9c3a7301372bd2bfbfcdeed352af2172e1b38",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "49b571676481d9d39e47d1bab2b51ff39192f7fbd0d3b35cfb82a2bcdf58d5d2",
     "pages": 22,
     "parts": [
       {
@@ -16933,7 +16933,7 @@
         "id": "eiken_pre2_written_06_q21",
         "number": 21,
         "answer": 2,
-        "explanation": "店員個人の率直な紹介と好みの相性によって、自分ひとりでは手に取らなかったような本に出会える。"
+        "explanation": "カードに書店員の名前があり自分の好みに合う担当者を見つけられる「だからこそ／その結果」、普段なら手に取らない本にも出会えるという因果を示すTherefore。"
       },
       {
         "id": "eiken_pre2_written_06_q22",
@@ -16989,8 +16989,8 @@
     "id": "eiken_pre2_written_07",
     "round": 7,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "33de69f27e89520adfca4796c09f46ef8555fccf3420b89eba0c926f491c5eae",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "1d7628caec69316e13e1f111ad87278ce650e890bdabbdc22f4bc754a0f882f6",
     "pages": 21,
     "parts": [
       {
@@ -17269,7 +17269,7 @@
         "id": "eiken_pre2_written_07_q21",
         "number": 21,
         "answer": 4,
-        "explanation": "たまにしか使わない作業を、高額な出費や収納場所の負担なしに済ませられる。"
+        "explanation": "「自分で買うと高価で収納場所も取る」という前文に対し、「それとは対照的に、図書館カードで借りれば出費も場所も取らずに済む」と対比するBy contrast。"
       },
       {
         "id": "eiken_pre2_written_07_q22",
@@ -17325,9 +17325,9 @@
     "id": "eiken_pre2_written_08",
     "round": 8,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "0462edda46c547c40ab19fca11b1ae1da8b8752d479a5092b9dc0cffaa16642e",
-    "pages": 21,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "b9c0ad86dc2ce6a8774cb72d5f4ab496642f11e1f08dbeeff2f4194559de052b",
+    "pages": 22,
     "parts": [
       {
         "label": "問題冊子",
@@ -17346,9 +17346,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_pre2_written_08_explanations.pdf",
-        "pages": 11,
+        "pages": 12,
         "start": 11,
-        "end": 21
+        "end": 22
       }
     ],
     "questionPages": [
@@ -17605,7 +17605,7 @@
         "id": "eiken_pre2_written_08_q21",
         "number": 21,
         "answer": 2,
-        "explanation": "最も日陰になるフィールドの隅でも芝が均一に回復するのを助ける。"
+        "explanation": "土壌センサーと育成ランプで弱った箇所を重点的に照らす方法を説明し、「このようにして」最も日陰になる隅まで均一に芝が回復するとまとめるIn this way。"
       },
       {
         "id": "eiken_pre2_written_08_q22",
@@ -17661,8 +17661,8 @@
     "id": "eiken_pre2_written_09",
     "round": 9,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "82feda7f4db2e210dff128af9a9f1b935974cdf083b203468c57e2370d3aa351",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "832ffa0e8c9d268cfb68d3e8c1a8e2474280bfce5b7f6d80332d575987d2be46",
     "pages": 21,
     "parts": [
       {
@@ -17941,7 +17941,7 @@
         "id": "eiken_pre2_written_09_q21",
         "number": 21,
         "answer": 3,
-        "explanation": "隣り合う灯台を対照的な模様にすることで、船員がある岬を別の岬と見誤らないようにした。"
+        "explanation": "昼間でも霧の海岸で岬を確実に見分ける昼標が必要だったという理由を受け、「この理由から」隣り合う灯台に異なる模様が塗られたとつなぐFor this reason。"
       },
       {
         "id": "eiken_pre2_written_09_q22",
@@ -17997,8 +17997,8 @@
     "id": "eiken_pre2_written_10",
     "round": 10,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "ec6b9ddf92a93f92ae49cf41d1dce1dfcfb02003e82c7c51dbcf9be61793c163",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "20f13f0cefd79d3af2021239d901c7aa07d408ad4a694f05512c56397952a9b6",
     "pages": 21,
     "parts": [
       {
@@ -18277,7 +18277,7 @@
         "id": "eiken_pre2_written_10_q21",
         "number": 21,
         "answer": 3,
-        "explanation": "側面が破裂することなく、狙いどおりの形に均一に上へ膨らむ。"
+        "explanation": "クープを入れないと側面や底の弱い場所から不規則に破裂してしまうという事態と対比し、「そうなる代わりに、あらかじめ切り込みを入れておけば均一に膨らむ」とつなぐInstead（またはBy contrast）。"
       },
       {
         "id": "eiken_pre2_written_10_q22",
@@ -18333,8 +18333,8 @@
     "id": "eiken_pre2_written_11",
     "round": 11,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "8f5dd1d83ed2c9a5c47460ab564f25058eeed33197f8363ea40cf627d3614def",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "7734e693fcfac67cab63aea436998372a55616e665b272dc5a49972dde8f0022",
     "pages": 22,
     "parts": [
       {
@@ -18613,7 +18613,7 @@
         "id": "eiken_pre2_written_11_q21",
         "number": 21,
         "answer": 2,
-        "explanation": "刃先をすぐに鈍らせることなく、何時間もきれいに食材を切り続けられる。"
+        "explanation": "木の繊維が刃先を優しく受け止めて元に戻るクッション性を持つ「結果として」、何時間切っても包丁の刃が傷みにくいという因果関係を示すAs a result。"
       },
       {
         "id": "eiken_pre2_written_11_q22",
@@ -18669,8 +18669,8 @@
     "id": "eiken_pre2_written_12",
     "round": 12,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "532872da1da4a1ec51bc015d2782b44e0ab8db08d4d89f7907787a14a7fc2683",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "9e4c2adc5e07abc5a8906642c62dcf0e31c1a6a866c4fa64c9b36104cf38b45c",
     "pages": 21,
     "parts": [
       {
@@ -18949,7 +18949,7 @@
         "id": "eiken_pre2_written_12_q21",
         "number": 21,
         "answer": 1,
-        "explanation": "通常時は外板が気圧差を受け止め、中板は万一の予備として無傷に温存される。"
+        "explanation": "外板と中板の両方が同時に摩耗してしまう事態を受け、「これを防ぐために」中板の小さな穴で気圧を調整していると目的・対策でつなぐTo prevent this。"
       },
       {
         "id": "eiken_pre2_written_12_q22",
@@ -19005,8 +19005,8 @@
     "id": "eiken_pre2_written_13",
     "round": 13,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "53d2a22971b947e94e68187c2bbb384199c029448c56daa7c134a47a2f203fff",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "e6423251f967c505b5664aa0ebeda61eaaf034e8785cb36ba45a40e9c47c77e0",
     "pages": 22,
     "parts": [
       {
@@ -19285,7 +19285,7 @@
         "id": "eiken_pre2_written_13_q21",
         "number": 21,
         "answer": 3,
-        "explanation": "上からスムーズに空気が入り、お茶が途切れず一定の勢いで注げるようにする。"
+        "explanation": "通気孔がない密閉急須で注ぎ口から空気が逆流して湯が飛び散る状態と、「それとは対照的に」蓋に小さな穴を開けて上から空気を入れる場合を対比するBy contrast。"
       },
       {
         "id": "eiken_pre2_written_13_q22",
@@ -19341,8 +19341,8 @@
     "id": "eiken_pre2_written_14",
     "round": 14,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "0b33ffa149d1e044ce60df102df3a772314ac00ec0e94242867f20f0fc50dcb4",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "47f7e0c57587bb77778f5f96f8e6e1e48a95354a193e10ba08a51e4586311182",
     "pages": 23,
     "parts": [
       {
@@ -19621,7 +19621,7 @@
         "id": "eiken_pre2_written_14_q21",
         "number": 21,
         "answer": 4,
-        "explanation": "走り去る車の後ろにいる人よりも高い音として聞き取る。"
+        "explanation": "車両前方で音波の間隔が詰まり後方で広がるという物理現象の「結果として」、前方に立つ人には高い音に聞こえるという帰結を導くConsequently。"
       },
       {
         "id": "eiken_pre2_written_14_q22",
@@ -19677,8 +19677,8 @@
     "id": "eiken_pre2_written_15",
     "round": 15,
     "grade": "eiken_pre2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "da07f3de37bf50530db0a64d006eb626232ccad1a8bfba8dbcf9a5ac617b0f48",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "1147e53ccef181a16382da92c6f0e31d910e39988e0a2637b49b1d826eba32fc",
     "pages": 22,
     "parts": [
       {
@@ -19957,7 +19957,7 @@
         "id": "eiken_pre2_written_15_q21",
         "number": 21,
         "answer": 3,
-        "explanation": "どの向きに傾けても自分の穴をすり抜けて下へ落ちることがない。"
+        "explanation": "斜めにすると穴に落ちてしまう長方形の蓋に対し、「それとは対照的に」どの向きでも直径が等しい円形の蓋は決して穴に落ちないと対比するBy contrast。"
       },
       {
         "id": "eiken_pre2_written_15_q22",
@@ -20013,8 +20013,8 @@
     "id": "eiken_pre2plus_written_01",
     "round": 1,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "aad43d006460df8a0d17ac8b6e45090eabf0591cd798c5d5400dc34f133c2e6f",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "2eb1a947cfb984a6ddde55cce29616fa81dce13d6b2a8805cce5be35f207e21d",
     "pages": 27,
     "parts": [
       {
@@ -20383,8 +20383,8 @@
     "id": "eiken_pre2plus_written_02",
     "round": 2,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "4d0a3d2d3dc51ecdede1329d0cae33c71a0fd62f6d7b6f0562b1ff1d30d5c299",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "9ec30decf24dce4543bde5463457079d182f6d1610af8e1ef56b92eb5addec63",
     "pages": 29,
     "parts": [
       {
@@ -20753,9 +20753,9 @@
     "id": "eiken_pre2plus_written_03",
     "round": 3,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "e73dc700c8fcb134821ed47b2f5b6984871b50b4b45e5ee4fe997f7aad8d31c0",
-    "pages": 22,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "3e782a8b5717fcfb5d4274fc357a55ce535a39017ac2f22c0264d3274fd1a62c",
+    "pages": 23,
     "parts": [
       {
         "label": "問題冊子",
@@ -20774,9 +20774,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_pre2plus_written_03_explanations.pdf",
-        "pages": 11,
+        "pages": 12,
         "start": 12,
-        "end": 22
+        "end": 23
       }
     ],
     "questionPages": [
@@ -21113,9 +21113,9 @@
     "id": "eiken_pre2plus_written_04",
     "round": 4,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "457b97e4d45e326951ac7bb5c17e2ef15dcd250929084eaa9a1fb66b4f6f0f06",
-    "pages": 22,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "7c0974b57da88ff77d1a96f947f766d4e2b3f78c7139e71b73d552779faf402a",
+    "pages": 23,
     "parts": [
       {
         "label": "問題冊子",
@@ -21134,9 +21134,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_pre2plus_written_04_explanations.pdf",
-        "pages": 11,
+        "pages": 12,
         "start": 12,
-        "end": 22
+        "end": 23
       }
     ],
     "questionPages": [
@@ -21473,9 +21473,9 @@
     "id": "eiken_pre2plus_written_05",
     "round": 5,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "01bfecb3c97b350c7709681cf997bf2370236367a3bce0037205b7e930c43fa8",
-    "pages": 22,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "852fa1db5bd806e09574c183986e7b8dd3b29dcf6f5f2594332111fa92cecc98",
+    "pages": 24,
     "parts": [
       {
         "label": "問題冊子",
@@ -21494,9 +21494,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_pre2plus_written_05_explanations.pdf",
-        "pages": 11,
+        "pages": 13,
         "start": 12,
-        "end": 22
+        "end": 24
       }
     ],
     "questionPages": [
@@ -21833,8 +21833,8 @@
     "id": "eiken_pre2plus_written_06",
     "round": 6,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "fe2fb8b012eddfb4aa10a7e8ac1ef8585dc91efd7d99284c1d43337b431a38f4",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "a49e9f71c172233972670744f9081bec1c2ed6b6100736a16860df284b9dd70f",
     "pages": 25,
     "parts": [
       {
@@ -22193,8 +22193,8 @@
     "id": "eiken_pre2plus_written_07",
     "round": 7,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "6fc776f3e576810d3cced6e252feb1bb6cffb9f45518746cfedb23ea5851c20a",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "60a39e142cadaac06bbee691a5557f91eb1bfa2e098dcec97667e3e1b144ab31",
     "pages": 25,
     "parts": [
       {
@@ -22553,8 +22553,8 @@
     "id": "eiken_pre2plus_written_08",
     "round": 8,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "1de0f2abff574f44bcd8cba247f9646ce5ed3bd7dea38b60eb01825f8ab83e44",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "4137f7aab2a6f29f34a2d80db6712236e4c19dff9771ebf5d2a2ec238959bd01",
     "pages": 25,
     "parts": [
       {
@@ -22913,9 +22913,9 @@
     "id": "eiken_pre2plus_written_09",
     "round": 9,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "259bde3fba3b130dc1103d4a844e4278b388c32bfee38fda6b97b4cc7430a273",
-    "pages": 24,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "c023aa636a3776edcfdd8d61eb33f6c42aa757d06196a6aa82799e736bdf9086",
+    "pages": 25,
     "parts": [
       {
         "label": "問題冊子",
@@ -22934,9 +22934,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_pre2plus_written_09_explanations.pdf",
-        "pages": 13,
+        "pages": 14,
         "start": 12,
-        "end": 24
+        "end": 25
       }
     ],
     "questionPages": [
@@ -23273,8 +23273,8 @@
     "id": "eiken_pre2plus_written_10",
     "round": 10,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "0ca687fcb2098373bd6eaa28ddc287920849598f787ef982ca32203d40df5bfb",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "22c29303db87a6fd9b47c43d055aaffd22c9c5dcdd859d64fbedb792527cdc5a",
     "pages": 24,
     "parts": [
       {
@@ -23633,8 +23633,8 @@
     "id": "eiken_pre2plus_written_11",
     "round": 11,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "565d620f4814a0146aa9d0d335f65695c345b11830203cba704290459393f498",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "9d1b68401d6f3d82c2147bcc6e63eacc7867df68851be23791e3d9f71c30a88c",
     "pages": 24,
     "parts": [
       {
@@ -23993,8 +23993,8 @@
     "id": "eiken_pre2plus_written_12",
     "round": 12,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "a6dcbdf9fa2df2e2a0fa73a08fe1cb9dcc227dac25f2a3cec2b05a34ac7725ba",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "dcb7465e4fbe99c764314db379a7bc49b54b1bf4fe5cdaf791056df974ebf61e",
     "pages": 24,
     "parts": [
       {
@@ -24353,8 +24353,8 @@
     "id": "eiken_pre2plus_written_13",
     "round": 13,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "48bf431d38d5285ee3b2f62078a91557033c4c216c0716a0078c43f3d9594415",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "98e42c7060952c6245f70d3a1d2229f6bf9b83d099f260b812a4d7655d6227c9",
     "pages": 25,
     "parts": [
       {
@@ -24713,9 +24713,9 @@
     "id": "eiken_pre2plus_written_14",
     "round": 14,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "9e332b8a75990b5baf15690e3613b23e95ff0fd661887042356d6989de0b6d54",
-    "pages": 25,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "e2ece0e11926521a34908e2a95919c8d204633fe7063fff9b21002a34320e19f",
+    "pages": 26,
     "parts": [
       {
         "label": "問題冊子",
@@ -24734,9 +24734,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_pre2plus_written_14_explanations.pdf",
-        "pages": 14,
+        "pages": 15,
         "start": 12,
-        "end": 25
+        "end": 26
       }
     ],
     "questionPages": [
@@ -25073,8 +25073,8 @@
     "id": "eiken_pre2plus_written_15",
     "round": 15,
     "grade": "eiken_pre2plus",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "8b633a3490e98d4eb00c8fe5aa39e96ffc1a9aff7cbd64c4c0cf815f4626b572",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "1cf3b1f823290df8c8a0da443e4bb6dd4ce724e0a2b2b69d642fbdaf07e2899b",
     "pages": 25,
     "parts": [
       {
@@ -25433,8 +25433,8 @@
     "id": "eiken_2_written_01",
     "round": 1,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "366eaf392444adff33f92f99709e0144da8e8849786e254de7d46ec94f86fda9",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "89433dbb418622547baa4142455680ed17354040a4658180ef6008a484b37c33",
     "pages": 28,
     "parts": [
       {
@@ -25803,8 +25803,8 @@
     "id": "eiken_2_written_02",
     "round": 2,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "3d479c540cc4398b0af0155b9777c4b353b8b700095d8bda2383985b9a657168",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "cba95677722e1032c60a6ecec3eced8cb915ad4d85d5c9b0898e5b133bd94752",
     "pages": 31,
     "parts": [
       {
@@ -26173,8 +26173,8 @@
     "id": "eiken_2_written_03",
     "round": 3,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "99f5f0f95b60d5850ed406392d2775f7e14a329a5b6665492992f4d17b57b3eb",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "1858e0ebd0615233601b76deada0cbb62d93692bc85b61ce570655219dbbe4f6",
     "pages": 32,
     "parts": [
       {
@@ -26543,8 +26543,8 @@
     "id": "eiken_2_written_04",
     "round": 4,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "fffa217958bb61829b62605e2045783bc3eb441e5ae5f6f32b317c5d191d3606",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "20175f3315c24ec138a878e8df3cc48b57878e9635e6e49f3a238a2abfb59894",
     "pages": 26,
     "parts": [
       {
@@ -26903,30 +26903,30 @@
     "id": "eiken_2_written_05",
     "round": 5,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "1cebf42684e319e92caf88c6bd15b8fc41db2541e253119bc2cfa45daa28f1e8",
-    "pages": 24,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "e1fcc6bcb02b3dac02e484cc956011b13f775d09e42057867a415fd83def7196",
+    "pages": 26,
     "parts": [
       {
         "label": "問題冊子",
         "file": "/prints/print_eiken_2_written_05_questions.pdf",
-        "pages": 10,
+        "pages": 11,
         "start": 1,
-        "end": 10
+        "end": 11
       },
       {
         "label": "解答用紙",
         "file": "/prints/print_eiken_2_written_05_answers.pdf",
         "pages": 1,
-        "start": 11,
-        "end": 11
+        "start": 12,
+        "end": 12
       },
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_2_written_05_explanations.pdf",
-        "pages": 13,
-        "start": 12,
-        "end": 24
+        "pages": 14,
+        "start": 13,
+        "end": 26
       }
     ],
     "questionPages": [
@@ -26960,7 +26960,7 @@
       10,
       10,
       10,
-      10
+      11
     ],
     "writingCount": 0,
     "answerSheet": {
@@ -27048,7 +27048,7 @@
         },
         {
           "section": "reading",
-          "page": 10,
+          "page": 11,
           "passage": "r2r5-article",
           "questions": [
             27,
@@ -27263,30 +27263,30 @@
     "id": "eiken_2_written_06",
     "round": 6,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "61b6e9e4c5cb13574610a8ed87d659d11d03a93de2ae4b24b81d75f09c9930ba",
-    "pages": 26,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "6f27cab49be8faefddc38a275c4ffb0912ba3ff5d18b25387846d43d52943d8d",
+    "pages": 27,
     "parts": [
       {
         "label": "問題冊子",
         "file": "/prints/print_eiken_2_written_06_questions.pdf",
-        "pages": 10,
+        "pages": 11,
         "start": 1,
-        "end": 10
+        "end": 11
       },
       {
         "label": "解答用紙",
         "file": "/prints/print_eiken_2_written_06_answers.pdf",
         "pages": 1,
-        "start": 11,
-        "end": 11
+        "start": 12,
+        "end": 12
       },
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_2_written_06_explanations.pdf",
         "pages": 15,
-        "start": 12,
-        "end": 26
+        "start": 13,
+        "end": 27
       }
     ],
     "questionPages": [
@@ -27320,7 +27320,7 @@
       10,
       10,
       10,
-      10
+      11
     ],
     "writingCount": 0,
     "answerSheet": {
@@ -27408,7 +27408,7 @@
         },
         {
           "section": "reading",
-          "page": 10,
+          "page": 11,
           "passage": "r2r6-article",
           "questions": [
             27,
@@ -27623,30 +27623,30 @@
     "id": "eiken_2_written_07",
     "round": 7,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "44e90317d6cdbe02dfbbca99a09eda0a3b344f3a71df6617ec5610793d9cc14c",
-    "pages": 26,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "5e6c1061d6f1677d87f438c7dfb7ada01646153abac6c9a7a531805efa4e695c",
+    "pages": 27,
     "parts": [
       {
         "label": "問題冊子",
         "file": "/prints/print_eiken_2_written_07_questions.pdf",
-        "pages": 10,
+        "pages": 11,
         "start": 1,
-        "end": 10
+        "end": 11
       },
       {
         "label": "解答用紙",
         "file": "/prints/print_eiken_2_written_07_answers.pdf",
         "pages": 1,
-        "start": 11,
-        "end": 11
+        "start": 12,
+        "end": 12
       },
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_2_written_07_explanations.pdf",
         "pages": 15,
-        "start": 12,
-        "end": 26
+        "start": 13,
+        "end": 27
       }
     ],
     "questionPages": [
@@ -27680,7 +27680,7 @@
       10,
       10,
       10,
-      10
+      11
     ],
     "writingCount": 0,
     "answerSheet": {
@@ -27768,7 +27768,7 @@
         },
         {
           "section": "reading",
-          "page": 10,
+          "page": 11,
           "passage": "r2r7-article",
           "questions": [
             27,
@@ -27983,8 +27983,8 @@
     "id": "eiken_2_written_08",
     "round": 8,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "a5d64af19995d22d81c5b9bed915309493726e094036eaf790ba3f9f3fef68fd",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "af0daba2563b7f6cce30756d2f03849b297261e8dcc0b62a4c5608cae314d704",
     "pages": 26,
     "parts": [
       {
@@ -28343,8 +28343,8 @@
     "id": "eiken_2_written_09",
     "round": 9,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "295b94bdc9b3f66e8f791be194ecca2cc885609e0b243a82933fe0bfb0145a3b",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "069e6b3612c2c9ffaf4a5b8d692928ee59129186e56a6130116017eb31ec3f5a",
     "pages": 27,
     "parts": [
       {
@@ -28703,30 +28703,30 @@
     "id": "eiken_2_written_10",
     "round": 10,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "f1eadff4739d21f4e3126f99e72d0190596dc9875c9959f8550612917639c280",
-    "pages": 26,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "f88eac11b164a11956bd68ff24e0d45f219a315f62655d1dfb7235b532545156",
+    "pages": 27,
     "parts": [
       {
         "label": "問題冊子",
         "file": "/prints/print_eiken_2_written_10_questions.pdf",
-        "pages": 10,
+        "pages": 11,
         "start": 1,
-        "end": 10
+        "end": 11
       },
       {
         "label": "解答用紙",
         "file": "/prints/print_eiken_2_written_10_answers.pdf",
         "pages": 1,
-        "start": 11,
-        "end": 11
+        "start": 12,
+        "end": 12
       },
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_2_written_10_explanations.pdf",
         "pages": 15,
-        "start": 12,
-        "end": 26
+        "start": 13,
+        "end": 27
       }
     ],
     "questionPages": [
@@ -28760,7 +28760,7 @@
       10,
       10,
       10,
-      10
+      11
     ],
     "writingCount": 0,
     "answerSheet": {
@@ -28848,7 +28848,7 @@
         },
         {
           "section": "reading",
-          "page": 10,
+          "page": 11,
           "passage": "r2r10-article",
           "questions": [
             27,
@@ -29063,30 +29063,30 @@
     "id": "eiken_2_written_11",
     "round": 11,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "5534a4f2a064a0e7c236d8b9d2b45ac65544a96f1e3d968bf96b5c7e48dbfec2",
-    "pages": 25,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "892a21aa2051bfd3b4bb10195656ae504a9b2beca6de58ef400609908dd2b0cd",
+    "pages": 26,
     "parts": [
       {
         "label": "問題冊子",
         "file": "/prints/print_eiken_2_written_11_questions.pdf",
-        "pages": 10,
+        "pages": 11,
         "start": 1,
-        "end": 10
+        "end": 11
       },
       {
         "label": "解答用紙",
         "file": "/prints/print_eiken_2_written_11_answers.pdf",
         "pages": 1,
-        "start": 11,
-        "end": 11
+        "start": 12,
+        "end": 12
       },
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_2_written_11_explanations.pdf",
         "pages": 14,
-        "start": 12,
-        "end": 25
+        "start": 13,
+        "end": 26
       }
     ],
     "questionPages": [
@@ -29120,7 +29120,7 @@
       10,
       10,
       10,
-      10
+      11
     ],
     "writingCount": 0,
     "answerSheet": {
@@ -29208,7 +29208,7 @@
         },
         {
           "section": "reading",
-          "page": 10,
+          "page": 11,
           "passage": "r2r11-article",
           "questions": [
             27,
@@ -29423,9 +29423,9 @@
     "id": "eiken_2_written_12",
     "round": 12,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "f5697b8c7025d17f2f35db380d52b244a6786d1b3964302e7d96ea0bb81d922d",
-    "pages": 27,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "277812fe79cfb27b66f9762c4cb3ca30e06ab35abdb2c743dda55cfc139f3534",
+    "pages": 28,
     "parts": [
       {
         "label": "問題冊子",
@@ -29444,9 +29444,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_2_written_12_explanations.pdf",
-        "pages": 15,
+        "pages": 16,
         "start": 13,
-        "end": 27
+        "end": 28
       }
     ],
     "questionPages": [
@@ -29783,8 +29783,8 @@
     "id": "eiken_2_written_13",
     "round": 13,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "010624204450e74f4eabb6393715de8d6721173006d295dd703daee815ae1aa9",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "c8fccbaa12e05de5ba4f9ee0210c462667f127765a5bfbc4cc7adede93688deb",
     "pages": 26,
     "parts": [
       {
@@ -30143,9 +30143,9 @@
     "id": "eiken_2_written_14",
     "round": 14,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "4b09c3163188375988e710cb8caf7d3752b6bb92108353dcf2439a4bce1277c9",
-    "pages": 27,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "567a664531ff4a5d0166de4c8f8e5223af3626b4ccdc962c1f52f8ecf71ea4fc",
+    "pages": 28,
     "parts": [
       {
         "label": "問題冊子",
@@ -30164,9 +30164,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_2_written_14_explanations.pdf",
-        "pages": 15,
+        "pages": 16,
         "start": 13,
-        "end": 27
+        "end": 28
       }
     ],
     "questionPages": [
@@ -30503,8 +30503,8 @@
     "id": "eiken_2_written_15",
     "round": 15,
     "grade": "eiken_2",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "25df7df9c1ef4e18e8a927544ce06aaebe9f2455ce14fd17ef9b3364d4620435",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "5999d949d2a3c8ec5d6a979b8ba7b1f865f6f06bc374b9da81059fac3749d33a",
     "pages": 27,
     "parts": [
       {
@@ -30863,9 +30863,9 @@
     "id": "eiken_pre1_written_01",
     "round": 1,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "32566200ff56e6a438a27425c8278c4590a7565ebacc5e6a6e824668da1f9136",
-    "pages": 29,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "0ba8377575299e26b125add9a7f05647a3635f3578e899d5ce75c19bcd32ed88",
+    "pages": 30,
     "parts": [
       {
         "label": "問題冊子",
@@ -30884,9 +30884,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_pre1_written_01_explanations.pdf",
-        "pages": 15,
+        "pages": 16,
         "start": 15,
-        "end": 29
+        "end": 30
       }
     ],
     "questionPages": [
@@ -31135,7 +31135,7 @@
         "id": "eiken_pre1_written_01_q16",
         "number": 16,
         "answer": 3,
-        "explanation": "投票なしに議会を迂回して承認しようとした。"
+        "explanation": "議会を「迂回する・出し抜いて回避する」はget around（規則や手続き・機関をうまく避けて通る）。"
       },
       {
         "id": "eiken_pre1_written_01_q17",
@@ -31233,8 +31233,8 @@
     "id": "eiken_pre1_written_02",
     "round": 2,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "a8de0c0b4a33d1746a37445de6cb3d9c3f2ffdcdb463c280a59c57f6d1ced3aa",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "818184475e9dbff18f12116901ff1b709af0564333b2084a3ad728a35318486f",
     "pages": 33,
     "parts": [
       {
@@ -31499,25 +31499,25 @@
         "id": "eiken_pre1_written_02_q15",
         "number": 15,
         "answer": 1,
-        "explanation": "多国籍銀行向けに作られた報告義務から地方の小規模協同組合を「免除する」ことにしたのでexempt A from B。"
+        "explanation": "lest＋S＋(should)＋原形「〜しないように」。当事者間の信頼が損なわれないよう秘密を厳守する。"
       },
       {
         "id": "eiken_pre1_written_02_q16",
         "number": 16,
         "answer": 1,
-        "explanation": "主要取引先の突然の倒産時、生産ラインを止めないため国内の町工場に「頼る・代替としてすがる」必要があったのでfall back on。"
+        "explanation": "carve out A from Bは「B（適用対象など）からAを適用除外として切り出す」。小規模農協を大銀行向け規制から除外する文脈に一致（句動詞枠）。"
       },
       {
         "id": "eiken_pre1_written_02_q17",
         "number": 17,
         "answer": 2,
-        "explanation": "干ばつのあいだ、秋の収穫まで残りの穀物備蓄を少しずつやりくりして「食い繋ぐ・長持ちさせる」eke out。"
+        "explanation": "主要取引先の突然の倒産時、生産ラインを止めないため国内の町工場に「頼る・代替としてすがる」必要があったのでfall back on。"
       },
       {
         "id": "eiken_pre1_written_02_q18",
         "number": 18,
         "answer": 2,
-        "explanation": "lest＋S＋(should)＋原形「〜しないように」。当事者間の信頼が損なわれないよう秘密を厳守する。"
+        "explanation": "干ばつのあいだ、秋の収穫まで残りの穀物備蓄を少しずつやりくりして「食い繋ぐ・長持ちさせる」eke out。"
       },
       {
         "id": "eiken_pre1_written_02_q19",
@@ -31603,8 +31603,8 @@
     "id": "eiken_pre1_written_03",
     "round": 3,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "ce158ec8098abaa1b37966f9ac4b0d8f3418ac46ee406616ff28e1a2bf7a22be",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "3be572fe97526610785390d034f08ab551c75adb24e156b6677ba98bfe6840d3",
     "pages": 26,
     "parts": [
       {
@@ -31865,7 +31865,7 @@
         "id": "eiken_pre1_written_03_q16",
         "number": 16,
         "answer": 2,
-        "explanation": "住民協議会と銘打ちながら主要契約は締結済みで形式だけのものに感じられた。"
+        "explanation": "sign off onは「（文書・契約・計画などに）正式な承認を与える・追認署名する」。密室で作られた契約への正式承認を迫られた文脈に合致。"
       },
       {
         "id": "eiken_pre1_written_03_q17",
@@ -31963,8 +31963,8 @@
     "id": "eiken_pre1_written_04",
     "round": 4,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "a7d89b84604656307845c2b114c383b7297754627cab57cc4904299812992f27",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "384e11ba48ee6e31f535cd1de213c2c74c47f9002028e20074a2948000f51062",
     "pages": 26,
     "parts": [
       {
@@ -32225,7 +32225,7 @@
         "id": "eiken_pre1_written_04_q16",
         "number": 16,
         "answer": 2,
-        "explanation": "初期の随筆は「難解で一部の人にしか分からない」として片づけられたが、30年後のメディア論争を先取りしていたesoteric。"
+        "explanation": "write offは「〜を価値がない・取るに足らないものとして切り捨てる」。当初は軽視されたが30年後に先見性が証明された対比に合致。"
       },
       {
         "id": "eiken_pre1_written_04_q17",
@@ -32323,9 +32323,9 @@
     "id": "eiken_pre1_written_05",
     "round": 5,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "039314ef70211ce3b3b9668d70bbaea4d5ac2decf3cb4b55127380b7537ef5e8",
-    "pages": 26,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "ef111df8c80967e6a5ce4c0864c0d0349a9b0b4b5945579eda2c515cbcc6d10b",
+    "pages": 27,
     "parts": [
       {
         "label": "問題冊子",
@@ -32344,9 +32344,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_pre1_written_05_explanations.pdf",
-        "pages": 15,
+        "pages": 16,
         "start": 12,
-        "end": 26
+        "end": 27
       }
     ],
     "questionPages": [
@@ -32579,25 +32579,25 @@
         "id": "eiken_pre1_written_05_q15",
         "number": 15,
         "answer": 4,
-        "explanation": "加熱時の膨張率が異なる2種の合金を直接溶接すると、ひび割れを「急激に引き起こす・誘発する」応力が生じるprecipitate。"
+        "explanation": "lest＋主語＋(should)＋原形（ebb）で「発芽力が気づかぬうちに衰えることのないように」。"
       },
       {
         "id": "eiken_pre1_written_05_q16",
         "number": 16,
         "answer": 4,
-        "explanation": "地域航空会社が一夜にして破綻した際、本土の検査室へ血液検体を届けるためチャーター船を「急きょ動員する・臨時に使う」ほかなかったpress ... into service。"
+        "explanation": "bring onは「（好ましくない事態・症状・損傷などを）引き起こす・誘発する」。熱膨張率の違いが微細な亀裂を招く文脈に合致。"
       },
       {
         "id": "eiken_pre1_written_05_q17",
         "number": 17,
         "answer": 3,
-        "explanation": "昼時の歩行者数が4割増えたのをカフェ店主たちが目の当たりにすると、歩行者広場への当初の反発はじきに「次第に消えていった・下火になった」petered out。"
+        "explanation": "地域航空会社が一夜にして破綻した際、本土の検査室へ血液検体を届けるためチャーター船を「急きょ動員する・臨時に使う」ほかなかったpress ... into service。"
       },
       {
         "id": "eiken_pre1_written_05_q18",
         "number": 18,
         "answer": 2,
-        "explanation": "lest＋主語＋(should)＋原形（ebb）で「発芽力が気づかぬうちに衰えることのないように」。"
+        "explanation": "昼時の歩行者数が4割増えたのをカフェ店主たちが目の当たりにすると、歩行者広場への当初の反発はじきに「次第に消えていった・下火になった」petered out。"
       },
       {
         "id": "eiken_pre1_written_05_q19",
@@ -32683,8 +32683,8 @@
     "id": "eiken_pre1_written_06",
     "round": 6,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "72fcb6a61b2808aedfe6c80d585d63e12961cec768bb59b2fc8965c92a7d1d31",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "e20a2156e53aafd32f4530bfabca33a151fe72031dda2d735bccc907168afdc0",
     "pages": 26,
     "parts": [
       {
@@ -32939,25 +32939,25 @@
         "id": "eiken_pre1_written_06_q15",
         "number": 15,
         "answer": 4,
-        "explanation": "標本棚のたった1点の誤ラベルが、その後の何十件もの学生の同定作業に誤りを「広げる・連鎖させる」propagate errors。"
+        "explanation": "lest＋主語＋(should)＋原形（disrupt）で「季節外れの突風雨で青空古本市が中断されないように」。"
       },
       {
         "id": "eiken_pre1_written_06_q16",
         "number": 16,
         "answer": 3,
-        "explanation": "同じ四半期にベテラン整備士3人が退職した際、40年分の口伝の故障診断ノウハウを後進へ「引き継ぐ・伝える」のに苦心したpass on。"
+        "explanation": "touch offは「（連鎖的な反応・誤り・騒動などを）引き起こす・誘発する」。標本1点の誤表示が後続研究の誤同定を連鎖させる文脈に合致。"
       },
       {
         "id": "eiken_pre1_written_06_q17",
         "number": 17,
         "answer": 1,
-        "explanation": "地元漁師の観察を退けるどころか、小型漁船の航海日誌が衛星水温図の正しさを「裏づけている・実証している」と分かったbore out（bear outの過去形）。"
+        "explanation": "同じ四半期にベテラン整備士3人が退職した際、40年分の口伝の故障診断ノウハウを後進へ「引き継ぐ・伝える」のに苦心したpass on。"
       },
       {
         "id": "eiken_pre1_written_06_q18",
         "number": 18,
         "answer": 2,
-        "explanation": "lest＋主語＋(should)＋原形（disrupt）で「季節外れの突風雨で青空古本市が中断されないように」。"
+        "explanation": "地元漁師の観察を退けるどころか、小型漁船の航海日誌が衛星水温図の正しさを「裏づけている・実証している」と分かったbore out（bear outの過去形）。"
       },
       {
         "id": "eiken_pre1_written_06_q19",
@@ -33043,8 +33043,8 @@
     "id": "eiken_pre1_written_07",
     "round": 7,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "fa7c9012d2f0ad4a3b0d27b25d47cdda6f09fb4aa0116137008e81de9435f989",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "751e4949dcba345b7c999fdd99d4aae6c319a2fe46d01ead20c8960a46e11e02",
     "pages": 26,
     "parts": [
       {
@@ -33305,7 +33305,7 @@
         "id": "eiken_pre1_written_07_q16",
         "number": 16,
         "answer": 1,
-        "explanation": "現場での修理の難しさを見落とせば、どれほど有望な試作品でも商業生産で「つまずく・苦戦して立ち往生する」ことがあるflounder。"
+        "explanation": "fall throughは「（計画・製品化などが）頓挫する・失敗に終わる」。保守性を無視すると量産段階で頓挫するという文脈に合致。"
       },
       {
         "id": "eiken_pre1_written_07_q17",
@@ -33403,9 +33403,9 @@
     "id": "eiken_pre1_written_08",
     "round": 8,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "f339d9b6594bb2cc7a068bbfb96719a8ba29add042df9d925e76101683912544",
-    "pages": 26,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "fb11dde5e3998ca30a52f2ca7e9cc9a15c8110d8b2d3af843e9696d2f75b49db",
+    "pages": 27,
     "parts": [
       {
         "label": "問題冊子",
@@ -33424,9 +33424,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_pre1_written_08_explanations.pdf",
-        "pages": 15,
+        "pages": 16,
         "start": 12,
-        "end": 26
+        "end": 27
       }
     ],
     "questionPages": [
@@ -33665,7 +33665,7 @@
         "id": "eiken_pre1_written_08_q16",
         "number": 16,
         "answer": 2,
-        "explanation": "革新的と宣伝されたものの、そのスマートケトルの20種類ものスマホ通知は紅茶好きの大半にはまったく「余計な・不要な」ものに映ったsuperfluous。"
+        "explanation": "amount toは「結局〜にすぎない・事実上〜と同然である」。little more thanと結びつき「煩わしい邪魔以外の何物でもなかった」を表す定番句動詞。"
       },
       {
         "id": "eiken_pre1_written_08_q17",
@@ -33763,9 +33763,9 @@
     "id": "eiken_pre1_written_09",
     "round": 9,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "5713cfedcfd3775261f1a774058d15223c13d670197a4fc521d11019a9cd6f09",
-    "pages": 26,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "9eb412eae0fc7cb9d7a88d1b3064192d80b58210f450dbc4db11a76833e26f60",
+    "pages": 27,
     "parts": [
       {
         "label": "問題冊子",
@@ -33784,9 +33784,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_pre1_written_09_explanations.pdf",
-        "pages": 15,
+        "pages": 16,
         "start": 12,
-        "end": 26
+        "end": 27
       }
     ],
     "questionPages": [
@@ -34025,7 +34025,7 @@
         "id": "eiken_pre1_written_09_q16",
         "number": 16,
         "answer": 1,
-        "explanation": "夏の野外ポップス演奏会の黒字が、意欲的な現代室内楽シリーズの赤字を「相殺する・埋め合わせる」助けとなったoffset losses。"
+        "explanation": "make up forは「（損失・赤字・不足などを）埋め合わせる・補填する」。夏の野外公演の黒字で現代室内楽シリーズの赤字を補った文脈に合致。"
       },
       {
         "id": "eiken_pre1_written_09_q17",
@@ -34123,8 +34123,8 @@
     "id": "eiken_pre1_written_10",
     "round": 10,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "367c3074ab305938f7c76209220bbc5e27ed575a28304315aa44d87c92637312",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "db98ada2146aaddab7b5e875c890db16fa683aa4623d39128171a62a7385020d",
     "pages": 26,
     "parts": [
       {
@@ -34483,8 +34483,8 @@
     "id": "eiken_pre1_written_11",
     "round": 11,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "3b609e4412ba5f311d18da0f7cec0703cb0ba08794ad81007bc42d186ced3b4a",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "9f5b83520936f008ddc79faf6491e3621075bfa280cda100d3f283485ae536f9",
     "pages": 26,
     "parts": [
       {
@@ -34745,7 +34745,7 @@
         "id": "eiken_pre1_written_11_q16",
         "number": 16,
         "answer": 3,
-        "explanation": "農地にホールを新築するのではなく、19世紀の空きレンガ紡績工場を別用途へ「転用・再生活用する」道を選んだrepurpose。"
+        "explanation": "make overは「（古い建物や空間などを）改装して作り変える・一新する」。19世紀の空きレンガ工場をホールに改装する文脈に一致。"
       },
       {
         "id": "eiken_pre1_written_11_q17",
@@ -34843,8 +34843,8 @@
     "id": "eiken_pre1_written_12",
     "round": 12,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "c3a167d5247f9890d146e7faca8d61803c16e7f75f0da530079af5069a44d049",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "a8ff134723121b502798638bbaa3fca11c452693765a199495ee4475d89931dc",
     "pages": 26,
     "parts": [
       {
@@ -35105,7 +35105,7 @@
         "id": "eiken_pre1_written_12_q16",
         "number": 16,
         "answer": 3,
-        "explanation": "竹稈はひと雨季で最大の高さまで育つため、管理された竹林は急速に「再生可能な」木材代替資源として重宝されているrapidly renewable。"
+        "explanation": "make upは「（遅れた時間・損失などを）取り戻す」。make up the lost three weeksで失われた3週間の遅れを取り戻す。"
       },
       {
         "id": "eiken_pre1_written_12_q17",
@@ -35203,8 +35203,8 @@
     "id": "eiken_pre1_written_13",
     "round": 13,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "0851137a58175ed65ccbdf2742385d5115a530955e5cba2f8acd2ca8d190e838",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "4ea2946a251f18a837888784c6133f45a21b53ca1b1d412ece33c2f6c0789a3e",
     "pages": 26,
     "parts": [
       {
@@ -35563,9 +35563,9 @@
     "id": "eiken_pre1_written_14",
     "round": 14,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "231e9826dac58549caa5fae35ac298bb8122d0defe90e055dc3f57b2c9533816",
-    "pages": 26,
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "222e5d0fccb30528d50606ac261fc6ccf2f054bac991fa5862fc3cfd43f1ce07",
+    "pages": 27,
     "parts": [
       {
         "label": "問題冊子",
@@ -35584,9 +35584,9 @@
       {
         "label": "解答・解説",
         "file": "/prints/print_eiken_pre1_written_14_explanations.pdf",
-        "pages": 15,
+        "pages": 16,
         "start": 12,
-        "end": 26
+        "end": 27
       }
     ],
     "questionPages": [
@@ -35849,7 +35849,7 @@
         "id": "eiken_pre1_written_14_q20",
         "number": 20,
         "answer": 2,
-        "explanation": "受電ソケット未整備や50/60Hz周波数変換器という技術的ハードルに、「そこへさらに経済面の課題も重なるが（産業用電気料金が免税重油より高い問題）」と論点を積み上げる表現。あるいは素直な接続副詞として機能する句。"
+        "explanation": "受電ソケット未整備や50/60Hz周波数変換器という技術的ハードルに、「さらに（加えて）経済面の課題として産業用電気料金が免税重油より割高な問題もある」と論点を追加するMoreover。"
       },
       {
         "id": "eiken_pre1_written_14_q21",
@@ -35923,8 +35923,8 @@
     "id": "eiken_pre1_written_15",
     "round": 15,
     "grade": "eiken_pre1",
-    "sourceHash": "e8004365bb8c69c305dbc94dfae4ad568e27ff1e53473a2d6b99ed98931c3c01",
-    "pdfSha256": "8ba2bc78cafaa3fab2a5a1aad919ebe1c58921fe9059ea6503ab08069a1de205",
+    "sourceHash": "062ca7e586ef1e7c708ad53aa28f35949f2aca2b8db385e2f1a020e980616618",
+    "pdfSha256": "9d3bcae004560a7ece2f9064200cf67483a6f157413d122208c541ced1016510",
     "pages": 26,
     "parts": [
       {
