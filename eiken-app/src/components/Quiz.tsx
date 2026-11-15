@@ -65,6 +65,8 @@ import { safeSetItem } from '../utils/storageGuard';
 import { safeGetItem } from '../utils/safeLocalStorage';
 import { resolveQuizRange } from '../utils/quizRange';
 import { logRejection } from '../utils/reportError';
+import { EikenClozePageQuiz } from './EikenClozePageQuiz';
+import { isEikenBatchClozeChapter } from './eikenClozePageModel';
 import type { Chapter, Problem, SubQuestion } from '../types/curriculum';
 
 interface QuizProps {
@@ -128,9 +130,13 @@ interface QuizProps {
 
 /**
  * 演習画面の入口。TOEIC Part 5 だけは「1ページに複数問・マーク式」の専用画面に渡す（2026-10-28）。
+ * 英検の穴埋め大問（短文の語句空所補充・会話文の空所補充）も 1ページ5問ずつ・一括採点の専用画面に渡す。
  * ほかの教科は今までどおり QuizBody（中身は変えていない）。フックの順番を崩さないよう、分岐は本体の外に置く。
  */
 export function Quiz(props: QuizProps) {
+  if (isEikenBatchClozeChapter(props.chapter)) {
+    return <EikenClozePageQuiz {...props} />;
+  }
   return <QuizBody {...props} />;
 }
 

@@ -21,7 +21,7 @@ export const WRITTEN_5_R4 = readingRound('eiken_5', [
   q(['A: Look at the dark clouds! Do you have an umbrella?\nB: (     ) Let\'s hurry home.', ['On the wall.', 'Yes, it is.', 'No, I don\'t.', 'Happy birthday.'], 2, '黒い雲を見て傘を持っているか聞かれ、持っていないので急いで帰ろうと答える。', ['場所の表現で質問に答えていない。', 'be動詞の応答で合わない。', 'Do you have ...? に対する否定応答で、急いで帰る流れとも合う。', '誕生日の祝いで無関係。'], 'A：あの暗い雲を見て！傘は持っていますか。B：いいえ、持っていません。急いで家に帰りましょう。'], 'conversation'),
   q(['A: Excuse me. Where is the restroom?\nB: (     )', ['It is twenty minutes.', 'Go straight, and it\'s on your left.', 'Yes, you may.', 'I like this room.'], 1, 'お手洗いの場所を尋ねられ、まっすぐ進んで左側だと案内する。', ['時間の表現だけでは場所の説明にならない。', '道順と場所をわかりやすく教えている。', '許可の返答で合わない。', '部屋の好みで合わない。'], 'A：すみません。お手洗いはどこですか。B：まっすぐ行くと左側にあります。'], 'conversation'),
   q(['A: Good luck in your tennis game today, Mei!\nB: (     ) I\'ll do my best.', ['Here you are.', 'I am sorry.', 'Never mind.', 'Thank you!'], 3, '試合前の応援Good luck!に対してThank you!とお礼を言い、がんばると続ける。', ['物を手渡す表現で合わない。', '謝罪の言葉で合わない。', '気にするなという意味で合わない。', '応援に対する自然なお礼。'], 'A：メイ、今日のテニスの試合がんばってね！B：ありがとう！ベストを尽くすよ。'], 'conversation'),
-  o('私は毎晩、英語の日記を書きます。', 'I', ['every night', 'an English diary', 'write', 'at home'], [3, 2, 4, 1], ['3－4', '2－1', '3－1', '4－2'], 0, '動詞write＋目的語an English diary＋場所at home＋時every night。'),
+  o('私は毎晩、家で英語の日記を書きます。', 'I', ['every night', 'an English diary', 'write', 'at home'], [3, 2, 4, 1], ['3－4', '2－1', '3－1', '4－2'], 0, '動詞write＋目的語an English diary＋場所at home＋時every night。'),
   o('あの箱の中にはたくさんのボールがあります。', 'There', ['in', 'many balls', 'that box', 'are'], [4, 2, 1, 3], ['2－1', '4－1', '4－3', '1－2'], 1, 'There are＋複数名詞many balls＋場所in that box。'),
   o('あなたは冬のスポーツが好きですか。', 'Do', ['sports', 'like', 'you', 'winter'], [3, 2, 4, 1], ['2－4', '3－1', '3－4', '4－2'], 2, 'Do you like＋winter sports? の語順。'),
   o('このドアを開けないでください。', 'Please', ['open', 'this', 'do not', 'door'], [3, 1, 2, 4], ['1－2', '2－1', '3－4', '3－2'], 3, '否定の依頼Please do not＋動詞の原形open＋this door。'),
@@ -53,7 +53,7 @@ export const WRITTEN_5_R5 = readingRound('eiken_5', [
   o('今、外では雨が降っています。', 'It', ['outside', 'raining', 'now', 'is'], [4, 2, 1, 3], ['2－3', '4－3', '4－1', '1－2'], 2, '現在進行形It is raining＋場所outside＋now。'),
   o('あなたのかばんの中には何冊のノートがありますか。', 'How many', ['in', 'are', 'your bag', 'notebooks'], [4, 2, 1, 3], ['2－1', '4－3', '1－2', '4－1'], 3, 'How many＋複数名詞notebooks＋are in your bag? の語順。'),
   o('日曜日の午前中にサッカーをしましょう。', 'Let us', ['Sunday', 'play soccer', 'on', 'morning'], [2, 3, 1, 4], ['2－1', '3－4', '2－4', '1－3'], 0, 'Let us＋play soccer＋on Sunday morning。'),
-  o('その白い犬は私の祖父のものです。', 'That white dog', ['grandfather\'s', 'my', 'is', 'over there'], [4, 3, 2, 1], ['3－1', '2－1', '3－2', '4－2'], 3, 'That white dog over there（あそこの白い犬）を主語にし、is my grandfather\'sと続ける。'),
+  o('あそこの白い犬は私の祖父のものです。', 'That white dog', ['grandfather\'s', 'my', 'is', 'over there'], [4, 3, 2, 1], ['3－1', '2－1', '3－2', '4－2'], 3, 'That white dog over there（あそこの白い犬）を主語にし、is my grandfather\'sと続ける。'),
 ], 5, null);
 
 export const WRITTEN_5_R6 = readingRound('eiken_5', [
@@ -78,7 +78,7 @@ export const WRITTEN_5_R6 = readingRound('eiken_5', [
   q(['A: How is your grandmother today?\nB: (     ) She walked in the garden this morning.', ['Every Sunday.', 'She is sixty-eight.', 'In Nagano.', 'She is very well.'], 3, '祖母の体調・様子を尋ねるHow is ...? に対し、とても元気だと答える。', ['頻度の表現で合わない。', '年齢はHow oldへの答え。', '住んでいる場所だけでは様子への回答にならない。', '体調を答え、今朝庭を歩いた話と自然につながる。'], 'A：おばあさんは今日お元気ですか。B：とても元気です。今朝は庭を歩いていましたよ。'], 'conversation'),
   q(['A: Let\'s clean the blackboard before the next class.\nB: (     ) I\'ll get the eraser.', ['I am from Osaka.', 'All right.', 'Yesterday afternoon.', 'Three hundred yen.'], 1, '黒板をきれいにしようという提案にAll right.（いいよ）と応じ、黒板消しを取ってくると続ける。', ['出身地の話で無関係。', '提案への快諾で、次の行動と自然につながる。', '過去の時で合わない。', '金額で合わない。'], 'A：次の授業の前に黒板をきれいにしよう。B：わかった。黒板消しを取ってくるね。'], 'conversation'),
   o('私はこの新しい自転車がとても気に入っています。', 'I', ['very much', 'new bike', 'like', 'this'], [3, 4, 2, 1], ['3－1', '4－1', '3－2', '2－4'], 2, '動詞like＋目的語this new bike＋程度very much。'),
-  o('図書館の机の上で食べないでください。', 'Do not', ['the library', 'eat', 'in', 'lunch'], [2, 4, 3, 1], ['4－1', '3－4', '2－1', '2－3'], 3, '否定命令Do not＋動詞eat＋目的語lunch＋場所in the library。'),
+  o('図書館の中で昼食を食べないでください。', 'Do not', ['the library', 'eat', 'in', 'lunch'], [2, 4, 3, 1], ['4－1', '3－4', '2－1', '2－3'], 3, '否定命令Do not＋動詞eat＋目的語lunch＋場所in the library。'),
   o('あなたの弟はピアノを弾くことができますか。', 'Can', ['the piano', 'brother', 'play', 'your'], [4, 2, 3, 1], ['4－3', '2－1', '4－1', '3－2'], 0, 'Can＋主語your brother＋動詞の原形play＋the piano? の語順。'),
   o('私たちは毎週土曜日に公園を走ります。', 'We', ['the park', 'on Saturdays', 'in', 'run'], [4, 3, 1, 2], ['3－2', '4－1', '4－2', '1－3'], 1, '動詞run＋場所in the park＋時on Saturdays。'),
   o('あのバス停には何人の人がいますか。', 'How many', ['at', 'people', 'that bus stop', 'are'], [2, 4, 1, 3], ['2－1', '4－1', '2－4', '1－3'], 0, 'How many＋複数名詞people＋are＋場所at that bus stop? の語順。'),
