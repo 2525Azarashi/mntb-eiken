@@ -1,5 +1,5 @@
 {
-  "sourceHash": "dcdb45df12af747e8e58c18623b5888ac5c43573a0c4d3f232ffb97a294e2e98",
+  "sourceHash": "3b8e9720b45bba700ffdb42fbb59394b1b5a1961b97c9f51a4fa4e4338a71473",
   "scope": "Full primary written exam booklets (reading + writing where applicable) and reading practice booklets across all 15 rounds of 7 grades; listening excluded from written booklets. Paired bundle IDs match Hub Listening room.",
   "authoringGuide": "docs/WRITTEN_AUTHORING_GUIDE.md",
   "progress": {
@@ -3885,7 +3885,7 @@
           "id": "eiken_5_written_04_q21",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "私は毎晩、英語の日記を書きます。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "私は毎晩、家で英語の日記を書きます。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "3－4",
             "2－1",
@@ -3900,7 +3900,7 @@
             "3－1は完成文の1番目・3番目と一致しない。",
             "4－2は完成文の1番目・3番目と一致しない。"
           ],
-          "translation": "私は毎晩、英語の日記を書きます。",
+          "translation": "私は毎晩、家で英語の日記を書きます。",
           "orderTokens": [
             "every night",
             "an English diary",
@@ -4025,7 +4025,7 @@
           "id": "eiken_5_written_04_q25",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "あのピアノは誰のものですか。\nWhose ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "あのピアノは誰のものですか。\nWhose ( ____ / ____ / ____ / ____ )?\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "3－2",
             "1－4",
@@ -4054,7 +4054,7 @@
             2
           ],
           "orderPrefix": "Whose",
-          "completedSentence": "Whose piano is that over there."
+          "completedSentence": "Whose piano is that over there?"
         }
       ]
     },
@@ -4630,7 +4630,7 @@
           "id": "eiken_5_written_05_q25",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "その白い犬は私の祖父のものです。\nThat white dog ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "あそこの白い犬は私の祖父のものです。\nThat white dog ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "3－1",
             "2－1",
@@ -4645,7 +4645,7 @@
             "3－2は完成文の1番目・3番目と一致しない。",
             "正しい語順の1番目・3番目は4－2。"
           ],
-          "translation": "その白い犬は私の祖父のものです。",
+          "translation": "あそこの白い犬は私の祖父のものです。",
           "orderTokens": [
             "grandfather's",
             "my",
@@ -5130,7 +5130,7 @@
           "id": "eiken_5_written_06_q22",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "図書館の机の上で食べないでください。\nDo not ( ____ / ____ / ____ / ____ )?\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "図書館の中で昼食を食べないでください。\nDo not ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "4－1",
             "3－4",
@@ -5145,7 +5145,7 @@
             "2－1は完成文の1番目・3番目と一致しない。",
             "正しい語順の1番目・3番目は2－3。"
           ],
-          "translation": "図書館の机の上で食べないでください。",
+          "translation": "図書館の中で昼食を食べないでください。",
           "orderTokens": [
             "the library",
             "eat",
@@ -5159,7 +5159,7 @@
             1
           ],
           "orderPrefix": "Do not",
-          "completedSentence": "Do not eat lunch in the library?"
+          "completedSentence": "Do not eat lunch in the library."
         },
         {
           "id": "eiken_5_written_06_q23",
@@ -5700,7 +5700,7 @@
           "id": "eiken_5_written_07_q21",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "私の姉は毎朝ピアノを練習します。\nMy sister ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "私の姉は毎朝、家でピアノを練習します。\nMy sister ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "3－4",
             "2－1",
@@ -5715,7 +5715,7 @@
             "3－1は完成文の1番目・3番目と一致しない。",
             "4－2は完成文の1番目・3番目と一致しない。"
           ],
-          "translation": "私の姉は毎朝ピアノを練習します。",
+          "translation": "私の姉は毎朝、家でピアノを練習します。",
           "orderTokens": [
             "every morning",
             "the piano",
@@ -7015,7 +7015,7 @@
           "id": "eiken_5_written_09_q24",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "この川で泳いではいけません。\nDo ( ____ / ____ / ____ / ____ )?\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "この川で泳いではいけません。\nDo ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "2－1",
             "4－1",
@@ -7044,7 +7044,7 @@
             3
           ],
           "orderPrefix": "Do",
-          "completedSentence": "Do not swim in this river?"
+          "completedSentence": "Do not swim in this river."
         },
         {
           "id": "eiken_5_written_09_q25",
@@ -8910,7 +8910,7 @@
           "id": "eiken_5_written_13_q01",
           "section": "short",
           "kind": "choice",
-          "prompt": "A: What (     ) is your new bicycle?\nB: It is light green.",
+          "prompt": "A: What (     ) is that flower in the garden?\nB: It is bright pink.",
           "choices": [
             "color",
             "time",
@@ -8918,14 +8918,14 @@
             "sport"
           ],
           "answer": 0,
-          "explanation": "light green（薄い緑色）と色を答えているのでWhat color。",
+          "explanation": "bright pink（鮮やかなピンク色）と色を答えているのでWhat color。",
           "distractorReasons": [
             "What colorで色を尋ねる。",
             "timeは時刻。",
             "dateは日付。",
             "sportはスポーツ。"
           ],
-          "translation": "A：あなたの新しい自転車は何色ですか。B：薄い緑色です。"
+          "translation": "A：庭にあるあの花は何色ですか。B：鮮やかなピンク色です。"
         },
         {
           "id": "eiken_5_written_13_q02",
@@ -9400,7 +9400,7 @@
           "id": "eiken_5_written_13_q23",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "この青い傘は誰のものですか。\nWhose ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "この青い傘は誰のものですか。\nWhose ( ____ / ____ / ____ / ____ )?\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "4－2",
             "1－2",
@@ -9429,7 +9429,7 @@
             2
           ],
           "orderPrefix": "Whose",
-          "completedSentence": "Whose blue umbrella is this."
+          "completedSentence": "Whose blue umbrella is this?"
         },
         {
           "id": "eiken_5_written_13_q24",
@@ -9515,7 +9515,7 @@
           "id": "eiken_5_written_14_q01",
           "section": "short",
           "kind": "choice",
-          "prompt": "A: What (     ) do you usually eat lunch?\nB: At twelve fifteen.",
+          "prompt": "A: What (     ) does the library open on Saturdays?\nB: At nine thirty.",
           "choices": [
             "color",
             "time",
@@ -9523,14 +9523,14 @@
             "season"
           ],
           "answer": 1,
-          "explanation": "At twelve fifteen.（12時15分に）と時刻を答えているのでWhat time。",
+          "explanation": "At nine thirty.（9時30分に）と時刻を答えているのでWhat time。",
           "distractorReasons": [
             "colorは色。",
             "What timeで何時に〜するかを尋ねる。",
             "animalは動物。",
             "seasonは季節。"
           ],
-          "translation": "A：普段は何時に昼食を食べますか。B：12時15分です。"
+          "translation": "A：土曜日には図書館は何時に開きますか。B：9時30分です。"
         },
         {
           "id": "eiken_5_written_14_q02",
@@ -10519,22 +10519,22 @@
           "id": "eiken_5_written_15_q20",
           "section": "conversation",
           "kind": "choice",
-          "prompt": "A: Excuse me. Is this seat free?\nB: (     ) Please sit here.",
+          "prompt": "A: Excuse me. May I sit next to you?\nB: (     ) Let me move my bag.",
           "choices": [
             "No, I don't.",
-            "Yes, it is.",
+            "Sure, go ahead.",
             "Two tickets, please.",
             "Good night."
           ],
           "answer": 1,
-          "explanation": "「この席は空いていますか」と聞かれ、Please sit here.と勧めているのでYes, it is.と答える。",
+          "explanation": "「隣に座ってもいいですか」と聞かれ、かばんをどかすねと勧めているのでSure, go ahead.（いいですよ、どうぞ）と答える。",
           "distractorReasons": [
             "Do you ...? の否定で合わない。",
-            "Is this seat ...? への肯定応答で後半と合う。",
+            "許可を求められたときの快諾で後半のかばんを動かす発言と合う。",
             "切符を買う表現で無関係。",
             "夜のあいさつで合わない。"
           ],
-          "translation": "A：すみません。この席は空いていますか。B：はい、空いていますよ。どうぞ座ってください。"
+          "translation": "A：すみません。お隣に座ってもいいですか。B：いいですよ、どうぞ。かばんを動かしますね。"
         },
         {
           "id": "eiken_5_written_15_q21",
@@ -13837,7 +13837,7 @@
           "id": "eiken_4_written_04_q22",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "明日の朝は早く起きなければなりません。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "私は早く起きなければなりません。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "3－2",
             "4－2",
@@ -13852,7 +13852,7 @@
             "正しい語順の1番目・3番目は3－1。",
             "1－4は完成文の1番目・3番目と一致しない。"
           ],
-          "translation": "明日の朝は早く起きなければなりません。",
+          "translation": "私は早く起きなければなりません。",
           "orderTokens": [
             "up",
             "early",
@@ -14036,17 +14036,17 @@
           "prompt": "Why is Nana excited about Saturday?",
           "choices": [
             "She will try making a cup on a potter's wheel for the first time.",
-            "She will buy a new shirt.",
-            "She will visit Sapporo.",
-            "She will bake cookies at school."
+            "She will buy a new winter coat at a mall near Mashiko Station.",
+            "She will visit her cousin in Sapporo by express train.",
+            "She will bake walnut cookies with her classmates at school."
           ],
           "answer": 0,
           "explanation": "ろくろでコップを作るのは初めてなのでとても楽しみだと書いている。",
           "distractorReasons": [
             "初めてのろくろ体験を楽しみにしている。",
-            "新しいシャツを買う話ではない。",
-            "札幌行きではない。",
-            "学校でクッキーを焼く話ではない。"
+            "駅近くのモールで冬コートを買う話ではない。",
+            "札幌のいとこを訪ねる話ではない。",
+            "学校でクラスメートとクッキーを焼く話ではない。"
           ],
           "translation": "ナナが土曜日を楽しみにしているのはなぜですか。",
           "passage": {
@@ -14119,10 +14119,10 @@
           "kind": "choice",
           "prompt": "What happened at Aoba Junior High School on rainy days before Kotaro's idea?",
           "choices": [
-            "Students played soccer in the hallways.",
-            "All students went home early.",
-            "Lunch break became thirty minutes longer.",
-            "The schoolyard was closed and many students had little to do."
+            "Students played indoor soccer in the school hallways.",
+            "All junior high students went home right after lunch.",
+            "Lunch break became thirty minutes longer on rainy days.",
+            "The schoolyard closed and many students had little to do."
           ],
           "answer": 3,
           "explanation": "雨の日は校庭が閉まり、やることがなく机に座るか廊下に集まっていた。",
@@ -14478,7 +14478,7 @@
           "id": "eiken_4_written_05_q11",
           "section": "short",
           "kind": "choice",
-          "prompt": "A: (     ) did you stay in Kyoto?\nB: For three nights.",
+          "prompt": "A: (     ) did you stay at your aunt's farm?\nB: For five days.",
           "choices": [
             "How many",
             "How much",
@@ -14486,14 +14486,14 @@
             "How long"
           ],
           "answer": 3,
-          "explanation": "For three nights（3泊）と滞在期間を答えているのでHow long。",
+          "explanation": "For five days（5日間）と滞在期間を答えているのでHow long。",
           "distractorReasons": [
             "How manyの後には複数名詞が必要。",
             "How muchは量や値段。",
             "How oldは年齢。",
             "How longで期間の長さを尋ねる。"
           ],
-          "translation": "A：どのくらいの期間、京都に滞在しましたか。B：3泊です。"
+          "translation": "A：叔母さんの農場にはどのくらいの期間泊まりましたか。B：5日間です。"
         },
         {
           "id": "eiken_4_written_05_q12",
@@ -14723,7 +14723,7 @@
           "id": "eiken_4_written_05_q22",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "今夜はテレビを見すぎないようにしなさい。\nDo not ( ____ / ____ / ____ / ____ )?\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "今夜はテレビを見すぎないようにしなさい。\nDo not ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "3－2",
             "1－3",
@@ -14752,7 +14752,7 @@
             2
           ],
           "orderPrefix": "Do not",
-          "completedSentence": "Do not watch TV too much tonight?"
+          "completedSentence": "Do not watch TV too much tonight."
         },
         {
           "id": "eiken_4_written_05_q23",
@@ -14828,7 +14828,7 @@
           "id": "eiken_4_written_05_q25",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "もし明日晴れなら、海へ行きましょう。\nLet's ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "もし晴れなら、海へ行きましょう。\nLet's ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "2－3",
             "2－1",
@@ -14843,7 +14843,7 @@
             "4－1は完成文の1番目・3番目と一致しない。",
             "3－4は完成文の1番目・3番目と一致しない。"
           ],
-          "translation": "もし明日晴れなら、海へ行きましょう。",
+          "translation": "もし晴れなら、海へ行きましょう。",
           "orderTokens": [
             "sunny",
             "go to the sea",
@@ -15061,10 +15061,10 @@
           "kind": "choice",
           "prompt": "Why didn't the radio make any sound at first?",
           "choices": [
-            "The silver handle was broken.",
-            "It had no speaker inside.",
+            "The silver carrying handle on top was broken.",
+            "There was no speaker inside the wooden case.",
             "A wire was loose and dust covered the speaker.",
-            "Someone dropped it into water."
+            "Someone had dropped the radio into cold water."
           ],
           "answer": 2,
           "explanation": "one thin wire had come loose, and dust covered the speakerとある。",
@@ -15574,7 +15574,7 @@
           "id": "eiken_4_written_06_q21",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "私は毎朝、犬を散歩に連れていきます。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "私は犬を散歩に連れていきます。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "2－1",
             "4－2",
@@ -15589,7 +15589,7 @@
             "3－1は完成文の1番目・3番目と一致しない。",
             "正しい語順の1番目・3番目は3－4。"
           ],
-          "translation": "私は毎朝、犬を散歩に連れていきます。",
+          "translation": "私は犬を散歩に連れていきます。",
           "orderTokens": [
             "a walk",
             "my dog",
@@ -17052,7 +17052,7 @@
           "id": "eiken_4_written_08_q07",
           "section": "short",
           "kind": "choice",
-          "prompt": "(     ) there any messages for me while I was at the dentist?",
+          "prompt": "(     ) there any calls from Grandma while I was in the bath?",
           "choices": [
             "Was",
             "Is",
@@ -17060,14 +17060,14 @@
             "Did"
           ],
           "answer": 2,
-          "explanation": "複数名詞any messagesが主語でありwhile I was ... と過去なのでWere there ...?。",
+          "explanation": "複数名詞any callsが主語でありwhile I was ... と過去なのでWere there ...?。",
           "distractorReasons": [
             "Wasは単数主語用。",
             "Isは現在単数用。",
             "Were there＋複数名詞で過去の存在を尋ねる。",
             "Didはthere構文の疑問文を作らない。"
           ],
-          "translation": "私が歯医者に行っている間、何か私宛ての伝言はありましたか。"
+          "translation": "私がお風呂に入っている間、おばあちゃんから何か電話はありましたか。"
         },
         {
           "id": "eiken_4_written_08_q08",
@@ -17381,7 +17381,7 @@
           "id": "eiken_4_written_08_q22",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "明日は傘を持っていく必要はありません。\nYou ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "あなたは傘を持っていく必要はありません。\nYou ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "4－3",
             "2－1",
@@ -17396,7 +17396,7 @@
             "2－3は完成文の1番目・3番目と一致しない。",
             "1－4は完成文の1番目・3番目と一致しない。"
           ],
-          "translation": "明日は傘を持っていく必要はありません。",
+          "translation": "あなたは傘を持っていく必要はありません。",
           "orderTokens": [
             "take",
             "don't",
@@ -17416,7 +17416,7 @@
           "id": "eiken_4_written_08_q23",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "あなたが先週訪れた博物館はどこですか。\nWhere ( ____ / ____ / ____ / ____ )?\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "あなたが訪れた博物館はどこですか。\nWhere ( ____ / ____ / ____ / ____ )?\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "4－1",
             "2－3",
@@ -17424,14 +17424,14 @@
             "1－3"
           ],
           "answer": 2,
-          "explanation": "Where is＋the museum＋you visited（先週訪れた博物館はどこですか）。",
+          "explanation": "Where is＋the museum＋you visited（あなたが訪れた博物館はどこですか）。",
           "distractorReasons": [
             "4－1は完成文の1番目・3番目と一致しない。",
             "2－3は完成文の1番目・3番目と一致しない。",
             "正しい語順の1番目・3番目は2－1。",
             "1－3は完成文の1番目・3番目と一致しない。"
           ],
-          "translation": "あなたが先週訪れた博物館はどこですか。",
+          "translation": "あなたが訪れた博物館はどこですか。",
           "orderTokens": [
             "museum",
             "is",
@@ -17551,10 +17551,10 @@
           "kind": "choice",
           "prompt": "What will the town office give participants at the park?",
           "choices": [
-            "Work gloves and hats.",
+            "Thick cotton work gloves and sun hats.",
             "Trash bags and tongs, plus orange juice afterward.",
-            "Bicycles and maps.",
-            "Sandwiches for lunch."
+            "Rental town bicycles and colored park maps.",
+            "Homemade egg sandwiches and hot soup for lunch."
           ],
           "answer": 1,
           "explanation": "ごみ袋とトング（火ばさみ）が配られ、終了後に冷たいオレンジジュースがもらえる。",
@@ -17579,16 +17579,16 @@
           "kind": "choice",
           "prompt": "What did Ms. Morita praise about Kaito this week?",
           "choices": [
-            "He wrote his own song.",
-            "He cleaned the piano keys.",
-            "He arrived thirty minutes early.",
+            "He wrote his own short song for the concert.",
+            "He cleaned all the piano keys after his lesson.",
+            "He arrived at the studio thirty minutes early.",
             "He played his new piece smoothly with much better rhythm."
           ],
           "answer": 3,
           "explanation": "played his new piece very smoothly ... his rhythm has improved a lotとある。",
           "distractorReasons": [
-            "作曲したのではない。",
-            "鍵盤掃除ではない。",
+            "自分で短い曲を作曲したのではない。",
+            "鍵盤掃除をしたのではない。",
             "30分早く着いた話はない。",
             "新曲を滑らかに弾きリズムが大きく良くなったこと。"
           ],
@@ -17608,9 +17608,9 @@
           "prompt": "Why can't Ms. Morita teach on Thursday, May 21?",
           "choices": [
             "She will perform in a charity concert in Osaka.",
-            "Her piano is being repaired.",
-            "She has a cold.",
-            "Her classroom will be painted."
+            "Her grand piano is being repaired all afternoon.",
+            "She caught a bad cold earlier this week.",
+            "Her music classroom will be painted on Thursday."
           ],
           "answer": 0,
           "explanation": "have to go to Osaka to play in a charity concertとある。",
@@ -18232,7 +18232,7 @@
           "id": "eiken_4_written_09_q21",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "私の母は私に新しい水筒を買ってくれました。\nMy mother ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "昨日、私の母は私に新しい水筒を買ってくれました。\nMy mother ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "3－4",
             "2－1",
@@ -18247,7 +18247,7 @@
             "2－4は完成文の1番目・3番目と一致しない。",
             "1－3は完成文の1番目・3番目と一致しない。"
           ],
-          "translation": "私の母は私に新しい水筒を買ってくれました。",
+          "translation": "昨日、私の母は私に新しい水筒を買ってくれました。",
           "orderTokens": [
             "a new water bottle",
             "bought",
@@ -18866,7 +18866,7 @@
           "id": "eiken_4_written_10_q09",
           "section": "short",
           "kind": "choice",
-          "prompt": "Let's wait under this roof (     ) the rain stops.",
+          "prompt": "Please stay on the bus (     ) it comes to a complete stop.",
           "choices": [
             "but",
             "until",
@@ -18874,14 +18874,14 @@
             "so"
           ],
           "answer": 1,
-          "explanation": "雨がやむ「まで」この屋根の下で待とう、を表す接続詞until。",
+          "explanation": "バスが完全に止まる「まで」車内にとどまってください、を表す接続詞until。",
           "distractorReasons": [
             "butは逆接。",
             "until＋節で「〜するまでずっと」。",
             "orは選択。",
             "soは結果。"
           ],
-          "translation": "雨がやむまで、この屋根の下で待ちましょう。"
+          "translation": "バスが完全に止まるまで、車内にとどまってください。"
         },
         {
           "id": "eiken_4_written_10_q10",
@@ -19153,7 +19153,7 @@
           "id": "eiken_4_written_10_q22",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "明日の朝は早く起きる必要はありません。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "私は早く起きる必要はありません。\nI ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "3－2",
             "4－1",
@@ -19168,7 +19168,7 @@
             "3－1は完成文の1番目・3番目と一致しない。",
             "2－4は完成文の1番目・3番目と一致しない。"
           ],
-          "translation": "明日の朝は早く起きる必要はありません。",
+          "translation": "私は早く起きる必要はありません。",
           "orderTokens": [
             "early",
             "get up",
@@ -19547,18 +19547,18 @@
           "kind": "choice",
           "prompt": "What good change happened for Koharu?",
           "choices": [
-            "She became the student council president.",
-            "She won a national shogi prize.",
+            "She became the president of the student council in June.",
+            "She won first prize in a city shogi tournament.",
             "She made friends with classmates she had hardly talked to in April.",
-            "She stopped raining in June."
+            "She started teaching board games at an elementary school."
           ],
           "answer": 2,
           "explanation": "Koharu made friends with classmates she had barely spoken to in Aprilとある。",
           "distractorReasons": [
-            "生徒会長になったのではない。",
-            "全国大会優勝ではない。",
+            "6月に生徒会長になったのではない。",
+            "市の将棋大会で優勝したのではない。",
             "4月にはあまり話していなかったクラスメートと友達になれた。",
-            "雨を止めたわけではない。"
+            "小学校でボードゲームを教え始めたのではない。"
           ],
           "translation": "コハルにとってどんな良い変化がありましたか。",
           "passage": {
@@ -20039,7 +20039,7 @@
           "id": "eiken_4_written_11_q22",
           "section": "reorder",
           "kind": "choice",
-          "prompt": "彼は明日スピーチをする予定です。\nHe ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
+          "prompt": "彼はスピーチをする予定です。\nHe ( ____ / ____ / ____ / ____ ).\n1番目・3番目の語句番号の組を選んでください。",
           "choices": [
             "2－3",
             "4－1",
@@ -20054,7 +20054,7 @@
             "4－3は完成文の1番目・3番目と一致しない。",
             "1－2は完成文の1番目・3番目と一致しない。"
           ],
-          "translation": "彼は明日スピーチをする予定です。",
+          "translation": "彼はスピーチをする予定です。",
           "orderTokens": [
             "give",
             "going to",
@@ -21545,28 +21545,28 @@
           "id": "eiken_4_written_13_q10",
           "section": "short",
           "kind": "choice",
-          "prompt": "Lake Biwa is the (     ) lake in Japan.",
+          "prompt": "The Tone River is one of the (     ) rivers in Japan.",
           "choices": [
-            "largely",
-            "largest",
-            "larger",
-            "large"
+            "widely",
+            "widest",
+            "wider",
+            "wide"
           ],
           "answer": 1,
-          "explanation": "theがありin Japan（日本で）と範囲があるので最上級largest。",
+          "explanation": "one of the＋最上級＋複数名詞で「日本で最も幅の広い川の一つ」widest。",
           "distractorReasons": [
-            "largelyは副詞。",
-            "the largestで「最も大きい」。",
-            "largerは比較級。",
-            "largeは原級。"
+            "widelyは副詞。",
+            "the widestで「最も幅が広い」。",
+            "widerは比較級。",
+            "wideは原級。"
           ],
-          "translation": "琵琶湖は日本で一番大きな湖です。"
+          "translation": "利根川は日本で最も川幅の広い川の一つです。"
         },
         {
           "id": "eiken_4_written_13_q11",
           "section": "short",
           "kind": "choice",
-          "prompt": "A: (     ) does it take to walk from here to the castle?\nB: About fifteen minutes.",
+          "prompt": "A: (     ) does it take to ride the cable car to the top?\nB: About eight minutes.",
           "choices": [
             "Who",
             "How many",
@@ -21574,14 +21574,14 @@
             "Which"
           ],
           "answer": 2,
-          "explanation": "About fifteen minutes.（約15分）と所要時間を答えているのでHow long does it take ...?。",
+          "explanation": "About eight minutes.（約8分）と所要時間を答えているのでHow long does it take ...?。",
           "distractorReasons": [
             "Whoは人。",
             "How manyは数。",
             "How longでかかる時間を尋ねる。",
             "Whichはどれ。"
           ],
-          "translation": "A：ここから城まで歩くとどのくらい時間がかかりますか。B：約15分です。"
+          "translation": "A：山頂までケーブルカーに乗るとどのくらい時間がかかりますか。B：約8分です。"
         },
         {
           "id": "eiken_4_written_13_q12",
@@ -22177,17 +22177,17 @@
           "kind": "choice",
           "prompt": "How did Mr. Takahashi fix the clock while Shun watched?",
           "choices": [
-            "He replaced the wooden frame with plastic.",
-            "He put two new batteries inside.",
-            "He painted the hands bright red.",
+            "He replaced the cracked wooden frame with a new plastic case.",
+            "He put two new alkaline batteries inside the back panel.",
+            "He painted both of the clock hands a bright red color.",
             "He cleaned each brass wheel with a brush and added fresh clock oil."
           ],
           "answer": 3,
           "explanation": "cleaned each brass wheel with a soft brush and added two tiny drops of fresh clock oilとある。",
           "distractorReasons": [
-            "プラスチック枠への交換ではない。",
-            "電池を入れたのではない。",
-            "針を赤く塗ったのではない。",
+            "プラスチックケースへの交換ではない。",
+            "新しい乾電池を入れたのではない。",
+            "時計の針を赤く塗ったのではない。",
             "ブラシで真鍮の歯車を掃除し、新しい時計油を差した。"
           ],
           "translation": "シュンが見守る中、高橋さんはどのように時計を直しましたか。",
@@ -22284,7 +22284,7 @@
           "id": "eiken_4_written_14_q03",
           "section": "short",
           "kind": "choice",
-          "prompt": "Our classroom is on the first floor, and (     ) is on the third floor.",
+          "prompt": "My locker is near the door, and (     ) is in the back row.",
           "choices": [
             "them",
             "they",
@@ -22292,14 +22292,14 @@
             "theirs"
           ],
           "answer": 3,
-          "explanation": "後ろに名詞がなく「彼らのもの（彼らの教室）」を表す所有代名詞theirs。",
+          "explanation": "後ろに名詞がなく「彼らのもの（彼らのロッカー）」を表す所有代名詞theirs。",
           "distractorReasons": [
             "themは目的格。",
             "theyは主格。",
             "theirは後ろに名詞が必要。",
-            "theirsは「彼らのもの（教室）」。"
+            "theirsは「彼らのもの（ロッカー）」。"
           ],
-          "translation": "私たちの教室は1階にあり、彼らの教室は3階にあります。"
+          "translation": "私のロッカーはドアの近くにあり、彼らのロッカーは後ろの列にあります。"
         },
         {
           "id": "eiken_4_written_14_q04",
@@ -23254,7 +23254,7 @@
           "id": "eiken_4_written_15_q07",
           "section": "short",
           "kind": "choice",
-          "prompt": "There (     ) a small bakery on this corner when my mother was a child.",
+          "prompt": "There (     ) an old wooden post office near the port thirty years ago.",
           "choices": [
             "are",
             "was",
@@ -23262,14 +23262,14 @@
             "were"
           ],
           "answer": 1,
-          "explanation": "単数名詞a small bakeryと過去の時when my mother was a childがあるのでThere was。",
+          "explanation": "単数名詞an old wooden post officeと過去の時thirty years agoがあるのでThere was。",
           "distractorReasons": [
             "areは現在複数形。",
             "wasは単数主語の過去形。",
             "isは現在形。",
             "wereは複数主語用。"
           ],
-          "translation": "私の母が子どもだった頃、この角には小さなパン屋がありました。"
+          "translation": "30年前、港の近くには古い木造の郵便局がありました。"
         },
         {
           "id": "eiken_4_written_15_q08",
@@ -23306,7 +23306,7 @@
           "answer": 1,
           "explanation": "ケーキの上にのせる「前に」イチゴをやさしく洗いなさい、と前後関係を表す接続詞before。",
           "distractorReasons": [
-            "soだと洗ったからのせるだけになり時系列指定としてbeforeが自然。",
+            "soは結果を表す接続詞なので「洗ったからケーキにのせる」となり不自然。",
             "before＋節で「〜する前に」。",
             "orは選択・警告。",
             "butは逆接。"
@@ -23725,9 +23725,9 @@
           "kind": "choice",
           "prompt": "Where can students check the lost items?",
           "choices": [
-            "Inside the gym storage room.",
-            "On the school rooftop.",
-            "At the local charity shop.",
+            "Inside the main gym storage room after classes.",
+            "Up on the sunny school rooftop at noon.",
+            "At the local neighborhood charity bazaar shop.",
             "In the hallway in front of the staff room."
           ],
           "answer": 3,
@@ -31689,7 +31689,7 @@
           "id": "eiken_3_written_11_q07",
           "section": "short",
           "kind": "choice",
-          "prompt": "Please turn (     ) the classroom lights when everyone leaves for the assembly.",
+          "prompt": "Please switch (     ) your tablet screen before the planetarium show starts.",
           "choices": [
             "off",
             "into",
@@ -31697,20 +31697,20 @@
             "between"
           ],
           "answer": 0,
-          "explanation": "集会で全員教室を出るときに明かりを「消す」なのでturn offを選ぶ。",
+          "explanation": "プラネタリウムの上映が始まる前にタブレットの画面を「消す・切る」なのでswitch offを選ぶ。",
           "distractorReasons": [
-            "turn offで「（電気・スイッチなどを）消す、切る」。",
-            "turn intoは「〜に変わる」。",
-            "turn afterとは言わない。",
-            "turn betweenとは言わない。"
+            "switch offで「（電源・画面・照明などを）消す、切る」。",
+            "switch intoは「〜に切り替わる」。",
+            "switch afterとは言わない。",
+            "switch betweenは「2つの間を切り替える」で単独目的語screenと合わない。"
           ],
-          "translation": "全員が集会に出かけるときは教室の電気を消してください。"
+          "translation": "プラネタリウムの上映が始まる前にタブレットの画面を消してください。"
         },
         {
           "id": "eiken_3_written_11_q08",
           "section": "short",
           "kind": "choice",
-          "prompt": "Of all the subjects at school, social studies is the (     ) interesting to Kenta.",
+          "prompt": "Of all the instruments in the band, the cello has the (     ) relaxing sound to Mio.",
           "choices": [
             "more",
             "most",
@@ -31718,14 +31718,14 @@
             "many"
           ],
           "answer": 1,
-          "explanation": "Of all the subjects（すべての教科の中で）という3つ以上の範囲があるので最上級the most interestingにする。",
+          "explanation": "Of all the instruments（バンドのすべての楽器の中で）という3つ以上の範囲があるので最上級the most relaxingにする。",
           "distractorReasons": [
             "moreは2つの比較に使う。",
-            "the most interestingで最上級。",
-            "the much interestingとは言わない。",
+            "the most relaxingで最上級。",
+            "the much relaxingとは言わない。",
             "manyも不可。"
           ],
-          "translation": "学校のすべての教科の中で、健太にとっては社会科が一番面白いです。"
+          "translation": "バンドのすべての楽器の中で、ミオにとってはチェロが一番落ち着く音色です。"
         },
         {
           "id": "eiken_3_written_11_q09",
@@ -31987,7 +31987,7 @@
           "choices": [
             "By paying 1,000 yen online a month ahead.",
             "By wearing a bright neon jacket to the park.",
-            "By arriving early at the pier from 6:45 a.m., as only ten pairs are lent out.",
+            "By arriving early at the pier from 6:45 a.m. since only ten pairs are lent out.",
             "By bringing a letter from their science teacher."
           ],
           "answer": 2,
@@ -32266,7 +32266,7 @@
           "prompt": "外国人の友達（Leo）から以下のEメールを受け取りました。Eメールを読み、それに対する返信メールを英文で書きなさい。返信メールの中で、友達（Leo）からの2つの質問（下線部）に対応する内容を、あなた自身で自由に考えて答えなさい。（目安語数：15〜25語）",
           "passage": {
             "id": "g3r11-writing-email",
-            "title": "E-mail from Leo",
+            "title": "E-mail from Leo About the Planetarium",
             "text": "Hi,\nThank you for your e-mail.\nYou said that you went to a planetarium with your family last Sunday! __How did you go to the planetarium?__ __And what was the best part of the show?__\nYour friend,\nLeo",
             "translation": "こんにちは。Eメールをありがとう。先週の日曜日に家族とプラネタリウムへ行ったと言っていましたね！プラネタリウムへはどうやって行きましたか。また、プログラムの中で一番よかった部分は何でしたか。あなたの友人、レオより",
             "format": "email"
@@ -34028,7 +34028,7 @@
           "explanation": "野菜（The vegetables）は農薬を使わずに「育てられた」側なので過去分詞grownで後置修飾する。",
           "distractorReasons": [
             "grown without chemicalsがThe vegetablesを修飾する受動の過去分詞句。",
-            "ここでは人間の手によって無農薬栽培されたことを表すため受動のgrownが的確。",
+            "現在分詞growingは能動になり、農家によって栽培された受動関係を表せない。",
             "過去形grewを入れると本動詞areと衝突する。",
             "原形growは名詞を後置修飾できない。"
           ],
@@ -37464,21 +37464,21 @@
           "id": "eiken_pre2_written_03_q30",
           "section": "email",
           "kind": "writing",
-          "prompt": "海外の友人Claraから届いたEメールを読み、Claraからの質問に答えるとともに、下線部についてあなたが知りたいことを2つ質問する返信メールを英語で書きなさい。（目安語数：40〜50語）",
+          "prompt": "海外の友人Lucasから届いたEメールを読み、Lucasからの質問に答えるとともに、下線部についてあなたが知りたいことを2つ質問する返信メールを英語で書きなさい。（目安語数：40〜50語）",
           "passage": {
             "id": "gp2r3-writing-email",
-            "title": "E-mail from Clara",
-            "text": "Hi!\nYesterday, my school held __a career talk day__ where local workers spoke about their jobs. Listening to a baker and a firefighter was inspiring! What kind of job interests you now, and why does it appeal to you?\nBest,\nClara",
-            "translation": "こんにちは！昨日、私の学校で地域の働く人々が仕事について話すキャリア講演会が開かれました。パン職人さんや消防士さんの話はとても刺激になりました！あなたは今どんな仕事に興味がありますか。また、どうしてその仕事に魅力を感じますか。クララより",
+            "title": "E-mail from Lucas",
+            "text": "Hi!\nYesterday, my school held __a career talk day__ where local workers spoke about their jobs. Listening to a baker and a firefighter was inspiring! What kind of job interests you now, and why does it appeal to you?\nBest,\nLucas",
+            "translation": "こんにちは！昨日、私の学校で地域の働く人々が仕事について話すキャリア講演会が開かれました。パン職人さんや消防士さんの話はとても刺激になりました！あなたは今どんな仕事に興味がありますか。また、どうしてその仕事に魅力を感じますか。ルーカスより",
             "format": "email"
           },
           "wordRange": [
             40,
             50
           ],
-          "model": "Hi Clara, I am interested in becoming a pharmacist because helping patients understand their medicine safely is rewarding. Your career talk day sounds wonderful! How long did each speaker talk to the students? Also, could you ask questions after their speeches?",
-          "translation": "こんにちは、クララ。私は患者さんが安全に薬を理解できるよう手助けすることにやりがいを感じるので、薬剤師になることに興味があります。キャリア講演会は素敵ですね！それぞれの講師はどのくらいの時間生徒たちに話しましたか。また、講演の後に質問をすることはできましたか。",
-          "explanation": "Claraからの質問（興味のある仕事：薬剤師／魅力を感じる理由：患者の安全な服薬を支えるやりがい）に答えた上で、下線部のキャリア講演会について講演時間と質疑応答の有無を2つの疑問文で尋ねています（41語）。",
+          "model": "Hi Lucas, I am interested in becoming a pharmacist because helping patients understand their medicine safely is rewarding. Your career talk day sounds wonderful! How long did each speaker talk to the students? Also, could you ask questions after their speeches?",
+          "translation": "こんにちは、ルーカス。私は患者さんが安全に薬を理解できるよう手助けすることにやりがいを感じるので、薬剤師になることに興味があります。キャリア講演会は素敵ですね！それぞれの講師はどのくらいの時間生徒たちに話しましたか。また、講演の後に質問をすることはできましたか。",
+          "explanation": "Lucasからの質問（興味のある仕事：薬剤師／魅力を感じる理由：患者の安全な服薬を支えるやりがい）に答えた上で、下線部のキャリア講演会について講演時間と質疑応答の有無を2つの疑問文で尋ねています（41語）。",
           "rubric": [
             "相手の質問（興味のある仕事とその理由）に明確に答えた",
             "下線部（a career talk day）に関する具体的な質問を2つ書いた",
@@ -38138,10 +38138,10 @@
           "kind": "choice",
           "prompt": "When does the dispatch system decide NOT to hold a connecting bus?",
           "choices": [
-            "When a long delay, such as fifteen minutes in heavy snow, would disrupt the whole network.",
-            "Whenever even one passenger is transferring.",
-            "On quiet weekday evenings.",
-            "Whenever a train arrives thirty seconds late."
+            "When a long snow delay would disrupt the entire local network.",
+            "Whenever only a single passenger is transferring from the train.",
+            "On quiet weekday evenings when the last bus runs.",
+            "Whenever an incoming train arrives thirty seconds behind schedule."
           ],
           "answer": 0,
           "explanation": "大雪で15分遅れるなど遅延が大きく、待たせると地域路線網全体が麻痺してしまう場合。",
@@ -38279,7 +38279,7 @@
             "distant dancesとは言わない（距離的に遠い）。",
             "distinctは明確に異なる・独自の。",
             "domesticは家庭の・国内の。",
-            "delicateは繊細な（隔てられた因果としてdistinctが最も適切）。"
+            "delicateは「壊れやすい・繊細な」で、地形的な隔たりによる地域差を表さない。"
           ],
           "translation": "険しい尾根で隔てられているため、2つの村にはそれぞれ独自の祭りの踊りが生まれました。"
         },
@@ -40187,10 +40187,10 @@
           "kind": "choice",
           "prompt": "What advantage do newer ultrasonic humidifiers have over traditional mist sprays?",
           "choices": [
-            "Their tiny fog droplets humidify the air without pooling water in trays, reducing rot.",
-            "They play louder thunder music.",
-            "They cook broccoli on the shelf.",
-            "They freeze tomatoes solid for winter storage."
+            "Tiny fog droplets humidify leaves without pooling water and causing rot.",
+            "They play louder thunder sounds across the produce aisle.",
+            "They gently steam fresh broccoli right on the display shelf.",
+            "They freeze ripe tomatoes solid for long winter storage."
           ],
           "answer": 0,
           "explanation": "表面を濡らさないほど極小の霧粒を作るため、陳列トレイの底に余分な水がたまらず細菌による腐敗が減る。",
@@ -40731,9 +40731,9 @@
           "prompt": "What is each finalist team required to include in their recipe?",
           "choices": [
             "At least one fruit or vegetable grown in the prefecture.",
-            "Imported chocolate from three countries.",
-            "Pre-mixed dough kneaded at home.",
-            "Twenty different kinds of cheese."
+            "Imported dark chocolate brought from three European countries.",
+            "Pre-mixed bread dough kneaded at home the night before.",
+            "Twenty different kinds of aged cheese from local farms."
           ],
           "answer": 0,
           "explanation": "featuring at least one fruit or vegetable grown in our prefectureとある。",
@@ -41413,10 +41413,10 @@
           "kind": "choice",
           "prompt": "Where should riders attach the two number stickers?",
           "choices": [
-            "On both shoes.",
+            "On the heels of both cycling shoes.",
             "On the front of their helmet and around their seat post.",
-            "On their water bottle and backpack.",
-            "Inside their wallet."
+            "On their bicycle water bottle and day backpack.",
+            "Inside their leather wallet for checkpoint checks."
           ],
           "answer": 1,
           "explanation": "place the small sticker on the front of your helmet and wrap the long sticker around your seat postとある。",
@@ -42073,7 +42073,7 @@
             "the price of wheat and the size of the bakery window",
             "the color of the baker's apron and wooden peel"
           ],
-          "answer": 2,
+          "answer": 1,
           "explanation": "パン内部の均一な構造（膨らみ方）と、香ばしいクラスト（皮）の食感。",
           "distractorReasons": [
             "雨の日の待ち時間ではない。",
@@ -42180,10 +42180,10 @@
           "kind": "choice",
           "prompt": "What kind of land do cities typically use to create pocket parks?",
           "choices": [
-            "Ten-hectare farms far outside the city.",
+            "Ten-hectare vegetable farms located far outside the city.",
             "Small leftover spaces such as vacant corners or former gas stations.",
-            "Active airport runways.",
-            "Rooftops of moving commuter trains."
+            "Active airport runways closed during weekday afternoons.",
+            "Flat rooftops of moving suburban commuter trains."
           ],
           "answer": 1,
           "explanation": "tiny leftover plots—a vacant corner lot, a former gas station, or two unused parking spacesとある。",
@@ -42835,10 +42835,10 @@
           "kind": "choice",
           "prompt": "What change will renters notice starting Sunday, May 31?",
           "choices": [
-            "They will receive new wrist-band keys, and June's fee will be reduced by two days.",
-            "Locker rentals will end permanently.",
-            "The Sports Center will open only at night.",
-            "Brass keys will become twice as large."
+            "New wrist-band keys will be issued, with a two-day June discount.",
+            "Monthly shoe locker rentals on the first floor will end permanently.",
+            "The Aoba Municipal Sports Center will open only on weekday nights.",
+            "Existing brass locker keys will be replaced with larger metal keys."
           ],
           "answer": 0,
           "explanation": "Your June rental fee will automatically be discounted by two days, and new wrist-band keys will be issued starting Sunday, May 31.とある。",
@@ -42863,10 +42863,10 @@
           "kind": "choice",
           "prompt": "Why do sea otters need to eat about a quarter of their body weight every day?",
           "choices": [
-            "They swim across the Atlantic Ocean every week.",
-            "They store food in underwater caves for five winters.",
-            "Lacking blubber, they rely on dense fur and a high metabolism to stay warm in cold water.",
-            "Kelp leaves contain no water at all."
+            "They swim across the open Atlantic Ocean every single week.",
+            "They store shellfish in deep underwater caves for five cold winters.",
+            "Lacking blubber, they rely on dense fur and fast metabolism for warmth.",
+            "Giant brown kelp leaves contain almost no fresh water at all."
           ],
           "answer": 2,
           "explanation": "皮下脂肪（blubber）を持たず、高密度の毛皮と高い代謝で冷たい海の中で体温を保つため。",
@@ -43546,10 +43546,10 @@
           "kind": "choice",
           "prompt": "What limitation of a single close-up photograph is explained in the second paragraph?",
           "choices": [
-            "Lenses work only on sunny afternoons at noon.",
-            "Cameras cannot record green or yellow colors.",
-            "Photographs fade completely within twenty-four hours.",
-            "It shows only one moment and struggles to keep both foreground stamens and deeper stem hairs in sharp focus."
+            "Macro camera lenses work properly only on sunny afternoons at noon.",
+            "Modern digital cameras still cannot record natural green or yellow tones.",
+            "Color photographs of wild orchids fade completely within twenty-four hours.",
+            "It captures one moment and cannot keep stamens and deeper hairs sharp."
           ],
           "answer": 3,
           "explanation": "1つの瞬間しか写せないうえ、接写では被写界深度が浅く手前の雄しべと少し奥の茎毛の両方にピントを合わせにくい。",
@@ -43898,22 +43898,22 @@
           "id": "eiken_pre2_written_13_q12",
           "section": "short",
           "kind": "choice",
-          "prompt": "Could you keep an (     ) on my violin case while I buy a bottle of water?",
+          "prompt": "Even when two witnesses describe the same traffic accident, their memories rarely agree in every (     ).",
           "choices": [
-            "eye",
-            "ear",
-            "arm",
-            "end"
+            "detail",
+            "degree",
+            "duty",
+            "delight"
           ],
           "answer": 0,
-          "explanation": "keep an eye on ... で「…から目を離さず見守る・気をつけて見ておく」。",
+          "explanation": "in every detailで「細部に至るまであらゆる点で」。同じ交通事故を語っても記憶が細部まで完全に一致することはめったにない。",
           "distractorReasons": [
-            "keep an eye onでちょっと見ておく。",
-            "keep an earはoutなどと組む。",
-            "armは使わない。",
-            "endは使わない。"
+            "in every detailですべての細部において。",
+            "degreeは程度（in every degreeとは言わない）。",
+            "dutyは義務。",
+            "delightは喜び。"
           ],
-          "translation": "水を買ってくるあいだ、私のバイオリンケースを少し見ていてもらえますか。"
+          "translation": "たとえ2人の目撃者が同じ交通事故について説明しても、その記憶が細部まですべて一致することはめったにありません。"
         },
         {
           "id": "eiken_pre2_written_13_q13",
@@ -44145,10 +44145,10 @@
           "kind": "choice",
           "prompt": "Which type of editing will disqualify an entry in the photo contest?",
           "choices": [
-            "Photographing stars in September.",
-            "Adjusting overall brightness slightly.",
-            "Fine-tuning contrast on a single photograph.",
-            "Combining a moon from one shot with another landscape or using AI sky replacement."
+            "Photographing night stars above your town during early September.",
+            "Adjusting overall image brightness slightly on a single night shot.",
+            "Fine-tuning light and dark contrast on an uncropped photograph.",
+            "Pasting a moon from another photo or using AI sky replacement."
           ],
           "answer": 3,
           "explanation": "pasting the moon from one photo onto a landscape from another—or using AI sky-replacement filters—will result in disqualificationとある。",
@@ -44257,10 +44257,10 @@
           "kind": "choice",
           "prompt": "Why is relying on genetically identical crops across vast areas risky?",
           "choices": [
-            "Farmers forget how to drive tractors.",
-            "Identical apples refuse to ripen in sunlight.",
-            "One new disease, pest, or extreme heat wave can devastate the entire crop at once.",
-            "Seeds turn into stones inside foil packets."
+            "Local farmers gradually forget how to operate modern farm tractors.",
+            "Genetically identical apple varieties refuse to ripen in summer sunlight.",
+            "One new fungus, pest, or heat wave can devastate vast harvests.",
+            "Dried heirloom seeds turn into hard stones inside foil packets."
           ],
           "answer": 2,
           "explanation": "When millions of hectares plant genetically identical crops, a single newly evolved fungus, insect pest, or severe heat wave can sweep across entire continents.とある。",
@@ -44313,10 +44313,10 @@
           "kind": "choice",
           "prompt": "Why do agronomists combine frozen seed banks with \"living seed networks\" of local farmers?",
           "choices": [
-            "Refrigerators in Norway cannot stay cold in winter.",
-            "Growing heritage crops in real fields lets them keep adapting to changing climates and pests.",
-            "Foil packets last only forty-eight hours.",
-            "Small farmers refuse to share seeds with scientists."
+            "Underground seed refrigerators in Norway cannot stay cold during winter.",
+            "Growing heritage crops in fields lets them adapt to evolving threats.",
+            "Moisture-proof foil seed packets last for only forty-eight hours.",
+            "Small village farmers refuse to share traditional seeds with scientists."
           ],
           "answer": 1,
           "explanation": "allowing crops to adapt naturally alongside cold-storage backups（変化する気候や害虫に畑で自然適応させ続けられるため）。",
@@ -45651,10 +45651,10 @@
           "kind": "choice",
           "prompt": "Besides patients, who else benefits from hospital greenery according to follow-up studies?",
           "choices": [
-            "Surgeons while performing operations outdoors.",
-            "Only parking-lot ticket machines.",
+            "Hospital surgeons while performing gallbladder operations outdoors on rooftops.",
+            "Automated parking-lot ticket machines beside diagnostic wings.",
             "Tired hospital staff such as ICU nurses and visiting family caregivers.",
-            "Ambulance tires on snowy highways."
+            "Rubber ambulance tires driving along snowy suburban highways."
           ],
           "answer": 2,
           "explanation": "not only in patients, but also among exhausted ICU nurses and family caregivers taking ten-minute breaksとある。",
@@ -51791,10 +51791,10 @@
           "kind": "choice",
           "prompt": "What happens when seawater enters a hairline crack in Roman harbor concrete?",
           "choices": [
-            "The entire breakwater dissolves within a week.",
-            "Air bubbles push the volcanic rocks apart.",
-            "Dissolved calcium reacts with volcanic ash to grow crystals that seal the crack.",
-            "The concrete turns soft like wet clay."
+            "The entire Roman harbor breakwater dissolves within a single week.",
+            "Trapped air bubbles push the heavy volcanic rocks wide apart.",
+            "Dissolved calcium reacts with volcanic ash to grow crack-sealing crystals.",
+            "The surrounding mortar turns soft and muddy like wet clay."
           ],
           "answer": 2,
           "explanation": "dissolves calcium from the lime flecks, and reacts with silica-rich volcanic ash to grow interlocking crystal plates right across the gapとある。",
@@ -51819,10 +51819,10 @@
           "kind": "choice",
           "prompt": "Why can't twenty-first-century engineers use ancient Roman concrete unchanged for every structure?",
           "choices": [
-            "Volcanic ash no longer exists anywhere on Earth.",
-            "It cures slowly and lacks the steel reinforcement required for slender spans like highway bridges.",
-            "International maritime law bans lime near harbors.",
-            "It melts whenever temperatures drop below twenty degrees."
+            "Reactive volcanic ash no longer exists anywhere on Earth today.",
+            "It cures slowly and lacks steel needed for slender highway spans.",
+            "Modern international maritime law bans using lime near busy harbors.",
+            "Unreinforced Roman mortar melts whenever temperatures drop below twenty degrees."
           ],
           "answer": 1,
           "explanation": "Roman harbor concrete cured slowly and lacked the steel needed for slender highway spansとある。",
@@ -51980,7 +51980,7 @@
           "distractorReasons": [
             "jollyは形容詞。",
             "jealouslyはねたんで。",
-            "justlyは正当に（同点だから2人にという文脈ではjointlyが的確）。",
+            "justlyは「公正に」の意味で、「2人同時に共同受賞させる」という授与形態を表せない。",
             "award ... jointlyで共同で授与する。"
           ],
           "translation": "決勝に残った2人がまったく同じ得点だったため、審査員は2人に共同で1等を授与しました。"
@@ -52467,10 +52467,10 @@
           "kind": "choice",
           "prompt": "What emergency backup must each school bring?",
           "choices": [
-            "A live symphony orchestra.",
-            "Three extra smartphones.",
-            "Printed sheet music for the audience.",
-            "An audio CD or a second identical USB drive carried in a separate bag."
+            "A live student symphony orchestra waiting in the wings.",
+            "Three extra smartphones fully charged with mobile data.",
+            "Printed paper copies of sheet music for the entire audience.",
+            "An audio CD or duplicate USB drive in a separate bag."
           ],
           "answer": 3,
           "explanation": "bring an audio CD or a second identical USB drive in a separate bag as an emergency backupとある。",
@@ -52495,10 +52495,10 @@
           "kind": "choice",
           "prompt": "What agricultural risk of planting uniform commercial crop varieties is highlighted in the first paragraph?",
           "choices": [
-            "A new disease or severe drought can wipe out harvests across whole regions at once.",
-            "Supermarkets run out of colorful price tags.",
-            "Tractors cannot harvest crops of the same height.",
-            "Uniform wheat refuses to grow in sunny weather."
+            "A new disease or drought can wipe out regional harvests simultaneously.",
+            "Modern supermarkets quickly run out of colorful produce price tags.",
+            "Mechanical farm tractors cannot harvest crops of the exact same height.",
+            "Genetically uniform wheat varieties refuse to grow in sunny weather."
           ],
           "answer": 0,
           "explanation": "遺伝的に均一な品種ばかり植えていると、新しい病気や長期の干ばつが起きた際に地域全体の収穫が同時に失われかねない。",
@@ -53227,10 +53227,10 @@
           "kind": "choice",
           "prompt": "What should a member do if moisture forms on the objective lens?",
           "choices": [
-            "Rub it firmly with a clean paper tissue.",
-            "Let it dry naturally uncapped in a dry room before putting the cap back on, without wiping.",
-            "Seal the wet lens immediately under the dust cap.",
-            "Dry it over a gas kitchen stove."
+            "Rub the wet glass firmly with a clean paper tissue.",
+            "Let it dry uncapped indoors without wiping before recapping it.",
+            "Seal the damp objective lens immediately beneath its tight dust cap.",
+            "Hold the front telescope tube above a warm kitchen gas stove."
           ],
           "answer": 1,
           "explanation": "NEVER wipe it ... bring the uncapped tube indoors, point it slightly downward in a dry room until the moisture evaporates naturally, and only then put the dust cap back onとある。",
@@ -53255,10 +53255,10 @@
           "kind": "choice",
           "prompt": "Why were embossed Roman letters frustrating for blind students in early nineteenth-century Paris?",
           "choices": [
-            "The wet paper dissolved within ten minutes.",
-            "Sighted teachers could not read Roman letters.",
-            "Tracing curved shapes by touch was extremely slow, and students could not easily write them on their own.",
-            "Books written in Roman letters weighed fifty kilograms each."
+            "The thick wet paper dissolved completely within ten minutes of printing.",
+            "Sighted classroom teachers could not read large embossed Roman letters.",
+            "Tracing curved letters was very slow, and students could not write them.",
+            "Embossed Roman-letter books weighed more than fifty kilograms per volume."
           ],
           "answer": 2,
           "explanation": "指で曲線をたどるのは非常に遅いうえ、生徒自身が授業ノートや手紙を書く実用的な方法がなかったため。",
@@ -53283,10 +53283,10 @@
           "kind": "choice",
           "prompt": "What was Charles Barbier's \"night writing\" originally invented for?",
           "choices": [
-            "Allowing soldiers to read silent messages in darkness without lighting a match.",
-            "Writing symphony music for Paris orchestras.",
-            "Labeling medicine boxes in pharmacies.",
-            "Teaching five-year-old children the French alphabet."
+            "Letting soldiers read silent messages in darkness without striking matches.",
+            "Writing complex symphony scores for nineteenth-century Paris orchestras.",
+            "Labeling glass medicine bottles in neighborhood French pharmacies.",
+            "Teaching five-year-old children how to spell the French alphabet."
           ],
           "answer": 0,
           "explanation": "designed so soldiers could read silent messages in the dark without striking a matchとある。",
@@ -53339,10 +53339,10 @@
           "kind": "choice",
           "prompt": "How did Louis Braille's six-dot cell improve reading speed and writing?",
           "choices": [
-            "One fingertip could feel a whole character at a single touch, and students could punch dots themselves with a stylus.",
-            "It made embossed Roman letters three times larger.",
-            "It read pages aloud using mechanical bells.",
-            "It eliminated the need to learn spelling."
+            "Fingertips read whole characters in one touch, and styluses punched notes.",
+            "It made traditional embossed Roman letters three times larger on wet paper.",
+            "It read printed pages aloud to students using tiny mechanical bells.",
+            "It eliminated the need for blind students to learn French spelling."
           ],
           "answer": 0,
           "explanation": "人差し指の腹ひとつで1文字全体を瞬時に読み取れて毎分100語以上で滑らかに進め、同じ点字器と点筆で誰でも自分で書けた。",
@@ -53404,22 +53404,22 @@
           "id": "eiken_pre2plus_written_11_q01",
           "section": "short",
           "kind": "choice",
-          "prompt": "To (     ) confusion at the baggage carousel, tie a brightly colored ribbon to your black suitcase.",
+          "prompt": "To (     ) eye strain during long spreadsheet tasks, adjust your monitor brightness to match the surrounding room light.",
           "choices": [
-            "award",
-            "await",
-            "avoid",
-            "awaken"
+            "allot",
+            "allege",
+            "alleviate",
+            "alienate"
           ],
           "answer": 2,
-          "explanation": "手荷物受取レーンでの取り違え・混乱を「避ける」ため鮮やかなリボンを結ぶavoid confusion。",
+          "explanation": "長時間の表計算作業による眼精疲労を「和らげる・軽減する」ため、モニターの明るさを周囲の室内光に合わせるalleviate eye strain。",
           "distractorReasons": [
-            "awardは授与する。",
-            "awaitは待つ。",
-            "avoid confusionで混乱を避ける。",
-            "awakenは目覚めさせる。"
+            "allotは割り当てる。",
+            "allegeは（証拠なしに）主張する。",
+            "alleviate pain/strainで痛みや負担を軽減する。",
+            "alienateは疎遠にする。"
           ],
-          "translation": "手荷物受取所での取り違えを避けるため、黒いスーツケースには明るい色のリボンを結んでおきましょう。"
+          "translation": "長時間の表計算作業による目の疲れを和らげるため、モニターの明るさを周囲の部屋の照明に合わせて調整しましょう。"
         },
         {
           "id": "eiken_pre2plus_written_11_q02",
@@ -54127,10 +54127,10 @@
           "kind": "choice",
           "prompt": "How does the author view the future roles of chemical batteries and pumped-storage hydro?",
           "choices": [
-            "Both are valuable: batteries suit vehicles and local substations, while pumped hydro anchors large grids in mountainous regions.",
-            "Pumped hydro will be dismantled everywhere within five years.",
-            "Chemical batteries cannot power electric cars.",
-            "Solar power works without any storage at night."
+            "Batteries suit cars and substations, while pumped hydro anchors mountain grids.",
+            "Existing pumped-storage hydro plants will be dismantled everywhere within five years.",
+            "Chemical lithium batteries cannot supply enough power to run electric cars.",
+            "Modern rooftop solar panels work reliably without any storage at night."
           ],
           "answer": 0,
           "explanation": "最終段落の使い分けと共存のまとめと一致。",
@@ -55591,10 +55591,10 @@
           "kind": "choice",
           "prompt": "How are Banff's wildlife overpasses designed to feel natural and safe for crossing animals?",
           "choices": [
-            "They are painted bright neon yellow with loud music speakers.",
-            "They are wide, covered with soil and native plants, and bordered by earth berms that block light and noise.",
-            "They use moving escalators made of glass.",
-            "They open only for ten minutes on Sunday mornings."
+            "They are painted bright neon yellow and equipped with loud music speakers.",
+            "Wide bridges carry soil, native plants, and berms blocking traffic glare.",
+            "They use moving glass escalators built directly above the highway lanes.",
+            "Their gates open only for ten minutes on quiet Sunday mornings."
           ],
           "answer": 1,
           "explanation": "fifty meters broad, planted with native shrubs, pine trees ... Low earth berms along the sides block headlight glare and tire roarとある。",
@@ -55844,7 +55844,7 @@
             "原形haveは分詞構文を作らない。",
             "having been＋過去分詞で「（それ以前に）〜されていたので」。",
             "接続詞なしにhadは不可。",
-            "two years earlierという完了の先行明示にはhaving beenが最適。"
+            "being beenという形は文法的に成立しない。"
           ],
           "translation": "2年前に鋼鉄の棒で補強されていたため、その古い石橋は洪水の中でも無傷で持ちこたえました。"
         },
@@ -56379,10 +56379,10 @@
           "kind": "choice",
           "prompt": "Why does lime plaster naturally resist black mold without synthetic chemicals?",
           "choices": [
-            "It reaches boiling temperature every midnight.",
-            "Its high alkalinity prevents mold spores and mites from growing on the surface.",
-            "It smells strongly of lemon perfume.",
-            "Insects eat all the mold every morning."
+            "The wall surface reaches boiling temperature every night around midnight.",
+            "Its high alkalinity prevents mold spores and mites from colonizing walls.",
+            "Freshly cured plaster smells strongly of artificial lemon room perfume.",
+            "Beneficial house insects eat all mold spores off the walls daily."
           ],
           "answer": 1,
           "explanation": "maintains high alkalinity that prevents black mold spores and dust mites from colonizing ... without synthetic fungicidesとある。",
@@ -62535,10 +62535,10 @@
           "kind": "choice",
           "prompt": "Why do cooks and musicians especially value Smyth-sewn books?",
           "choices": [
-            "Sewn books weigh half as much as glued paperbacks.",
-            "Sewn pages are waterproof against soup spills.",
-            "They flex at the folded hinges and stay wide open flat on a counter or music stand without losing pages.",
-            "Every sewn book comes with free audio recordings."
+            "Sewn books weigh roughly half as much as ordinary glued paperbacks.",
+            "Sewn paper pages are completely waterproof against hot kitchen soup spills.",
+            "Folded hinges let them lie wide open flat without losing pages.",
+            "Every sewn cookbook or score includes free online audio recordings."
           ],
           "answer": 2,
           "explanation": "調理台やピアノの譜面台に置いたとき、背が割れてページが抜けることなく手放しで平らに大きく開いたまま保てるため。",
@@ -63183,10 +63183,10 @@
           "kind": "choice",
           "prompt": "Why will the Campus Traffic Office no longer accept online-only permit applications?",
           "choices": [
-            "The university website shut down permanently.",
-            "Blue stickers must be painted directly onto tires by hand.",
-            "Only twenty students ride bicycles to campus.",
-            "Many registered bicycles last winter did not actually have working lights, so staff now inspect bikes in person."
+            "The main university registration website shut down permanently last month.",
+            "Blue permit stickers must be painted onto bicycle tires by hand.",
+            "Fewer than twenty students ride bicycles to campus on weekdays.",
+            "Many registered bikes lacked working lights last winter, requiring in-person checks."
           ],
           "answer": 3,
           "explanation": "Online applications alone will no longer be accepted, as many registered bikes lacked working lights last winter.とある。",
@@ -64843,10 +64843,10 @@
           "kind": "choice",
           "prompt": "How does an annual \"lux-hour budget\" work in museum practice?",
           "choices": [
-            "Every painting is repainted with fresh blue dye once a year.",
-            "Visitors pay fifty yen per hour to rent flashlights.",
-            "Museums display all prints outdoors on cloudy days only.",
-            "Curators limit brightness to around fifty lux and rotate fragile works back into dark storage after a set display period."
+            "Every woodblock print is repainted with fresh blue dye once each year.",
+            "Museum visitors pay fifty yen per hour to rent pocket flashlights.",
+            "Curators display all fragile prints outdoors on overcast afternoons only.",
+            "Curators cap brightness near fifty lux and rotate works into dark storage."
           ],
           "answer": 3,
           "explanation": "照度を約50ルクス以下に抑え、展示時間を記録して年間上限（例：3か月）に達したら暗所の空調収蔵庫へ戻して別作品と入れ替える。",
@@ -66223,10 +66223,10 @@
           "kind": "choice",
           "prompt": "Why won't student teams plug their own laptops into the auditorium podium?",
           "choices": [
-            "Sixteen schools present consecutively in one afternoon, so all slides run from one auditorium PC to save changeover time.",
-            "Personal laptops are illegal inside Civic Auditorium.",
-            "Only paper flip-charts are used at the symposium.",
-            "The auditorium has no projector screen."
+            "Sixteen consecutive talks share one auditorium PC to avoid changeover delays.",
+            "Bringing personal laptops or tablets inside Civic Auditorium is strictly illegal.",
+            "Only handwritten paper flip-charts may be displayed during the symposium.",
+            "Civic Auditorium does not have an overhead projector screen installed."
           ],
           "answer": 0,
           "explanation": "Because sixteen schools are presenting back-to-back in one afternoon, participants will NOT connect personal laptops ... all slides will run from a single auditorium Windows PC.とある。",
@@ -66251,10 +66251,10 @@
           "kind": "choice",
           "prompt": "Why must teams embed fonts and submit both .pptx and PDF versions by Tuesday?",
           "choices": [
-            "Standard fonts cost extra money on Saturdays.",
-            "PDF files automatically add background music.",
-            "Tuesday is the day after the symposium.",
-            "Custom fonts from Macs or tablets can disappear or break layouts on the auditorium's Windows PC."
+            "Using standard Windows system fonts costs extra money on Saturdays.",
+            "Exported PDF slide files automatically add classical background music.",
+            "Tuesday is the day after the regional history symposium ends.",
+            "Downloaded Mac or tablet fonts can vanish or scramble layouts on Windows."
           ],
           "answer": 3,
           "explanation": "Decorative fonts downloaded on home Macs or iPads often vanish or scramble line breaks on another computerとある。",
@@ -67011,10 +67011,10 @@
           "kind": "choice",
           "prompt": "Why must participants use coarse grogged raku clay rather than smooth porcelain clay?",
           "choices": [
-            "Porcelain clay melts iron tongs at room temperature.",
-            "Tiny sand particles in grogged clay let steam and heat escape without shattering the pot.",
-            "Grogged clay turns bright blue without glaze.",
-            "Grogged clay requires no bisque firing beforehand."
+            "Smooth porcelain clay melts long iron tongs at room temperature.",
+            "Sand particles in grogged clay vent steam safely without shattering pots.",
+            "Coarse grogged clay turns bright cobalt blue without any glaze.",
+            "Grogged raku clay requires no bisque firing before Saturday's workshop."
           ],
           "answer": 1,
           "explanation": "smooth porcelain clay will shatter almost immediately ... coarse grogged raku clay, whose tiny pre-fired sand particles open microscopic pathways for steam and heat to escape safelyとある。",
@@ -67883,10 +67883,10 @@
           "kind": "choice",
           "prompt": "How does the underground loop benefit a building during hot July weather?",
           "choices": [
-            "It transfers indoor heat down into cool twelve-degree earth more efficiently than dumping heat into hot outside air.",
-            "It sprays cold mud over rooftop solar panels.",
-            "It shuts off completely until snow returns in December.",
-            "It freezes bedroom windows shut to block humidity."
+            "It dumps indoor heat into cool twelve-degree earth far more efficiently.",
+            "It sprays cold muddy water across overheated rooftop solar panels.",
+            "It shuts off completely until heavy snow returns in early December.",
+            "It freezes upstairs bedroom windows shut to block summer humidity."
           ],
           "answer": 0,
           "explanation": "Instead of struggling to dump indoor heat into thirty-five-degree street air ... sends surplus room heat down into cool twelve-degree earthとある。",
@@ -73137,10 +73137,10 @@
           "kind": "choice",
           "prompt": "Why does winter space heating pose a distinct challenge even as wind and solar electricity expand?",
           "choices": [
-            "Solar panels cannot generate electricity during sunny summer afternoons.",
-            "Peak heating demand arrives on dark, calm winter evenings when solar output is absent and grids are strained.",
-            "Hospitals and apartments do not use heat in January.",
-            "Wind turbines consume more hot water than district pipes."
+            "Rooftop solar panels cannot generate electricity during sunny summer afternoons.",
+            "Heating peaks on dark, windless winter nights when grids strain.",
+            "Northern hospitals and apartment blocks rarely use heating in January.",
+            "Onshore wind turbines consume more hot water than municipal district pipes."
           ],
           "answer": 1,
           "explanation": "暖房需要のピークは暗く風のない1月の夜に訪れ、雪の下で太陽光発電が動かず電力網全体が逼迫する時期と重なるため。",
@@ -74755,10 +74755,10 @@
           "kind": "choice",
           "prompt": "What distinction in consumer fairness judgments did surveys by Daniel Kahneman and colleagues reveal?",
           "choices": [
-            "Shoppers prefer paying higher prices for snow shovels after blizzards.",
-            "Hardware stores lose customers whenever they offer seasonal discounts.",
-            "Consumers view airline tickets and bread as identical luxury items.",
-            "People accept ending a promotion when stock is low, but resent raising regular prices to exploit sudden need."
+            "Shoppers generally prefer paying higher prices for snow shovels after blizzards.",
+            "Local hardware stores lose customers whenever they offer seasonal discounts.",
+            "Consumers view summer airline tickets and staple bread as identical luxuries.",
+            "Ending a sale feels fair, whereas hiking regular prices during emergencies provokes anger."
           ],
           "answer": 3,
           "explanation": "在庫が減ったときに割引セールを終えることは受け入れられるが、猛吹雪の翌朝のような急な困窮につけ込んで通常価格を引き上げることには強い反発が起きる。",
@@ -75424,10 +75424,10 @@
           "kind": "choice",
           "prompt": "How do compact underwater acoustic \"pingers\" help crews recover lost crab traps?",
           "choices": [
-            "They respond to a search boat's hydrophone signal with a coded ultrasonic pulse that locates the gear within meters.",
-            "They inflate giant orange balloons automatically every Tuesday.",
-            "They cut nylon ropes so traps float into harbor entrances.",
-            "They broadcast continuous music loud enough to hear from shore."
+            "They answer a boat's hydrophone with coded pulses pinpointing trap coordinates.",
+            "They inflate bright orange surface balloons automatically every Tuesday morning.",
+            "They sever tangled nylon ropes so traps drift into harbor entrances.",
+            "They broadcast continuous music loud enough to hear clearly from shore."
           ],
           "answer": 0,
           "explanation": "捜索船の船底ハイドロフォンからの呼びかけを受けるまで待機し、符号化された超音波パルスを返して数メートル以内の座標を特定させる。",
@@ -75452,10 +75452,10 @@
           "kind": "choice",
           "prompt": "Why had strict port fines for landing unmarked nets previously backfired?",
           "choices": [
-            "Captains stopped using surface marker buoys on sunny days.",
-            "Fines encouraged crews to drop accidentally snagged ghost nets back into the sea rather than bring them ashore.",
-            "Recycling companies charged ports millions of dollars per net.",
-            "Hydrophones could not operate near harbors with fines."
+            "Trawler captains stopped using surface marker buoys on calm sunny days.",
+            "Fines made crews dump snagged ghost nets back overboard at sea.",
+            "Harbor recycling companies charged ports millions of dollars per recovered net.",
+            "Hull hydrophones could not operate properly near harbors imposing fines."
           ],
           "answer": 1,
           "explanation": "持ち主不明の網を陸揚げした船長に罰金を科していた港では、網にかかった流失漁具を乗組員が再び海へ投棄する結果を招いていた。",
@@ -76205,10 +76205,10 @@
           "kind": "choice",
           "prompt": "Why do ports in New Zealand, Australia, and California require suction-hood robots for in-port hull cleaning?",
           "choices": [
-            "To pump warm tropical water into cold harbors.",
-            "To polish propellers into mirrors for tourist submarines.",
-            "To harvest barnacles for luxury harbor restaurants.",
-            "To capture scraped organisms and spores so non-native invasive species are not released into local waters."
+            "To pump warm tropical seawater into cold Pacific harbor basins.",
+            "To polish bronze propellers into bright mirrors for tourist submarines.",
+            "To harvest fresh barnacles for luxury waterfront seafood restaurants.",
+            "To capture scraped organisms so invasive species cannot enter local bays."
           ],
           "answer": 3,
           "explanation": "dislodge millions of non-native crabs, tunicates, and algae spores ... suction hoods that capture and filter every scraped shell fragmentとある。",
@@ -76958,10 +76958,10 @@
           "kind": "choice",
           "prompt": "How does heavy nitrogen pollution from traffic and fertilizer weaken forest soil carbon storage?",
           "choices": [
-            "Trees supplied with easy nitrogen reduce sugar payments to ectomycorrhizal fungi, favoring microbes that release more carbon.",
-            "Nitrogen freezes tree trunks solid during summer.",
-            "Exhaust fumes turn pine needles into pure phosphorus.",
-            "Fertilizer causes oaks to stop performing photosynthesis altogether."
+            "Easy nitrogen cuts root sugar payments, favoring carbon-releasing soil microbes.",
+            "Excess surface nitrogen freezes oak trunks solid throughout summer months.",
+            "Highway exhaust fumes turn fallen pine needles into pure phosphorus.",
+            "Synthetic fertilizer causes mature oaks to stop performing photosynthesis altogether."
           ],
           "answer": 0,
           "explanation": "Saturated with free surface nitrogen, trees cut sugar shipments to their fungal partners, starving sensitive ectomycorrhizal species and shifting forests toward fast-cycling microbes that release more soil carbonとある。",
@@ -77739,10 +77739,10 @@
           "kind": "choice",
           "prompt": "What specific bottleneck in early electric telegraphy spurred the invention of urban pneumatic tube networks?",
           "choices": [
-            "Nineteenth-century banks banned electric telegraphs on weekdays.",
-            "Telegraph wires melted whenever operators sent more than ten words.",
-            "Steam locomotives refused to carry paper letters between Liverpool and London.",
-            "Morse signals crossed long distances in seconds, but carrying paper messages the final miles across congested city streets was slow."
+            "Nineteenth-century London banks banned electric telegraphs on busy weekdays.",
+            "Copper telegraph wires melted whenever operators transmitted more than ten words.",
+            "Early steam locomotives refused to carry paper letters between Liverpool and London.",
+            "Morse signals traveled in seconds, whereas foot delivery across crowded streets was slow."
           ],
           "answer": 3,
           "explanation": "Flashing Morse code fifty miles ... took seconds, yet delivering the transcribed paper slip the final two miles ... by foot messenger could take over an hour.とある。",
@@ -77795,10 +77795,10 @@
           "kind": "choice",
           "prompt": "Which factors contributed to the eventual decline of municipal pneumatic mail grids in the twentieth century?",
           "choices": [
-            "Canisters frequently exploded when crossing the Brooklyn Bridge.",
-            "A global shortage of leather skirts and brass after 1870.",
-            "Horse-drawn carriages became faster than fifty kilometers per hour.",
-            "Condensation issues, disruptive street excavations for stuck canisters, and fixed pipe sizes unable to handle larger packages."
+            "Pressurized canisters frequently exploded whenever crossing the Brooklyn Bridge.",
+            "A severe global shortage of leather skirts and brass after 1870.",
+            "Urban horse-drawn carriages became faster than fifty kilometers per hour.",
+            "Valve condensation, disruptive street digging, and fixed small pipe diameters."
           ],
           "answer": 3,
           "explanation": "Moisture condensation jammed valves, digging up streets to find a stuck canister snarled traffic, and fixed pipe diameters could not scale to larger parcels.とある。",
@@ -78492,10 +78492,10 @@
           "kind": "choice",
           "prompt": "What error do historians refer to as \"presentism\" in the opening paragraph?",
           "choices": [
-            "Memorizing too many nineteenth-century factory wage tables.",
-            "Evaluating past people's choices using modern hindsight instead of their actual circumstances and knowledge.",
-            "Sympathizing too warmly with mechanized power-loom inventors.",
-            "Refusing to study any history written after 1900."
+            "Memorizing too many nineteenth-century northern English factory wage tables.",
+            "Judging past actors by modern hindsight rather than their actual constraints.",
+            "Sympathizing far too warmly with early mechanized power-loom inventors.",
+            "Refusing to study any social or economic history written after 1900."
           ],
           "answer": 1,
           "explanation": "judging historical actors through the hindsight and comfortable assumptions of our own era rather than reconstructing the material constraints, beliefs, and limited informationとある。",
@@ -78576,10 +78576,10 @@
           "kind": "choice",
           "prompt": "What assessment approach does the final paragraph highlight as a promising middle ground?",
           "choices": [
-            "Two-tier items using contrasting eyewitness excerpts to test awareness of what actors could know at the time.",
-            "Purely true-or-false quizzes on treaty dates.",
-            "Replacing written history tests with theatrical costume parades.",
-            "Grading essays solely by total word count."
+            "Two-tier items pairing conflicting eyewitness excerpts with structured prompts.",
+            "Purely true-or-false classroom quizzes focused on major treaty dates.",
+            "Replacing written history examinations with theatrical period costume parades.",
+            "Grading student document essays solely according to total word count."
           ],
           "answer": 0,
           "explanation": "two-tier scenario items that pair brief conflicting eyewitness excerpts with structured reasoning prompts, testing whether students recognize what a historical witness could—and could not—have knownとある。",
@@ -79161,10 +79161,10 @@
           "kind": "choice",
           "prompt": "What assumption originally motivated water agencies to clear saltcedar along Southwestern rivers?",
           "choices": [
-            "They thought saltcedar roots were dissolving concrete hydroelectric dams.",
-            "They believed removing thirsty invasive shrubs would save large volumes of river water and revive native trees.",
-            "They wanted to harvest tamarisk timber for luxury furniture.",
-            "They assumed saltcedar grew only above three thousand meters."
+            "They thought deep saltcedar taproots were dissolving concrete hydroelectric dams.",
+            "They expected clearing invasive shrubs to save river water and revive willows.",
+            "They wanted to harvest dense tamarisk timber for luxury office furniture.",
+            "They assumed Eurasian saltcedar grew only above three thousand meters."
           ],
           "answer": 1,
           "explanation": "waged war on saltcedar under the straightforward premise that thirsting invasive shrubs were stealing millions of cubic meters of river water ... restore native willow grovesとある。",
@@ -79178,8 +79178,8 @@
           "passage": {
             "id": "rp1-r14-reading-a",
             "title": "Saltcedar Removal and Desert Riparian Trade-Offs",
-            "text": "Introduced to the American Southwest in the nineteenth century as an ornamental windbreak and riverbank stabilizer, tamarisk—commonly called saltcedar—spread aggressively along regulated desert rivers such as the Colorado and Rio Grande. Deep taproots enabled dense thickets of the Eurasian shrub to outcompete native cottonwoods and willows where dams had eliminated spring cleansing floods, while salt excreted from tamarisk leaves crusted floodplain soils.\n\nFor decades, water agencies waged war on saltcedar under the straightforward premise that thirsting invasive shrubs were stealing millions of cubic meters of river water—and that bulldozing, burning, or releasing leaf-eating tamarisk beetles would effortlessly restore native willow groves and boost downstream reservoir levels. Field measurements using sap-flow sensors and satellite evapotranspiration mapping, however, delivered a sobering ecological surprise: saltcedar stands actually transpire roughly the same amount of water per hectare as the native cottonwood forests managers hoped to regrow, meaning removal rarely yields a long-term water windfall unless riverbanks are left completely bare.\n\nComplicating matters further, an endangered songbird—the southwestern willow flycatcher—adapted to nest inside dense saltcedar canopies wherever native willows had vanished. When introduced defoliating beetles stripped tamarisk leaves mid-summer without spring river floods to help native saplings take their place, nesting birds lost shade and cover abruptly. Contemporary river restorationists therefore emphasize restoring seasonal dam pulse flows alongside gradual, mosaic replanting rather than single-species eradication alone.",
-            "translation": "19世紀に防風林や河岸護岸用として米国南西部へ持ち込まれたユーラシア原産の低木タマリスク（ソルトシダー）は、ダム建設で春の洪水攪乱が失われたコロラド川やリオグランデ川沿いに猛烈に広がり、在来のハコヤナギやヤナギを圧倒しました。長年、水資源当局は「水を大量に吸い上げる外来低木を伐採したり葉を食べるハムシを放ったりすれば、下流の貯水量が増え在来林も自然に戻る」と単純に考えてきました。ところが樹液流センサーと衛星蒸発散観測による実測は意外な事実を突きつけました。タマリスク群落のヘクタールあたり蒸散量は再生を目指す在来ヤナギ・ハコヤナギ林とほぼ同じであり、河岸を丸裸のままにしない限り伐採しても長期的な余剰水はほとんど生まれなかったのです。さらに絶滅危惧種のメジロハエトリ（鳥）が在来木に代わる営巣場所としてタマリスクの茂みに適応していたため、春の放流による在来稚樹の再生なしにハムシが真夏に葉を食い尽くすと、営巣中の鳥が日陰と隠れ場所を急に失う事態も起きました。そのため現在の河川再生では、単一種の根絶だけに頼るのではなく、ダムの季節的なパルス放流の回復と段階的なモザイク状植栽の組み合わせが重視されています。",
+            "text": "Introduced to the American Southwest in the nineteenth century as an ornamental windbreak and riverbank stabilizer, tamarisk—commonly called saltcedar—spread aggressively along regulated desert rivers such as the Colorado, Pecos, and Rio Grande. Deep taproots enabled dense thickets of the Eurasian shrub to outcompete native cottonwoods and willows wherever upstream dams had eliminated spring cleansing floods, while salt excreted from feathery tamarisk leaves crusted dry floodplain soils and discouraged tender native seedlings.\n\nFor decades, western water agencies waged war on saltcedar under the straightforward premise that thirsting invasive shrubs were stealing millions of cubic meters of precious river water—and that bulldozing, burning, or releasing leaf-eating tamarisk beetles would effortlessly restore native willow groves and boost downstream reservoir storage. Early popular estimates derived from open-pan tank tests even claimed a single mature shrub drank hundreds of liters every summer afternoon. Field measurements using sap-flow sensors, eddy-covariance flux towers, and satellite evapotranspiration mapping, however, delivered a sobering ecological surprise: saltcedar stands actually transpire roughly the same amount of water per hectare as the native cottonwood and willow forests managers hoped to regrow, meaning removal rarely yields a long-term water windfall unless riverbanks are left completely bare and vulnerable to bank collapse.\n\nComplicating matters further, an endangered migratory songbird—the southwestern willow flycatcher—adapted to nest inside dense saltcedar canopies wherever native willows had vanished. When introduced defoliating beetles stripped tamarisk leaves mid-summer faster than expected and without spring river floods to help native saplings take their place, nesting birds lost shade and predator cover abruptly during broods' hottest July weeks, prompting wildlife biologists and water managers to rethink hasty single-goal eradication campaigns.\n\nContemporary river restorationists therefore caution against treating invasive plants in isolation from altered river hydrology. Rather than relying on single-species eradication alone, successful floodplain projects negotiate timed dam pulse flows that scour salty surface sediment and moisten sandbars just as native cottonwood and willow seeds drift ashore in late spring, pairing selective mechanical thinning with gradual, mosaic replanting so riverside wildlife habitat is never stripped overnight.",
+            "translation": "19世紀に防風林や河岸護岸用として米国南西部へ持ち込まれたユーラシア原産の低木タマリスク（ソルトシダー）は、ダム建設で春の洪水攪乱が失われたコロラド川やリオグランデ川沿いに猛烈に広がり、在来のハコヤナギやヤナギを圧倒しました。深い直根で乾燥に耐え、葉から排出される塩分が氾濫原の表土を固めて在来実生の定着を阻んだのです。長年、水資源当局は「水を大量に吸い上げる外来低木を伐採したり葉を食べるハムシを放ったりすれば、下流の貯水量が増え在来林も自然に戻る」と単純に考えてきました。初期の簡易タンク実験からは成木1本が毎日何百リットルも水を吸うという過大な推計さえ広まっていました。ところが樹液流センサーや渦相関フラックス観測塔、衛星蒸発散観測による実測は意外な事実を突きつけました。タマリスク群落のヘクタールあたり蒸散量は再生を目指す在来ハコヤナギ林とほぼ同じであり、浸食されやすい丸裸の河岸のまま放置しない限り、伐採しても長期的な余剰水はほとんど生まれなかったのです。さらに絶滅危惧種の渡り鳥メジロハエトリが在来木に代わる営巣場所としてタマリスクの茂みに適応していたため、春の放流による在来稚樹の再生なしにハムシが予想以上の速さで真夏に葉を食い尽くすと、子育ての最盛期に日陰と天敵からの隠れ場所を急に失う事態も起き、野生生物学者と水管理者に性急な根絶策の見直しを迫りました。そのため現代の河川再生では、改変された河川水文環境を切り離して外来種だけを狙い撃ちにする手法を戒め、塩分を洗い流し晩春の在来種子の飛散期に合わせて砂州を潤すダムのパルス放流と、河畔の生息地を一晩で奪わない選択的間伐および段階的なモザイク状植栽の組み合わせが重視されています。",
             "format": "article"
           }
         },
@@ -79206,8 +79206,8 @@
           "passage": {
             "id": "rp1-r14-reading-a",
             "title": "Saltcedar Removal and Desert Riparian Trade-Offs",
-            "text": "Introduced to the American Southwest in the nineteenth century as an ornamental windbreak and riverbank stabilizer, tamarisk—commonly called saltcedar—spread aggressively along regulated desert rivers such as the Colorado and Rio Grande. Deep taproots enabled dense thickets of the Eurasian shrub to outcompete native cottonwoods and willows where dams had eliminated spring cleansing floods, while salt excreted from tamarisk leaves crusted floodplain soils.\n\nFor decades, water agencies waged war on saltcedar under the straightforward premise that thirsting invasive shrubs were stealing millions of cubic meters of river water—and that bulldozing, burning, or releasing leaf-eating tamarisk beetles would effortlessly restore native willow groves and boost downstream reservoir levels. Field measurements using sap-flow sensors and satellite evapotranspiration mapping, however, delivered a sobering ecological surprise: saltcedar stands actually transpire roughly the same amount of water per hectare as the native cottonwood forests managers hoped to regrow, meaning removal rarely yields a long-term water windfall unless riverbanks are left completely bare.\n\nComplicating matters further, an endangered songbird—the southwestern willow flycatcher—adapted to nest inside dense saltcedar canopies wherever native willows had vanished. When introduced defoliating beetles stripped tamarisk leaves mid-summer without spring river floods to help native saplings take their place, nesting birds lost shade and cover abruptly. Contemporary river restorationists therefore emphasize restoring seasonal dam pulse flows alongside gradual, mosaic replanting rather than single-species eradication alone.",
-            "translation": "19世紀に防風林や河岸護岸用として米国南西部へ持ち込まれたユーラシア原産の低木タマリスク（ソルトシダー）は、ダム建設で春の洪水攪乱が失われたコロラド川やリオグランデ川沿いに猛烈に広がり、在来のハコヤナギやヤナギを圧倒しました。長年、水資源当局は「水を大量に吸い上げる外来低木を伐採したり葉を食べるハムシを放ったりすれば、下流の貯水量が増え在来林も自然に戻る」と単純に考えてきました。ところが樹液流センサーと衛星蒸発散観測による実測は意外な事実を突きつけました。タマリスク群落のヘクタールあたり蒸散量は再生を目指す在来ヤナギ・ハコヤナギ林とほぼ同じであり、河岸を丸裸のままにしない限り伐採しても長期的な余剰水はほとんど生まれなかったのです。さらに絶滅危惧種のメジロハエトリ（鳥）が在来木に代わる営巣場所としてタマリスクの茂みに適応していたため、春の放流による在来稚樹の再生なしにハムシが真夏に葉を食い尽くすと、営巣中の鳥が日陰と隠れ場所を急に失う事態も起きました。そのため現在の河川再生では、単一種の根絶だけに頼るのではなく、ダムの季節的なパルス放流の回復と段階的なモザイク状植栽の組み合わせが重視されています。",
+            "text": "Introduced to the American Southwest in the nineteenth century as an ornamental windbreak and riverbank stabilizer, tamarisk—commonly called saltcedar—spread aggressively along regulated desert rivers such as the Colorado, Pecos, and Rio Grande. Deep taproots enabled dense thickets of the Eurasian shrub to outcompete native cottonwoods and willows wherever upstream dams had eliminated spring cleansing floods, while salt excreted from feathery tamarisk leaves crusted dry floodplain soils and discouraged tender native seedlings.\n\nFor decades, western water agencies waged war on saltcedar under the straightforward premise that thirsting invasive shrubs were stealing millions of cubic meters of precious river water—and that bulldozing, burning, or releasing leaf-eating tamarisk beetles would effortlessly restore native willow groves and boost downstream reservoir storage. Early popular estimates derived from open-pan tank tests even claimed a single mature shrub drank hundreds of liters every summer afternoon. Field measurements using sap-flow sensors, eddy-covariance flux towers, and satellite evapotranspiration mapping, however, delivered a sobering ecological surprise: saltcedar stands actually transpire roughly the same amount of water per hectare as the native cottonwood and willow forests managers hoped to regrow, meaning removal rarely yields a long-term water windfall unless riverbanks are left completely bare and vulnerable to bank collapse.\n\nComplicating matters further, an endangered migratory songbird—the southwestern willow flycatcher—adapted to nest inside dense saltcedar canopies wherever native willows had vanished. When introduced defoliating beetles stripped tamarisk leaves mid-summer faster than expected and without spring river floods to help native saplings take their place, nesting birds lost shade and predator cover abruptly during broods' hottest July weeks, prompting wildlife biologists and water managers to rethink hasty single-goal eradication campaigns.\n\nContemporary river restorationists therefore caution against treating invasive plants in isolation from altered river hydrology. Rather than relying on single-species eradication alone, successful floodplain projects negotiate timed dam pulse flows that scour salty surface sediment and moisten sandbars just as native cottonwood and willow seeds drift ashore in late spring, pairing selective mechanical thinning with gradual, mosaic replanting so riverside wildlife habitat is never stripped overnight.",
+            "translation": "19世紀に防風林や河岸護岸用として米国南西部へ持ち込まれたユーラシア原産の低木タマリスク（ソルトシダー）は、ダム建設で春の洪水攪乱が失われたコロラド川やリオグランデ川沿いに猛烈に広がり、在来のハコヤナギやヤナギを圧倒しました。深い直根で乾燥に耐え、葉から排出される塩分が氾濫原の表土を固めて在来実生の定着を阻んだのです。長年、水資源当局は「水を大量に吸い上げる外来低木を伐採したり葉を食べるハムシを放ったりすれば、下流の貯水量が増え在来林も自然に戻る」と単純に考えてきました。初期の簡易タンク実験からは成木1本が毎日何百リットルも水を吸うという過大な推計さえ広まっていました。ところが樹液流センサーや渦相関フラックス観測塔、衛星蒸発散観測による実測は意外な事実を突きつけました。タマリスク群落のヘクタールあたり蒸散量は再生を目指す在来ハコヤナギ林とほぼ同じであり、浸食されやすい丸裸の河岸のまま放置しない限り、伐採しても長期的な余剰水はほとんど生まれなかったのです。さらに絶滅危惧種の渡り鳥メジロハエトリが在来木に代わる営巣場所としてタマリスクの茂みに適応していたため、春の放流による在来稚樹の再生なしにハムシが予想以上の速さで真夏に葉を食い尽くすと、子育ての最盛期に日陰と天敵からの隠れ場所を急に失う事態も起き、野生生物学者と水管理者に性急な根絶策の見直しを迫りました。そのため現代の河川再生では、改変された河川水文環境を切り離して外来種だけを狙い撃ちにする手法を戒め、塩分を洗い流し晩春の在来種子の飛散期に合わせて砂州を潤すダムのパルス放流と、河畔の生息地を一晩で奪わない選択的間伐および段階的なモザイク状植栽の組み合わせが重視されています。",
             "format": "article"
           }
         },
@@ -79234,8 +79234,8 @@
           "passage": {
             "id": "rp1-r14-reading-a",
             "title": "Saltcedar Removal and Desert Riparian Trade-Offs",
-            "text": "Introduced to the American Southwest in the nineteenth century as an ornamental windbreak and riverbank stabilizer, tamarisk—commonly called saltcedar—spread aggressively along regulated desert rivers such as the Colorado and Rio Grande. Deep taproots enabled dense thickets of the Eurasian shrub to outcompete native cottonwoods and willows where dams had eliminated spring cleansing floods, while salt excreted from tamarisk leaves crusted floodplain soils.\n\nFor decades, water agencies waged war on saltcedar under the straightforward premise that thirsting invasive shrubs were stealing millions of cubic meters of river water—and that bulldozing, burning, or releasing leaf-eating tamarisk beetles would effortlessly restore native willow groves and boost downstream reservoir levels. Field measurements using sap-flow sensors and satellite evapotranspiration mapping, however, delivered a sobering ecological surprise: saltcedar stands actually transpire roughly the same amount of water per hectare as the native cottonwood forests managers hoped to regrow, meaning removal rarely yields a long-term water windfall unless riverbanks are left completely bare.\n\nComplicating matters further, an endangered songbird—the southwestern willow flycatcher—adapted to nest inside dense saltcedar canopies wherever native willows had vanished. When introduced defoliating beetles stripped tamarisk leaves mid-summer without spring river floods to help native saplings take their place, nesting birds lost shade and cover abruptly. Contemporary river restorationists therefore emphasize restoring seasonal dam pulse flows alongside gradual, mosaic replanting rather than single-species eradication alone.",
-            "translation": "19世紀に防風林や河岸護岸用として米国南西部へ持ち込まれたユーラシア原産の低木タマリスク（ソルトシダー）は、ダム建設で春の洪水攪乱が失われたコロラド川やリオグランデ川沿いに猛烈に広がり、在来のハコヤナギやヤナギを圧倒しました。長年、水資源当局は「水を大量に吸い上げる外来低木を伐採したり葉を食べるハムシを放ったりすれば、下流の貯水量が増え在来林も自然に戻る」と単純に考えてきました。ところが樹液流センサーと衛星蒸発散観測による実測は意外な事実を突きつけました。タマリスク群落のヘクタールあたり蒸散量は再生を目指す在来ヤナギ・ハコヤナギ林とほぼ同じであり、河岸を丸裸のままにしない限り伐採しても長期的な余剰水はほとんど生まれなかったのです。さらに絶滅危惧種のメジロハエトリ（鳥）が在来木に代わる営巣場所としてタマリスクの茂みに適応していたため、春の放流による在来稚樹の再生なしにハムシが真夏に葉を食い尽くすと、営巣中の鳥が日陰と隠れ場所を急に失う事態も起きました。そのため現在の河川再生では、単一種の根絶だけに頼るのではなく、ダムの季節的なパルス放流の回復と段階的なモザイク状植栽の組み合わせが重視されています。",
+            "text": "Introduced to the American Southwest in the nineteenth century as an ornamental windbreak and riverbank stabilizer, tamarisk—commonly called saltcedar—spread aggressively along regulated desert rivers such as the Colorado, Pecos, and Rio Grande. Deep taproots enabled dense thickets of the Eurasian shrub to outcompete native cottonwoods and willows wherever upstream dams had eliminated spring cleansing floods, while salt excreted from feathery tamarisk leaves crusted dry floodplain soils and discouraged tender native seedlings.\n\nFor decades, western water agencies waged war on saltcedar under the straightforward premise that thirsting invasive shrubs were stealing millions of cubic meters of precious river water—and that bulldozing, burning, or releasing leaf-eating tamarisk beetles would effortlessly restore native willow groves and boost downstream reservoir storage. Early popular estimates derived from open-pan tank tests even claimed a single mature shrub drank hundreds of liters every summer afternoon. Field measurements using sap-flow sensors, eddy-covariance flux towers, and satellite evapotranspiration mapping, however, delivered a sobering ecological surprise: saltcedar stands actually transpire roughly the same amount of water per hectare as the native cottonwood and willow forests managers hoped to regrow, meaning removal rarely yields a long-term water windfall unless riverbanks are left completely bare and vulnerable to bank collapse.\n\nComplicating matters further, an endangered migratory songbird—the southwestern willow flycatcher—adapted to nest inside dense saltcedar canopies wherever native willows had vanished. When introduced defoliating beetles stripped tamarisk leaves mid-summer faster than expected and without spring river floods to help native saplings take their place, nesting birds lost shade and predator cover abruptly during broods' hottest July weeks, prompting wildlife biologists and water managers to rethink hasty single-goal eradication campaigns.\n\nContemporary river restorationists therefore caution against treating invasive plants in isolation from altered river hydrology. Rather than relying on single-species eradication alone, successful floodplain projects negotiate timed dam pulse flows that scour salty surface sediment and moisten sandbars just as native cottonwood and willow seeds drift ashore in late spring, pairing selective mechanical thinning with gradual, mosaic replanting so riverside wildlife habitat is never stripped overnight.",
+            "translation": "19世紀に防風林や河岸護岸用として米国南西部へ持ち込まれたユーラシア原産の低木タマリスク（ソルトシダー）は、ダム建設で春の洪水攪乱が失われたコロラド川やリオグランデ川沿いに猛烈に広がり、在来のハコヤナギやヤナギを圧倒しました。深い直根で乾燥に耐え、葉から排出される塩分が氾濫原の表土を固めて在来実生の定着を阻んだのです。長年、水資源当局は「水を大量に吸い上げる外来低木を伐採したり葉を食べるハムシを放ったりすれば、下流の貯水量が増え在来林も自然に戻る」と単純に考えてきました。初期の簡易タンク実験からは成木1本が毎日何百リットルも水を吸うという過大な推計さえ広まっていました。ところが樹液流センサーや渦相関フラックス観測塔、衛星蒸発散観測による実測は意外な事実を突きつけました。タマリスク群落のヘクタールあたり蒸散量は再生を目指す在来ハコヤナギ林とほぼ同じであり、浸食されやすい丸裸の河岸のまま放置しない限り、伐採しても長期的な余剰水はほとんど生まれなかったのです。さらに絶滅危惧種の渡り鳥メジロハエトリが在来木に代わる営巣場所としてタマリスクの茂みに適応していたため、春の放流による在来稚樹の再生なしにハムシが予想以上の速さで真夏に葉を食い尽くすと、子育ての最盛期に日陰と天敵からの隠れ場所を急に失う事態も起き、野生生物学者と水管理者に性急な根絶策の見直しを迫りました。そのため現代の河川再生では、改変された河川水文環境を切り離して外来種だけを狙い撃ちにする手法を戒め、塩分を洗い流し晩春の在来種子の飛散期に合わせて砂州を潤すダムのパルス放流と、河畔の生息地を一晩で奪わない選択的間伐および段階的なモザイク状植栽の組み合わせが重視されています。",
             "format": "article"
           }
         },
@@ -79262,8 +79262,8 @@
           "passage": {
             "id": "rp1-r14-reading-b",
             "title": "Why Early Phonographs Reshaped Musical Performance",
-            "text": "Before Thomas Edison's tinfoil phonograph and Emile Berliner's flat shellac discs entered parlors at the turn of the twentieth century, hearing music meant sharing physical space with performers—whether in a symphony hall, village square, or family parlor piano corner. Early acoustic recording horns—giant sheet-metal funnels with no microphones or electronic amplification—did far more than capture existing concerts passively; their stubborn physical limitations actively reshaped how twentieth-century musicians played and sang.\n\nRecording into an acoustic horn required crowding an orchestra into a stifling studio so sound waves could vibrate a single glass diaphragm directly. Quiet gut-stringed instruments and delicate flute passages barely registered in wax grooves, forcing session leaders to substitute brass tubas for double basses and seat violinists on raised stools inches from the horn mouth. Equally transformative was the strict time cap: a ten-inch 78-rpm shellac disc held scarcely three and a half minutes of music, obliging jazz ensembles, opera tenors, and folk fiddlers alike to trim sprawling live improvisations into tight three-minute arrangements—a template that still echoes in modern pop singles.\n\nParadoxically, repeatability changed expressive habits too. In live nineteenth-century recitals, violinists slid expressively between pitches (portamento) and bent tempos freely, knowing a fleeting liberty would vanish into the hall air. Once listeners could replay the exact same disc fifty times at home, however, eccentric tempo lurches began to sound mannered on the tenth hearing, while slight pitch slips stood permanently exposed. Within a generation, continuous warm vibrato—which flattered horn microphones and masked tiny pitch tremors—became the global hallmark of classical string tone.\n\nTechnologies built merely to document an art form often end up rewriting its aesthetic rules.",
-            "translation": "20世紀転換期に蓄音機とシェラック製SP盤が家庭に入る以前、音楽を聴くとは演奏者と同じ空間を共有することでした。マイクも電子増幅もなかった初期のラッパ吹き込み式録音は、既存の演奏を受動的に記録しただけではなく、その厳しい物理的制約によって20世紀の音楽家の演奏スタイルそのものを作り変えました。1枚のガラス振動板を音波で直接震わせるため楽団員は蒸し暑い録音室でラッパの前に密集し、音が溝に刻まれにくいコントラバスの代わりにチューバが代用されました。さらに直径10インチの78回転盤は片面わずか3分半しか収録できなかったため、ジャズ楽団もオペラ歌手も長い即興を切り詰めた3分間の編曲へと適応し、その尺は現代のポップスのシングル曲にも名残をとどめています。また「家庭で何十回も繰り返し聴ける」ようになったことも表現を変えました。一回限りの演奏会では自然だった自由なテンポの揺れや滑らかな音程移動も、同じ盤を10回聴けば癖が強すぎると感じられ、わずかな音程のずれも永久に露呈してしまいます。その結果、録音ラッパと相性がよく微細な音程の揺れも包んでくれる持続的なビブラートが、わずか一世代でクラシック弦楽奏の世界標準となったのです。芸術を記録するために生まれた技術は、しばしばその美学のルール自体を書き換えてしまいます。",
+            "text": "Before Thomas Edison's tinfoil phonograph and Emile Berliner's flat shellac discs entered parlors at the turn of the twentieth century, hearing music meant sharing physical space with performers—whether in a symphony hall, village square, or family parlor piano corner. Early acoustic recording horns—giant sheet-metal funnels with no microphones or electronic amplification—did far more than capture existing concerts passively; their stubborn physical limitations actively reshaped how twentieth-century musicians played and sang.\n\nRecording into an acoustic horn required crowding an orchestra into a stifling studio so sound waves could vibrate a single glass diaphragm directly. Quiet gut-stringed instruments and delicate flute passages barely registered in wax grooves, forcing session leaders to substitute brass tubas for double basses and seat violinists on raised wooden stools inches from the horn mouth—sometimes playing specially built Stroh violins fitted with aluminum horn resonators. Singers had to lean backward on high notes lest sudden air pressure blast the cutting stylus off track. Equally transformative was the strict time cap: a ten-inch 78-rpm shellac disc held scarcely three and a half minutes of music, obliging jazz ensembles, opera tenors, and folk fiddlers alike to trim sprawling live improvisations and da capo repeats into tight three-minute arrangements—a template that still echoes in modern pop singles.\n\nParadoxically, home repeatability changed expressive habits too. In live nineteenth-century recitals, violinists slid expressively between pitches (portamento) and bent tempos freely, knowing a fleeting liberty would vanish into the hall air. Once listeners could replay the exact same disc fifty times in their living rooms, however, eccentric tempo lurches began to sound mannered on the tenth hearing, while slight pitch slips stood permanently exposed to conservatory critics.\n\nWithin a single generation, continuous warm vibrato—which projected cleanly into horn cones and masked tiny pitch tremors—became the global hallmark of classical string tone, soon imitated back on live concert stages by younger players raised on records. Technologies built merely to document an art form often end up rewriting its aesthetic rules, turning mechanical constraints into new canons of taste.",
+            "translation": "20世紀転換期に蓄音機とシェラック製SP盤が家庭に入る以前、音楽を聴くとは演奏者と同じ空間を共有することでした。マイクも電子増幅もなかった初期のラッパ吹き込み式録音は、既存の演奏を受動的に記録しただけではなく、その厳しい物理的制約によって20世紀の音楽家の演奏スタイルそのものを作り変えました。1枚のガラス振動板を音波で直接震わせるため楽団員は蒸し暑い録音室でラッパの前に密集し、音が溝に刻まれにくいコントラバスの代わりにチューバが使われ、アルミ製共鳴ラッパ付きの特殊なシュトロー・バイオリンさえ用いられました。歌手も高音で針が飛ばないよう上体を後ろへ反らす必要がありました。さらに直径10インチの78回転盤は片面わずか3分半しか収録できなかったため、ジャズ楽団もオペラ歌手も長い即興や反復を切り詰めた3分間の編曲へと適応し、その尺は現代のポップスのシングル曲にも名残をとどめています。また「家庭の居間で何十回も繰り返し聴ける」ようになったことも表現を変えました。一回限りの演奏会では自然だった自由なテンポの揺れやポルタメントも、同じ盤を10回聴けば癖が強すぎると感じられ、わずかな音程のずれも永久に露呈してしまいます。その結果、集音ラッパによく通り微細な音程の揺れも包んでくれる持続的なビブラートがわずか一世代でクラシック弦楽奏の世界標準となり、レコードを聴いて育った若手奏者によって生の演奏会場へ逆輸入されました。芸術を記録するために生まれた技術は、しばしば機械的制約を新たな美意識の規範へと変えながら、その美学のルール自体を書き換えてしまうのです。",
             "format": "article"
           }
         },
@@ -79290,8 +79290,8 @@
           "passage": {
             "id": "rp1-r14-reading-b",
             "title": "Why Early Phonographs Reshaped Musical Performance",
-            "text": "Before Thomas Edison's tinfoil phonograph and Emile Berliner's flat shellac discs entered parlors at the turn of the twentieth century, hearing music meant sharing physical space with performers—whether in a symphony hall, village square, or family parlor piano corner. Early acoustic recording horns—giant sheet-metal funnels with no microphones or electronic amplification—did far more than capture existing concerts passively; their stubborn physical limitations actively reshaped how twentieth-century musicians played and sang.\n\nRecording into an acoustic horn required crowding an orchestra into a stifling studio so sound waves could vibrate a single glass diaphragm directly. Quiet gut-stringed instruments and delicate flute passages barely registered in wax grooves, forcing session leaders to substitute brass tubas for double basses and seat violinists on raised stools inches from the horn mouth. Equally transformative was the strict time cap: a ten-inch 78-rpm shellac disc held scarcely three and a half minutes of music, obliging jazz ensembles, opera tenors, and folk fiddlers alike to trim sprawling live improvisations into tight three-minute arrangements—a template that still echoes in modern pop singles.\n\nParadoxically, repeatability changed expressive habits too. In live nineteenth-century recitals, violinists slid expressively between pitches (portamento) and bent tempos freely, knowing a fleeting liberty would vanish into the hall air. Once listeners could replay the exact same disc fifty times at home, however, eccentric tempo lurches began to sound mannered on the tenth hearing, while slight pitch slips stood permanently exposed. Within a generation, continuous warm vibrato—which flattered horn microphones and masked tiny pitch tremors—became the global hallmark of classical string tone.\n\nTechnologies built merely to document an art form often end up rewriting its aesthetic rules.",
-            "translation": "20世紀転換期に蓄音機とシェラック製SP盤が家庭に入る以前、音楽を聴くとは演奏者と同じ空間を共有することでした。マイクも電子増幅もなかった初期のラッパ吹き込み式録音は、既存の演奏を受動的に記録しただけではなく、その厳しい物理的制約によって20世紀の音楽家の演奏スタイルそのものを作り変えました。1枚のガラス振動板を音波で直接震わせるため楽団員は蒸し暑い録音室でラッパの前に密集し、音が溝に刻まれにくいコントラバスの代わりにチューバが代用されました。さらに直径10インチの78回転盤は片面わずか3分半しか収録できなかったため、ジャズ楽団もオペラ歌手も長い即興を切り詰めた3分間の編曲へと適応し、その尺は現代のポップスのシングル曲にも名残をとどめています。また「家庭で何十回も繰り返し聴ける」ようになったことも表現を変えました。一回限りの演奏会では自然だった自由なテンポの揺れや滑らかな音程移動も、同じ盤を10回聴けば癖が強すぎると感じられ、わずかな音程のずれも永久に露呈してしまいます。その結果、録音ラッパと相性がよく微細な音程の揺れも包んでくれる持続的なビブラートが、わずか一世代でクラシック弦楽奏の世界標準となったのです。芸術を記録するために生まれた技術は、しばしばその美学のルール自体を書き換えてしまいます。",
+            "text": "Before Thomas Edison's tinfoil phonograph and Emile Berliner's flat shellac discs entered parlors at the turn of the twentieth century, hearing music meant sharing physical space with performers—whether in a symphony hall, village square, or family parlor piano corner. Early acoustic recording horns—giant sheet-metal funnels with no microphones or electronic amplification—did far more than capture existing concerts passively; their stubborn physical limitations actively reshaped how twentieth-century musicians played and sang.\n\nRecording into an acoustic horn required crowding an orchestra into a stifling studio so sound waves could vibrate a single glass diaphragm directly. Quiet gut-stringed instruments and delicate flute passages barely registered in wax grooves, forcing session leaders to substitute brass tubas for double basses and seat violinists on raised wooden stools inches from the horn mouth—sometimes playing specially built Stroh violins fitted with aluminum horn resonators. Singers had to lean backward on high notes lest sudden air pressure blast the cutting stylus off track. Equally transformative was the strict time cap: a ten-inch 78-rpm shellac disc held scarcely three and a half minutes of music, obliging jazz ensembles, opera tenors, and folk fiddlers alike to trim sprawling live improvisations and da capo repeats into tight three-minute arrangements—a template that still echoes in modern pop singles.\n\nParadoxically, home repeatability changed expressive habits too. In live nineteenth-century recitals, violinists slid expressively between pitches (portamento) and bent tempos freely, knowing a fleeting liberty would vanish into the hall air. Once listeners could replay the exact same disc fifty times in their living rooms, however, eccentric tempo lurches began to sound mannered on the tenth hearing, while slight pitch slips stood permanently exposed to conservatory critics.\n\nWithin a single generation, continuous warm vibrato—which projected cleanly into horn cones and masked tiny pitch tremors—became the global hallmark of classical string tone, soon imitated back on live concert stages by younger players raised on records. Technologies built merely to document an art form often end up rewriting its aesthetic rules, turning mechanical constraints into new canons of taste.",
+            "translation": "20世紀転換期に蓄音機とシェラック製SP盤が家庭に入る以前、音楽を聴くとは演奏者と同じ空間を共有することでした。マイクも電子増幅もなかった初期のラッパ吹き込み式録音は、既存の演奏を受動的に記録しただけではなく、その厳しい物理的制約によって20世紀の音楽家の演奏スタイルそのものを作り変えました。1枚のガラス振動板を音波で直接震わせるため楽団員は蒸し暑い録音室でラッパの前に密集し、音が溝に刻まれにくいコントラバスの代わりにチューバが使われ、アルミ製共鳴ラッパ付きの特殊なシュトロー・バイオリンさえ用いられました。歌手も高音で針が飛ばないよう上体を後ろへ反らす必要がありました。さらに直径10インチの78回転盤は片面わずか3分半しか収録できなかったため、ジャズ楽団もオペラ歌手も長い即興や反復を切り詰めた3分間の編曲へと適応し、その尺は現代のポップスのシングル曲にも名残をとどめています。また「家庭の居間で何十回も繰り返し聴ける」ようになったことも表現を変えました。一回限りの演奏会では自然だった自由なテンポの揺れやポルタメントも、同じ盤を10回聴けば癖が強すぎると感じられ、わずかな音程のずれも永久に露呈してしまいます。その結果、集音ラッパによく通り微細な音程の揺れも包んでくれる持続的なビブラートがわずか一世代でクラシック弦楽奏の世界標準となり、レコードを聴いて育った若手奏者によって生の演奏会場へ逆輸入されました。芸術を記録するために生まれた技術は、しばしば機械的制約を新たな美意識の規範へと変えながら、その美学のルール自体を書き換えてしまうのです。",
             "format": "article"
           }
         },
@@ -79301,25 +79301,25 @@
           "kind": "choice",
           "prompt": "Why did home replayability discourage extreme tempo liberties and favor continuous string vibrato?",
           "choices": [
-            "Conservatories outlawed live concerts during the 1920s.",
-            "Shellac discs spun faster whenever violinists used portamento.",
-            "Repeated listening made big tempo lurches feel affected and exposed tiny pitch slips that vibrato helped smooth.",
-            "Vibrato shortened every symphony movement by two minutes."
+            "European music conservatories outlawed public live concerts throughout the 1920s.",
+            "Flat shellac discs spun noticeably faster whenever violinists used portamento.",
+            "Replaying discs made tempo lurches feel mannered and favored pitch-smoothing vibrato.",
+            "Continuous string vibrato shortened every symphony movement by two full minutes."
           ],
           "answer": 2,
-          "explanation": "eccentric tempo lurches began to sound mannered on the tenth hearing, while slight pitch slips stood permanently exposed ... continuous warm vibrato—which flattered horn microphones and masked tiny pitch tremorsとある。",
+          "explanation": "eccentric tempo lurches began to sound mannered on the tenth hearing, while slight pitch slips stood permanently exposed ... continuous warm vibrato—which projected cleanly into horn cones and masked tiny pitch tremorsとある。",
           "distractorReasons": [
             "1920年代の演奏会禁止ではない。",
             "ポルタメントで回転が速くなることはない。",
-            "第3段落の反復聴取による美意識の変化と完全一致。",
+            "第3・4段落の反復聴取による美意識の変化と完全一致。",
             "ビブラートで2分短縮されるわけではない。"
           ],
           "translation": "家庭で繰り返し再生できるようになったことで、極端なテンポの揺れが敬遠され持続的な弦のビブラートが好まれるようになったのはなぜですか。",
           "passage": {
             "id": "rp1-r14-reading-b",
             "title": "Why Early Phonographs Reshaped Musical Performance",
-            "text": "Before Thomas Edison's tinfoil phonograph and Emile Berliner's flat shellac discs entered parlors at the turn of the twentieth century, hearing music meant sharing physical space with performers—whether in a symphony hall, village square, or family parlor piano corner. Early acoustic recording horns—giant sheet-metal funnels with no microphones or electronic amplification—did far more than capture existing concerts passively; their stubborn physical limitations actively reshaped how twentieth-century musicians played and sang.\n\nRecording into an acoustic horn required crowding an orchestra into a stifling studio so sound waves could vibrate a single glass diaphragm directly. Quiet gut-stringed instruments and delicate flute passages barely registered in wax grooves, forcing session leaders to substitute brass tubas for double basses and seat violinists on raised stools inches from the horn mouth. Equally transformative was the strict time cap: a ten-inch 78-rpm shellac disc held scarcely three and a half minutes of music, obliging jazz ensembles, opera tenors, and folk fiddlers alike to trim sprawling live improvisations into tight three-minute arrangements—a template that still echoes in modern pop singles.\n\nParadoxically, repeatability changed expressive habits too. In live nineteenth-century recitals, violinists slid expressively between pitches (portamento) and bent tempos freely, knowing a fleeting liberty would vanish into the hall air. Once listeners could replay the exact same disc fifty times at home, however, eccentric tempo lurches began to sound mannered on the tenth hearing, while slight pitch slips stood permanently exposed. Within a generation, continuous warm vibrato—which flattered horn microphones and masked tiny pitch tremors—became the global hallmark of classical string tone.\n\nTechnologies built merely to document an art form often end up rewriting its aesthetic rules.",
-            "translation": "20世紀転換期に蓄音機とシェラック製SP盤が家庭に入る以前、音楽を聴くとは演奏者と同じ空間を共有することでした。マイクも電子増幅もなかった初期のラッパ吹き込み式録音は、既存の演奏を受動的に記録しただけではなく、その厳しい物理的制約によって20世紀の音楽家の演奏スタイルそのものを作り変えました。1枚のガラス振動板を音波で直接震わせるため楽団員は蒸し暑い録音室でラッパの前に密集し、音が溝に刻まれにくいコントラバスの代わりにチューバが代用されました。さらに直径10インチの78回転盤は片面わずか3分半しか収録できなかったため、ジャズ楽団もオペラ歌手も長い即興を切り詰めた3分間の編曲へと適応し、その尺は現代のポップスのシングル曲にも名残をとどめています。また「家庭で何十回も繰り返し聴ける」ようになったことも表現を変えました。一回限りの演奏会では自然だった自由なテンポの揺れや滑らかな音程移動も、同じ盤を10回聴けば癖が強すぎると感じられ、わずかな音程のずれも永久に露呈してしまいます。その結果、録音ラッパと相性がよく微細な音程の揺れも包んでくれる持続的なビブラートが、わずか一世代でクラシック弦楽奏の世界標準となったのです。芸術を記録するために生まれた技術は、しばしばその美学のルール自体を書き換えてしまいます。",
+            "text": "Before Thomas Edison's tinfoil phonograph and Emile Berliner's flat shellac discs entered parlors at the turn of the twentieth century, hearing music meant sharing physical space with performers—whether in a symphony hall, village square, or family parlor piano corner. Early acoustic recording horns—giant sheet-metal funnels with no microphones or electronic amplification—did far more than capture existing concerts passively; their stubborn physical limitations actively reshaped how twentieth-century musicians played and sang.\n\nRecording into an acoustic horn required crowding an orchestra into a stifling studio so sound waves could vibrate a single glass diaphragm directly. Quiet gut-stringed instruments and delicate flute passages barely registered in wax grooves, forcing session leaders to substitute brass tubas for double basses and seat violinists on raised wooden stools inches from the horn mouth—sometimes playing specially built Stroh violins fitted with aluminum horn resonators. Singers had to lean backward on high notes lest sudden air pressure blast the cutting stylus off track. Equally transformative was the strict time cap: a ten-inch 78-rpm shellac disc held scarcely three and a half minutes of music, obliging jazz ensembles, opera tenors, and folk fiddlers alike to trim sprawling live improvisations and da capo repeats into tight three-minute arrangements—a template that still echoes in modern pop singles.\n\nParadoxically, home repeatability changed expressive habits too. In live nineteenth-century recitals, violinists slid expressively between pitches (portamento) and bent tempos freely, knowing a fleeting liberty would vanish into the hall air. Once listeners could replay the exact same disc fifty times in their living rooms, however, eccentric tempo lurches began to sound mannered on the tenth hearing, while slight pitch slips stood permanently exposed to conservatory critics.\n\nWithin a single generation, continuous warm vibrato—which projected cleanly into horn cones and masked tiny pitch tremors—became the global hallmark of classical string tone, soon imitated back on live concert stages by younger players raised on records. Technologies built merely to document an art form often end up rewriting its aesthetic rules, turning mechanical constraints into new canons of taste.",
+            "translation": "20世紀転換期に蓄音機とシェラック製SP盤が家庭に入る以前、音楽を聴くとは演奏者と同じ空間を共有することでした。マイクも電子増幅もなかった初期のラッパ吹き込み式録音は、既存の演奏を受動的に記録しただけではなく、その厳しい物理的制約によって20世紀の音楽家の演奏スタイルそのものを作り変えました。1枚のガラス振動板を音波で直接震わせるため楽団員は蒸し暑い録音室でラッパの前に密集し、音が溝に刻まれにくいコントラバスの代わりにチューバが使われ、アルミ製共鳴ラッパ付きの特殊なシュトロー・バイオリンさえ用いられました。歌手も高音で針が飛ばないよう上体を後ろへ反らす必要がありました。さらに直径10インチの78回転盤は片面わずか3分半しか収録できなかったため、ジャズ楽団もオペラ歌手も長い即興や反復を切り詰めた3分間の編曲へと適応し、その尺は現代のポップスのシングル曲にも名残をとどめています。また「家庭の居間で何十回も繰り返し聴ける」ようになったことも表現を変えました。一回限りの演奏会では自然だった自由なテンポの揺れやポルタメントも、同じ盤を10回聴けば癖が強すぎると感じられ、わずかな音程のずれも永久に露呈してしまいます。その結果、集音ラッパによく通り微細な音程の揺れも包んでくれる持続的なビブラートがわずか一世代でクラシック弦楽奏の世界標準となり、レコードを聴いて育った若手奏者によって生の演奏会場へ逆輸入されました。芸術を記録するために生まれた技術は、しばしば機械的制約を新たな美意識の規範へと変えながら、その美学のルール自体を書き換えてしまうのです。",
             "format": "article"
           }
         },
@@ -79346,8 +79346,8 @@
           "passage": {
             "id": "rp1-r14-reading-b",
             "title": "Why Early Phonographs Reshaped Musical Performance",
-            "text": "Before Thomas Edison's tinfoil phonograph and Emile Berliner's flat shellac discs entered parlors at the turn of the twentieth century, hearing music meant sharing physical space with performers—whether in a symphony hall, village square, or family parlor piano corner. Early acoustic recording horns—giant sheet-metal funnels with no microphones or electronic amplification—did far more than capture existing concerts passively; their stubborn physical limitations actively reshaped how twentieth-century musicians played and sang.\n\nRecording into an acoustic horn required crowding an orchestra into a stifling studio so sound waves could vibrate a single glass diaphragm directly. Quiet gut-stringed instruments and delicate flute passages barely registered in wax grooves, forcing session leaders to substitute brass tubas for double basses and seat violinists on raised stools inches from the horn mouth. Equally transformative was the strict time cap: a ten-inch 78-rpm shellac disc held scarcely three and a half minutes of music, obliging jazz ensembles, opera tenors, and folk fiddlers alike to trim sprawling live improvisations into tight three-minute arrangements—a template that still echoes in modern pop singles.\n\nParadoxically, repeatability changed expressive habits too. In live nineteenth-century recitals, violinists slid expressively between pitches (portamento) and bent tempos freely, knowing a fleeting liberty would vanish into the hall air. Once listeners could replay the exact same disc fifty times at home, however, eccentric tempo lurches began to sound mannered on the tenth hearing, while slight pitch slips stood permanently exposed. Within a generation, continuous warm vibrato—which flattered horn microphones and masked tiny pitch tremors—became the global hallmark of classical string tone.\n\nTechnologies built merely to document an art form often end up rewriting its aesthetic rules.",
-            "translation": "20世紀転換期に蓄音機とシェラック製SP盤が家庭に入る以前、音楽を聴くとは演奏者と同じ空間を共有することでした。マイクも電子増幅もなかった初期のラッパ吹き込み式録音は、既存の演奏を受動的に記録しただけではなく、その厳しい物理的制約によって20世紀の音楽家の演奏スタイルそのものを作り変えました。1枚のガラス振動板を音波で直接震わせるため楽団員は蒸し暑い録音室でラッパの前に密集し、音が溝に刻まれにくいコントラバスの代わりにチューバが代用されました。さらに直径10インチの78回転盤は片面わずか3分半しか収録できなかったため、ジャズ楽団もオペラ歌手も長い即興を切り詰めた3分間の編曲へと適応し、その尺は現代のポップスのシングル曲にも名残をとどめています。また「家庭で何十回も繰り返し聴ける」ようになったことも表現を変えました。一回限りの演奏会では自然だった自由なテンポの揺れや滑らかな音程移動も、同じ盤を10回聴けば癖が強すぎると感じられ、わずかな音程のずれも永久に露呈してしまいます。その結果、録音ラッパと相性がよく微細な音程の揺れも包んでくれる持続的なビブラートが、わずか一世代でクラシック弦楽奏の世界標準となったのです。芸術を記録するために生まれた技術は、しばしばその美学のルール自体を書き換えてしまいます。",
+            "text": "Before Thomas Edison's tinfoil phonograph and Emile Berliner's flat shellac discs entered parlors at the turn of the twentieth century, hearing music meant sharing physical space with performers—whether in a symphony hall, village square, or family parlor piano corner. Early acoustic recording horns—giant sheet-metal funnels with no microphones or electronic amplification—did far more than capture existing concerts passively; their stubborn physical limitations actively reshaped how twentieth-century musicians played and sang.\n\nRecording into an acoustic horn required crowding an orchestra into a stifling studio so sound waves could vibrate a single glass diaphragm directly. Quiet gut-stringed instruments and delicate flute passages barely registered in wax grooves, forcing session leaders to substitute brass tubas for double basses and seat violinists on raised wooden stools inches from the horn mouth—sometimes playing specially built Stroh violins fitted with aluminum horn resonators. Singers had to lean backward on high notes lest sudden air pressure blast the cutting stylus off track. Equally transformative was the strict time cap: a ten-inch 78-rpm shellac disc held scarcely three and a half minutes of music, obliging jazz ensembles, opera tenors, and folk fiddlers alike to trim sprawling live improvisations and da capo repeats into tight three-minute arrangements—a template that still echoes in modern pop singles.\n\nParadoxically, home repeatability changed expressive habits too. In live nineteenth-century recitals, violinists slid expressively between pitches (portamento) and bent tempos freely, knowing a fleeting liberty would vanish into the hall air. Once listeners could replay the exact same disc fifty times in their living rooms, however, eccentric tempo lurches began to sound mannered on the tenth hearing, while slight pitch slips stood permanently exposed to conservatory critics.\n\nWithin a single generation, continuous warm vibrato—which projected cleanly into horn cones and masked tiny pitch tremors—became the global hallmark of classical string tone, soon imitated back on live concert stages by younger players raised on records. Technologies built merely to document an art form often end up rewriting its aesthetic rules, turning mechanical constraints into new canons of taste.",
+            "translation": "20世紀転換期に蓄音機とシェラック製SP盤が家庭に入る以前、音楽を聴くとは演奏者と同じ空間を共有することでした。マイクも電子増幅もなかった初期のラッパ吹き込み式録音は、既存の演奏を受動的に記録しただけではなく、その厳しい物理的制約によって20世紀の音楽家の演奏スタイルそのものを作り変えました。1枚のガラス振動板を音波で直接震わせるため楽団員は蒸し暑い録音室でラッパの前に密集し、音が溝に刻まれにくいコントラバスの代わりにチューバが使われ、アルミ製共鳴ラッパ付きの特殊なシュトロー・バイオリンさえ用いられました。歌手も高音で針が飛ばないよう上体を後ろへ反らす必要がありました。さらに直径10インチの78回転盤は片面わずか3分半しか収録できなかったため、ジャズ楽団もオペラ歌手も長い即興や反復を切り詰めた3分間の編曲へと適応し、その尺は現代のポップスのシングル曲にも名残をとどめています。また「家庭の居間で何十回も繰り返し聴ける」ようになったことも表現を変えました。一回限りの演奏会では自然だった自由なテンポの揺れやポルタメントも、同じ盤を10回聴けば癖が強すぎると感じられ、わずかな音程のずれも永久に露呈してしまいます。その結果、集音ラッパによく通り微細な音程の揺れも包んでくれる持続的なビブラートがわずか一世代でクラシック弦楽奏の世界標準となり、レコードを聴いて育った若手奏者によって生の演奏会場へ逆輸入されました。芸術を記録するために生まれた技術は、しばしば機械的制約を新たな美意識の規範へと変えながら、その美学のルール自体を書き換えてしまうのです。",
             "format": "article"
           }
         }
@@ -79931,8 +79931,8 @@
           "passage": {
             "id": "rp1-r15-reading-a",
             "title": "Seed Priming for Drought-Prone Dryland Crops",
-            "text": "Across rain-fed farming regions from West Africa's Sahel to central India, the most perilous week in a crop's life is the very first one after sowing. Smallholders wait anxiously for early monsoon showers to moisten parched topsoil, drop dry sorghum, millet, or chickpea seeds into hand-hoed furrows, and pray follow-up rain arrives within days. If a sudden ten-day dry spell bakes the surface crust before dry seeds finish absorbing water and pushing roots downward, germination stalls—forcing indebted families to buy scarce replacement seed late in the season.\n\nAgronomists working with village seed cooperatives have refined a remarkably low-cost safeguard known as on-farm \"hydro-priming.\" The evening before planting, farmers soak seeds in plain clean water for a carefully timed window—typically eight hours for sorghum or twelve for chickpeas—just long enough to awaken metabolic repair enzymes and copy DNA inside the embryo without letting the tiny root tip pierce the seed coat. Spread in thin shade to surface-dry for an hour so they flow freely from sowing hands, primed seeds enter the soil with half their germination clock already completed.\n\nControlled field trials across hundreds of dryland plots show that primed seedlings emerge two to three days earlier than dry-sown neighbors, sending taproots into deeper residual moisture before surface soil crusts hard and outgrowing early weeds. Timing remains critical: soaking seeds too long suffocates embryos for lack of oxygen or snaps emerging rootlets during sowing, which is why extension workshops teach crop-specific soaking charts using ordinary household buckets.",
-            "translation": "西アフリカのサヘル地帯からインド中部に至る天水農業地域では、作物の生涯で最も危険な1週間は種まき直後の最初の1週間です。小規模農家はモンスーン初期の雨で表土が湿るのを待って乾いたソルガムやヒエ、ヒヨコマメの種をまきますが、種が吸水して根を下ろす前に10日間の日照りが来て地表が硬く焼き締まると発芽が止まり、借金をして高価な追い播き用の種を買い直さなければなりません。そこで農学者と村の種子組合が普及させているのが、極めて低コストな「オンファーム水プライミング（播種前浸水処理）」です。種まき前夜にソルガムなら約8時間、ヒヨコマメなら約12時間だけきれいな水に浸し、幼根が種皮を突き破る寸前の段階まで内部の代謝修復酵素とDNA複製を目覚めさせてから、日陰で1時間だけ表面を乾かしてまきます。発芽時計の半分を済ませた状態で土に入るため、無処理の種より2〜3日早く出芽し、表土が固まる前に直根を深い湿り気へ伸ばして初期雑草にも競り勝てます。ただし長く浸しすぎると酸欠や播種時の幼根折れを招くため、普及講習では家庭のバケツで守れる作物別の浸水時間表が指導されています。",
+            "text": "Across rain-fed farming regions from West Africa's Sahel to central India, the most perilous week in a crop's life is the very first one after sowing. Smallholders wait anxiously for early monsoon showers to moisten parched topsoil, drop dry sorghum, pearl millet, or chickpea seeds into hand-hoed furrows, and pray follow-up rain arrives within days. If a sudden ten-day dry spell bakes the surface crust before dry seeds finish absorbing water and pushing roots downward, germination stalls completely—forcing indebted rural families to buy scarce replacement seed late in the season at sharply inflated market prices.\n\nAgronomists working alongside village seed cooperatives have refined a remarkably low-cost physiological safeguard known as on-farm \"hydro-priming.\" The evening before planting, farmers soak seeds in plain clean water for a carefully timed window—typically eight hours for sorghum or twelve for chickpeas—just long enough to awaken metabolic repair enzymes, mend damaged cell membranes, and copy DNA inside the embryo without letting the tiny root tip pierce the seed coat. Spread in thin shade to surface-dry for an hour so they flow freely from sowing hands or simple ox-drawn seed drills, primed seeds enter the soil with half their internal germination clock already completed.\n\nControlled field trials across hundreds of dryland plots show that primed seedlings emerge two to three days earlier than dry-sown neighbors, sending taproots into deeper residual moisture before surface soil crusts hard and outgrowing early weeds. In multi-year participatory trials across semi-arid districts, that modest head start has lifted average grain harvests by fifteen to thirty percent—often adding a tiny measured pinch of zinc or molybdenum to the soaking water to correct micronutrient-poor soils simultaneously without expensive field sprays.\n\nTiming and field judgment remain critical, however. Soaking seeds too long suffocates embryos for lack of dissolved oxygen or snaps emerging rootlets during sowing, and primed batches cannot sit stored in warm sheds for weeks if rain fails to materialize. That is why extension workshops teach crop-specific soaking charts using ordinary household buckets, pairing plant physiology with farmers' own seasoned reading of monsoon clouds.",
+            "translation": "西アフリカのサヘル地帯からインド中部に至る天水農業地域では、作物の生涯で最も危険な1週間は種まき直後の最初の1週間です。小規模農家はモンスーン初期の雨で表土が湿るのを待って乾いたソルガムやトウジンビエ、ヒヨコマメの種をまきますが、種が吸水して根を下ろす前に10日間の日照りが来て地表が硬く焼き締まると発芽が完全に止まり、借金をして高騰した追い播き用の種を買い直さなければなりません。そこで農学者と村の種子組合が普及させているのが、極めて低コストな生理的保護法「オンファーム水プライミング（播種前浸水処理）」です。種まき前夜にソルガムなら約8時間、ヒヨコマメなら約12時間だけきれいな水に浸し、幼根が種皮を突き破る寸前の段階まで内部の代謝修復酵素と細胞膜修復、DNA複製を目覚めさせてから、手まきや牛引き簡易播種機で詰まらないよう日陰で1時間だけ表面を乾かしてまきます。発芽時計の半分を済ませた状態で土に入るため、無処理の種より2〜3日早く出芽し、表土が固まる前に直根を深い湿り気へ伸ばして初期雑草にも競り勝てます。半乾燥地での複数年の参加型試験では平均収量が15〜30％向上し、高価な散布機を使わずに浸水液へ微量の亜鉛やモリブデンを加えて土壌の微量要素欠乏を同時に補う工夫も広がっています。ただし長く浸しすぎると酸欠や播種時の幼根折れを招き、雨が降らなかった場合に暖かい納屋で何週間も保存しておくこともできないため、普及講習では家庭のバケツで守れる作物別の浸水時間表と農家自身の熟練した雨雲の見極めを組み合わせて指導しています。",
             "format": "article"
           }
         },
@@ -79959,8 +79959,8 @@
           "passage": {
             "id": "rp1-r15-reading-a",
             "title": "Seed Priming for Drought-Prone Dryland Crops",
-            "text": "Across rain-fed farming regions from West Africa's Sahel to central India, the most perilous week in a crop's life is the very first one after sowing. Smallholders wait anxiously for early monsoon showers to moisten parched topsoil, drop dry sorghum, millet, or chickpea seeds into hand-hoed furrows, and pray follow-up rain arrives within days. If a sudden ten-day dry spell bakes the surface crust before dry seeds finish absorbing water and pushing roots downward, germination stalls—forcing indebted families to buy scarce replacement seed late in the season.\n\nAgronomists working with village seed cooperatives have refined a remarkably low-cost safeguard known as on-farm \"hydro-priming.\" The evening before planting, farmers soak seeds in plain clean water for a carefully timed window—typically eight hours for sorghum or twelve for chickpeas—just long enough to awaken metabolic repair enzymes and copy DNA inside the embryo without letting the tiny root tip pierce the seed coat. Spread in thin shade to surface-dry for an hour so they flow freely from sowing hands, primed seeds enter the soil with half their germination clock already completed.\n\nControlled field trials across hundreds of dryland plots show that primed seedlings emerge two to three days earlier than dry-sown neighbors, sending taproots into deeper residual moisture before surface soil crusts hard and outgrowing early weeds. Timing remains critical: soaking seeds too long suffocates embryos for lack of oxygen or snaps emerging rootlets during sowing, which is why extension workshops teach crop-specific soaking charts using ordinary household buckets.",
-            "translation": "西アフリカのサヘル地帯からインド中部に至る天水農業地域では、作物の生涯で最も危険な1週間は種まき直後の最初の1週間です。小規模農家はモンスーン初期の雨で表土が湿るのを待って乾いたソルガムやヒエ、ヒヨコマメの種をまきますが、種が吸水して根を下ろす前に10日間の日照りが来て地表が硬く焼き締まると発芽が止まり、借金をして高価な追い播き用の種を買い直さなければなりません。そこで農学者と村の種子組合が普及させているのが、極めて低コストな「オンファーム水プライミング（播種前浸水処理）」です。種まき前夜にソルガムなら約8時間、ヒヨコマメなら約12時間だけきれいな水に浸し、幼根が種皮を突き破る寸前の段階まで内部の代謝修復酵素とDNA複製を目覚めさせてから、日陰で1時間だけ表面を乾かしてまきます。発芽時計の半分を済ませた状態で土に入るため、無処理の種より2〜3日早く出芽し、表土が固まる前に直根を深い湿り気へ伸ばして初期雑草にも競り勝てます。ただし長く浸しすぎると酸欠や播種時の幼根折れを招くため、普及講習では家庭のバケツで守れる作物別の浸水時間表が指導されています。",
+            "text": "Across rain-fed farming regions from West Africa's Sahel to central India, the most perilous week in a crop's life is the very first one after sowing. Smallholders wait anxiously for early monsoon showers to moisten parched topsoil, drop dry sorghum, pearl millet, or chickpea seeds into hand-hoed furrows, and pray follow-up rain arrives within days. If a sudden ten-day dry spell bakes the surface crust before dry seeds finish absorbing water and pushing roots downward, germination stalls completely—forcing indebted rural families to buy scarce replacement seed late in the season at sharply inflated market prices.\n\nAgronomists working alongside village seed cooperatives have refined a remarkably low-cost physiological safeguard known as on-farm \"hydro-priming.\" The evening before planting, farmers soak seeds in plain clean water for a carefully timed window—typically eight hours for sorghum or twelve for chickpeas—just long enough to awaken metabolic repair enzymes, mend damaged cell membranes, and copy DNA inside the embryo without letting the tiny root tip pierce the seed coat. Spread in thin shade to surface-dry for an hour so they flow freely from sowing hands or simple ox-drawn seed drills, primed seeds enter the soil with half their internal germination clock already completed.\n\nControlled field trials across hundreds of dryland plots show that primed seedlings emerge two to three days earlier than dry-sown neighbors, sending taproots into deeper residual moisture before surface soil crusts hard and outgrowing early weeds. In multi-year participatory trials across semi-arid districts, that modest head start has lifted average grain harvests by fifteen to thirty percent—often adding a tiny measured pinch of zinc or molybdenum to the soaking water to correct micronutrient-poor soils simultaneously without expensive field sprays.\n\nTiming and field judgment remain critical, however. Soaking seeds too long suffocates embryos for lack of dissolved oxygen or snaps emerging rootlets during sowing, and primed batches cannot sit stored in warm sheds for weeks if rain fails to materialize. That is why extension workshops teach crop-specific soaking charts using ordinary household buckets, pairing plant physiology with farmers' own seasoned reading of monsoon clouds.",
+            "translation": "西アフリカのサヘル地帯からインド中部に至る天水農業地域では、作物の生涯で最も危険な1週間は種まき直後の最初の1週間です。小規模農家はモンスーン初期の雨で表土が湿るのを待って乾いたソルガムやトウジンビエ、ヒヨコマメの種をまきますが、種が吸水して根を下ろす前に10日間の日照りが来て地表が硬く焼き締まると発芽が完全に止まり、借金をして高騰した追い播き用の種を買い直さなければなりません。そこで農学者と村の種子組合が普及させているのが、極めて低コストな生理的保護法「オンファーム水プライミング（播種前浸水処理）」です。種まき前夜にソルガムなら約8時間、ヒヨコマメなら約12時間だけきれいな水に浸し、幼根が種皮を突き破る寸前の段階まで内部の代謝修復酵素と細胞膜修復、DNA複製を目覚めさせてから、手まきや牛引き簡易播種機で詰まらないよう日陰で1時間だけ表面を乾かしてまきます。発芽時計の半分を済ませた状態で土に入るため、無処理の種より2〜3日早く出芽し、表土が固まる前に直根を深い湿り気へ伸ばして初期雑草にも競り勝てます。半乾燥地での複数年の参加型試験では平均収量が15〜30％向上し、高価な散布機を使わずに浸水液へ微量の亜鉛やモリブデンを加えて土壌の微量要素欠乏を同時に補う工夫も広がっています。ただし長く浸しすぎると酸欠や播種時の幼根折れを招き、雨が降らなかった場合に暖かい納屋で何週間も保存しておくこともできないため、普及講習では家庭のバケツで守れる作物別の浸水時間表と農家自身の熟練した雨雲の見極めを組み合わせて指導しています。",
             "format": "article"
           }
         },
@@ -79987,8 +79987,8 @@
           "passage": {
             "id": "rp1-r15-reading-a",
             "title": "Seed Priming for Drought-Prone Dryland Crops",
-            "text": "Across rain-fed farming regions from West Africa's Sahel to central India, the most perilous week in a crop's life is the very first one after sowing. Smallholders wait anxiously for early monsoon showers to moisten parched topsoil, drop dry sorghum, millet, or chickpea seeds into hand-hoed furrows, and pray follow-up rain arrives within days. If a sudden ten-day dry spell bakes the surface crust before dry seeds finish absorbing water and pushing roots downward, germination stalls—forcing indebted families to buy scarce replacement seed late in the season.\n\nAgronomists working with village seed cooperatives have refined a remarkably low-cost safeguard known as on-farm \"hydro-priming.\" The evening before planting, farmers soak seeds in plain clean water for a carefully timed window—typically eight hours for sorghum or twelve for chickpeas—just long enough to awaken metabolic repair enzymes and copy DNA inside the embryo without letting the tiny root tip pierce the seed coat. Spread in thin shade to surface-dry for an hour so they flow freely from sowing hands, primed seeds enter the soil with half their germination clock already completed.\n\nControlled field trials across hundreds of dryland plots show that primed seedlings emerge two to three days earlier than dry-sown neighbors, sending taproots into deeper residual moisture before surface soil crusts hard and outgrowing early weeds. Timing remains critical: soaking seeds too long suffocates embryos for lack of oxygen or snaps emerging rootlets during sowing, which is why extension workshops teach crop-specific soaking charts using ordinary household buckets.",
-            "translation": "西アフリカのサヘル地帯からインド中部に至る天水農業地域では、作物の生涯で最も危険な1週間は種まき直後の最初の1週間です。小規模農家はモンスーン初期の雨で表土が湿るのを待って乾いたソルガムやヒエ、ヒヨコマメの種をまきますが、種が吸水して根を下ろす前に10日間の日照りが来て地表が硬く焼き締まると発芽が止まり、借金をして高価な追い播き用の種を買い直さなければなりません。そこで農学者と村の種子組合が普及させているのが、極めて低コストな「オンファーム水プライミング（播種前浸水処理）」です。種まき前夜にソルガムなら約8時間、ヒヨコマメなら約12時間だけきれいな水に浸し、幼根が種皮を突き破る寸前の段階まで内部の代謝修復酵素とDNA複製を目覚めさせてから、日陰で1時間だけ表面を乾かしてまきます。発芽時計の半分を済ませた状態で土に入るため、無処理の種より2〜3日早く出芽し、表土が固まる前に直根を深い湿り気へ伸ばして初期雑草にも競り勝てます。ただし長く浸しすぎると酸欠や播種時の幼根折れを招くため、普及講習では家庭のバケツで守れる作物別の浸水時間表が指導されています。",
+            "text": "Across rain-fed farming regions from West Africa's Sahel to central India, the most perilous week in a crop's life is the very first one after sowing. Smallholders wait anxiously for early monsoon showers to moisten parched topsoil, drop dry sorghum, pearl millet, or chickpea seeds into hand-hoed furrows, and pray follow-up rain arrives within days. If a sudden ten-day dry spell bakes the surface crust before dry seeds finish absorbing water and pushing roots downward, germination stalls completely—forcing indebted rural families to buy scarce replacement seed late in the season at sharply inflated market prices.\n\nAgronomists working alongside village seed cooperatives have refined a remarkably low-cost physiological safeguard known as on-farm \"hydro-priming.\" The evening before planting, farmers soak seeds in plain clean water for a carefully timed window—typically eight hours for sorghum or twelve for chickpeas—just long enough to awaken metabolic repair enzymes, mend damaged cell membranes, and copy DNA inside the embryo without letting the tiny root tip pierce the seed coat. Spread in thin shade to surface-dry for an hour so they flow freely from sowing hands or simple ox-drawn seed drills, primed seeds enter the soil with half their internal germination clock already completed.\n\nControlled field trials across hundreds of dryland plots show that primed seedlings emerge two to three days earlier than dry-sown neighbors, sending taproots into deeper residual moisture before surface soil crusts hard and outgrowing early weeds. In multi-year participatory trials across semi-arid districts, that modest head start has lifted average grain harvests by fifteen to thirty percent—often adding a tiny measured pinch of zinc or molybdenum to the soaking water to correct micronutrient-poor soils simultaneously without expensive field sprays.\n\nTiming and field judgment remain critical, however. Soaking seeds too long suffocates embryos for lack of dissolved oxygen or snaps emerging rootlets during sowing, and primed batches cannot sit stored in warm sheds for weeks if rain fails to materialize. That is why extension workshops teach crop-specific soaking charts using ordinary household buckets, pairing plant physiology with farmers' own seasoned reading of monsoon clouds.",
+            "translation": "西アフリカのサヘル地帯からインド中部に至る天水農業地域では、作物の生涯で最も危険な1週間は種まき直後の最初の1週間です。小規模農家はモンスーン初期の雨で表土が湿るのを待って乾いたソルガムやトウジンビエ、ヒヨコマメの種をまきますが、種が吸水して根を下ろす前に10日間の日照りが来て地表が硬く焼き締まると発芽が完全に止まり、借金をして高騰した追い播き用の種を買い直さなければなりません。そこで農学者と村の種子組合が普及させているのが、極めて低コストな生理的保護法「オンファーム水プライミング（播種前浸水処理）」です。種まき前夜にソルガムなら約8時間、ヒヨコマメなら約12時間だけきれいな水に浸し、幼根が種皮を突き破る寸前の段階まで内部の代謝修復酵素と細胞膜修復、DNA複製を目覚めさせてから、手まきや牛引き簡易播種機で詰まらないよう日陰で1時間だけ表面を乾かしてまきます。発芽時計の半分を済ませた状態で土に入るため、無処理の種より2〜3日早く出芽し、表土が固まる前に直根を深い湿り気へ伸ばして初期雑草にも競り勝てます。半乾燥地での複数年の参加型試験では平均収量が15〜30％向上し、高価な散布機を使わずに浸水液へ微量の亜鉛やモリブデンを加えて土壌の微量要素欠乏を同時に補う工夫も広がっています。ただし長く浸しすぎると酸欠や播種時の幼根折れを招き、雨が降らなかった場合に暖かい納屋で何週間も保存しておくこともできないため、普及講習では家庭のバケツで守れる作物別の浸水時間表と農家自身の熟練した雨雲の見極めを組み合わせて指導しています。",
             "format": "article"
           }
         },
@@ -80015,8 +80015,8 @@
           "passage": {
             "id": "rp1-r15-reading-b",
             "title": "Reconsidering Guilds in Early Modern European Craft",
-            "text": "Since Adam Smith's critique of corporate privileges in 1776, textbook accounts of European economic history long cast medieval and early modern craft guilds as reactionary cartels. By restricting workshop entry, capping apprentice numbers, and prosecuting unlicensed suburban artisans, guilds—according to this classic view—choked technological innovation and propped up monopoly prices until industrial capitalism swept them aside.\n\nOver the past three decades, economic historians combing municipal court dockets, apprentice contracts, and guild inspection ledgers from Nuremberg, Venice, and London have painted a far more nuanced portrait. In an era before patent offices, vocational colleges, or consumer-safety agencies existed, guilds solved two acute market failures that would otherwise have crippled complex urban trades.\n\nFirst, mastering clockmaking, lens grinding, or silk dyeing demanded five to seven years of teenage labor before an apprentice became productive. Without enforceable guild contracts binding masters to teach secret techniques—and binding apprentices not to desert mid-training once they learned the basics—masters would have underinvested in training non-relatives. Second, buyers peering at a sealed barrel of Flemish cloth or goldsmith's chalice could easily be cheated by cheap alloys or fugitive dyes; guild hallmarks stamped after surprise workshop inspections gave distant merchants confidence to buy sight unseen across Europe.\n\nGuilds undeniably grew exclusionary when shrinking markets tempted masters to reserve seats for their own sons, yet treating them solely as enemies of progress misses how institutional trust underpinned pre-industrial skill transmission.",
-            "translation": "1776年にアダム・スミスが特権組合を批判して以来、ヨーロッパ経済史の教科書は長らく中世・近世の手工業ギルドを「技術革新を阻み独占価格をつり上げた反動的なカルテル」として描いてきました。しかし過去30年間、ニュルンベルクやヴェネツィア、ロンドンの都市裁判記録や徒弟契約書、抜き打ち検査台帳を精査した経済史家たちは、はるかに立体的な実像を浮かび上がらせています。特許庁も職業訓練校も消費者庁もなかった時代、ギルドは高度な都市手工業を成り立たせるうえで深刻な2つの「市場の失敗」を解決していたのです。第一に、時計製作やレンズ研磨、絹染色の習得には5〜7年を要しましたが、親方が秘伝を惜しまず教え、徒弟も基礎を覚えた途端に逃げ出さないよう拘束するギルド契約がなければ、血縁外の若者への技能投資は進まなかったはずです。第二に、遠隔地の商人が樽詰めの毛織物や金細工の品質を外見だけで見抜くのは困難でしたが、ギルドの抜き打ち検査と刻印（ホールマーク）がヨーロッパ規模の信用保証として機能しました。市場縮小期に世襲的排他性を強めた側面は否定できないものの、ギルドを単なる進歩の敵と見るだけでは前工業化社会の技能継承を支えた制度的信頼を見落としてしまいます。",
+            "text": "Since Adam Smith's sharp critique of corporate privileges in 1776, textbook accounts of European economic history long cast medieval and early modern craft guilds as reactionary urban cartels. By restricting workshop entry, capping apprentice numbers, and prosecuting unlicensed suburban artisans, guilds—according to this classic view—choked technological innovation and propped up monopoly prices until nineteenth-century industrial capitalism finally swept them aside.\n\nOver the past three decades, however, economic historians combing municipal court dockets, notarized apprentice contracts, and guild inspection ledgers from Nuremberg, Venice, Antwerp, Amsterdam, and London have painted a far more nuanced institutional portrait. In an era long before state patent offices, public vocational colleges, or consumer-safety agencies existed, urban craft guilds solved two acute market failures that would otherwise have crippled high-skill urban manufacturing.\n\nFirst, mastering mechanical clockmaking, optical lens grinding, or fine silk dyeing demanded five to seven years of hands-on teenage labor before a novice became productive enough to repay food and lodging. Without enforceable guild contracts binding masters to teach guarded workshop techniques thoroughly—and binding apprentices not to desert mid-training to rival shops once they learned basic skills—masters would have rationally underinvested in training non-relatives, keeping tacit technical know-how locked inside tiny kinship circles. Many continental guilds even organized journeymen's multi-city \"tramping\" circuits across linguistic borders, diffusing improved furnace drafts, metal alloys, and ribbon-loom mechanisms faster than isolated family workshops ever could.\n\nSecond, wholesale buyers peering at a sealed barrel of Flemish woolens or a silver chalice could easily be cheated by cheap metal alloys or fugitive vegetable dyes that faded after one wash; guild hallmarks stamped after unannounced workshop inspections gave distant merchants confidence to buy sight unseen across major European trade fairs.\n\nGuilds undeniably grew rigid and exclusionary when shrinking seventeenth-century markets tempted entrenched masters to hike entry fees, bar skilled women artisans, and reserve masterships for their own sons. Yet treating guilds solely as enemies of progress misses how collective rules and institutional trust underpinned pre-industrial skill transmission and long-distance commerce.",
+            "translation": "1776年にアダム・スミスが特権組合を批判して以来、ヨーロッパ経済史の教科書は長らく中世・近世の手工業ギルドを「技術革新を阻み独占価格をつり上げた反動的な都市カルテル」として描いてきました。しかし過去30年間、ニュルンベルクやヴェネツィア、アムステルダム、ロンドンの都市裁判記録や公証徒弟契約書、抜き打ち検査台帳を精査した経済史家たちは、はるかに立体的な制度の実像を浮かび上がらせています。国立の特許庁も公立の職業訓練校も消費者安全機関もなかった時代、都市の手工業ギルドは高度な製造業を成り立たせるうえで深刻な2つの「市場の失敗」を解決していたのです。第一に、時計製作や光学レンズ研磨、絹染色の習得には5〜7年の実地修業を要しましたが、親方が秘伝の工房技術を惜しまず教え、徒弟も基礎を覚えた途端にライバル店へ引き抜かれないよう拘束するギルド契約がなければ、血縁外の若者への技能投資は進まず暗黙知は狭い血族内に閉じ込められていたはずです。大陸欧州の多くのギルドは職人（ジャーニーマン）が言語圏を越えて諸都市を巡る武者修行網さえ整え、改良された炉や合金、織機の仕組みを孤立した家族工房よりずっと速く広めました。第二に、卸売商人が樽詰めのフランドル毛織物や銀杯の品質を外見だけで見抜くのは困難でしたが、抜き打ち工房検査の後に打たれるギルドの刻印（ホールマーク）が国際見本市での現物確認なしの取引を支える信用保証として機能しました。17世紀の市場縮小期に加入金を吊り上げ熟練した女性職人を締め出して世襲的排他性を強めた側面は否定できないものの、ギルドを単なる進歩の敵と見るだけでは前工業化社会の技能継承と遠隔地商業を支えた制度的信頼を見落としてしまいます。",
             "format": "article"
           }
         },
@@ -80043,8 +80043,8 @@
           "passage": {
             "id": "rp1-r15-reading-b",
             "title": "Reconsidering Guilds in Early Modern European Craft",
-            "text": "Since Adam Smith's critique of corporate privileges in 1776, textbook accounts of European economic history long cast medieval and early modern craft guilds as reactionary cartels. By restricting workshop entry, capping apprentice numbers, and prosecuting unlicensed suburban artisans, guilds—according to this classic view—choked technological innovation and propped up monopoly prices until industrial capitalism swept them aside.\n\nOver the past three decades, economic historians combing municipal court dockets, apprentice contracts, and guild inspection ledgers from Nuremberg, Venice, and London have painted a far more nuanced portrait. In an era before patent offices, vocational colleges, or consumer-safety agencies existed, guilds solved two acute market failures that would otherwise have crippled complex urban trades.\n\nFirst, mastering clockmaking, lens grinding, or silk dyeing demanded five to seven years of teenage labor before an apprentice became productive. Without enforceable guild contracts binding masters to teach secret techniques—and binding apprentices not to desert mid-training once they learned the basics—masters would have underinvested in training non-relatives. Second, buyers peering at a sealed barrel of Flemish cloth or goldsmith's chalice could easily be cheated by cheap alloys or fugitive dyes; guild hallmarks stamped after surprise workshop inspections gave distant merchants confidence to buy sight unseen across Europe.\n\nGuilds undeniably grew exclusionary when shrinking markets tempted masters to reserve seats for their own sons, yet treating them solely as enemies of progress misses how institutional trust underpinned pre-industrial skill transmission.",
-            "translation": "1776年にアダム・スミスが特権組合を批判して以来、ヨーロッパ経済史の教科書は長らく中世・近世の手工業ギルドを「技術革新を阻み独占価格をつり上げた反動的なカルテル」として描いてきました。しかし過去30年間、ニュルンベルクやヴェネツィア、ロンドンの都市裁判記録や徒弟契約書、抜き打ち検査台帳を精査した経済史家たちは、はるかに立体的な実像を浮かび上がらせています。特許庁も職業訓練校も消費者庁もなかった時代、ギルドは高度な都市手工業を成り立たせるうえで深刻な2つの「市場の失敗」を解決していたのです。第一に、時計製作やレンズ研磨、絹染色の習得には5〜7年を要しましたが、親方が秘伝を惜しまず教え、徒弟も基礎を覚えた途端に逃げ出さないよう拘束するギルド契約がなければ、血縁外の若者への技能投資は進まなかったはずです。第二に、遠隔地の商人が樽詰めの毛織物や金細工の品質を外見だけで見抜くのは困難でしたが、ギルドの抜き打ち検査と刻印（ホールマーク）がヨーロッパ規模の信用保証として機能しました。市場縮小期に世襲的排他性を強めた側面は否定できないものの、ギルドを単なる進歩の敵と見るだけでは前工業化社会の技能継承を支えた制度的信頼を見落としてしまいます。",
+            "text": "Since Adam Smith's sharp critique of corporate privileges in 1776, textbook accounts of European economic history long cast medieval and early modern craft guilds as reactionary urban cartels. By restricting workshop entry, capping apprentice numbers, and prosecuting unlicensed suburban artisans, guilds—according to this classic view—choked technological innovation and propped up monopoly prices until nineteenth-century industrial capitalism finally swept them aside.\n\nOver the past three decades, however, economic historians combing municipal court dockets, notarized apprentice contracts, and guild inspection ledgers from Nuremberg, Venice, Antwerp, Amsterdam, and London have painted a far more nuanced institutional portrait. In an era long before state patent offices, public vocational colleges, or consumer-safety agencies existed, urban craft guilds solved two acute market failures that would otherwise have crippled high-skill urban manufacturing.\n\nFirst, mastering mechanical clockmaking, optical lens grinding, or fine silk dyeing demanded five to seven years of hands-on teenage labor before a novice became productive enough to repay food and lodging. Without enforceable guild contracts binding masters to teach guarded workshop techniques thoroughly—and binding apprentices not to desert mid-training to rival shops once they learned basic skills—masters would have rationally underinvested in training non-relatives, keeping tacit technical know-how locked inside tiny kinship circles. Many continental guilds even organized journeymen's multi-city \"tramping\" circuits across linguistic borders, diffusing improved furnace drafts, metal alloys, and ribbon-loom mechanisms faster than isolated family workshops ever could.\n\nSecond, wholesale buyers peering at a sealed barrel of Flemish woolens or a silver chalice could easily be cheated by cheap metal alloys or fugitive vegetable dyes that faded after one wash; guild hallmarks stamped after unannounced workshop inspections gave distant merchants confidence to buy sight unseen across major European trade fairs.\n\nGuilds undeniably grew rigid and exclusionary when shrinking seventeenth-century markets tempted entrenched masters to hike entry fees, bar skilled women artisans, and reserve masterships for their own sons. Yet treating guilds solely as enemies of progress misses how collective rules and institutional trust underpinned pre-industrial skill transmission and long-distance commerce.",
+            "translation": "1776年にアダム・スミスが特権組合を批判して以来、ヨーロッパ経済史の教科書は長らく中世・近世の手工業ギルドを「技術革新を阻み独占価格をつり上げた反動的な都市カルテル」として描いてきました。しかし過去30年間、ニュルンベルクやヴェネツィア、アムステルダム、ロンドンの都市裁判記録や公証徒弟契約書、抜き打ち検査台帳を精査した経済史家たちは、はるかに立体的な制度の実像を浮かび上がらせています。国立の特許庁も公立の職業訓練校も消費者安全機関もなかった時代、都市の手工業ギルドは高度な製造業を成り立たせるうえで深刻な2つの「市場の失敗」を解決していたのです。第一に、時計製作や光学レンズ研磨、絹染色の習得には5〜7年の実地修業を要しましたが、親方が秘伝の工房技術を惜しまず教え、徒弟も基礎を覚えた途端にライバル店へ引き抜かれないよう拘束するギルド契約がなければ、血縁外の若者への技能投資は進まず暗黙知は狭い血族内に閉じ込められていたはずです。大陸欧州の多くのギルドは職人（ジャーニーマン）が言語圏を越えて諸都市を巡る武者修行網さえ整え、改良された炉や合金、織機の仕組みを孤立した家族工房よりずっと速く広めました。第二に、卸売商人が樽詰めのフランドル毛織物や銀杯の品質を外見だけで見抜くのは困難でしたが、抜き打ち工房検査の後に打たれるギルドの刻印（ホールマーク）が国際見本市での現物確認なしの取引を支える信用保証として機能しました。17世紀の市場縮小期に加入金を吊り上げ熟練した女性職人を締め出して世襲的排他性を強めた側面は否定できないものの、ギルドを単なる進歩の敵と見るだけでは前工業化社会の技能継承と遠隔地商業を支えた制度的信頼を見落としてしまいます。",
             "format": "article"
           }
         },
@@ -80071,8 +80071,8 @@
           "passage": {
             "id": "rp1-r15-reading-b",
             "title": "Reconsidering Guilds in Early Modern European Craft",
-            "text": "Since Adam Smith's critique of corporate privileges in 1776, textbook accounts of European economic history long cast medieval and early modern craft guilds as reactionary cartels. By restricting workshop entry, capping apprentice numbers, and prosecuting unlicensed suburban artisans, guilds—according to this classic view—choked technological innovation and propped up monopoly prices until industrial capitalism swept them aside.\n\nOver the past three decades, economic historians combing municipal court dockets, apprentice contracts, and guild inspection ledgers from Nuremberg, Venice, and London have painted a far more nuanced portrait. In an era before patent offices, vocational colleges, or consumer-safety agencies existed, guilds solved two acute market failures that would otherwise have crippled complex urban trades.\n\nFirst, mastering clockmaking, lens grinding, or silk dyeing demanded five to seven years of teenage labor before an apprentice became productive. Without enforceable guild contracts binding masters to teach secret techniques—and binding apprentices not to desert mid-training once they learned the basics—masters would have underinvested in training non-relatives. Second, buyers peering at a sealed barrel of Flemish cloth or goldsmith's chalice could easily be cheated by cheap alloys or fugitive dyes; guild hallmarks stamped after surprise workshop inspections gave distant merchants confidence to buy sight unseen across Europe.\n\nGuilds undeniably grew exclusionary when shrinking markets tempted masters to reserve seats for their own sons, yet treating them solely as enemies of progress misses how institutional trust underpinned pre-industrial skill transmission.",
-            "translation": "1776年にアダム・スミスが特権組合を批判して以来、ヨーロッパ経済史の教科書は長らく中世・近世の手工業ギルドを「技術革新を阻み独占価格をつり上げた反動的なカルテル」として描いてきました。しかし過去30年間、ニュルンベルクやヴェネツィア、ロンドンの都市裁判記録や徒弟契約書、抜き打ち検査台帳を精査した経済史家たちは、はるかに立体的な実像を浮かび上がらせています。特許庁も職業訓練校も消費者庁もなかった時代、ギルドは高度な都市手工業を成り立たせるうえで深刻な2つの「市場の失敗」を解決していたのです。第一に、時計製作やレンズ研磨、絹染色の習得には5〜7年を要しましたが、親方が秘伝を惜しまず教え、徒弟も基礎を覚えた途端に逃げ出さないよう拘束するギルド契約がなければ、血縁外の若者への技能投資は進まなかったはずです。第二に、遠隔地の商人が樽詰めの毛織物や金細工の品質を外見だけで見抜くのは困難でしたが、ギルドの抜き打ち検査と刻印（ホールマーク）がヨーロッパ規模の信用保証として機能しました。市場縮小期に世襲的排他性を強めた側面は否定できないものの、ギルドを単なる進歩の敵と見るだけでは前工業化社会の技能継承を支えた制度的信頼を見落としてしまいます。",
+            "text": "Since Adam Smith's sharp critique of corporate privileges in 1776, textbook accounts of European economic history long cast medieval and early modern craft guilds as reactionary urban cartels. By restricting workshop entry, capping apprentice numbers, and prosecuting unlicensed suburban artisans, guilds—according to this classic view—choked technological innovation and propped up monopoly prices until nineteenth-century industrial capitalism finally swept them aside.\n\nOver the past three decades, however, economic historians combing municipal court dockets, notarized apprentice contracts, and guild inspection ledgers from Nuremberg, Venice, Antwerp, Amsterdam, and London have painted a far more nuanced institutional portrait. In an era long before state patent offices, public vocational colleges, or consumer-safety agencies existed, urban craft guilds solved two acute market failures that would otherwise have crippled high-skill urban manufacturing.\n\nFirst, mastering mechanical clockmaking, optical lens grinding, or fine silk dyeing demanded five to seven years of hands-on teenage labor before a novice became productive enough to repay food and lodging. Without enforceable guild contracts binding masters to teach guarded workshop techniques thoroughly—and binding apprentices not to desert mid-training to rival shops once they learned basic skills—masters would have rationally underinvested in training non-relatives, keeping tacit technical know-how locked inside tiny kinship circles. Many continental guilds even organized journeymen's multi-city \"tramping\" circuits across linguistic borders, diffusing improved furnace drafts, metal alloys, and ribbon-loom mechanisms faster than isolated family workshops ever could.\n\nSecond, wholesale buyers peering at a sealed barrel of Flemish woolens or a silver chalice could easily be cheated by cheap metal alloys or fugitive vegetable dyes that faded after one wash; guild hallmarks stamped after unannounced workshop inspections gave distant merchants confidence to buy sight unseen across major European trade fairs.\n\nGuilds undeniably grew rigid and exclusionary when shrinking seventeenth-century markets tempted entrenched masters to hike entry fees, bar skilled women artisans, and reserve masterships for their own sons. Yet treating guilds solely as enemies of progress misses how collective rules and institutional trust underpinned pre-industrial skill transmission and long-distance commerce.",
+            "translation": "1776年にアダム・スミスが特権組合を批判して以来、ヨーロッパ経済史の教科書は長らく中世・近世の手工業ギルドを「技術革新を阻み独占価格をつり上げた反動的な都市カルテル」として描いてきました。しかし過去30年間、ニュルンベルクやヴェネツィア、アムステルダム、ロンドンの都市裁判記録や公証徒弟契約書、抜き打ち検査台帳を精査した経済史家たちは、はるかに立体的な制度の実像を浮かび上がらせています。国立の特許庁も公立の職業訓練校も消費者安全機関もなかった時代、都市の手工業ギルドは高度な製造業を成り立たせるうえで深刻な2つの「市場の失敗」を解決していたのです。第一に、時計製作や光学レンズ研磨、絹染色の習得には5〜7年の実地修業を要しましたが、親方が秘伝の工房技術を惜しまず教え、徒弟も基礎を覚えた途端にライバル店へ引き抜かれないよう拘束するギルド契約がなければ、血縁外の若者への技能投資は進まず暗黙知は狭い血族内に閉じ込められていたはずです。大陸欧州の多くのギルドは職人（ジャーニーマン）が言語圏を越えて諸都市を巡る武者修行網さえ整え、改良された炉や合金、織機の仕組みを孤立した家族工房よりずっと速く広めました。第二に、卸売商人が樽詰めのフランドル毛織物や銀杯の品質を外見だけで見抜くのは困難でしたが、抜き打ち工房検査の後に打たれるギルドの刻印（ホールマーク）が国際見本市での現物確認なしの取引を支える信用保証として機能しました。17世紀の市場縮小期に加入金を吊り上げ熟練した女性職人を締め出して世襲的排他性を強めた側面は否定できないものの、ギルドを単なる進歩の敵と見るだけでは前工業化社会の技能継承と遠隔地商業を支えた制度的信頼を見落としてしまいます。",
             "format": "article"
           }
         },
@@ -80099,8 +80099,8 @@
           "passage": {
             "id": "rp1-r15-reading-b",
             "title": "Reconsidering Guilds in Early Modern European Craft",
-            "text": "Since Adam Smith's critique of corporate privileges in 1776, textbook accounts of European economic history long cast medieval and early modern craft guilds as reactionary cartels. By restricting workshop entry, capping apprentice numbers, and prosecuting unlicensed suburban artisans, guilds—according to this classic view—choked technological innovation and propped up monopoly prices until industrial capitalism swept them aside.\n\nOver the past three decades, economic historians combing municipal court dockets, apprentice contracts, and guild inspection ledgers from Nuremberg, Venice, and London have painted a far more nuanced portrait. In an era before patent offices, vocational colleges, or consumer-safety agencies existed, guilds solved two acute market failures that would otherwise have crippled complex urban trades.\n\nFirst, mastering clockmaking, lens grinding, or silk dyeing demanded five to seven years of teenage labor before an apprentice became productive. Without enforceable guild contracts binding masters to teach secret techniques—and binding apprentices not to desert mid-training once they learned the basics—masters would have underinvested in training non-relatives. Second, buyers peering at a sealed barrel of Flemish cloth or goldsmith's chalice could easily be cheated by cheap alloys or fugitive dyes; guild hallmarks stamped after surprise workshop inspections gave distant merchants confidence to buy sight unseen across Europe.\n\nGuilds undeniably grew exclusionary when shrinking markets tempted masters to reserve seats for their own sons, yet treating them solely as enemies of progress misses how institutional trust underpinned pre-industrial skill transmission.",
-            "translation": "1776年にアダム・スミスが特権組合を批判して以来、ヨーロッパ経済史の教科書は長らく中世・近世の手工業ギルドを「技術革新を阻み独占価格をつり上げた反動的なカルテル」として描いてきました。しかし過去30年間、ニュルンベルクやヴェネツィア、ロンドンの都市裁判記録や徒弟契約書、抜き打ち検査台帳を精査した経済史家たちは、はるかに立体的な実像を浮かび上がらせています。特許庁も職業訓練校も消費者庁もなかった時代、ギルドは高度な都市手工業を成り立たせるうえで深刻な2つの「市場の失敗」を解決していたのです。第一に、時計製作やレンズ研磨、絹染色の習得には5〜7年を要しましたが、親方が秘伝を惜しまず教え、徒弟も基礎を覚えた途端に逃げ出さないよう拘束するギルド契約がなければ、血縁外の若者への技能投資は進まなかったはずです。第二に、遠隔地の商人が樽詰めの毛織物や金細工の品質を外見だけで見抜くのは困難でしたが、ギルドの抜き打ち検査と刻印（ホールマーク）がヨーロッパ規模の信用保証として機能しました。市場縮小期に世襲的排他性を強めた側面は否定できないものの、ギルドを単なる進歩の敵と見るだけでは前工業化社会の技能継承を支えた制度的信頼を見落としてしまいます。",
+            "text": "Since Adam Smith's sharp critique of corporate privileges in 1776, textbook accounts of European economic history long cast medieval and early modern craft guilds as reactionary urban cartels. By restricting workshop entry, capping apprentice numbers, and prosecuting unlicensed suburban artisans, guilds—according to this classic view—choked technological innovation and propped up monopoly prices until nineteenth-century industrial capitalism finally swept them aside.\n\nOver the past three decades, however, economic historians combing municipal court dockets, notarized apprentice contracts, and guild inspection ledgers from Nuremberg, Venice, Antwerp, Amsterdam, and London have painted a far more nuanced institutional portrait. In an era long before state patent offices, public vocational colleges, or consumer-safety agencies existed, urban craft guilds solved two acute market failures that would otherwise have crippled high-skill urban manufacturing.\n\nFirst, mastering mechanical clockmaking, optical lens grinding, or fine silk dyeing demanded five to seven years of hands-on teenage labor before a novice became productive enough to repay food and lodging. Without enforceable guild contracts binding masters to teach guarded workshop techniques thoroughly—and binding apprentices not to desert mid-training to rival shops once they learned basic skills—masters would have rationally underinvested in training non-relatives, keeping tacit technical know-how locked inside tiny kinship circles. Many continental guilds even organized journeymen's multi-city \"tramping\" circuits across linguistic borders, diffusing improved furnace drafts, metal alloys, and ribbon-loom mechanisms faster than isolated family workshops ever could.\n\nSecond, wholesale buyers peering at a sealed barrel of Flemish woolens or a silver chalice could easily be cheated by cheap metal alloys or fugitive vegetable dyes that faded after one wash; guild hallmarks stamped after unannounced workshop inspections gave distant merchants confidence to buy sight unseen across major European trade fairs.\n\nGuilds undeniably grew rigid and exclusionary when shrinking seventeenth-century markets tempted entrenched masters to hike entry fees, bar skilled women artisans, and reserve masterships for their own sons. Yet treating guilds solely as enemies of progress misses how collective rules and institutional trust underpinned pre-industrial skill transmission and long-distance commerce.",
+            "translation": "1776年にアダム・スミスが特権組合を批判して以来、ヨーロッパ経済史の教科書は長らく中世・近世の手工業ギルドを「技術革新を阻み独占価格をつり上げた反動的な都市カルテル」として描いてきました。しかし過去30年間、ニュルンベルクやヴェネツィア、アムステルダム、ロンドンの都市裁判記録や公証徒弟契約書、抜き打ち検査台帳を精査した経済史家たちは、はるかに立体的な制度の実像を浮かび上がらせています。国立の特許庁も公立の職業訓練校も消費者安全機関もなかった時代、都市の手工業ギルドは高度な製造業を成り立たせるうえで深刻な2つの「市場の失敗」を解決していたのです。第一に、時計製作や光学レンズ研磨、絹染色の習得には5〜7年の実地修業を要しましたが、親方が秘伝の工房技術を惜しまず教え、徒弟も基礎を覚えた途端にライバル店へ引き抜かれないよう拘束するギルド契約がなければ、血縁外の若者への技能投資は進まず暗黙知は狭い血族内に閉じ込められていたはずです。大陸欧州の多くのギルドは職人（ジャーニーマン）が言語圏を越えて諸都市を巡る武者修行網さえ整え、改良された炉や合金、織機の仕組みを孤立した家族工房よりずっと速く広めました。第二に、卸売商人が樽詰めのフランドル毛織物や銀杯の品質を外見だけで見抜くのは困難でしたが、抜き打ち工房検査の後に打たれるギルドの刻印（ホールマーク）が国際見本市での現物確認なしの取引を支える信用保証として機能しました。17世紀の市場縮小期に加入金を吊り上げ熟練した女性職人を締め出して世襲的排他性を強めた側面は否定できないものの、ギルドを単なる進歩の敵と見るだけでは前工業化社会の技能継承と遠隔地商業を支えた制度的信頼を見落としてしまいます。",
             "format": "article"
           }
         }
