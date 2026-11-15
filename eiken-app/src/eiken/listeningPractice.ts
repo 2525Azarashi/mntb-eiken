@@ -283,9 +283,6 @@ export function listeningPartChapters(
       if (!units.length) return [];
       const problems = units.map(unit => listeningUnitToProblem(exam, unit));
       const marks = problems.reduce((sum, p) => sum + p.subQuestions.length, 0);
-      const imageUnits = units.filter(u => Boolean(u.image));
-      const resolvedImageCount = imageUnits.filter(u => Boolean(LISTENING_IMAGE_URLS[u.audioId])).length;
-      const resolvedAudioCount = units.filter(u => Boolean(LISTENING_AUDIO_URLS[u.audioId])).length;
 
       const fullTitle = `リスニング 第${exam.round}回｜${partSpec.label}`;
       const shortCardTitle =
