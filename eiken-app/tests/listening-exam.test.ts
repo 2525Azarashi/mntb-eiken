@@ -1,18 +1,19 @@
 import { describe, expect, it } from 'vitest';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { resolve } from 'node:path';
 import { EIKEN_GRADES } from '../src/eiken/config';
 import {
   LISTENING_BLUEPRINTS,
   normalizeEnglishWords,
   validateListeningGradeSeries,
 } from '../src/eiken/listeningExamCore';
+import { LISTENING_IMAGE_URLS } from '../src/eiken/listeningImages.generated';
 import {
   ALL_LISTENING_EXAMS,
   LISTENING_EXAMS_BY_GRADE,
 } from '../src/eiken/materials/listening-booklets';
 import { LISTENING_AUDIO_URLS } from '../src/eiken/listeningAudio.generated';
-import { LISTENING_IMAGE_URLS } from '../src/eiken/listeningImages.generated';
 import { scoreListeningMockExam } from '../src/eiken/mockProgress';
 import { partsForGrade } from '../src/eiken/questions';
 
@@ -165,5 +166,47 @@ describe('Eiken Listening 120-Round Mock Exam Bank', () => {
         }
       }
     }
+  });
+
+  it('audits all 721 integrated WebP listening illustrations (Grade 4/3/Pre-1/1 100% + Grade 5)', () => {
+    const entries = Object.entries(LISTENING_IMAGE_URLS);
+    expect(entries).toHaveLength(721);
+
+    const byPrefix = {
+      eiken_5: 0,
+      eiken_4: 0,
+      eiken_3: 0,
+      eiken_pre1: 0,
+      eiken_1: 0,
+    };
+
+    for (const [audioId, webUrl] of entries) {
+      expect(webUrl.startsWith('/eiken_images/')).toBe(true);
+      expect(webUrl.endsWith('.webp')).toBe(true);
+      const diskPath = resolve(process.cwd(), 'public', webUrl.slice(1));
+      expect(existsSync(diskPath)).toBe(true);
+
+      const st = statSync(diskPath);
+      expect(st.size).toBeGreaterThan(800);
+      expect(st.size).toBeLessThan(200_000);
+
+      const head = readFileSync(diskPath).subarray(0, 12);
+      expect(head.subarray(0, 4).toString('ascii')).toBe('RIFF');
+      expect(head.subarray(8, 12).toString('ascii')).toBe('WEBP');
+
+      if (audioId.startsWith('eiken_5_')) byPrefix.eiken_5 += 1;
+      else if (audioId.startsWith('eiken_4_')) byPrefix.eiken_4 += 1;
+      else if (audioId.startsWith('eiken_3_')) byPrefix.eiken_3 += 1;
+      else if (audioId.startsWith('eiken_pre1_')) byPrefix.eiken_pre1 += 1;
+      else if (audioId.startsWith('eiken_1_')) byPrefix.eiken_1 += 1;
+    }
+
+    expect(byPrefix).toEqual({
+      eiken_5: 271,
+      eiken_4: 150,
+      eiken_3: 150,
+      eiken_pre1: 75,
+      eiken_1: 75,
+    });
   });
 });

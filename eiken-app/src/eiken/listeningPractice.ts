@@ -85,6 +85,7 @@ export function listeningUnitToProblem(exam: ListeningExamRound, unit: Listening
     return {
       id: `${q.id}_answer`,
       label: isReadAloud ? `No.${q.questionNumber}` : q.questionPrompt,
+      blankHint: unit.material ? q.questionPrompt : undefined,
       type: 'multiple_choice',
       options: q.choices.map((_, idx) => String(idx + 1)),
       optionTexts: effectiveOptionTexts,
