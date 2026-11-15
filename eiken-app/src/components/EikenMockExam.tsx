@@ -1,24 +1,32 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowLeft,
+  BookOpen,
+  Bookmark,
+  BookmarkCheck,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
   Clock,
   FileText,
   Flag,
+  KeyRound,
+  Languages,
   LayoutGrid,
+  ListChecks,
+  MinusCircle,
   Pause,
   Play,
   RotateCcw,
   Send,
   Sparkles,
+  XCircle,
 } from 'lucide-react';
 import { DoorMascot } from './DoorMascot';
 import { subjectTheme } from '../data/subjectTheme';
 import { EIKEN_GRADES, type EikenGrade } from '../eiken/config';
 import { WRITTEN_BOOKLETS } from '../eiken/materials/written-booklets';
-import { getGradeDaimonSpecs, WRITTEN_SECTION_LABELS } from '../eiken/writtenPractice';
+import { bookletItemToProblem, getGradeDaimonSpecs, WRITTEN_SECTION_LABELS } from '../eiken/writtenPractice';
 import {
   countEnglishWords,
   WRITTEN_BLUEPRINTS,
@@ -38,9 +46,12 @@ import {
   type MockWritingEntry,
 } from '../eiken/mockProgress';
 import { parseWriting, writingKey, type WritingDraft } from '../eiken/writingProgress';
+import { splitEikenDialogueTurns } from './eikenClozePageModel';
+import { notify } from '../utils/dialog';
 import { markProblemSolved } from '../utils/progress';
+import { saveQuestionNote } from '../utils/questionNote';
 import { captureWrongAnswers, type WrongAnswerInput } from '../utils/reviewList';
-import { safeLocalStorage } from '../utils/safeLocalStorage';
+import { readJsonArray, safeLocalStorage } from '../utils/safeLocalStorage';
 import { UNIT_STATUS_LABEL } from '../utils/unitStats';
 import './unit-select.css';
 import './unit-card.css';
@@ -107,7 +118,15 @@ export function buildExamUnits(exam: WrittenExam, sectionFilter: 'all' | Written
 }
 
 /** 英文中の `(     )` または `( ___ )` を下線空所ボックスとして描画し、選択語句があれば差し込む */
-function PromptWithInlineBlank({ prompt, filled }: { prompt: string; filled: string }) {
+function PromptWithInlineBlank({
+  prompt,
+  filled,
+  tone,
+}: {
+  prompt: string;
+  filled: string;
+  tone?: 'right' | 'wrong';
+}) {
   const match = prompt.match(/\(\s*_{0,6}\s*\)/);
   if (!match || match.index === undefined) {
     return <>{prompt}</>;
@@ -117,11 +136,134 @@ function PromptWithInlineBlank({ prompt, filled }: { prompt: string; filled: str
   return (
     <>
       {before}
-      <span className="em-inline-blank" data-filled={filled ? true : undefined}>
+      <span className="em-inline-blank" data-filled={filled ? true : undefined} data-tone={tone}>
         {filled || '\u00A0'}
       </span>
       {after}
     </>
+  );
+}
+
+/** 対話（`A: ...\nB: ...`）か通常文かを自動判定して見やすく描画 */
+function MockCompactStem({
+  qNo,
+  prompt,
+  filled,
+}: {
+  qNo: number;
+  prompt: string;
+  filled: string;
+}) {
+  const turns = splitEikenDialogueTurns(prompt);
+  if (turns) {
+    return (
+      <div className="em-dialogue-stem">
+        <div className="em-dialogue-top">
+          <span className="em-compact-no" aria-hidden="true">
+            {qNo}
+          </span>
+          <span className="sr-only">問{qNo} </span>
+          <span className="em-dialogue-kicker">対話</span>
+        </div>
+        <div className="em-dialogue-lines">
+          {turns.map((t, i) => (
+            <div key={i} className="em-dialogue-line">
+              <span className="em-speaker-pill" data-speaker={t.speaker} aria-hidden="true">
+                {t.speaker}
+              </span>
+              <span className="sr-only">{t.speaker}: </span>
+              <span className="em-dialogue-text" lang="en">
+                <PromptWithInlineBlank prompt={t.text} filled={filled} />
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <p className="em-compact-sentence">
+      <span className="em-compact-no" aria-hidden="true">
+        {qNo}
+      </span>
+      <span className="sr-only">問{qNo} </span>
+      <span lang="en">
+        <PromptWithInlineBlank prompt={prompt} filled={filled} />
+      </span>
+    </p>
+  );
+}
+
+/**
+ * 長文の語句空所補充（cloze）・Eメール返信の下線部（`__...__`）をリッチに描画する本文コンポーネント。
+ * 長文空所 `( 21 )` などは、すでに選んだ選択肢があればその語句も並記し、クリックすると設問カードへスクロールする。
+ */
+function PassageBodyRich({
+  text,
+  section,
+  unitItems,
+  answers,
+  onJumpToQuestionNo,
+}: {
+  text: string;
+  section: WrittenSection;
+  unitItems: { item: WrittenItem; qNo: number }[];
+  answers: Record<string, number>;
+  onJumpToQuestionNo?: (qNo: number) => void;
+}) {
+  if (section === 'cloze') {
+    const parts = text.split(/(\(\s*\d+\s*\))/g);
+    return (
+      <div className="em-passage-body" lang="en">
+        {parts.map((part, idx) => {
+          const m = part.match(/^\(\s*(\d+)\s*\)$/);
+          if (!m) return <React.Fragment key={idx}>{part}</React.Fragment>;
+          const num = Number(m[1]);
+          const matched = unitItems.find(u => u.qNo === num);
+          const pickedIdx = matched ? answers[matched.item.id] : undefined;
+          const pickedWord =
+            matched && Number.isInteger(pickedIdx) ? matched.item.choices?.[pickedIdx!] ?? '' : '';
+          return (
+            <button
+              key={idx}
+              type="button"
+              className={`em-passage-cloze-slot ${pickedWord ? 'is-filled' : ''}`}
+              onClick={() => onJumpToQuestionNo?.(num)}
+              title={pickedWord ? `空所(${num})：${pickedWord}（クリックで設問へ）` : `空所(${num})の設問へ移動`}
+            >
+              <span className="em-slot-num">({num})</span>
+              {pickedWord && <span className="em-slot-word">{pickedWord}</span>}
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+
+  // Eメール課題などの `__How long did you skate there?__` 下線強調を綺麗に表示
+  if (text.includes('__')) {
+    const segments = text.split(/(__[^_]+__)/g);
+    return (
+      <div className="em-passage-body" lang="en">
+        {segments.map((seg, idx) => {
+          if (seg.startsWith('__') && seg.endsWith('__') && seg.length > 4) {
+            return (
+              <u key={idx} className="em-passage-underline">
+                {seg.slice(2, -2)}
+              </u>
+            );
+          }
+          return <React.Fragment key={idx}>{seg}</React.Fragment>;
+        })}
+      </div>
+    );
+  }
+
+  return (
+    <div className="em-passage-body" lang="en">
+      {text}
+    </div>
   );
 }
 
@@ -325,6 +467,14 @@ export function EikenMockExam({
   // Result state
   const [resultFilter, setResultFilter] = useState<'all' | 'wrong' | 'flagged'>('all');
   const [submittedRecord, setSubmittedRecord] = useState<MockSubmittedRecord | null>(null);
+  const [savedNotes, setSavedNotes] = useState<Record<string, boolean>>(() => {
+    const existing = readJsonArray<{ questionId?: string }>(`notes_${uid || 'guest'}`);
+    const map: Record<string, boolean> = {};
+    for (const n of existing) {
+      if (n?.questionId) map[n.questionId] = true;
+    }
+    return map;
+  });
 
   const activeExam = useMemo(
     () => WRITTEN_BOOKLETS.find(b => b.id === activeExamId) ?? null,
@@ -489,6 +639,31 @@ export function EikenMockExam({
     setFlags(prev => (prev.includes(itemId) ? prev.filter(x => x !== itemId) : [...prev, itemId]));
   };
 
+  const handleSaveMockItemNote = (exam: WrittenExam, item: WrittenItem, qNo: number) => {
+    if (savedNotes[item.id] || item.kind !== 'choice') return;
+    try {
+      const problem = bookletItemToProblem(exam, item);
+      saveQuestionNote({
+        uid: uid || 'guest',
+        question: problem,
+        chapter: {
+          id: `${exam.id}_${item.section}`,
+          abstractTitle: `第${exam.round}回（${SECTION_LABELS[item.section]}）`,
+          realTitle: `${gradeLabel} 一次筆記`,
+        },
+        questionIndex: qNo,
+      });
+      setSavedNotes(prev => ({ ...prev, [item.id]: true }));
+      notify(
+        uid === 'guest'
+          ? 'ノートに保存しました！（ゲスト利用のため、この端末にだけ保存されます）'
+          : 'ノートに保存しました！',
+      );
+    } catch {
+      notify('保存に失敗しました。');
+    }
+  };
+
   // =========================================================================
   // 1. SELECT SCREEN（大問別演習 ChapterSelection と同じ世界観・構造に統一）
   // =========================================================================
@@ -502,6 +677,11 @@ export function EikenMockExam({
         : scopeTabsCount === 5
         ? 'sm:grid-cols-3 lg:!grid lg:!grid-cols-5'
         : 'sm:grid-cols-2 lg:!grid lg:!grid-cols-4';
+
+    const completedRoundsCount = gradeExams.filter(exam => {
+      const slot = sessionRecordKey(exam.id, scopeSection);
+      return (mockState.history[slot]?.length ?? 0) > 0;
+    }).length;
 
     return (
       <div
@@ -661,10 +841,12 @@ export function EikenMockExam({
               <h4 className="math-stage-heading col-span-full flex items-center justify-between gap-2" data-stage="booklet">
                 <span>
                   {activeDaimonSpec
-                    ? `回別 ${activeDaimonSpec.tabTitle} 通し演習（印刷冊子・フル模試と共通）`
+                    ? `回別 ${activeDaimonSpec.tabTitle} 通し演習`
                     : '回別 一次筆記通し演習（全15回）'}
                 </span>
-                <small className="shrink-0 whitespace-nowrap">{gradeExams.length}回</small>
+                <small className="shrink-0 whitespace-nowrap">
+                  受験済 {completedRoundsCount}/{gradeExams.length}回
+                </small>
               </h4>
 
               {gradeExams.map((exam, idx) => {
@@ -843,12 +1025,30 @@ export function EikenMockExam({
 
     // Section quick jump tabs
     const examDaimonSpecs = getGradeDaimonSpecs(activeExam.grade);
-    const sectionFirstUnit: { section: WrittenSection; label: string; unitIdx: number }[] = [];
+    const sectionFirstUnit: {
+      section: WrittenSection;
+      label: string;
+      unitIdx: number;
+      answered: number;
+      total: number;
+    }[] = [];
     units.forEach((u, idx) => {
       if (!sectionFirstUnit.some(s => s.section === u.section)) {
         const dSpec = examDaimonSpecs.find(d => d.section === u.section);
         const label = dSpec ? `大問${dSpec.daimonNo} ${WRITTEN_SECTION_LABELS[u.section]}` : SECTION_LABELS[u.section];
-        sectionFirstUnit.push({ section: u.section, label, unitIdx: idx });
+        const secEntries = scopedExamItems.filter(e => e.item.section === u.section);
+        const secAnswered = secEntries.filter(({ item }) =>
+          item.kind === 'choice'
+            ? Number.isInteger(answers[item.id])
+            : countEnglishWords(writing[item.id]?.text ?? '') > 0,
+        ).length;
+        sectionFirstUnit.push({
+          section: u.section,
+          label,
+          unitIdx: idx,
+          answered: secAnswered,
+          total: secEntries.length,
+        });
       }
     });
 
@@ -857,11 +1057,31 @@ export function EikenMockExam({
       if (targetUnitIdx >= 0) {
         setUnitIndex(targetUnitIdx);
         setPaletteOpen(false);
-        window.scrollTo(0, 0);
+        window.requestAnimationFrame(() => {
+          const el = document.querySelector(`[data-mock-item-id="${itemId}"]`);
+          if (el) el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          else window.scrollTo(0, 0);
+        });
       }
     };
 
+    const jumpToQuestionNo = (qNo: number) => {
+      const el = document.querySelector(`[data-mock-q="${qNo}"]`);
+      el?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    };
+
     const isBatchClozePage = Boolean(currentUnit.batchCloze);
+    const currentRangeLabel =
+      currentUnit.items.length > 1
+        ? `問${currentUnit.items[0].qNo}〜${currentUnit.items[currentUnit.items.length - 1].qNo}`
+        : currentUnit.items[0]?.item.kind === 'writing'
+        ? SECTION_LABELS[currentUnit.section]
+        : `問${currentUnit.items[0]?.qNo ?? 1}`;
+    const unansweredInUnit = currentUnit.items.filter(({ item }) =>
+      item.kind === 'choice'
+        ? !Number.isInteger(answers[item.id])
+        : countEnglishWords(writing[item.id]?.text ?? '') === 0,
+    ).length;
 
     return (
       <main
@@ -907,9 +1127,10 @@ export function EikenMockExam({
                 type="button"
                 className="em-pause-btn"
                 onClick={() => setPaused(p => !p)}
-                aria-label={paused ? 'タイマーを再開' : 'タイマーを一時停止'}
+                aria-label={paused ? 'タイマー再開' : 'タイマー一時停止'}
+                title={paused ? '再開' : '一時停止'}
               >
-                {paused ? <Play size={12} /> : <Pause size={12} />}
+                {paused ? <Play size={12} aria-hidden="true" /> : <Pause size={12} aria-hidden="true" />}
               </button>
             </div>
 
@@ -918,8 +1139,9 @@ export function EikenMockExam({
               className="em-palette-toggle"
               onClick={() => setPaletteOpen(o => !o)}
               aria-expanded={paletteOpen}
+              data-mock-palette-toggle
             >
-              <LayoutGrid size={14} aria-hidden="true" />
+              <LayoutGrid size={15} aria-hidden="true" />
               <span>問題一覧</span>
             </button>
 
@@ -929,28 +1151,32 @@ export function EikenMockExam({
               onClick={() => setConfirmSubmit(true)}
               data-mock-open-submit
             >
-              <Send size={13} aria-hidden="true" />
+              <Send size={14} aria-hidden="true" />
               <span>採点する</span>
             </button>
           </div>
         </header>
 
-        {/* Section Tabs */}
-        {sectionFirstUnit.length > 1 && (
+        {/* Section Jump Tabs（全大問通しモード時のみ大問ごとの進捗チップ付きで表示） */}
+        {scopeSection === 'all' && (
           <nav className="em-section-tabs" aria-label="大問セクション移動">
             {sectionFirstUnit.map(sec => {
               const active = currentUnit.section === sec.section;
+              const complete = sec.total > 0 && sec.answered === sec.total;
               return (
                 <button
                   key={sec.section}
                   type="button"
-                  className={`em-section-tab ${active ? 'is-active' : ''}`}
+                  className={`em-section-tab ${active ? 'is-active' : ''} ${complete ? 'is-complete' : ''}`}
                   onClick={() => {
                     setUnitIndex(sec.unitIdx);
                     window.scrollTo(0, 0);
                   }}
                 >
-                  {sec.label}
+                  <span>{sec.label}</span>
+                  <small className="em-sec-count">
+                    {sec.answered}/{sec.total}
+                  </small>
                 </button>
               );
             })}
@@ -1047,33 +1273,39 @@ export function EikenMockExam({
                 <span className="em-section-badge">{SECTION_LABELS[currentUnit.section]}</span>
                 <h2>{currentUnit.passage.title}</h2>
               </div>
-              <div className="em-passage-body">{currentUnit.passage.text}</div>
+              <PassageBodyRich
+                text={currentUnit.passage.text}
+                section={currentUnit.section}
+                unitItems={currentUnit.items}
+                answers={answers}
+                onJumpToQuestionNo={jumpToQuestionNo}
+              />
             </article>
           )}
 
-          <div className={`em-questions-pane ${isBatchClozePage ? 'is-batch-grid' : ''}`}>
+          <div
+            className={`em-questions-pane ${isBatchClozePage ? 'is-batch-grid' : ''}`}
+            data-batch-count={isBatchClozePage ? currentUnit.items.length : undefined}
+          >
             {currentUnit.items.map(({ item, qNo }) => {
               const flagged = flags.includes(item.id);
               if (item.kind === 'choice') {
                 const picked = answers[item.id];
                 const filledText = Number.isInteger(picked) ? item.choices?.[picked] ?? '' : '';
-                const singleColChoices = (item.choices ?? []).some(c => c.length > 22);
+                const singleColChoices = (item.choices ?? []).some(c => c.length > 20);
 
                 if (isBatchClozePage) {
                   return (
                     <section
                       key={item.id}
-                      className={`em-q-card em-compact-card is-compact-cloze ${Number.isInteger(picked) ? 'is-answered' : ''}`}
+                      className={`em-q-card em-compact-card is-compact-cloze ${
+                        Number.isInteger(picked) ? 'is-answered' : ''
+                      }`}
                       data-mock-q={qNo}
+                      data-mock-item-id={item.id}
                     >
                       <div className="em-compact-top">
-                        <p className="em-compact-sentence">
-                          <span className="em-compact-no" aria-hidden="true">
-                            {qNo}
-                          </span>
-                          <span className="sr-only">問{qNo} </span>
-                          <PromptWithInlineBlank prompt={item.prompt} filled={filledText} />
-                        </p>
+                        <MockCompactStem qNo={qNo} prompt={item.prompt} filled={filledText} />
                         <button
                           type="button"
                           className={`em-flag-icon-btn ${flagged ? 'is-active' : ''}`}
@@ -1090,6 +1322,21 @@ export function EikenMockExam({
                         className={`em-compact-choices ${singleColChoices ? 'is-single' : ''}`}
                         role="radiogroup"
                         aria-label={`問${qNo}の選択肢`}
+                        tabIndex={0}
+                        onKeyDown={e => {
+                          if (e.metaKey || e.ctrlKey || e.altKey) return;
+                          const idx = ['1', '2', '3', '4', 'a', 'b', 'c', 'd'].indexOf(e.key.toLowerCase());
+                          if (idx >= 0) {
+                            const cIdx = idx % 4;
+                            e.preventDefault();
+                            setAnswers(prev => {
+                              const next = { ...prev };
+                              if (next[item.id] === cIdx) delete next[item.id];
+                              else next[item.id] = cIdx;
+                              return next;
+                            });
+                          }
+                        }}
                       >
                         {item.choices!.map((choiceText, cIdx) => {
                           const selected = picked === cIdx;
@@ -1111,7 +1358,9 @@ export function EikenMockExam({
                               data-choice-idx={cIdx + 1}
                             >
                               <span className="em-compact-bubble">{cIdx + 1}</span>
-                              <span className="em-compact-choice-text">{choiceText}</span>
+                              <span className="em-compact-choice-text" lang="en">
+                                {choiceText}
+                              </span>
                             </button>
                           );
                         })}
@@ -1121,7 +1370,12 @@ export function EikenMockExam({
                 }
 
                 return (
-                  <section key={item.id} className="em-q-card" data-mock-q={qNo}>
+                  <section
+                    key={item.id}
+                    className={`em-q-card ${Number.isInteger(picked) ? 'is-answered' : ''}`}
+                    data-mock-q={qNo}
+                    data-mock-item-id={item.id}
+                  >
                     <div className="em-q-head">
                       <div className="em-q-title">
                         <span className="em-q-num">問 {qNo}</span>
@@ -1143,7 +1397,7 @@ export function EikenMockExam({
                     {item.orderTokens && (
                       <div className="em-order-tokens" aria-label="並べ替え語群">
                         {item.orderTokens.map((tok, tIdx) => (
-                          <span key={tIdx} className="em-order-chip">
+                          <span key={tIdx} className="em-order-chip" lang="en">
                             <strong>{tIdx + 1}.</strong> {tok}
                           </span>
                         ))}
@@ -1160,11 +1414,20 @@ export function EikenMockExam({
                             role="radio"
                             aria-checked={selected}
                             className={`em-choice-btn ${selected ? 'is-selected' : ''}`}
-                            onClick={() => setAnswers(prev => ({ ...prev, [item.id]: cIdx }))}
+                            onClick={() =>
+                              setAnswers(prev => {
+                                const next = { ...prev };
+                                if (next[item.id] === cIdx) delete next[item.id];
+                                else next[item.id] = cIdx;
+                                return next;
+                              })
+                            }
                             data-choice-idx={cIdx + 1}
                           >
                             <span className="em-choice-no">{cIdx + 1}</span>
-                            <span className="em-choice-text">{choiceText}</span>
+                            <span className="em-choice-text" lang="en">
+                              {choiceText}
+                            </span>
                           </button>
                         );
                       })}
@@ -1180,7 +1443,12 @@ export function EikenMockExam({
               const inRange = words >= minW && words <= maxW;
 
               return (
-                <section key={item.id} className="em-q-card is-writing" data-mock-writing={item.id}>
+                <section
+                  key={item.id}
+                  className="em-q-card is-writing"
+                  data-mock-writing={item.id}
+                  data-mock-item-id={item.id}
+                >
                   <div className="em-q-head">
                     <div className="em-q-title">
                       <span className="em-q-num">ライティング</span>
@@ -1200,7 +1468,9 @@ export function EikenMockExam({
                   <p className="em-q-prompt">{item.prompt}</p>
                   <div className="em-writing-meta">
                     <span>目安語数：{minW}〜{maxW}語</span>
-                    <strong className={inRange ? 'is-ok' : ''}>現在 {words} 語</strong>
+                    <strong className={inRange ? 'is-ok' : words > maxW ? 'is-over' : ''}>
+                      現在 {words} 語 {inRange ? '✓ 目安内' : ''}
+                    </strong>
                   </div>
 
                   <textarea
@@ -1236,9 +1506,14 @@ export function EikenMockExam({
             <span>前のページ</span>
           </button>
 
-          <span className="em-unit-counter">
-            {unitIndex + 1} / {units.length} ページ
-          </span>
+          <div className="em-footer-status">
+            <span className="em-unit-counter">
+              {unitIndex + 1} / {units.length} ページ（{currentRangeLabel}）
+            </span>
+            <span className={`em-unit-substatus ${unansweredInUnit === 0 ? 'is-done' : ''}`}>
+              {unansweredInUnit === 0 ? 'このページ回答済み' : `このページ未回答 ${unansweredInUnit}`}
+            </span>
+          </div>
 
           {unitIndex < units.length - 1 ? (
             <button
@@ -1268,23 +1543,40 @@ export function EikenMockExam({
   }
 
   // =========================================================================
-  // 3. RESULT & REVIEW SCREEN
+  // 3. RESULT & REVIEW SCREEN（EikenClozePageQuiz / ToeicPageQuiz と同じ高品質な解説体験）
   // =========================================================================
   const summary = scoreMockExam(activeExam, answers, writing, scopeSection);
   const usedSec = submittedRecord?.elapsedSec ?? elapsedSec;
 
-  const choiceReviewItems = activeExam.items
+  const allScopedChoiceEntries = activeExam.items
     .map((item, idx) => ({ item, qNo: idx + 1 }))
-    .filter(entry => (scopeSection === 'all' || entry.item.section === scopeSection) && entry.item.kind === 'choice')
-    .filter(({ item }) => {
-      if (resultFilter === 'wrong') return answers[item.id] !== item.answer;
-      if (resultFilter === 'flagged') return flags.includes(item.id);
-      return true;
-    });
+    .filter(entry => (scopeSection === 'all' || entry.item.section === scopeSection) && entry.item.kind === 'choice');
+
+  const choiceReviewItems = allScopedChoiceEntries.filter(({ item }) => {
+    if (resultFilter === 'wrong') return answers[item.id] !== item.answer;
+    if (resultFilter === 'flagged') return flags.includes(item.id);
+    return true;
+  });
 
   const writingReviewItems = activeExam.items.filter(
     item => (scopeSection === 'all' || item.section === scopeSection) && item.kind === 'writing',
   );
+
+  const jumpToReviewCard = (itemId: string) => {
+    const target = allScopedChoiceEntries.find(e => e.item.id === itemId);
+    if (!target) return;
+    if (resultFilter !== 'all') {
+      const visible = choiceReviewItems.some(e => e.item.id === itemId);
+      if (!visible) {
+        setResultFilter('all');
+        window.requestAnimationFrame(() => {
+          document.getElementById(`em-rev-${itemId}`)?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        });
+        return;
+      }
+    }
+    document.getElementById(`em-rev-${itemId}`)?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  };
 
   return (
     <main
@@ -1292,256 +1584,411 @@ export function EikenMockExam({
       data-mock-result
       style={theme.accent ? ({ '--unit-accent': theme.accent } as React.CSSProperties) : undefined}
     >
-      <header className="em-header">
-        <button type="button" className="unit-head-back em-result-back" onClick={() => setPhase('select')}>
-          <ArrowLeft size={16} aria-hidden="true" />
-          <span>一覧へ戻る</span>
-        </button>
-        <div className="em-header-title">
-          <h1>
-            {gradeLabel} 第{activeExam.round}回
-            {activeDaimonSpec ? `（${activeDaimonSpec.tabTitle}）` : ''} 採点結果
-          </h1>
-          <p>間違えた問題は「復習」リストに自動登録されました</p>
-        </div>
-        <button
-          type="button"
-          className="em-ghost-btn"
-          onClick={() => startExam(activeExam, false, scopeSection)}
-        >
-          <RotateCcw size={15} aria-hidden="true" />
-          <span>もう一度解く</span>
-        </button>
-      </header>
-
-      {/* Score Hero */}
-      <section className="em-score-hero" aria-label="総合スコア">
-        <div className="em-score-main">
-          <span className="em-score-kicker">
-            {summary.total > 0 ? '4択問題 正答数' : 'ライティング提出状況'}
-          </span>
-          <div className="em-score-number">
-            {summary.total > 0 ? (
-              <>
-                <strong>{summary.correct}</strong>
-                <span>/ {summary.total} 問</span>
-                <em className="em-score-pct">{summary.accuracyPct}%</em>
-              </>
-            ) : (
-              <>
-                <strong>{summary.writingDone}</strong>
-                <span>/ {summary.writingTotal} 題 記入済み</span>
-              </>
-            )}
+      <div className="em-result-inner">
+        <header className="em-header">
+          <button type="button" className="unit-head-back em-result-back" onClick={() => setPhase('select')}>
+            <ArrowLeft size={16} aria-hidden="true" />
+            <span>一覧へ戻る</span>
+          </button>
+          <div className="em-header-title">
+            <h1>
+              {gradeLabel} 第{activeExam.round}回
+              {activeDaimonSpec ? `（${activeDaimonSpec.tabTitle}）` : ''} 採点結果
+            </h1>
+            <p>間違えた問題は「復習」リストに自動登録されました</p>
           </div>
-          <p className="em-score-sub">
-            所要時間：{formatDuration(usedSec)}（目安 {scopedMinutes}分）
-            {summary.total > 0 && summary.writingTotal > 0 && ` ／ ライティング提出 ${summary.writingDone}/${summary.writingTotal}題`}
-          </p>
-        </div>
+          <button
+            type="button"
+            className="em-ghost-btn"
+            onClick={() => startExam(activeExam, false, scopeSection)}
+          >
+            <RotateCcw size={15} aria-hidden="true" />
+            <span>もう一度解く</span>
+          </button>
+        </header>
 
-        <div className="em-breakdown-list">
-          {summary.sections.map(sec => {
-            const pct = sec.total > 0 ? Math.round((sec.correct / sec.total) * 100) : 0;
-            return (
-              <div key={sec.section} className="em-breakdown-row">
-                <div className="em-breakdown-label">
-                  <span>{sec.label}</span>
-                  <strong>
-                    {sec.kind === 'writing'
-                      ? `${sec.answered}/${sec.total} 題記入`
-                      : `${sec.correct}/${sec.total} 問 (${pct}%)`}
-                  </strong>
-                </div>
-                <div className="em-breakdown-bar">
-                  <div
-                    className="em-breakdown-fill"
-                    style={{
-                      width: `${
-                        sec.kind === 'writing'
-                          ? Math.round((sec.answered / Math.max(1, sec.total)) * 100)
-                          : pct
-                      }%`,
-                    }}
-                  />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Writing Self-Review Section */}
-      {writingReviewItems.length > 0 && (
-        <section className="em-writing-review-section" aria-label="ライティング振り返り">
-          <h2 className="em-sub-heading">
-            <Sparkles size={18} aria-hidden="true" />
-            <span>ライティング 自己点検・模範解答</span>
-          </h2>
-          {writingReviewItems.map(item => {
-            const entry = writing[item.id] ?? { text: '', checked: [] };
-            const words = countEnglishWords(entry.text);
-            return (
-              <article key={item.id} className="em-writing-review-card">
-                <div className="em-wr-head">
-                  <strong>{SECTION_LABELS[item.section]}</strong>
-                  <span>
-                    あなたの語数：{words}語（目安 {item.wordRange?.[0]}〜{item.wordRange?.[1]}語）
-                  </span>
-                </div>
-                <p className="em-wr-prompt">{item.prompt}</p>
-                {item.passage && (
-                  <details className="em-wr-source">
-                    <summary>課題の英文・和訳を確認する</summary>
-                    <p className="em-wr-en">{item.passage.text}</p>
-                    {item.passage.translation && <p className="em-wr-ja">{item.passage.translation}</p>}
-                  </details>
-                )}
-                <div className="em-wr-columns">
-                  <div className="em-wr-col">
-                    <h3>あなたの解答</h3>
-                    <p className="em-wr-user">{entry.text.trim() || '（未入力）'}</p>
-                    <div className="em-wr-rubric">
-                      {(item.rubric ?? []).map((criterion, cIdx) => {
-                        const checked = entry.checked.includes(cIdx);
-                        return (
-                          <label key={cIdx} className="em-rubric-item">
-                            <input
-                              type="checkbox"
-                              checked={checked}
-                              onChange={e => {
-                                const nextChecked = e.target.checked
-                                  ? [...entry.checked, cIdx]
-                                  : entry.checked.filter(n => n !== cIdx);
-                                const nextWriting = {
-                                  ...writing,
-                                  [item.id]: { ...entry, checked: nextChecked },
-                                };
-                                setWriting(nextWriting);
-                                syncSubmittedMockToStudyLedger(uid, activeExam, answers, nextWriting, scopeSection);
-                              }}
-                            />
-                            <span>{criterion}</span>
-                          </label>
-                        );
-                      })}
-                    </div>
-                  </div>
-                  <div className="em-wr-col is-model">
-                    <h3>模範解答（{countEnglishWords(item.model!)}語）</h3>
-                    <p className="em-wr-model">{item.model}</p>
-                    {item.translation && <p className="em-wr-ja">{item.translation}</p>}
-                    {item.explanation && <p className="em-wr-exp">{item.explanation}</p>}
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </section>
-      )}
-
-      {/* Choice Questions Review */}
-      {summary.total > 0 && (
-        <section className="em-choice-review-section" aria-label="4択問題の答え合わせ">
-          <div className="em-review-toolbar">
-            <h2 className="em-sub-heading">
-              <CheckCircle2 size={18} aria-hidden="true" />
-              <span>4択問題の答え合わせ・解説</span>
-            </h2>
-            <div className="em-filter-pills" role="tablist" aria-label="表示フィルタ">
-              <button
-                type="button"
-                role="tab"
-                aria-selected={resultFilter === 'all'}
-                className={resultFilter === 'all' ? 'is-active' : ''}
-                onClick={() => setResultFilter('all')}
-              >
-                全問 ({summary.total})
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={resultFilter === 'wrong'}
-                className={resultFilter === 'wrong' ? 'is-active' : ''}
-                onClick={() => setResultFilter('wrong')}
-              >
-                誤答・未解答 ({summary.total - summary.correct})
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={resultFilter === 'flagged'}
-                className={resultFilter === 'flagged' ? 'is-active' : ''}
-                onClick={() => setResultFilter('flagged')}
-              >
-                見直し ({flags.length})
-              </button>
+        {/* Score Hero */}
+        <section className="em-score-hero" aria-label="総合スコア">
+          <div className="em-score-main">
+            <span className="em-score-kicker">
+              {summary.total > 0 ? '4択問題 正答数' : 'ライティング提出状況'}
+            </span>
+            <div className="em-score-number">
+              {summary.total > 0 ? (
+                <>
+                  <strong>{summary.correct}</strong>
+                  <span>/ {summary.total} 問</span>
+                  <em className="em-score-pct">{summary.accuracyPct}%</em>
+                </>
+              ) : (
+                <>
+                  <strong>{summary.writingDone}</strong>
+                  <span>/ {summary.writingTotal} 題 記入済み</span>
+                </>
+              )}
             </div>
+            <p className="em-score-sub">
+              所要時間：{formatDuration(usedSec)}（目安 {scopedMinutes}分）
+              {summary.total > 0 &&
+                summary.writingTotal > 0 &&
+                ` ／ ライティング提出 ${summary.writingDone}/${summary.writingTotal}題`}
+            </p>
           </div>
 
-          {choiceReviewItems.length === 0 ? (
-            <p className="em-empty-review">該当する問題はありません。素晴らしい結果です！</p>
-          ) : (
-            <div className="em-review-list">
-              {choiceReviewItems.map(({ item, qNo }) => {
-                const picked = answers[item.id];
-                const isCorrect = picked === item.answer;
-                return (
-                  <article
-                    key={item.id}
-                    className={`em-review-card ${isCorrect ? 'is-correct' : 'is-wrong'}`}
-                  >
-                    <div className="em-rev-head">
-                      <span className={`em-rev-badge ${isCorrect ? 'is-correct' : 'is-wrong'}`}>
-                        {isCorrect ? '正解' : Number.isInteger(picked) ? '不正解' : '未解答'}
-                      </span>
-                      <strong>問 {qNo}</strong>
-                      <span className="em-rev-sec">{SECTION_LABELS[item.section]}</span>
-                      <span className="em-rev-ans">
-                        あなたの解答：{Number.isInteger(picked) ? `${picked + 1}` : '未選択'} ／ 正解：
-                        <strong>{item.answer! + 1}</strong>
-                      </span>
-                    </div>
+          <div className="em-breakdown-list">
+            {summary.sections.map(sec => {
+              const pct = sec.total > 0 ? Math.round((sec.correct / sec.total) * 100) : 0;
+              return (
+                <div key={sec.section} className="em-breakdown-row">
+                  <div className="em-breakdown-label">
+                    <span>{sec.label}</span>
+                    <strong>
+                      {sec.kind === 'writing'
+                        ? `${sec.answered}/${sec.total} 題記入`
+                        : `${sec.correct}/${sec.total} 問 (${pct}%)`}
+                    </strong>
+                  </div>
+                  <div className="em-breakdown-bar">
+                    <div
+                      className="em-breakdown-fill"
+                      style={{
+                        width: `${
+                          sec.kind === 'writing'
+                            ? Math.round((sec.answered / Math.max(1, sec.total)) * 100)
+                            : pct
+                        }%`,
+                      }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
 
-                    {item.passage && (
-                      <details className="em-wr-source">
-                        <summary>本文・和訳を開く（{item.passage.title}）</summary>
-                        <p className="em-wr-en">{item.passage.text}</p>
-                        {item.passage.translation && <p className="em-wr-ja">{item.passage.translation}</p>}
-                      </details>
-                    )}
-
-                    <p className="em-rev-prompt">{item.prompt}</p>
-                    {item.completedSentence && (
-                      <p className="em-rev-completed">完成文：{item.completedSentence}</p>
-                    )}
-                    {item.translation && <p className="em-rev-ja">訳：{item.translation}</p>}
-                    <p className="em-rev-exp">{item.explanation}</p>
-
-                    <ul className="em-rev-choices">
-                      {item.choices!.map((cText, cIdx) => {
-                        const isAns = cIdx === item.answer;
-                        const isUser = cIdx === picked;
-                        return (
-                          <li
-                            key={cIdx}
-                            className={`${isAns ? 'is-ans' : ''} ${isUser && !isAns ? 'is-user-wrong' : ''}`}
-                          >
-                            <strong>
-                              {cIdx + 1}. {cText}
-                            </strong>
-                            <span> — {item.distractorReasons?.[cIdx]}</span>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </article>
-                );
-              })}
+          {/* 4択問題の正誤クイックジャンプ帯（○ / × / − を押してその設問へ移動） */}
+          {allScopedChoiceEntries.length > 0 && (
+            <div className="em-result-marks-wrap">
+              <ol className="em-result-marks-grid" aria-label="設問ごとの正誤（押すと解説へ移動）">
+                {allScopedChoiceEntries.map(({ item, qNo }) => {
+                  const picked = answers[item.id];
+                  const state = !Number.isInteger(picked)
+                    ? 'blank'
+                    : picked === item.answer
+                    ? 'correct'
+                    : 'wrong';
+                  return (
+                    <li key={item.id}>
+                      <button
+                        type="button"
+                        className="em-result-mark-cell"
+                        data-result={state}
+                        onClick={() => jumpToReviewCard(item.id)}
+                        title={`問${qNo}（${
+                          state === 'correct' ? '正解' : state === 'wrong' ? '不正解' : '未解答'
+                        }）へ移動`}
+                      >
+                        <span className="em-rm-no">{qNo}</span>
+                        <span className="em-rm-sym" aria-hidden="true">
+                          {state === 'correct' ? '○' : state === 'wrong' ? '×' : '−'}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ol>
             </div>
           )}
         </section>
-      )}
+
+        {/* Writing Self-Review Section */}
+        {writingReviewItems.length > 0 && (
+          <section className="em-writing-review-section" aria-label="ライティング振り返り">
+            <h2 className="em-sub-heading">
+              <Sparkles size={18} aria-hidden="true" />
+              <span>ライティング 自己点検・模範解答</span>
+            </h2>
+            {writingReviewItems.map(item => {
+              const entry = writing[item.id] ?? { text: '', checked: [] };
+              const words = countEnglishWords(entry.text);
+              return (
+                <article key={item.id} className="em-writing-review-card">
+                  <div className="em-wr-head">
+                    <strong>{SECTION_LABELS[item.section]}</strong>
+                    <span>
+                      あなたの語数：{words}語（目安 {item.wordRange?.[0]}〜{item.wordRange?.[1]}語）
+                    </span>
+                  </div>
+                  <p className="em-wr-prompt">{item.prompt}</p>
+                  {item.passage && (
+                    <details className="em-wr-source">
+                      <summary>
+                        <BookOpen size={14} aria-hidden="true" />
+                        <span>課題の英文・和訳を確認する</span>
+                      </summary>
+                      <p className="em-wr-en" lang="en">
+                        {item.passage.text.replace(/__/g, '')}
+                      </p>
+                      {item.passage.translation && <p className="em-wr-ja">{item.passage.translation}</p>}
+                    </details>
+                  )}
+                  <div className="em-wr-columns">
+                    <div className="em-wr-col">
+                      <h3>あなたの解答</h3>
+                      <p className="em-wr-user">{entry.text.trim() || '（未入力）'}</p>
+                      <div className="em-wr-rubric">
+                        {(item.rubric ?? []).map((criterion, cIdx) => {
+                          const checked = entry.checked.includes(cIdx);
+                          return (
+                            <label key={cIdx} className="em-rubric-item">
+                              <input
+                                type="checkbox"
+                                checked={checked}
+                                onChange={e => {
+                                  const nextChecked = e.target.checked
+                                    ? [...entry.checked, cIdx]
+                                    : entry.checked.filter(n => n !== cIdx);
+                                  const nextWriting = {
+                                    ...writing,
+                                    [item.id]: { ...entry, checked: nextChecked },
+                                  };
+                                  setWriting(nextWriting);
+                                  syncSubmittedMockToStudyLedger(uid, activeExam, answers, nextWriting, scopeSection);
+                                }}
+                              />
+                              <span>{criterion}</span>
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <div className="em-wr-col is-model">
+                      <h3>模範解答（{countEnglishWords(item.model!)}語）</h3>
+                      <p className="em-wr-model" lang="en">
+                        {item.model}
+                      </p>
+                      {item.translation && <p className="em-wr-ja">{item.translation}</p>}
+                      {item.explanation && <p className="em-wr-exp">{item.explanation}</p>}
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </section>
+        )}
+
+        {/* Choice Questions Review */}
+        {summary.total > 0 && (
+          <section className="em-choice-review-section" aria-label="4択問題の答え合わせ">
+            <div className="em-review-toolbar">
+              <h2 className="em-sub-heading">
+                <CheckCircle2 size={18} aria-hidden="true" />
+                <span>4択問題の答え合わせ・解説</span>
+              </h2>
+              <div className="em-filter-pills" role="tablist" aria-label="表示フィルタ">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={resultFilter === 'all'}
+                  className={resultFilter === 'all' ? 'is-active' : ''}
+                  onClick={() => setResultFilter('all')}
+                >
+                  全問 ({summary.total})
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={resultFilter === 'wrong'}
+                  className={resultFilter === 'wrong' ? 'is-active' : ''}
+                  onClick={() => setResultFilter('wrong')}
+                >
+                  誤答・未解答 ({summary.total - summary.correct})
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={resultFilter === 'flagged'}
+                  className={resultFilter === 'flagged' ? 'is-active' : ''}
+                  onClick={() => setResultFilter('flagged')}
+                >
+                  見直し ({flags.length})
+                </button>
+              </div>
+            </div>
+
+            {choiceReviewItems.length === 0 ? (
+              <p className="em-empty-review">該当する問題はありません。素晴らしい結果です！</p>
+            ) : (
+              <div className="em-review-list">
+                {choiceReviewItems.map(({ item, qNo }) => {
+                  const picked = answers[item.id];
+                  const hasPicked = Number.isInteger(picked);
+                  const isCorrect = picked === item.answer;
+                  const correctWord = item.choices?.[item.answer!] ?? '';
+                  const pickedWord = hasPicked ? item.choices?.[picked!] ?? '' : '';
+                  const singleCol = (item.choices ?? []).some(c => c.length > 22);
+                  const autoCompleted =
+                    item.completedSentence ||
+                    (/\(\s*_{0,6}\s*\)/.test(item.prompt)
+                      ? item.prompt.replace(/\(\s*_{0,6}\s*\)/, correctWord)
+                      : '');
+
+                  return (
+                    <article
+                      key={item.id}
+                      id={`em-rev-${item.id}`}
+                      className={`em-review-card ${isCorrect ? 'is-correct' : 'is-wrong'}`}
+                    >
+                      <div className="em-rev-head">
+                        <span className={`em-rev-badge ${isCorrect ? 'is-correct' : 'is-wrong'}`}>
+                          {isCorrect ? (
+                            <CheckCircle2 size={14} aria-hidden="true" />
+                          ) : hasPicked ? (
+                            <XCircle size={14} aria-hidden="true" />
+                          ) : (
+                            <MinusCircle size={14} aria-hidden="true" />
+                          )}
+                          <span>{isCorrect ? '正解' : hasPicked ? '不正解' : '未解答'}</span>
+                        </span>
+                        <strong className="em-rev-qno">問 {qNo}</strong>
+                        <span className="em-rev-sec">{SECTION_LABELS[item.section]}</span>
+
+                        <button
+                          type="button"
+                          className="em-rev-save-btn"
+                          data-saved={savedNotes[item.id] || undefined}
+                          disabled={Boolean(savedNotes[item.id])}
+                          onClick={() => handleSaveMockItemNote(activeExam, item, qNo)}
+                        >
+                          {savedNotes[item.id] ? (
+                            <BookmarkCheck size={14} aria-hidden="true" />
+                          ) : (
+                            <Bookmark size={14} aria-hidden="true" />
+                          )}
+                          <span>{savedNotes[item.id] ? '保存済み' : 'ノートに保存'}</span>
+                        </button>
+                      </div>
+
+                      {item.passage && (
+                        <details className="em-wr-source">
+                          <summary>
+                            <BookOpen size={14} aria-hidden="true" />
+                            <span>本文・和訳を開く（{item.passage.title}）</span>
+                          </summary>
+                          <p className="em-wr-en" lang="en">
+                            {item.passage.text}
+                          </p>
+                          {item.passage.translation && <p className="em-wr-ja">{item.passage.translation}</p>}
+                        </details>
+                      )}
+
+                      <p className="em-rev-prompt" lang="en">
+                        <PromptWithInlineBlank
+                          prompt={item.prompt}
+                          filled={hasPicked ? pickedWord : correctWord}
+                          tone={isCorrect || !hasPicked ? 'right' : 'wrong'}
+                        />
+                      </p>
+
+                      {item.orderTokens && (
+                        <div className="em-order-tokens" aria-label="並べ替え語群">
+                          {item.orderTokens.map((tok, tIdx) => (
+                            <span key={tIdx} className="em-order-chip" lang="en">
+                              <strong>{tIdx + 1}.</strong> {tok}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* 選択肢カード（正解／あなたの誤答が一目でわかるバッジ付き） */}
+                      <div className={`em-rev-choice-cards ${singleCol ? 'is-single' : ''}`}>
+                        {item.choices!.map((cText, cIdx) => {
+                          const isAns = cIdx === item.answer;
+                          const isUser = cIdx === picked;
+                          const tone = isAns ? 'right' : isUser ? 'wrong' : undefined;
+                          return (
+                            <div key={cIdx} className="em-rev-choice-box" data-result={tone}>
+                              <span className="em-rev-bubble">{cIdx + 1}</span>
+                              <span className="em-rev-choice-label" lang="en">
+                                {cText}
+                              </span>
+                              {(isAns || isUser) && (
+                                <span className="em-rev-pill-badge" data-tone={isAns ? 'right' : 'wrong'}>
+                                  {isAns && isUser ? 'あなた・正解' : isAns ? '正解' : 'あなた'}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* 構造化解説パネル（完成文・正解の根拠・各選択肢の理由・和訳） */}
+                      <div className="em-rev-ex-box">
+                        {autoCompleted && (!isCorrect || Boolean(item.completedSentence)) && (
+                          <div className="em-rev-recap" lang="en">
+                            <span className="em-rev-lbl" data-role="recap" lang="ja">
+                              完成文
+                            </span>
+                            <span>{autoCompleted.replace(/\n+/g, '  ')}</span>
+                          </div>
+                        )}
+
+                        {item.explanation && (
+                          <div className="em-rev-key">
+                            <span className="em-rev-lbl" data-role="key">
+                              <KeyRound size={12} aria-hidden="true" />
+                              <span>正解の理由・根拠</span>
+                            </span>
+                            <p>{item.explanation}</p>
+                          </div>
+                        )}
+
+                        <div className="em-rev-reasons">
+                          <span className="em-rev-lbl" data-role="choices">
+                            <ListChecks size={12} aria-hidden="true" />
+                            <span>選択肢の確認</span>
+                          </span>
+                          <ul className="em-rev-choices">
+                            {item.choices!.map((cText, cIdx) => {
+                              const isAns = cIdx === item.answer;
+                              const isUser = cIdx === picked;
+                              return (
+                                <li
+                                  key={cIdx}
+                                  className={`${isAns ? 'is-ans' : ''} ${isUser && !isAns ? 'is-user-wrong' : ''}`}
+                                >
+                                  <span className="em-rev-mark" aria-hidden="true">
+                                    {isAns ? '○' : '×'}
+                                  </span>
+                                  <span>
+                                    <strong lang="en">
+                                      {cIdx + 1}. {cText}
+                                    </strong>
+                                    {item.distractorReasons?.[cIdx] ? ` — ${item.distractorReasons[cIdx]}` : ''}
+                                  </span>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+
+                        {item.translation && (
+                          <div className="em-rev-tr">
+                            <span className="em-rev-lbl" data-role="tr">
+                              <Languages size={12} aria-hidden="true" />
+                              <span>和訳</span>
+                            </span>
+                            <p className="em-rev-ja">{item.translation}</p>
+                          </div>
+                        )}
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            )}
+          </section>
+        )}
+      </div>
     </main>
   );
 }

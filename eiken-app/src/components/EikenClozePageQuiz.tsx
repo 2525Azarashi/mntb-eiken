@@ -3,8 +3,10 @@
  *
  * TOEIC Part 5（ToeicPageQuiz）と同じ見やすさ・操作感で、
  *   ・1ページ最大5問を PC 2列カード（1,2,3 が左列・4,5 が右列）／スマホ1列で一覧表示
+ *   ・対話形式（`A: ... / B: ...`）は話者ピル付きターン表示で視認性を向上
  *   ・各カードの空所 `(     )` は下線枠で描き、選んだ語句が空所にプレビュー表示される
- *   ・下部「このページを採点する」でページの5問を一括採点し、正誤一覧・解説を表示
+ *   ・下部「このページを採点する」でページの5問を一括採点し、正誤一覧・完成文再掲・解説を表示
+ *   ・採点後は「全問／誤答・未回答のみ」フィルタ・一括解説開閉・ノート保存に対応
  *   ・最後のページを採点後「結果を見る」で既存の Explanation 結果画面へ進む
  *
  * 既存の進捗台帳・復習リスト・学習記録・XP/マナコイン・ステージ達成記録と完全互換。
@@ -13,6 +15,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useMountEffect } from '../hooks/useMountEffect';
 import {
   ArrowLeft,
+  BookOpen,
   Bookmark,
   BookmarkCheck,
   Check,
@@ -29,6 +32,7 @@ import {
   XCircle,
 } from 'lucide-react';
 import type { Chapter, Problem, SubQuestion } from '../types/curriculum';
+import { subjectTheme } from '../data/subjectTheme';
 import { calcMaxCombo, comboMultiplier, scoreProblem, type ScoreBreakdown } from '../utils/scoring';
 import { auth } from '../firebase';
 import { notify } from '../utils/dialog';
@@ -54,9 +58,11 @@ import { logRejection } from '../utils/reportError';
 import {
   buildEikenClozePages,
   EIKEN_CLOZE_PER_PAGE,
+  extractEikenGradeFromChapterId,
   pageFromProblemIndex,
   parseEikenClozeExplanation,
   prefersSingleColumnChoices,
+  splitEikenDialogueTurns,
   type EikenClozeEntry,
 } from './eikenClozePageModel';
 import './eiken-cloze-page.css';
@@ -89,25 +95,25 @@ function fmtClock(sec: number): string {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 }
 
-/** 英文中の `(     )` / `( ___ )` を下線空所ボックスに変換して描画 */
-function EikenStemWithBlank({
-  stem,
+/** 1行（または1文）中の `(     )` / `( ___ )` を下線空所ボックスに変換して描画 */
+function InlineBlankLine({
+  line,
   filled,
   result,
 }: {
-  stem: string;
+  line: string;
   filled: string;
   result?: 'right' | 'wrong';
 }) {
-  const match = stem.match(/\(\s*_{0,6}\s*\)/);
+  const match = line.match(/\(\s*_{0,6}\s*\)/);
   if (!match || match.index === undefined) {
-    return <span>{formatText(stem, [], { prose: true, noMath: true })}</span>;
+    return <span>{formatText(line, [], { prose: true, noMath: true })}</span>;
   }
-  const before = stem.slice(0, match.index);
-  const after = stem.slice(match.index + match[0].length);
+  const before = line.slice(0, match.index);
+  const after = line.slice(match.index + match[0].length);
   return (
     <>
-      <span>{formatText(before, [], { prose: true, noMath: true })}</span>
+      {before && <span>{formatText(before, [], { prose: true, noMath: true })}</span>}
       <span
         className="ecp-blank"
         data-filled={filled ? true : undefined}
@@ -116,8 +122,78 @@ function EikenStemWithBlank({
       >
         {filled ? formatText(filled, [], { prose: true, noMath: true }) : <span className="ecp-sr">空所</span>}
       </span>
-      <span>{formatText(after, [], { prose: true, noMath: true })}</span>
+      {after && <span>{formatText(after, [], { prose: true, noMath: true })}</span>}
     </>
+  );
+}
+
+/**
+ * 問題文の描画。`A: ...\nB: ...` 形式の対話は話者ピル付きの会話ターンとして整形し、
+ * 通常の1文は問番号バッジ＋インライン英文として描画する。
+ */
+function EikenQuestionStem({
+  displayNo,
+  stem,
+  filled,
+  result,
+  unansweredTag,
+  labelId,
+}: {
+  displayNo: number;
+  stem: string;
+  filled: string;
+  result?: 'right' | 'wrong';
+  unansweredTag?: boolean;
+  labelId: string;
+}) {
+  const turns = splitEikenDialogueTurns(stem);
+  if (turns) {
+    return (
+      <div className="ecp-dialogue-wrap" id={labelId}>
+        <div className="ecp-dialogue-head">
+          <span className="ecp-no" aria-hidden="true">
+            {displayNo}
+          </span>
+          <span className="ecp-sr">問{displayNo}　</span>
+          <span className="ecp-dialogue-kicker">対話の空所補充</span>
+          {unansweredTag && (
+            <span className="ecp-tag" data-eiken-unanswered>
+              未回答
+            </span>
+          )}
+        </div>
+        <div className="ecp-dialogue-turns">
+          {turns.map((turn, tIdx) => (
+            <div key={tIdx} className="ecp-turn" data-speaker={turn.speaker}>
+              <span className="ecp-speaker-pill" data-speaker={turn.speaker} aria-hidden="true">
+                {turn.speaker}
+              </span>
+              <span className="ecp-sr">{turn.speaker}: </span>
+              <p className="ecp-turn-text" lang="en">
+                <InlineBlankLine line={turn.text} filled={filled} result={result} />
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <p className="ecp-sentence" id={labelId}>
+      <span className="ecp-no" aria-hidden="true">
+        {displayNo}
+      </span>
+      <span className="ecp-sr">問{displayNo}　</span>
+      <span lang="en">
+        <InlineBlankLine line={stem} filled={filled} result={result} />
+      </span>
+      {unansweredTag && (
+        <span className="ecp-tag" data-eiken-unanswered>
+          未回答
+        </span>
+      )}
+    </p>
   );
 }
 
@@ -133,6 +209,9 @@ export function EikenClozePageQuiz({
   questionRange,
 }: EikenClozePageQuizProps) {
   const questions: Problem[] = mode === 'mini_test' ? chapter.miniTest || [] : chapter.practiceProblems || [];
+  const gradeId = useMemo(() => extractEikenGradeFromChapterId(chapter.id), [chapter.id]);
+  const theme = subjectTheme(gradeId);
+
   const [run, setRun] = useState<ChapterRunState>(() => loadRun(chapter.id, mode));
   const [answers, setAnswers] = useState<Record<string, string>>(() =>
     parseStoredStringRecord(safeGetItem(quizAnswersKey(chapter.id, mode))),
@@ -173,8 +252,16 @@ export function EikenClozePageQuiz({
   const isLastPage = safePage >= pages.length - 1;
 
   const answeredCount = allEntries.filter(e => Boolean(answers[e.sq.id])).length;
-  const unansweredOnPage = page.filter(e => !answers[e.sq.id]).length;
+  const unansweredEntriesOnPage = page.filter(e => !answers[e.sq.id]);
+  const unansweredOnPage = unansweredEntriesOnPage.length;
   const pageCorrect = page.filter(e => isAnswerCorrect(e.sq, answers[e.sq.id] || '')).length;
+  const pageWrongOrBlank = page.length - pageCorrect;
+
+  // 採点後の表示フィルタ（ページ切替時は全問表示に戻す）
+  const [scoredFilter, setScoredFilter] = useState<'all' | 'wrong'>('all');
+  useEffect(() => {
+    setScoredFilter('all');
+  }, [safePage]);
 
   // 1問あたり40秒を目安として章全体の目安時間を算出（例：17問 → 約11分20秒、15問 → 10分）
   const totalLimitSec = Math.max(60, allEntries.length * 40);
@@ -221,7 +308,7 @@ export function EikenClozePageQuiz({
   const [showFx, setShowFx] = useState(false);
   useEffect(() => {
     if (!showFx) return undefined;
-    const t = window.setTimeout(() => setShowFx(false), 3500);
+    const t = window.setTimeout(() => setShowFx(false), 3200);
     return () => window.clearTimeout(t);
   }, [showFx]);
 
@@ -326,7 +413,6 @@ export function EikenClozePageQuiz({
       pageCorrectCount += bd.correctCount;
       pageJudgeableCount += bd.judgeableCount;
 
-      // 1問ごとに solvedMap・成長・復習リスト・学習ログを記録（既存の Problem 単位キーと完全一致）
       try {
         markProblemSolved(uid, chapter.id, problem.id, boosted);
         if (uid && boosted >= 1) {
@@ -352,8 +438,8 @@ export function EikenClozePageQuiz({
             chapterTitle: chapter.title,
             questionIndex: problemIndex + 1,
             questionId: problem.id,
-            subQuestionId: sq.id,
             subLabel: sq.label,
+            subQuestionId: sq.id,
             questionText: problem.text,
             correctAnswer: sq.correctAnswer,
             wrongAnswer: (answers[sq.id] || '').trim(),
@@ -426,8 +512,10 @@ export function EikenClozePageQuiz({
       });
     }
 
-    setScoreFx({ breakdown: displayBd, totalScore: pageAddedScore });
-    setShowFx(true);
+    if (pageAddedScore > 0) {
+      setScoreFx({ breakdown: displayBd, totalScore: pageAddedScore });
+      setShowFx(true);
+    }
     scrollTop();
   };
 
@@ -486,12 +574,37 @@ export function EikenClozePageQuiz({
   };
 
   const jumpToQuestion = (sqId: string) => {
+    if (pageScored && scoredFilter === 'wrong') {
+      const targetEntry = page.find(e => e.sq.id === sqId);
+      if (targetEntry && isAnswerCorrect(targetEntry.sq, answers[sqId] || '')) {
+        setScoredFilter('all');
+        window.requestAnimationFrame(() => {
+          const el = document.getElementById(`ecp-item-${sqId}`);
+          el?.scrollIntoView({ block: 'start', behavior: 'auto' });
+          groupRefs.current[sqId]?.focus({ preventScroll: true });
+        });
+        return;
+      }
+    }
     const el = document.getElementById(`ecp-item-${sqId}`);
     el?.scrollIntoView({
       block: 'start',
       behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
     });
     groupRefs.current[sqId]?.focus({ preventScroll: true });
+  };
+
+  const jumpToFirstUnanswered = () => {
+    const first = unansweredEntriesOnPage[0];
+    if (first) jumpToQuestion(first.sq.id);
+  };
+
+  const toggleAllExplanations = (nextOpen: boolean) => {
+    const patch: Record<string, boolean> = {};
+    for (const entry of page) {
+      patch[entry.sq.id] = nextOpen;
+    }
+    setOpenEx(prev => ({ ...prev, ...patch }));
   };
 
   const onGroupKeyDown = (e: React.KeyboardEvent<HTMLDivElement>, sq: SubQuestion, idx: number) => {
@@ -509,6 +622,9 @@ export function EikenClozePageQuiz({
         e.preventDefault();
         groupRefs.current[target.sq.id]?.focus();
       }
+    } else if (e.key === 'Enter' && !pageScored && unansweredOnPage === 0) {
+      e.preventDefault();
+      scoreCurrentPage();
     }
   };
 
@@ -531,8 +647,32 @@ export function EikenClozePageQuiz({
     ? `${chapter.realTitle.replace(/^大問\d+\s*/, '')}｜${chapter.abstractTitle}`
     : chapter.abstractTitle;
 
+  const visibleEntries =
+    pageScored && scoredFilter === 'wrong'
+      ? page.filter(e => !isAnswerCorrect(e.sq, answers[e.sq.id] || ''))
+      : page;
+
+  const allExOpen =
+    visibleEntries.length > 0 &&
+    visibleEntries.every(e => {
+      const ok = isAnswerCorrect(e.sq, answers[e.sq.id] || '');
+      return openEx[e.sq.id] ?? !ok;
+    });
+
   return (
-    <div className="ecp-root" data-eiken-cloze-quiz>
+    <div
+      className="ecp-root"
+      data-eiken-cloze-quiz
+      style={theme.accent ? ({ '--ecp-accent': theme.accent } as React.CSSProperties) : undefined}
+    >
+      {scoreFx && (
+        <FloatingScoreAnimation
+          breakdown={scoreFx.breakdown}
+          totalScore={scoreFx.totalScore}
+          isVisible={showFx}
+        />
+      )}
+
       {onReturnToBattle && (
         <button type="button" onClick={onReturnToBattle} className="ecp-battle-return">
           バトル結果・解説に戻る
@@ -596,17 +736,23 @@ export function EikenClozePageQuiz({
 
           {pages.length > 1 && (
             <ol className="ecp-page-pills" aria-label={`${pages.length}ページ中${safePage + 1}ページ目`}>
-              {pages.map((_, idx) => {
+              {pages.map((pItems, idx) => {
                 const done = isPageScored(idx);
                 const current = idx === safePage;
+                const partial = !done && !current && pItems.some(e => Boolean(answers[e.sq.id]));
+                const rangeText =
+                  pItems.length > 0
+                    ? `問${pItems[0].displayNo}〜${pItems[pItems.length - 1].displayNo}`
+                    : `ページ${idx + 1}`;
                 return (
                   <li key={idx}>
                     <button
                       type="button"
                       className="ecp-page-pill"
-                      data-progress={current ? 'current' : done ? 'done' : 'future'}
+                      data-progress={current ? 'current' : done ? 'done' : partial ? 'partial' : 'future'}
                       aria-current={current ? 'step' : undefined}
-                      aria-label={`ページ${idx + 1}${done ? '（採点済み）' : current ? '（現在）' : ''}`}
+                      aria-label={`ページ${idx + 1}（${rangeText}）${done ? ' 採点済み' : current ? ' 現在' : ''}`}
+                      title={`ページ${idx + 1}（${rangeText}）`}
                       onClick={() => goPage(idx)}
                     >
                       {done && !current ? '✓' : idx + 1}
@@ -631,12 +777,45 @@ export function EikenClozePageQuiz({
             data-eiken-page-result
             data-perfect={pageCorrect === page.length || undefined}
           >
-            <p className="ecp-result-score" role="status">
-              <CheckCircle2 size={20} aria-hidden="true" />
-              <span>このページ</span>
-              <b>{pageCorrect}</b>
-              <span>/{page.length}問正解</span>
-            </p>
+            <div className="ecp-result-top">
+              <p className="ecp-result-score" role="status">
+                <CheckCircle2 size={20} aria-hidden="true" />
+                <span>このページ</span>
+                <b>{pageCorrect}</b>
+                <span>/{page.length}問正解</span>
+                {pageCorrect === page.length && <span className="ecp-perfect-pill">PERFECT!</span>}
+              </p>
+
+              <div className="ecp-result-tools">
+                {pageWrongOrBlank > 0 && (
+                  <div className="ecp-result-filter" role="group" aria-label="表示の絞り込み">
+                    <button
+                      type="button"
+                      className="ecp-tool-pill"
+                      data-active={scoredFilter === 'all' || undefined}
+                      onClick={() => setScoredFilter('all')}
+                    >
+                      全問 ({page.length})
+                    </button>
+                    <button
+                      type="button"
+                      className="ecp-tool-pill"
+                      data-active={scoredFilter === 'wrong' || undefined}
+                      onClick={() => setScoredFilter('wrong')}
+                    >
+                      誤答・未回答 ({pageWrongOrBlank})
+                    </button>
+                  </div>
+                )}
+                <button
+                  type="button"
+                  className="ecp-tool-pill is-ghost"
+                  onClick={() => toggleAllExplanations(!allExOpen)}
+                >
+                  {allExOpen ? '解説をすべて閉じる' : '解説をすべて開く'}
+                </button>
+              </div>
+            </div>
 
             <ol
               className="ecp-result-marks"
@@ -657,7 +836,7 @@ export function EikenClozePageQuiz({
                         st === 'correct' ? '正解' : st === 'wrong' ? '不正解' : '未回答'
                       }`}
                     >
-                      <span className="ecp-result-no">{entry.displayNo}</span>
+                      <span className="ecp-result-no">問{entry.displayNo}</span>
                       <span className="ecp-result-sym" aria-hidden="true">
                         {st === 'correct' ? '○' : st === 'wrong' ? '×' : '−'}
                       </span>
@@ -672,9 +851,9 @@ export function EikenClozePageQuiz({
         <div
           className={`ecp-list${pageScored ? ' is-scored' : ''}`}
           data-eiken-cloze-page={safePage + 1}
-          data-page-count={page.length}
+          data-page-count={visibleEntries.length}
         >
-          {page.map((entry, idx) => {
+          {visibleEntries.map((entry, idx) => {
             const { problem, sq, displayNo } = entry;
             const chosen = answers[sq.id] || '';
             const texts = sq.optionTexts || [];
@@ -704,22 +883,14 @@ export function EikenClozePageQuiz({
                 data-status={status}
                 data-eiken-question={displayNo}
               >
-                <p className="ecp-sentence" id={labelId}>
-                  <span className="ecp-no" aria-hidden="true">
-                    {displayNo}
-                  </span>
-                  <span className="ecp-sr">問{displayNo}　</span>
-                  <EikenStemWithBlank
-                    stem={problem.text}
-                    filled={filled}
-                    result={pageScored && chosen ? (ok ? 'right' : 'wrong') : undefined}
-                  />
-                  {(status === 'unanswered' || status === 'blank') && (
-                    <span className="ecp-tag" data-eiken-unanswered>
-                      未回答
-                    </span>
-                  )}
-                </p>
+                <EikenQuestionStem
+                  displayNo={displayNo}
+                  stem={problem.text}
+                  filled={filled}
+                  result={pageScored && chosen ? (ok ? 'right' : 'wrong') : undefined}
+                  unansweredTag={status === 'unanswered' || status === 'blank'}
+                  labelId={labelId}
+                />
 
                 <div
                   role="radiogroup"
@@ -762,7 +933,7 @@ export function EikenClozePageQuiz({
                           {mark}
                         </span>
                         <span className="ecp-choice-body" aria-hidden="true">
-                          <span className="ecp-choice-text">
+                          <span className="ecp-choice-text" lang="en">
                             {formatText(text, [], { prose: true, noMath: true })}
                           </span>
                         </span>
@@ -798,10 +969,12 @@ export function EikenClozePageQuiz({
                           {status === 'correct'
                             ? '正解'
                             : status === 'wrong'
-                            ? `不正解（正解は ${sq.correctAnswer}）`
-                            : `未回答（正解は ${sq.correctAnswer}）`}
+                            ? `不正解（正解は ${sq.correctAnswer}. ${ex.correctWord}）`
+                            : `未回答（正解は ${sq.correctAnswer}. ${ex.correctWord}）`}
                         </span>
                       </p>
+
+                      {sq.skill && <span className="ecp-skill-chip">{sq.skill}</span>}
 
                       <button
                         type="button"
@@ -830,10 +1003,27 @@ export function EikenClozePageQuiz({
                       }}
                     >
                       <summary>
+                        <BookOpen size={15} aria-hidden="true" />
                         <span>解説</span>
                         <ChevronDown size={17} className="ecp-ex-chev" aria-hidden="true" />
                       </summary>
                       <div className="ecp-ex-body">
+                        {/* 不正解・未回答時でも完成文をひと目で読めるよう正解語入り英文を再掲（TOEIC .tp-ex-recap 準拠） */}
+                        {ex.correctWord && (
+                          <div className="ecp-ex-recap" lang="en">
+                            <span className="ecp-recap-kicker" lang="ja">
+                              完成文
+                            </span>
+                            <p className="ecp-recap-text">
+                              <InlineBlankLine
+                                line={ex.stem.replace(/\n+/g, '  ')}
+                                filled={ex.correctWord}
+                                result="right"
+                              />
+                            </p>
+                          </div>
+                        )}
+
                         {ex.why && (
                           <section className="ecp-sec ecp-sec-key">
                             <h4 className="ecp-lbl" data-role="key">
@@ -885,7 +1075,7 @@ export function EikenClozePageQuiz({
         </div>
       </div>
 
-      {/* 下部固定フッター（「前のページ」・未回答数・「このページを採点する」） */}
+      {/* 下部固定フッター（「前のページ」・未回答ジャンプピル・「このページを採点する」） */}
       <footer className="ecp-foot">
         <button
           type="button"
@@ -897,15 +1087,28 @@ export function EikenClozePageQuiz({
           <span>前のページ</span>
         </button>
 
-        {!pageScored && (
-          <span className="ecp-unanswered" aria-live="polite" data-eiken-unanswered-count>
-            {unansweredOnPage > 0 ? `未回答 ${unansweredOnPage}問` : 'すべて回答済み'}
-          </span>
-        )}
+        {!pageScored &&
+          (unansweredOnPage > 0 ? (
+            <button
+              type="button"
+              className="ecp-unanswered ecp-unanswered-btn"
+              onClick={jumpToFirstUnanswered}
+              title="最初の未回答問題へ移動"
+              data-eiken-unanswered-count
+            >
+              未回答 {unansweredOnPage}問
+            </button>
+          ) : (
+            <span className="ecp-unanswered is-complete" aria-live="polite" data-eiken-unanswered-count>
+              <Check size={14} strokeWidth={3} aria-hidden="true" />
+              <span>すべて回答済み</span>
+            </span>
+          ))}
 
         <button
           type="button"
           className="ecp-btn ecp-btn-main"
+          data-ready={!pageScored && unansweredOnPage === 0 ? true : undefined}
           onClick={handleForward}
           data-eiken-cloze-forward
         >
@@ -913,14 +1116,6 @@ export function EikenClozePageQuiz({
           <ChevronRight size={18} aria-hidden="true" />
         </button>
       </footer>
-
-      {scoreFx && (
-        <FloatingScoreAnimation
-          breakdown={scoreFx.breakdown}
-          totalScore={scoreFx.totalScore}
-          isVisible={showFx}
-        />
-      )}
     </div>
   );
 }
