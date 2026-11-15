@@ -81,5 +81,5 @@ export const WRITTEN_5_R9 = readingRound('eiken_5', [
   reorder('あのベンチの上に青い帽子があります。', 'There', ['is', 'that bench', 'on', 'a blue cap'], [1, 4, 3, 2], ['1－2', '1－3', '4－2', '4－3'], 1, 'There is＋a blue cap＋場所on that bench。'),
   reorder('あなたはどんな種類の音楽を聴きますか。', 'What', ['do you', 'of music', 'kind', 'listen to'], [3, 2, 1, 4], ['2－1', '2－4', '3－1', '3－4'], 2, 'What kind of music＋do you＋listen to? の語順。'),
   reorder('この川で泳いではいけません。', 'Do', ['in', 'not', 'this river', 'swim'], [2, 4, 1, 3], ['2－1', '2－3', '4－1', '4－3'], 0, '禁止の命令文Do not＋原形swim＋場所in this river。'),
-  reorder('あなたの姉はピアノとギターのどちらを弾きますか。', 'Which', ['the piano or the guitar', 'play,', 'your sister', 'does'], [4, 3, 2, 1], ['3－1', '3－2', '4－1', '4－2'], 3, 'Which＋does＋your sister＋play, the piano or the guitar? の語順。'),
+  reorder('あなたの姉は日曜日にギターを弾きますか。', 'Does', ['on Sundays', 'the guitar', 'play', 'your sister'], [4, 3, 2, 1], ['3－1', '3－2', '4－1', '4－2'], 3, 'Does＋主語（your sister）＋動詞の原形（play）＋目的語（the guitar）＋時（on Sundays）の語順。1番目は④your sister、3番目は②the guitar。'),
 ], 9, null);
