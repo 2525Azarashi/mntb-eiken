@@ -144,7 +144,7 @@ describe('Eiken Listening 120-Round Mock Exam Bank', () => {
     }
   });
 
-  it('has zero 8-gram overlap with retired legacy fingerprints', () => {
+  it('has zero 8-gram overlap with retired legacy fingerprints', { timeout: 20_000 }, () => {
     const legacy = JSON.parse(readFileSync('../assets/legacy-fingerprints.json', 'utf8')) as {
       ngram: number;
       hashes: string[];

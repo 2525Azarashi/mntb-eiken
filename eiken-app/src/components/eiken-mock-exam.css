@@ -1916,8 +1916,22 @@
     padding: 0 13px;
     font-size: 13.5px;
   }
-  .em-unit-counter {
-    font-size: 11.5px;
+  .em-runner-footer > .em-nav-btn:first-child span {
+    display: none;
+  }
+  .em-runner-footer > .em-nav-btn:first-child {
+    width: 44px;
+    min-height: 44px;
+    padding: 0;
+    justify-content: center;
+  }
+  .em-footer-status {
+    min-width: 0;
+  }
+  .em-unit-counter,
+  .em-unit-substatus {
+    font-size: 11px;
+    white-space: nowrap;
   }
 }
 
@@ -2128,5 +2142,459 @@
   gap: 8px;
   padding-top: 8px;
   border-top: 1px dashed #e2e8f0;
+}
+
+/* ============================================================
+   Phase 3 Micro-Detail Polish:
+   - Email Metadata Header & Paragraph Rhythm
+   - Choice Elimination Slash (消去法メモ)
+   - Interactive Reorder Sentence Builder (語句整序)
+   - Mobile Passage / Questions Split Bar & Zoom Lightbox
+   - Read-Aloud Audio & Key Vocabulary Chips
+   ============================================================ */
+
+.em-email-meta {
+  display: grid;
+  gap: 3px;
+  margin: 0 0 12px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: #f9f6ee;
+  border: 1px solid #e6dcc8;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.em-email-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.em-email-meta dt {
+  min-width: 58px;
+  font-weight: 800;
+  color: #54626f;
+}
+
+.em-email-meta dd {
+  margin: 0;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.em-passage-paras {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.em-passage-para {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* 冊子PDF別タブリンク */
+.em-round-pdf-link {
+  text-decoration: none;
+  color: #54626f;
+}
+
+.em-round-pdf-link:hover {
+  color: #1f5c53;
+  background: #eef8f6;
+}
+
+/* 消去法スラッシュ（除外メモ） */
+.em-choice-btn,
+.em-compact-choice {
+  user-select: none;
+}
+
+.em-choice-btn.is-eliminated,
+.em-compact-choice.is-eliminated {
+  background: #f6f4ef;
+  border-color: #dcd5c6;
+  border-style: dashed;
+}
+
+.em-choice-btn.is-eliminated .em-choice-no,
+.em-compact-choice.is-eliminated .em-compact-bubble {
+  border-color: #b4b9c2;
+  background: #ebe8e1;
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+.em-choice-btn.is-eliminated .em-choice-text,
+.em-compact-choice.is-eliminated .em-compact-choice-text {
+  color: #9ca3af;
+  text-decoration: line-through;
+  text-decoration-thickness: 1.8px;
+  text-decoration-color: #94a3b8;
+}
+
+.em-elim-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #b0b7c3;
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.12s ease, background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.em-elim-btn.is-compact {
+  width: 21px;
+  height: 21px;
+}
+
+.em-choice-btn:hover .em-elim-btn,
+.em-compact-choice:hover .em-elim-btn,
+.em-elim-btn:focus-visible {
+  opacity: 1;
+  color: #64748b;
+  background: #f1ede4;
+}
+
+.em-elim-btn[data-active] {
+  opacity: 1;
+  color: #991b1b;
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+/* 語句整序（reorder）インタラクティブ組み立てビルダー */
+.em-reorder-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #faf7f0;
+  border: 1px solid #e7decb;
+}
+
+.em-reorder-hint-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #54626f;
+}
+
+.em-reorder-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.em-reorder-mini-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid #d5ccb8;
+  background: #ffffff;
+  color: #374151;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.em-reorder-mini-btn:hover {
+  border-color: var(--unit-accent, #2f7c74);
+  color: #111827;
+}
+
+.em-order-chip.is-interactive {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  border: 1.5px solid #dcd3c0;
+  background: #ffffff;
+  transition: border-color 0.12s ease, background-color 0.12s ease, transform 0.08s ease;
+}
+
+.em-order-chip.is-interactive:hover {
+  border-color: var(--unit-accent, #2f7c74);
+  background: #f4fbf9;
+}
+
+.em-order-chip.is-interactive.is-used {
+  border-color: var(--unit-accent, #2f7c74);
+  background: color-mix(in srgb, var(--unit-accent, #2f7c74) 14%, #ffffff);
+  color: #133c36;
+}
+
+.em-order-pos {
+  font-style: normal;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--unit-accent, #2f7c74);
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+.em-reorder-slots {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding-top: 4px;
+  border-top: 1px dashed #e3dac8;
+}
+
+.em-reorder-prefix {
+  font-weight: 700;
+  color: #1f2937;
+  font-size: 14px;
+}
+
+.em-reorder-slot {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 2px 9px;
+  border-radius: 8px;
+  border: 1.5px dashed #cbd5e1;
+  background: #ffffff;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.em-reorder-slot.is-key {
+  border-color: #eab308;
+  background: #fefce8;
+}
+
+.em-reorder-slot.is-filled {
+  border-style: solid;
+  border-color: var(--unit-accent, #2f7c74);
+  background: #eef9f7;
+  color: #133c36;
+}
+
+.em-reorder-slot small {
+  font-size: 10.5px;
+  font-weight: 900;
+  color: #64748b;
+}
+
+.em-reorder-slot.is-key small {
+  color: #a16207;
+}
+
+.em-reorder-slot b {
+  font-weight: 800;
+  color: #0f3d3e;
+}
+
+/* モバイル用「本文 ⇄ 設問」スプリット切替バー（PCでは非表示） */
+.em-mobile-pane-bar {
+  display: none;
+}
+
+@media (max-width: 959px) {
+  .em-mobile-pane-bar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 8px 12px 0;
+    padding: 3px;
+    border-radius: 999px;
+    background: #efe8d8;
+    border: 1px solid #dfd3bd;
+  }
+
+  .em-mobile-pane-bar button {
+    flex: 1 1 0%;
+    min-height: 30px;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #54626f;
+    font-size: 11.5px;
+    font-weight: 800;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .em-mobile-pane-bar button.is-active {
+    background: #ffffff;
+    color: #1f4e47;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+  }
+
+  .em-workspace[data-mobile-pane='passage'] .em-questions-pane {
+    display: none;
+  }
+
+  .em-workspace[data-mobile-pane='questions'] .em-passage-pane {
+    display: none;
+  }
+}
+
+/* リスニング図版の拡大トリガー＆ライトボックス */
+.em-zoom-trigger {
+  position: relative;
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.em-zoom-chip {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.em-lightbox {
+  max-width: min(94vw, 720px);
+  max-height: 88dvh;
+  padding: 14px;
+  border-radius: 16px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.32);
+}
+
+.em-lightbox img {
+  max-width: 100%;
+  max-height: 74dvh;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* 採点結果の英文読み上げ＆重要語チェック */
+.em-rev-recap-text {
+  flex: 1;
+  min-width: 180px;
+}
+
+.em-rev-audio-btns {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.em-speak-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 26px;
+  padding: 0 9px;
+  border-radius: 999px;
+  border: 1px solid #a7d7c8;
+  background: #ffffff;
+  color: #165b4c;
+  font-size: 11.5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.em-speak-btn:hover {
+  background: #ecfdf5;
+}
+
+.em-speak-btn.is-slow {
+  padding: 0 7px;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+
+.em-speak-btn[data-speaking] {
+  background: #1f7a52;
+  border-color: #1f7a52;
+  color: #ffffff;
+}
+
+.em-rev-vocab {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 4px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.em-rev-lbl[data-role='vocab'] {
+  background: #3b6978;
+  color: #ffffff;
+}
+
+.em-vocab-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.em-vocab-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 27px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid #dce6ea;
+  background: #f8fbfc;
+  color: #1e293b;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.em-vocab-chip:hover {
+  border-color: #3e9c93;
+  background: #eef9f7;
+}
+
+.em-vocab-chip[data-speaking] {
+  border-color: #1f7a52;
+  background: #ecfdf5;
+}
+
+.em-vocab-chip strong {
+  font-weight: 800;
+  color: #0f3d3e;
+}
+
+.em-vocab-chip small {
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #e2eef2;
+  color: #3b6978;
+  font-size: 10px;
+  font-weight: 800;
 }
 

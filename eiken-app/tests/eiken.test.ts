@@ -36,6 +36,13 @@ import {
   parseEikenClozeExplanation,
   splitEikenDialogueTurns,
 } from '../src/components/eikenClozePageModel';
+import {
+  extractMatchedEikenVocab,
+  findMatchingReorderChoiceIndex,
+  parsePassageEmailAndParagraphs,
+  parseReorderChoicePair,
+  type EikenVocabEntry,
+} from '../src/components/eikenStudyHelpers';
 import { eikenStorage } from '../src/eiken/storage';
 import { doc, collection, collectionGroup } from '../src/utils/firestoreMetered';
 
@@ -411,5 +418,45 @@ describe('Release content completeness', () => {
     expect(mockHtml).toContain('eiken-round-card');
     expect(mockHtml).toContain('通しで解く');
     expect(mockHtml).not.toContain('模試をはじめる');
+    expect(mockHtml).toContain('一次筆記（105回）');
+    expect(mockHtml).toContain('リスニング（120回）');
+
+    // リスニングモード初期表示でも eiken-round-card と専用音源チップが正しく描画される
+    const listeningMockHtml = renderToStaticMarkup(
+      createElement(EikenMockExam, {
+        uid: 'guest',
+        grade: 'eiken_5',
+        initialExamKind: 'listening',
+        onGrade: () => {},
+        onBack: () => {},
+      }),
+    );
+    expect(listeningMockHtml).toContain('リスニング 通し演習');
+    expect(listeningMockHtml).toContain('eiken-round-card');
+
+    // Phase 3 学習支援ヘルパー（語句整序ペア抽出・Eメールヘッダー分離・重要語マッチング）の検証
+    expect(parseReorderChoicePair('2－4')).toEqual([2, 4]);
+    expect(parseReorderChoicePair('1 - 3')).toEqual([1, 3]);
+    expect(parseReorderChoicePair('invalid')).toBeNull();
+    expect(findMatchingReorderChoiceIndex([3, 1, 4, 2], ['1－3', '2－4', '3－4', '4－1'])).toBe(2);
+    expect(findMatchingReorderChoiceIndex([3, 1], ['1－3', '3－4'])).toBeNull();
+
+    const parsedEmail = parsePassageEmailAndParagraphs(
+      'From: Kenji Sato\nTo: Emily Clark\nDate: November 15\nSubject: Weekend Hike\n\nHi Emily,\n\nThank you for __inviting me to join__ the club.',
+    );
+    expect(parsedEmail.headers).toEqual([
+      { key: 'From', value: 'Kenji Sato' },
+      { key: 'To', value: 'Emily Clark' },
+      { key: 'Date', value: 'November 15' },
+      { key: 'Subject', value: 'Weekend Hike' },
+    ]);
+    expect(parsedEmail.paragraphs).toHaveLength(2);
+
+    const sampleVocab = new Map<string, EikenVocabEntry>([
+      ['preserve', { word: 'preserve', meaning: '保存する・守る', level: 'eiken_2' }],
+      ['library', { word: 'library', meaning: '図書館', level: 'eiken_5' }],
+    ]);
+    const hits = extractMatchedEikenVocab(sampleVocab, ['preserved', 'destroyed'], ['in the old libraries']);
+    expect(hits.map(h => h.word)).toEqual(['preserve', 'library']);
   });
 });
