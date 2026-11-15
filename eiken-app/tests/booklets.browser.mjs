@@ -134,14 +134,21 @@ for (const selected of targets) {
             await next.waitFor();
             await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
             for (const [index, item] of group.entries()) {
-              if (viewport.width < 768) {
-                const chip = page.getByRole('button', { name: /^問\d+ .*の解答・解説を(?:見る|閉じる)$/ }).nth(index);
-                await chip.waitFor();
-                if ((await chip.getAttribute('aria-pressed')) !== 'true') await chip.click();
+              const hasCompact = (await page.locator('[data-listening-explanation]').count()) > 0;
+              if (hasCompact) {
+                const foldBtn = page.locator('.lx-fold > button[aria-expanded]').nth(index);
+                await foldBtn.waitFor();
+                if ((await foldBtn.getAttribute('aria-expanded')) === 'false') await foldBtn.click();
+              } else {
+                if (viewport.width < 768) {
+                  const chip = page.getByRole('button', { name: /^問\d+ .*の解答・解説を(?:見る|閉じる)$/ }).nth(index);
+                  await chip.waitFor();
+                  if ((await chip.getAttribute('aria-pressed')) !== 'true') await chip.click();
+                }
+                const disclosure = page.getByRole('button', { name: '解説', exact: true }).nth(viewport.width < 768 ? 0 : index);
+                await disclosure.waitFor();
+                if ((await disclosure.getAttribute('aria-expanded')) === 'false') await disclosure.click();
               }
-              const disclosure = page.getByRole('button', { name: '解説', exact: true }).nth(viewport.width < 768 ? 0 : index);
-              await disclosure.waitFor();
-              if ((await disclosure.getAttribute('aria-expanded')) === 'false') await disclosure.click();
               await page.waitForFunction((text) => document.body.innerText.includes(text), item.explanation);
               checked++;
             }

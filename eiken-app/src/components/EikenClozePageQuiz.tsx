@@ -29,6 +29,10 @@ import {
   Languages,
   ListChecks,
   MinusCircle,
+  Slash,
+  Square,
+  Volume2,
+  X,
   XCircle,
 } from 'lucide-react';
 import type { Chapter, Problem, SubQuestion } from '../types/curriculum';
@@ -65,6 +69,14 @@ import {
   splitEikenDialogueTurns,
   type EikenClozeEntry,
 } from './eikenClozePageModel';
+import {
+  extractMatchedEikenVocab,
+  formatVocabGradeBadge,
+  isSpeechSupported,
+  speakEikenCompletedText,
+  stopSpeech,
+  useEikenVocabMap,
+} from './eikenStudyHelpers';
 import './eiken-cloze-page.css';
 
 export interface EikenClozePageQuizProps {
@@ -314,6 +326,17 @@ export function EikenClozePageQuiz({
 
   const [attempted, setAttempted] = useState<Record<number, boolean>>({});
   const [openEx, setOpenEx] = useState<Record<string, boolean>>({});
+  const [eliminated, setEliminated] = useState<Record<string, string[]>>({});
+  const [speakingKey, setSpeakingKey] = useState<string | null>(null);
+  const canSpeak = useMemo(() => isSpeechSupported(), []);
+  const vocabMap = useEikenVocabMap(pageScored);
+
+  useEffect(() => {
+    setSpeakingKey(null);
+    stopSpeech();
+    return () => stopSpeech();
+  }, [safePage, chapter.id]);
+
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const groupRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const scrollTop = () => scrollRef.current?.scrollTo({ top: 0 });
@@ -359,6 +382,44 @@ export function EikenClozePageQuiz({
       else next[sq.id] = mark;
       return next;
     });
+    // 選んだ肢に消去スラッシュが付いていたら自動で外す
+    setEliminated(prev => {
+      const cur = prev[sq.id];
+      if (!cur || !cur.includes(mark)) return prev;
+      return { ...prev, [sq.id]: cur.filter(m => m !== mark) };
+    });
+  };
+
+  const toggleEliminate = (sq: SubQuestion, mark: string) => {
+    if (pageScored) return;
+    setEliminated(prev => {
+      const cur = prev[sq.id] || [];
+      const exists = cur.includes(mark);
+      const nextMarks = exists ? cur.filter(m => m !== mark) : [...cur, mark];
+      return { ...prev, [sq.id]: nextMarks };
+    });
+    // 選択中だった肢を消去した場合は選択を解除する
+    setAnswers(prev => {
+      if (prev[sq.id] !== mark) return prev;
+      const next = { ...prev };
+      delete next[sq.id];
+      return next;
+    });
+  };
+
+  const handleToggleSpeak = (id: string, stem: string, word: string, completed: string, rate = 1) => {
+    const key = `${id}:${rate}`;
+    if (speakingKey === key) {
+      stopSpeech();
+      setSpeakingKey(null);
+      return;
+    }
+    setSpeakingKey(key);
+    const ok = speakEikenCompletedText(key, stem, word, completed, {
+      rate,
+      onEnd: () => setSpeakingKey(cur => (cur === key ? null : cur)),
+    });
+    if (!ok) setSpeakingKey(null);
   };
 
   const scoreCurrentPage = () => {
@@ -609,12 +670,14 @@ export function EikenClozePageQuiz({
 
   const onGroupKeyDown = (e: React.KeyboardEvent<HTMLDivElement>, sq: SubQuestion, idx: number) => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
-    const k = e.key.toLowerCase();
+    const digitFromCode = e.code.startsWith('Digit') ? e.code.slice(5) : '';
+    const k = (digitFromCode || e.key).toLowerCase();
     if (k in MARK_KEYS) {
       const mark = sq.options[MARK_KEYS[k]];
       if (mark) {
         e.preventDefault();
-        selectChoice(sq, mark);
+        if (e.shiftKey) toggleEliminate(sq, mark);
+        else selectChoice(sq, mark);
       }
     } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       const target = page[idx + (e.key === 'ArrowDown' ? 1 : -1)];
@@ -622,9 +685,20 @@ export function EikenClozePageQuiz({
         e.preventDefault();
         groupRefs.current[target.sq.id]?.focus();
       }
-    } else if (e.key === 'Enter' && !pageScored && unansweredOnPage === 0) {
+    } else if (e.key === 'ArrowLeft' && safePage > 0) {
       e.preventDefault();
-      scoreCurrentPage();
+      goPage(safePage - 1);
+    } else if (e.key === 'ArrowRight' && safePage < pages.length - 1) {
+      e.preventDefault();
+      goPage(safePage + 1);
+    } else if (e.key === 'Enter') {
+      if (!pageScored && unansweredOnPage === 0) {
+        e.preventDefault();
+        scoreCurrentPage();
+      } else if (pageScored) {
+        e.preventDefault();
+        handleForward();
+      }
     }
   };
 
@@ -763,6 +837,52 @@ export function EikenClozePageQuiz({
             </ol>
           )}
         </div>
+
+        {/* このページ内の5問クイックジャンプ＋消去法ワンポイント案内 */}
+        <div className="ecp-subbar-qstrip">
+          <ol className="ecp-q-dots" aria-label="このページの設問へ移動">
+            {page.map(entry => {
+              const chosen = answers[entry.sq.id] || '';
+              const elimCount = (eliminated[entry.sq.id] || []).length;
+              const qState = !pageScored
+                ? chosen
+                  ? 'answered'
+                  : elimCount > 0
+                  ? 'working'
+                  : 'todo'
+                : !chosen
+                ? 'blank'
+                : isAnswerCorrect(entry.sq, chosen)
+                ? 'correct'
+                : 'wrong';
+              return (
+                <li key={entry.sq.id}>
+                  <button
+                    type="button"
+                    className="ecp-q-dot"
+                    data-qstate={qState}
+                    onClick={() => jumpToQuestion(entry.sq.id)}
+                    title={`問${entry.displayNo}へ移動`}
+                  >
+                    <span>問{entry.displayNo}</span>
+                    {pageScored && (
+                      <em aria-hidden="true">
+                        {qState === 'correct' ? '○' : qState === 'wrong' ? '×' : '−'}
+                      </em>
+                    )}
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+          {!pageScored && (
+            <span className="ecp-elim-tip">
+              <Slash size={11} aria-hidden="true" />
+              <span>右クリック・×で選択肢を消去できます</span>
+            </span>
+          )}
+        </div>
+
         <div className="ecp-timer-track" aria-hidden="true">
           <div className="ecp-timer-fill" style={{ width: `${timerPct}%` }} />
         </div>
@@ -905,6 +1025,7 @@ export function EikenClozePageQuiz({
                 >
                   {sq.options.map((mark, i) => {
                     const checked = chosen === mark;
+                    const isEliminated = !pageScored && (eliminated[sq.id] || []).includes(mark);
                     const isRight = pageScored && mark === sq.correctAnswer;
                     const isWrongPick = pageScored && checked && !isRight;
                     const text = texts[i] ?? mark;
@@ -921,13 +1042,21 @@ export function EikenClozePageQuiz({
                             ? '（正解）'
                             : isWrongPick
                             ? '（あなたの答え）'
+                            : isEliminated
+                            ? '（消去メモ中）'
                             : ''
                         }`}
                         tabIndex={-1}
                         className="ecp-choice"
                         data-checked={checked || undefined}
+                        data-eliminated={isEliminated || undefined}
                         data-result={isRight ? 'right' : isWrongPick ? 'wrong' : undefined}
                         onClick={() => selectChoice(sq, mark)}
+                        onContextMenu={e => {
+                          if (pageScored) return;
+                          e.preventDefault();
+                          toggleEliminate(sq, mark);
+                        }}
                       >
                         <span className="ecp-bubble" aria-hidden="true">
                           {mark}
@@ -948,6 +1077,22 @@ export function EikenClozePageQuiz({
                         )}
                         {checked && !pageScored && (
                           <Check size={17} strokeWidth={3} className="ecp-choice-check" aria-hidden="true" />
+                        )}
+                        {!pageScored && !checked && (
+                          <button
+                            type="button"
+                            className="ecp-elim-btn"
+                            data-active={isEliminated || undefined}
+                            aria-label={`選択肢${mark}を${isEliminated ? '消去解除' : '消去する'}`}
+                            title={isEliminated ? '消去メモを解除' : 'この選択肢を消去（右クリックでも可）'}
+                            tabIndex={-1}
+                            onClick={e => {
+                              e.stopPropagation();
+                              toggleEliminate(sq, mark);
+                            }}
+                          >
+                            <X size={13} strokeWidth={2.5} aria-hidden="true" />
+                          </button>
                         )}
                       </div>
                     );
@@ -1008,7 +1153,7 @@ export function EikenClozePageQuiz({
                         <ChevronDown size={17} className="ecp-ex-chev" aria-hidden="true" />
                       </summary>
                       <div className="ecp-ex-body">
-                        {/* 不正解・未回答時でも完成文をひと目で読めるよう正解語入り英文を再掲（TOEIC .tp-ex-recap 準拠） */}
+                        {/* 不正解・未回答時でも完成文をひと目で読めるよう正解語入り英文を再掲＋音声読み上げ */}
                         {ex.correctWord && (
                           <div className="ecp-ex-recap" lang="en">
                             <span className="ecp-recap-kicker" lang="ja">
@@ -1021,6 +1166,37 @@ export function EikenClozePageQuiz({
                                 result="right"
                               />
                             </p>
+                            {canSpeak && (
+                              <div className="ecp-recap-audio" lang="ja">
+                                <button
+                                  type="button"
+                                  className="ecp-speak-btn"
+                                  data-speaking={speakingKey === `${sq.id}:1` || undefined}
+                                  onClick={() =>
+                                    handleToggleSpeak(sq.id, ex.stem, ex.correctWord, ex.completedSentence, 1)
+                                  }
+                                  title="完成文の英語音声を再生"
+                                >
+                                  {speakingKey === `${sq.id}:1` ? (
+                                    <Square size={11} aria-hidden="true" />
+                                  ) : (
+                                    <Volume2 size={13} aria-hidden="true" />
+                                  )}
+                                  <span>{speakingKey === `${sq.id}:1` ? '停止' : '英文を聞く'}</span>
+                                </button>
+                                <button
+                                  type="button"
+                                  className="ecp-speak-btn is-slow"
+                                  data-speaking={speakingKey === `${sq.id}:0.8` || undefined}
+                                  onClick={() =>
+                                    handleToggleSpeak(sq.id, ex.stem, ex.correctWord, ex.completedSentence, 0.8)
+                                  }
+                                  title="ゆっくり再生（0.8倍速）"
+                                >
+                                  <span>{speakingKey === `${sq.id}:0.8` ? '停止' : '0.8x'}</span>
+                                </button>
+                              </div>
+                            )}
                           </div>
                         )}
 
@@ -1065,6 +1241,49 @@ export function EikenClozePageQuiz({
                             <p>{ex.translation}</p>
                           </section>
                         )}
+
+                        {(() => {
+                          const vocabHits = extractMatchedEikenVocab(vocabMap, texts, [ex.stem], 4);
+                          if (vocabHits.length === 0) return null;
+                          return (
+                            <section className="ecp-sec ecp-sec-vocab">
+                              <h4 className="ecp-lbl" data-role="vocab">
+                                <BookOpen size={12} aria-hidden="true" />
+                                <span>重要語チェック</span>
+                              </h4>
+                              <div className="ecp-vocab-chips">
+                                {vocabHits.map(v => {
+                                  const vKey = `vocab:${sq.id}:${v.word}`;
+                                  const isSpeakingWord = speakingKey === `${vKey}:1`;
+                                  return (
+                                    <button
+                                      key={v.word}
+                                      type="button"
+                                      className="ecp-vocab-chip"
+                                      data-speaking={isSpeakingWord || undefined}
+                                      onClick={() => {
+                                        if (!canSpeak) return;
+                                        handleToggleSpeak(vKey, v.word, '', v.word, 1);
+                                      }}
+                                      title={
+                                        v.exampleSentence
+                                          ? `例文: ${v.exampleSentence}`
+                                          : canSpeak
+                                          ? `${v.word} の発音を聞く`
+                                          : v.word
+                                      }
+                                    >
+                                      {canSpeak && <Volume2 size={11} aria-hidden="true" />}
+                                      <strong lang="en">{v.word}</strong>
+                                      <span>{v.meaning}</span>
+                                      <small>{formatVocabGradeBadge(v.level)}</small>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </section>
+                          );
+                        })()}
                       </div>
                     </details>
                   </>
