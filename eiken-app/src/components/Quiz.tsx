@@ -66,7 +66,8 @@ import { safeGetItem } from '../utils/safeLocalStorage';
 import { resolveQuizRange } from '../utils/quizRange';
 import { logRejection } from '../utils/reportError';
 import { EikenClozePageQuiz } from './EikenClozePageQuiz';
-import { isEikenBatchClozeChapter } from './eikenClozePageModel';
+import { EikenStepExplanationView } from './EikenWrittenResultView';
+import { isEikenBatchClozeChapter, isEikenWrittenChapterId } from './eikenClozePageModel';
 import type { Chapter, Problem, SubQuestion } from '../types/curriculum';
 
 interface QuizProps {
@@ -713,6 +714,30 @@ function QuizBody({ mode, chapter, onFinish, onBack, onReturnToBattle, isGuest, 
   // 2026-10-02 夜：一度入れた別カード（StepExplanation）はやめ、元の
   // 「問題は固定・選択肢の場所に正誤＋スクリプト＋解説」を1画面で見せる形に戻した（ご指摘）。
   if (showingExplanation) {
+    if (isEikenWrittenChapterId(chapter.id)) {
+      return (
+        <EikenStepExplanationView
+          mode={mode}
+          chapter={chapter}
+          answers={answers}
+          isGuest={isGuest}
+          currentQuestion={currentQuestion}
+          currentQuestionIndex={currentQuestionIndex}
+          totalQuestions={questions.length}
+          isLastQuestion={isLastQuestion}
+          run={run}
+          handleNext={handleNext}
+          onBackFromExplanation={() => {
+            setShowingExplanation(false);
+            if (onExplanationChange) onExplanationChange(false);
+          }}
+          onExit={handleExit}
+          onReturnToBattle={onReturnToBattle}
+          scoreAnimationData={scoreAnimationData}
+          showScoreAnimation={showScoreAnimation}
+        />
+      );
+    }
     return (
       <ExplanationScreen
         onReturnToBattle={onReturnToBattle}

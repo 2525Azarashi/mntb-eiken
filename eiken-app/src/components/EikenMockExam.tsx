@@ -5,6 +5,7 @@ import {
   Bookmark,
   BookmarkCheck,
   CheckCircle2,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Clock,
@@ -13,7 +14,6 @@ import {
   Flag,
   Headphones,
   KeyRound,
-  Languages,
   LayoutGrid,
   ListChecks,
   Maximize2,
@@ -64,6 +64,7 @@ import {
   type MockWritingEntry,
 } from '../eiken/mockProgress';
 import { parseWriting, writingKey, type WritingDraft } from '../eiken/writingProgress';
+import { EikenQuestionStem } from './EikenClozePageQuiz';
 import { splitEikenDialogueTurns } from './eikenClozePageModel';
 import {
   extractMatchedEikenVocab,
@@ -570,6 +571,7 @@ export function EikenMockExam({
 
   const gradeDaimons = useMemo(() => getGradeDaimonSpecs(grade), [grade]);
   const [scopeSection, setScopeSection] = useState<'all' | WrittenSection>('all');
+  const [openRevReasons, setOpenRevReasons] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (scopeSection !== 'all' && !gradeDaimons.some(d => d.section === scopeSection)) {
@@ -3433,6 +3435,7 @@ export function EikenMockExam({
                     (/\(\s*_{0,6}\s*\)/.test(item.prompt)
                       ? item.prompt.replace(/\(\s*_{0,6}\s*\)/, correctWord)
                       : '');
+                  const status: 'correct' | 'wrong' | 'blank' = isCorrect ? 'correct' : hasPicked ? 'wrong' : 'blank';
 
                   return (
                     <article
@@ -3440,36 +3443,6 @@ export function EikenMockExam({
                       id={`em-rev-${item.id}`}
                       className={`em-review-card ${isCorrect ? 'is-correct' : 'is-wrong'}`}
                     >
-                      <div className="em-rev-head">
-                        <span className={`em-rev-badge ${isCorrect ? 'is-correct' : 'is-wrong'}`}>
-                          {isCorrect ? (
-                            <CheckCircle2 size={14} aria-hidden="true" />
-                          ) : hasPicked ? (
-                            <XCircle size={14} aria-hidden="true" />
-                          ) : (
-                            <MinusCircle size={14} aria-hidden="true" />
-                          )}
-                          <span>{isCorrect ? '正解' : hasPicked ? '不正解' : '未解答'}</span>
-                        </span>
-                        <strong className="em-rev-qno">問 {qNo}</strong>
-                        <span className="em-rev-sec">{SECTION_LABELS[item.section]}</span>
-
-                        <button
-                          type="button"
-                          className="em-rev-save-btn"
-                          data-saved={savedNotes[item.id] || undefined}
-                          disabled={Boolean(savedNotes[item.id])}
-                          onClick={() => handleSaveMockItemNote(activeWritten, item, qNo)}
-                        >
-                          {savedNotes[item.id] ? (
-                            <BookmarkCheck size={14} aria-hidden="true" />
-                          ) : (
-                            <Bookmark size={14} aria-hidden="true" />
-                          )}
-                          <span>{savedNotes[item.id] ? '保存済み' : 'ノートに保存'}</span>
-                        </button>
-                      </div>
-
                       {item.passage && (
                         <details className="em-wr-source">
                           <summary>
@@ -3483,23 +3456,17 @@ export function EikenMockExam({
                         </details>
                       )}
 
-                      <p className="em-rev-prompt" lang="en">
-                        <PromptWithInlineBlank
-                          prompt={item.prompt}
-                          filled={hasPicked ? pickedWord : correctWord}
-                          tone={isCorrect || !hasPicked ? 'right' : 'wrong'}
-                        />
-                      </p>
-
-                      {item.orderTokens && (
-                        <div className="em-order-tokens" aria-label="並べ替え語群">
-                          {item.orderTokens.map((tok, tIdx) => (
-                            <span key={tIdx} className="em-order-chip" lang="en">
-                              <strong>{tIdx + 1}.</strong> {tok}
-                            </span>
-                          ))}
-                        </div>
-                      )}
+                      <EikenQuestionStem
+                        displayNo={qNo}
+                        stem={item.prompt}
+                        filled={isCorrect ? correctWord : pickedWord}
+                        correctWord={correctWord}
+                        result={isCorrect ? 'right' : hasPicked ? 'wrong' : 'blank'}
+                        unansweredTag={!hasPicked}
+                        skillLabel={SECTION_LABELS[item.section]}
+                        orderTokens={item.orderTokens}
+                        labelId={`em-rev-stem-${item.id}`}
+                      />
 
                       {/* 選択肢カード（正解／あなたの誤答が一目でわかるバッジ付き） */}
                       <div className={`em-rev-choice-cards ${singleCol ? 'is-single' : ''}`}>
@@ -3523,138 +3490,178 @@ export function EikenMockExam({
                         })}
                       </div>
 
-                      {/* 構造化解説パネル（完成文・正解の根拠・各選択肢の理由・和訳） */}
-                      <div className="em-rev-ex-box">
-                        {autoCompleted && (!isCorrect || Boolean(item.completedSentence)) && (
-                          <div className="em-rev-recap" lang="en">
-                            <span className="em-rev-lbl" data-role="recap" lang="ja">
-                              完成文
+                      {/* 問題一体型コンパクト解説（和訳＋要点＋折りたたみ選択肢理由＋ノート保存） */}
+                      <div className="ecp-compact-review">
+                        <details className="ecp-ex ecp-ex-compact" open={!isCorrect || undefined}>
+                          <summary className="ecp-ex-summary">
+                            <span className="ecp-judge" data-result={status}>
+                              {isCorrect ? (
+                                <CheckCircle2 size={15} aria-hidden="true" />
+                              ) : hasPicked ? (
+                                <XCircle size={15} aria-hidden="true" />
+                              ) : (
+                                <MinusCircle size={15} aria-hidden="true" />
+                              )}
+                              <span>
+                                {isCorrect
+                                  ? '正解'
+                                  : hasPicked
+                                  ? `不正解（正解 ${item.answer! + 1}）`
+                                  : `未解答（正解 ${item.answer! + 1}）`}
+                              </span>
                             </span>
-                            <span className="em-rev-recap-text">{autoCompleted.replace(/\n+/g, '  ')}</span>
-                            {canSpeak && (
-                              <div className="em-rev-audio-btns" lang="ja">
-                                <button
-                                  type="button"
-                                  className="em-speak-btn"
-                                  data-speaking={speakingKey === `${item.id}:1` || undefined}
-                                  onClick={() =>
-                                    handleToggleResultSpeak(item.id, item.prompt, correctWord, autoCompleted, 1)
-                                  }
-                                  title="完成文の英語音声を再生"
-                                >
-                                  {speakingKey === `${item.id}:1` ? (
-                                    <Square size={11} aria-hidden="true" />
-                                  ) : (
-                                    <Volume2 size={13} aria-hidden="true" />
-                                  )}
-                                  <span>{speakingKey === `${item.id}:1` ? '停止' : '英文を聞く'}</span>
-                                </button>
-                                <button
-                                  type="button"
-                                  className="em-speak-btn is-slow"
-                                  data-speaking={speakingKey === `${item.id}:0.8` || undefined}
-                                  onClick={() =>
-                                    handleToggleResultSpeak(item.id, item.prompt, correctWord, autoCompleted, 0.8)
-                                  }
-                                  title="ゆっくり再生（0.8倍速）"
-                                >
-                                  <span>{speakingKey === `${item.id}:0.8` ? '停止' : '0.8x'}</span>
-                                </button>
+                            <span className="ecp-ex-toggle-hint">訳・解説</span>
+                            <ChevronDown size={15} className="ecp-ex-chev" aria-hidden="true" />
+                          </summary>
+
+                          <div className="ecp-ex-body">
+                            {item.translation && (
+                              <div className="ecp-ex-line" data-role="tr">
+                                <span className="ecp-ex-tag" data-role="tr">
+                                  和訳
+                                </span>
+                                <p className="ecp-ex-text">{item.translation}</p>
                               </div>
                             )}
-                          </div>
-                        )}
 
-                        {item.explanation && (
-                          <div className="em-rev-key">
-                            <span className="em-rev-lbl" data-role="key">
-                              <KeyRound size={12} aria-hidden="true" />
-                              <span>正解の理由・根拠</span>
-                            </span>
-                            <p>{item.explanation}</p>
-                          </div>
-                        )}
+                            {item.explanation && (
+                              <div className="ecp-ex-line" data-role="why">
+                                <span className="ecp-ex-tag" data-role="why">
+                                  要点
+                                </span>
+                                <p className="ecp-ex-text">{item.explanation}</p>
+                              </div>
+                            )}
 
-                        <div className="em-rev-reasons">
-                          <span className="em-rev-lbl" data-role="choices">
-                            <ListChecks size={12} aria-hidden="true" />
-                            <span>選択肢の確認</span>
-                          </span>
-                          <ul className="em-rev-choices">
-                            {item.choices!.map((cText, cIdx) => {
-                              const isAns = cIdx === item.answer;
-                              const isUser = cIdx === picked;
-                              return (
-                                <li
-                                  key={cIdx}
-                                  className={`${isAns ? 'is-ans' : ''} ${isUser && !isAns ? 'is-user-wrong' : ''}`}
+                            <div className="ecp-ex-subtools">
+                              {canSpeak && autoCompleted && (
+                                <div className="em-rev-audio-btns" lang="ja">
+                                  <button
+                                    type="button"
+                                    className="em-speak-btn"
+                                    data-speaking={speakingKey === `${item.id}:1` || undefined}
+                                    onClick={() =>
+                                      handleToggleResultSpeak(item.id, item.prompt, correctWord, autoCompleted, 1)
+                                    }
+                                    title="完成文の英語音声を再生"
+                                  >
+                                    {speakingKey === `${item.id}:1` ? (
+                                      <Square size={11} aria-hidden="true" />
+                                    ) : (
+                                      <Volume2 size={12} aria-hidden="true" />
+                                    )}
+                                    <span>{speakingKey === `${item.id}:1` ? '停止' : '英文を聞く'}</span>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="em-speak-btn is-slow"
+                                    data-speaking={speakingKey === `${item.id}:0.8` || undefined}
+                                    onClick={() =>
+                                      handleToggleResultSpeak(item.id, item.prompt, correctWord, autoCompleted, 0.8)
+                                    }
+                                    title="ゆっくり再生（0.8倍速）"
+                                  >
+                                    <span>{speakingKey === `${item.id}:0.8` ? '停止' : '0.8x'}</span>
+                                  </button>
+                                </div>
+                              )}
+
+                              {item.distractorReasons && item.distractorReasons.some(Boolean) && (
+                                <button
+                                  type="button"
+                                  className="ecp-reasons-toggle-btn"
+                                  aria-expanded={Boolean(openRevReasons[item.id])}
+                                  onClick={() =>
+                                    setOpenRevReasons(prev => ({ ...prev, [item.id]: !prev[item.id] }))
+                                  }
                                 >
-                                  <span className="em-rev-mark" aria-hidden="true">
-                                    {isAns ? '○' : '×'}
-                                  </span>
-                                  <span>
-                                    <strong lang="en">
-                                      {cIdx + 1}. {cText}
-                                    </strong>
-                                    {item.distractorReasons?.[cIdx] ? ` — ${item.distractorReasons[cIdx]}` : ''}
-                                  </span>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </div>
+                                  <span>他の選択肢の理由</span>
+                                  <ChevronDown
+                                    size={14}
+                                    className={`ecp-fold-chev${openRevReasons[item.id] ? ' is-open' : ''}`}
+                                    aria-hidden="true"
+                                  />
+                                </button>
+                              )}
+                            </div>
 
-                        {item.translation && (
-                          <div className="em-rev-tr">
-                            <span className="em-rev-lbl" data-role="tr">
-                              <Languages size={12} aria-hidden="true" />
-                              <span>和訳</span>
-                            </span>
-                            <p className="em-rev-ja">{item.translation}</p>
-                          </div>
-                        )}
-
-                        {(() => {
-                          const vocabHits = extractMatchedEikenVocab(
-                            vocabMap,
-                            item.choices ?? [],
-                            [item.prompt, item.completedSentence ?? ''],
-                            4,
-                          );
-                          if (vocabHits.length === 0) return null;
-                          return (
-                            <div className="em-rev-vocab">
-                              <span className="em-rev-lbl" data-role="vocab">
-                                <BookOpen size={12} aria-hidden="true" />
-                                <span>重要語チェック</span>
-                              </span>
-                              <div className="em-vocab-chips">
-                                {vocabHits.map(v => {
-                                  const vKey = `mvocab:${item.id}:${v.word}`;
-                                  const isSpeakingWord = speakingKey === `${vKey}:1`;
+                            {openRevReasons[item.id] && item.distractorReasons && item.distractorReasons.some(Boolean) && (
+                              <ul className="ecp-ex-choices">
+                                {item.choices!.map((cText, cIdx) => {
+                                  const isAns = cIdx === item.answer;
                                   return (
-                                    <button
-                                      key={v.word}
-                                      type="button"
-                                      className="em-vocab-chip"
-                                      data-speaking={isSpeakingWord || undefined}
-                                      onClick={() => {
-                                        if (!canSpeak) return;
-                                        handleToggleResultSpeak(vKey, v.word, '', v.word, 1);
-                                      }}
-                                      title={v.exampleSentence ? `例文: ${v.exampleSentence}` : v.word}
-                                    >
-                                      {canSpeak && <Volume2 size={11} aria-hidden="true" />}
-                                      <strong lang="en">{v.word}</strong>
-                                      <span>{v.meaning}</span>
-                                      <small>{formatVocabGradeBadge(v.level)}</small>
-                                    </button>
+                                    <li key={cIdx} data-correct={isAns || undefined}>
+                                      <span className="ecp-ex-mark" aria-hidden="true">
+                                        {isAns ? '○' : '×'}
+                                      </span>
+                                      <span>
+                                        <b lang="en">
+                                          {cIdx + 1}. {cText}
+                                        </b>
+                                        {item.distractorReasons?.[cIdx]
+                                          ? ` — ${item.distractorReasons[cIdx]}`
+                                          : isAns
+                                          ? ' — 正解'
+                                          : ''}
+                                      </span>
+                                    </li>
                                   );
                                 })}
-                              </div>
-                            </div>
-                          );
-                        })()}
+                              </ul>
+                            )}
+
+                            {(() => {
+                              const vocabHits = extractMatchedEikenVocab(
+                                vocabMap,
+                                item.choices ?? [],
+                                [item.prompt, item.completedSentence ?? ''],
+                                3,
+                              );
+                              if (vocabHits.length === 0) return null;
+                              return (
+                                <div className="em-vocab-chips" aria-label="重要語チェック">
+                                  {vocabHits.map(v => {
+                                    const vKey = `mvocab:${item.id}:${v.word}`;
+                                    const isSpeakingWord = speakingKey === `${vKey}:1`;
+                                    return (
+                                      <button
+                                        key={v.word}
+                                        type="button"
+                                        className="em-vocab-chip"
+                                        data-speaking={isSpeakingWord || undefined}
+                                        onClick={() => {
+                                          if (!canSpeak) return;
+                                          handleToggleResultSpeak(vKey, v.word, '', v.word, 1);
+                                        }}
+                                        title={v.exampleSentence ? `例文: ${v.exampleSentence}` : v.word}
+                                      >
+                                        {canSpeak && <Volume2 size={11} aria-hidden="true" />}
+                                        <strong lang="en">{v.word}</strong>
+                                        <span>{v.meaning}</span>
+                                        <small>{formatVocabGradeBadge(v.level)}</small>
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              );
+                            })()}
+                          </div>
+                        </details>
+
+                        <button
+                          type="button"
+                          className="ecp-save ecp-save-compact"
+                          data-saved={savedNotes[item.id] || undefined}
+                          disabled={Boolean(savedNotes[item.id])}
+                          onClick={() => handleSaveMockItemNote(activeWritten, item, qNo)}
+                        >
+                          {savedNotes[item.id] ? (
+                            <BookmarkCheck size={14} aria-hidden="true" />
+                          ) : (
+                            <Bookmark size={14} aria-hidden="true" />
+                          )}
+                          <span>{savedNotes[item.id] ? '保存済' : 'ノート保存'}</span>
+                        </button>
                       </div>
                     </article>
                   );

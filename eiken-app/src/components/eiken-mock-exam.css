@@ -1203,6 +1203,31 @@
   min-height: 100%;
   max-width: none;
   background: var(--mt-paper, #fcf5e9);
+  font-family: var(--font-modern, var(--mt-font-body));
+}
+
+.em-review-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+@media (min-width: 900px) {
+  .em-review-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+.em-rev-choice-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 8px;
+  padding-top: 6px;
+}
+
+.em-rev-choice-cards.is-single {
+  grid-template-columns: 1fr;
 }
 
 .em-result-inner {

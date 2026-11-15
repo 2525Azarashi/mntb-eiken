@@ -25,8 +25,6 @@ import {
   ChevronRight,
   Clock,
   FileText,
-  KeyRound,
-  Languages,
   ListChecks,
   MinusCircle,
   Slash,
@@ -108,14 +106,16 @@ function fmtClock(sec: number): string {
 }
 
 /** 1行（または1文）中の `(     )` / `( ___ )` を下線空所ボックスに変換して描画 */
-function InlineBlankLine({
+export function InlineBlankLine({
   line,
   filled,
+  correctWord,
   result,
 }: {
   line: string;
   filled: string;
-  result?: 'right' | 'wrong';
+  correctWord?: string;
+  result?: 'right' | 'wrong' | 'blank';
 }) {
   const match = line.match(/\(\s*_{0,6}\s*\)/);
   if (!match || match.index === undefined) {
@@ -123,17 +123,36 @@ function InlineBlankLine({
   }
   const before = line.slice(0, match.index);
   const after = line.slice(match.index + match[0].length);
+  const showCorrection = (result === 'wrong' || result === 'blank') && Boolean(correctWord);
   return (
     <>
       {before && <span>{formatText(before, [], { prose: true, noMath: true })}</span>}
-      <span
-        className="ecp-blank"
-        data-filled={filled ? true : undefined}
-        data-result={result}
-        data-eiken-cloze-blank
-      >
-        {filled ? formatText(filled, [], { prose: true, noMath: true }) : <span className="ecp-sr">空所</span>}
-      </span>
+      {showCorrection ? (
+        <span className="ecp-blank-compare" data-eiken-cloze-blank>
+          {result === 'wrong' && filled && (
+            <>
+              <span className="ecp-blank" data-filled data-result="wrong">
+                {formatText(filled, [], { prose: true, noMath: true })}
+              </span>
+              <span className="ecp-blank-arrow" aria-hidden="true">
+                →
+              </span>
+            </>
+          )}
+          <span className="ecp-blank" data-filled data-result="right">
+            {formatText(correctWord!, [], { prose: true, noMath: true })}
+          </span>
+        </span>
+      ) : (
+        <span
+          className="ecp-blank"
+          data-filled={filled ? true : undefined}
+          data-result={result === 'blank' ? undefined : result}
+          data-eiken-cloze-blank
+        >
+          {filled ? formatText(filled, [], { prose: true, noMath: true }) : <span className="ecp-sr">空所</span>}
+        </span>
+      )}
       {after && <span>{formatText(after, [], { prose: true, noMath: true })}</span>}
     </>
   );
@@ -143,19 +162,25 @@ function InlineBlankLine({
  * 問題文の描画。`A: ...\nB: ...` 形式の対話は話者ピル付きの会話ターンとして整形し、
  * 通常の1文は問番号バッジ＋インライン英文として描画する。
  */
-function EikenQuestionStem({
+export function EikenQuestionStem({
   displayNo,
   stem,
   filled,
+  correctWord,
   result,
   unansweredTag,
+  skillLabel,
+  orderTokens,
   labelId,
 }: {
   displayNo: number;
   stem: string;
   filled: string;
-  result?: 'right' | 'wrong';
+  correctWord?: string;
+  result?: 'right' | 'wrong' | 'blank';
   unansweredTag?: boolean;
+  skillLabel?: string;
+  orderTokens?: string[];
   labelId: string;
 }) {
   const turns = splitEikenDialogueTurns(stem);
@@ -167,7 +192,7 @@ function EikenQuestionStem({
             {displayNo}
           </span>
           <span className="ecp-sr">問{displayNo}　</span>
-          <span className="ecp-dialogue-kicker">対話の空所補充</span>
+          <span className="ecp-dialogue-kicker">{skillLabel || '対話の空所補充'}</span>
           {unansweredTag && (
             <span className="ecp-tag" data-eiken-unanswered>
               未回答
@@ -182,30 +207,50 @@ function EikenQuestionStem({
               </span>
               <span className="ecp-sr">{turn.speaker}: </span>
               <p className="ecp-turn-text" lang="en">
-                <InlineBlankLine line={turn.text} filled={filled} result={result} />
+                <InlineBlankLine line={turn.text} filled={filled} correctWord={correctWord} result={result} />
               </p>
             </div>
           ))}
         </div>
+        {orderTokens && orderTokens.length > 0 && (
+          <div className="ecp-order-tokens" aria-label="並べ替え語群">
+            {orderTokens.map((tok, i) => (
+              <span key={i} className="ecp-order-chip" lang="en">
+                <b>{i + 1}.</b> {formatText(tok, [], { prose: true, noMath: true })}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     );
   }
 
   return (
-    <p className="ecp-sentence" id={labelId}>
-      <span className="ecp-no" aria-hidden="true">
-        {displayNo}
-      </span>
-      <span className="ecp-sr">問{displayNo}　</span>
-      <span lang="en">
-        <InlineBlankLine line={stem} filled={filled} result={result} />
-      </span>
-      {unansweredTag && (
-        <span className="ecp-tag" data-eiken-unanswered>
-          未回答
+    <div className="ecp-stem-block" id={labelId}>
+      <p className="ecp-sentence">
+        <span className="ecp-no" aria-hidden="true">
+          {displayNo}
         </span>
+        <span className="ecp-sr">問{displayNo}　</span>
+        <span lang="en">
+          <InlineBlankLine line={stem} filled={filled} correctWord={correctWord} result={result} />
+        </span>
+        {unansweredTag && (
+          <span className="ecp-tag" data-eiken-unanswered>
+            未回答
+          </span>
+        )}
+      </p>
+      {orderTokens && orderTokens.length > 0 && (
+        <div className="ecp-order-tokens" aria-label="並べ替え語群">
+          {orderTokens.map((tok, i) => (
+            <span key={i} className="ecp-order-chip" lang="en">
+              <b>{i + 1}.</b> {formatText(tok, [], { prose: true, noMath: true })}
+            </span>
+          ))}
+        </div>
       )}
-    </p>
+    </div>
   );
 }
 
@@ -326,6 +371,7 @@ export function EikenClozePageQuiz({
 
   const [attempted, setAttempted] = useState<Record<number, boolean>>({});
   const [openEx, setOpenEx] = useState<Record<string, boolean>>({});
+  const [openReasons, setOpenReasons] = useState<Record<string, boolean>>({});
   const [eliminated, setEliminated] = useState<Record<string, string[]>>({});
   const [speakingKey, setSpeakingKey] = useState<string | null>(null);
   const canSpeak = useMemo(() => isSpeechSupported(), []);
@@ -336,7 +382,6 @@ export function EikenClozePageQuiz({
     stopSpeech();
     return () => stopSpeech();
   }, [safePage, chapter.id]);
-
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const groupRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const scrollTop = () => scrollRef.current?.scrollTo({ top: 0 });
@@ -1007,7 +1052,8 @@ export function EikenClozePageQuiz({
                   displayNo={displayNo}
                   stem={problem.text}
                   filled={filled}
-                  result={pageScored && chosen ? (ok ? 'right' : 'wrong') : undefined}
+                  correctWord={ex?.correctWord}
+                  result={pageScored ? (ok ? 'right' : chosen ? 'wrong' : 'blank') : undefined}
                   unansweredTag={status === 'unanswered' || status === 'blank'}
                   labelId={labelId}
                 />
@@ -1100,45 +1146,9 @@ export function EikenClozePageQuiz({
                 </div>
 
                 {pageScored && ex && (
-                  <>
-                    <div className="ecp-meta">
-                      <p className="ecp-judge" data-result={status}>
-                        {status === 'correct' ? (
-                          <CheckCircle2 size={18} aria-hidden="true" />
-                        ) : status === 'wrong' ? (
-                          <XCircle size={18} aria-hidden="true" />
-                        ) : (
-                          <MinusCircle size={18} aria-hidden="true" />
-                        )}
-                        <span>
-                          {status === 'correct'
-                            ? '正解'
-                            : status === 'wrong'
-                            ? `不正解（正解は ${sq.correctAnswer}. ${ex.correctWord}）`
-                            : `未回答（正解は ${sq.correctAnswer}. ${ex.correctWord}）`}
-                        </span>
-                      </p>
-
-                      {sq.skill && <span className="ecp-skill-chip">{sq.skill}</span>}
-
-                      <button
-                        type="button"
-                        className="ecp-save"
-                        data-saved={savedNotes[problem.id] || undefined}
-                        disabled={Boolean(savedNotes[problem.id])}
-                        onClick={() => handleSaveNote(entry)}
-                      >
-                        {savedNotes[problem.id] ? (
-                          <BookmarkCheck size={15} aria-hidden="true" />
-                        ) : (
-                          <Bookmark size={15} aria-hidden="true" />
-                        )}
-                        <span>{savedNotes[problem.id] ? '保存済み' : 'ノートに保存'}</span>
-                      </button>
-                    </div>
-
+                  <div className="ecp-compact-review">
                     <details
-                      className="ecp-ex"
+                      className="ecp-ex ecp-ex-compact"
                       open={isExOpen || undefined}
                       onToggle={e => {
                         const nextOpen = (e.currentTarget as HTMLDetailsElement).open;
@@ -1147,74 +1157,101 @@ export function EikenClozePageQuiz({
                         }
                       }}
                     >
-                      <summary>
-                        <BookOpen size={15} aria-hidden="true" />
-                        <span>解説</span>
-                        <ChevronDown size={17} className="ecp-ex-chev" aria-hidden="true" />
+                      <summary className="ecp-ex-summary">
+                        <span className="ecp-judge" data-result={status}>
+                          {status === 'correct' ? (
+                            <CheckCircle2 size={15} aria-hidden="true" />
+                          ) : status === 'wrong' ? (
+                            <XCircle size={15} aria-hidden="true" />
+                          ) : (
+                            <MinusCircle size={15} aria-hidden="true" />
+                          )}
+                          <span>
+                            {status === 'correct'
+                              ? '正解'
+                              : status === 'wrong'
+                              ? `不正解（正解 ${sq.correctAnswer}）`
+                              : `未回答（正解 ${sq.correctAnswer}）`}
+                          </span>
+                        </span>
+                        <span className="ecp-ex-toggle-hint">
+                          {isExOpen ? '解説を閉じる' : '訳・解説を見る'}
+                        </span>
+                        <ChevronDown size={15} className="ecp-ex-chev" aria-hidden="true" />
                       </summary>
+
                       <div className="ecp-ex-body">
-                        {/* 不正解・未回答時でも完成文をひと目で読めるよう正解語入り英文を再掲＋音声読み上げ */}
-                        {ex.correctWord && (
-                          <div className="ecp-ex-recap" lang="en">
-                            <span className="ecp-recap-kicker" lang="ja">
-                              完成文
+                        {ex.translation && (
+                          <div className="ecp-ex-line" data-role="tr">
+                            <span className="ecp-ex-tag" data-role="tr">
+                              和訳
                             </span>
-                            <p className="ecp-recap-text">
-                              <InlineBlankLine
-                                line={ex.stem.replace(/\n+/g, '  ')}
-                                filled={ex.correctWord}
-                                result="right"
-                              />
-                            </p>
-                            {canSpeak && (
-                              <div className="ecp-recap-audio" lang="ja">
-                                <button
-                                  type="button"
-                                  className="ecp-speak-btn"
-                                  data-speaking={speakingKey === `${sq.id}:1` || undefined}
-                                  onClick={() =>
-                                    handleToggleSpeak(sq.id, ex.stem, ex.correctWord, ex.completedSentence, 1)
-                                  }
-                                  title="完成文の英語音声を再生"
-                                >
-                                  {speakingKey === `${sq.id}:1` ? (
-                                    <Square size={11} aria-hidden="true" />
-                                  ) : (
-                                    <Volume2 size={13} aria-hidden="true" />
-                                  )}
-                                  <span>{speakingKey === `${sq.id}:1` ? '停止' : '英文を聞く'}</span>
-                                </button>
-                                <button
-                                  type="button"
-                                  className="ecp-speak-btn is-slow"
-                                  data-speaking={speakingKey === `${sq.id}:0.8` || undefined}
-                                  onClick={() =>
-                                    handleToggleSpeak(sq.id, ex.stem, ex.correctWord, ex.completedSentence, 0.8)
-                                  }
-                                  title="ゆっくり再生（0.8倍速）"
-                                >
-                                  <span>{speakingKey === `${sq.id}:0.8` ? '停止' : '0.8x'}</span>
-                                </button>
-                              </div>
-                            )}
+                            <p className="ecp-ex-text">{formatText(ex.translation, [], { prose: true, noMath: true })}</p>
                           </div>
                         )}
 
                         {ex.why && (
-                          <section className="ecp-sec ecp-sec-key">
-                            <h4 className="ecp-lbl" data-role="key">
-                              <KeyRound size={13} aria-hidden="true" />
-                              <span>正解の理由・根拠</span>
-                            </h4>
-                            <p>{ex.why}</p>
-                          </section>
+                          <div className="ecp-ex-line" data-role="why">
+                            <span className="ecp-ex-tag" data-role="why">
+                              要点
+                            </span>
+                            <p className="ecp-ex-text">{formatText(ex.why, [], { prose: true, noMath: true })}</p>
+                          </div>
                         )}
 
-                        <section className="ecp-sec">
-                          <h4 className="ecp-lbl" data-role="choices">
-                            <ListChecks size={13} aria-hidden="true" />
-                            <span>選択肢の確認</span>
-                          </h4>
+                        <div className="ecp-ex-subtools">
+                          {canSpeak && ex.correctWord && (
+                            <div className="ecp-recap-audio" lang="ja">
+                              <button
+                                type="button"
+                                className="ecp-speak-btn"
+                                data-speaking={speakingKey === `${sq.id}:1` || undefined}
+                                onClick={() =>
+                                  handleToggleSpeak(sq.id, ex.stem, ex.correctWord, ex.completedSentence, 1)
+                                }
+                                title="完成文の英語音声を再生"
+                              >
+                                {speakingKey === `${sq.id}:1` ? (
+                                  <Square size={11} aria-hidden="true" />
+                                ) : (
+                                  <Volume2 size={12} aria-hidden="true" />
+                                )}
+                                <span>{speakingKey === `${sq.id}:1` ? '停止' : '英文を聞く'}</span>
+                              </button>
+                              <button
+                                type="button"
+                                className="ecp-speak-btn is-slow"
+                                data-speaking={speakingKey === `${sq.id}:0.8` || undefined}
+                                onClick={() =>
+                                  handleToggleSpeak(sq.id, ex.stem, ex.correctWord, ex.completedSentence, 0.8)
+                                }
+                                title="ゆっくり再生（0.8倍速）"
+                              >
+                                <span>{speakingKey === `${sq.id}:0.8` ? '停止' : '0.8x'}</span>
+                              </button>
+                            </div>
+                          )}
+
+                          {ex.choices.some(c => Boolean(c.reason)) && (
+                            <button
+                              type="button"
+                              className="ecp-reasons-toggle-btn"
+                              aria-expanded={Boolean(openReasons[sq.id])}
+                              onClick={() =>
+                                setOpenReasons(prev => ({ ...prev, [sq.id]: !prev[sq.id] }))
+                              }
+                            >
+                              <span>他の選択肢の理由</span>
+                              <ChevronDown
+                                size={14}
+                                className={`ecp-fold-chev${openReasons[sq.id] ? ' is-open' : ''}`}
+                                aria-hidden="true"
+                              />
+                            </button>
+                          )}
+                        </div>
+
+                        {openReasons[sq.id] && ex.choices.some(c => Boolean(c.reason)) && (
                           <ul className="ecp-ex-choices">
                             {ex.choices.map(c => (
                               <li key={c.mark} data-correct={c.correct || undefined}>
@@ -1223,70 +1260,75 @@ export function EikenClozePageQuiz({
                                 </span>
                                 <span>
                                   <b lang="en">
-                                    {c.mark}. {c.text}
+                                    {c.mark}. {formatText(c.text, [], { prose: true, noMath: true })}
                                   </b>
-                                  {c.reason ? ` — ${c.reason}` : c.correct ? ' — 正解' : ''}
+                                  {c.reason ? (
+                                    <> — {formatText(c.reason, [], { prose: true, noMath: true })}</>
+                                  ) : c.correct ? (
+                                    ' — 正解'
+                                  ) : null}
                                 </span>
                               </li>
                             ))}
                           </ul>
-                        </section>
-
-                        {ex.translation && (
-                          <section className="ecp-sec" data-role="tr">
-                            <h4 className="ecp-lbl" data-role="tr">
-                              <Languages size={13} aria-hidden="true" />
-                              <span>和訳</span>
-                            </h4>
-                            <p>{ex.translation}</p>
-                          </section>
                         )}
 
                         {(() => {
-                          const vocabHits = extractMatchedEikenVocab(vocabMap, texts, [ex.stem], 4);
+                          const vocabHits = extractMatchedEikenVocab(vocabMap, texts, [ex.stem], 3);
                           if (vocabHits.length === 0) return null;
                           return (
-                            <section className="ecp-sec ecp-sec-vocab">
-                              <h4 className="ecp-lbl" data-role="vocab">
-                                <BookOpen size={12} aria-hidden="true" />
-                                <span>重要語チェック</span>
-                              </h4>
-                              <div className="ecp-vocab-chips">
-                                {vocabHits.map(v => {
-                                  const vKey = `vocab:${sq.id}:${v.word}`;
-                                  const isSpeakingWord = speakingKey === `${vKey}:1`;
-                                  return (
-                                    <button
-                                      key={v.word}
-                                      type="button"
-                                      className="ecp-vocab-chip"
-                                      data-speaking={isSpeakingWord || undefined}
-                                      onClick={() => {
-                                        if (!canSpeak) return;
-                                        handleToggleSpeak(vKey, v.word, '', v.word, 1);
-                                      }}
-                                      title={
-                                        v.exampleSentence
-                                          ? `例文: ${v.exampleSentence}`
-                                          : canSpeak
-                                          ? `${v.word} の発音を聞く`
-                                          : v.word
-                                      }
-                                    >
-                                      {canSpeak && <Volume2 size={11} aria-hidden="true" />}
-                                      <strong lang="en">{v.word}</strong>
-                                      <span>{v.meaning}</span>
-                                      <small>{formatVocabGradeBadge(v.level)}</small>
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            </section>
+                            <div className="ecp-vocab-chips" aria-label="重要語チェック">
+                              <BookOpen size={12} className="ecp-vocab-icon" aria-hidden="true" />
+                              {vocabHits.map(v => {
+                                const vKey = `vocab:${sq.id}:${v.word}`;
+                                const isSpeakingWord = speakingKey === `${vKey}:1`;
+                                return (
+                                  <button
+                                    key={v.word}
+                                    type="button"
+                                    className="ecp-vocab-chip"
+                                    data-speaking={isSpeakingWord || undefined}
+                                    onClick={() => {
+                                      if (!canSpeak) return;
+                                      handleToggleSpeak(vKey, v.word, '', v.word, 1);
+                                    }}
+                                    title={
+                                      v.exampleSentence
+                                        ? `例文: ${v.exampleSentence}`
+                                        : canSpeak
+                                        ? `${v.word} の発音を聞く`
+                                        : v.word
+                                    }
+                                  >
+                                    {canSpeak && <Volume2 size={11} aria-hidden="true" />}
+                                    <strong lang="en">{v.word}</strong>
+                                    <span>{v.meaning}</span>
+                                    <small>{formatVocabGradeBadge(v.level)}</small>
+                                  </button>
+                                );
+                              })}
+                            </div>
                           );
                         })()}
                       </div>
                     </details>
-                  </>
+
+                    <button
+                      type="button"
+                      className="ecp-save ecp-save-compact"
+                      data-saved={savedNotes[problem.id] || undefined}
+                      disabled={Boolean(savedNotes[problem.id])}
+                      onClick={() => handleSaveNote(entry)}
+                      title={savedNotes[problem.id] ? '学習ノートに保存済み' : 'この問題を学習ノートに保存'}
+                    >
+                      {savedNotes[problem.id] ? (
+                        <BookmarkCheck size={14} aria-hidden="true" />
+                      ) : (
+                        <Bookmark size={14} aria-hidden="true" />
+                      )}
+                      <span>{savedNotes[problem.id] ? '保存済' : 'ノート保存'}</span>
+                    </button>
+                  </div>
                 )}
               </article>
             );

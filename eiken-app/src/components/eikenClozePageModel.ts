@@ -25,10 +25,19 @@ export function isEikenBatchClozeChapter(chapter: Pick<Chapter, 'id'> | null | u
   return /^eiken_[a-z0-9]+_written_\d+_(?:short|conversation)$/.test(chapter.id);
 }
 
-/** 章ID（`eiken_2_written_04_short` 等）から級のキー（`eiken_2`）を取り出す */
+/**
+ * 英検の筆記・リーディング・語彙系チャプターかどうか（リスニング以外）。
+ * 例: `eiken_5_written_01_short`, `eiken_3_written_02_reading`, `eiken_5_vocabulary_01`, `eiken_5_reading_01`
+ */
+export function isEikenWrittenChapterId(chapterId: string | null | undefined): boolean {
+  if (!chapterId) return false;
+  return /^eiken_[a-z0-9]+_(?:written_\d+_[a-z0-9_]+|vocabulary_\d+|reading_\d+)$/.test(chapterId);
+}
+
+/** 章ID（`eiken_2_written_04_short` / `eiken_5_vocabulary_01` 等）から級のキー（`eiken_2`）を取り出す */
 export function extractEikenGradeFromChapterId(chapterId: string | undefined): EikenGrade | undefined {
   if (!chapterId) return undefined;
-  const m = chapterId.match(/^(eiken_[a-z0-9]+)_written_\d+_/);
+  const m = chapterId.match(/^(eiken_[a-z0-9]+)_(?:written_\d+_|vocabulary_\d+|reading_\d+)/);
   return m ? (m[1] as EikenGrade) : undefined;
 }
 

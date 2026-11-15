@@ -72,6 +72,10 @@ const ChapterSelection = React.lazy(() =>
 const QuizScreens = React.lazy(() =>
   import('./components/QuizScreens').then((m) => ({ default: m.QuizScreens })),
 );
+const EikenWrittenResultView = React.lazy(() =>
+  import('./components/EikenWrittenResultView').then((m) => ({ default: m.EikenWrittenResultView })),
+);
+import { isEikenWrittenChapterId } from './components/eikenClozePageModel';
 import { Leaderboard } from './components/Leaderboard';
 import { auth } from './firebase';
 import { Intro } from './components/Intro';
@@ -688,46 +692,55 @@ export default function App() {
               </React.Suspense>
             )}
             {(appState === 'quiz' || appState === 'explanation') && (
-              /*
-                演習画面と結果・解説画面は遅延読み込み（上の React.lazy を参照）。
-                章を探す処理も含めて QuizScreens 側に置いてあるので、
-                この画面に入るまで問題データ（2.7MB）を読まない。
-
-                fallback は null＝何も描かない。
-                元のコードも「章が見つかるまで何も描かない」挙動
-                （appState === 'quiz' && selectedChapter && …）だったので、
-                読み込み中に何も出ないのは元からの見え方と同じ。
-                ここでローディング表示を足すと、元には無かった表示が
-                一瞬出て消えることになるため、あえて足していない。
-              */
               <React.Suspense fallback={<ScreenLoading />}>
-                <QuizScreens
-                  screen={appState === 'quiz' ? 'quiz' : 'explanation'}
-                  chapterId={selectedChapterId}
-                  mode={appMode as 'mini_test' | 'practice'}
-                  answers={quizAnswers}
-                  onFinish={handleFinishQuiz}
-                  onBack={battleReturnActive ? returnToBattle : handleBackToChapters}
-                  onReturnToBattle={battleReturnActive ? returnToBattle : undefined}
-                  isGuest={isGuest}
-                  // スマホではスマホ専用レイアウト（正誤一覧→タップで解説）で表示する。
-                  // PC は従来どおり（isMobileView=false → 2カラムレイアウト）。
-                  isMobileView={isMobileView}
-                  onExplanationChange={setIsExplanationView}
-                  resultTotalScore={lastQuizResult?.totalScore}
-                  resultTotalCorrect={lastQuizResult?.totalCorrect}
-                  resultTotalJudgeable={lastQuizResult?.totalJudgeable}
-                  resultTotalTimeSec={lastQuizResult?.totalTimeSec}
-                  // 1回分（例：第3回演習）だけを解いたときは、その回だけを振り返る。
-                  // 解いていない回まで答え合わせに並ぶと、どこまでやったか分からなくなる。
-                  questionRange={quizRange}
-                  subject={selectedSubject}
-                  /* 結果画面の「次にすること」。どちらも通常の演習開始と同じ経路を通す。 */
-                  onRetryWrong={(chapterId, targets) => startFocusedRetry(chapterId, targets, appMode)}
-                  onNextChapter={(chapterId) => handleSelectChapter(chapterId, 0, false, null, appMode)}
-                  onNextRound={(chapterId, index) => handleSelectChapter(chapterId, index, false, { startIndex: index, endIndex: index }, appMode)}
-                  onHome={() => navigateMain('home')}
-                />
+                {appState === 'explanation' && isEikenWrittenChapterId(selectedChapterId) ? (
+                  <EikenWrittenResultView
+                    chapterId={selectedChapterId}
+                    mode={appMode as 'mini_test' | 'practice'}
+                    answers={quizAnswers}
+                    isGuest={isGuest}
+                    resultTotalScore={lastQuizResult?.totalScore}
+                    resultTotalCorrect={lastQuizResult?.totalCorrect}
+                    resultTotalJudgeable={lastQuizResult?.totalJudgeable}
+                    resultTotalTimeSec={lastQuizResult?.totalTimeSec}
+                    questionRange={quizRange}
+                    subject={selectedSubject}
+                    onBack={battleReturnActive ? returnToBattle : handleBackToChapters}
+                    onReturnToBattle={battleReturnActive ? returnToBattle : undefined}
+                    onRetryWrong={(chapterId, targets) => startFocusedRetry(chapterId, targets, appMode)}
+                    onNextChapter={(chapterId) => handleSelectChapter(chapterId, 0, false, null, appMode)}
+                    onNextRound={(chapterId, index) => handleSelectChapter(chapterId, index, false, { startIndex: index, endIndex: index }, appMode)}
+                    onHome={() => navigateMain('home')}
+                  />
+                ) : (
+                  <QuizScreens
+                    screen={appState === 'quiz' ? 'quiz' : 'explanation'}
+                    chapterId={selectedChapterId}
+                    mode={appMode as 'mini_test' | 'practice'}
+                    answers={quizAnswers}
+                    onFinish={handleFinishQuiz}
+                    onBack={battleReturnActive ? returnToBattle : handleBackToChapters}
+                    onReturnToBattle={battleReturnActive ? returnToBattle : undefined}
+                    isGuest={isGuest}
+                    // スマホではスマホ専用レイアウト（正誤一覧→タップで解説）で表示する。
+                    // PC は従来どおり（isMobileView=false → 2カラムレイアウト）。
+                    isMobileView={isMobileView}
+                    onExplanationChange={setIsExplanationView}
+                    resultTotalScore={lastQuizResult?.totalScore}
+                    resultTotalCorrect={lastQuizResult?.totalCorrect}
+                    resultTotalJudgeable={lastQuizResult?.totalJudgeable}
+                    resultTotalTimeSec={lastQuizResult?.totalTimeSec}
+                    // 1回分（例：第3回演習）だけを解いたときは、その回だけを振り返る。
+                    // 解いていない回まで答え合わせに並ぶと、どこまでやったか分からなくなる。
+                    questionRange={quizRange}
+                    subject={selectedSubject}
+                    /* 結果画面の「次にすること」。どちらも通常の演習開始と同じ経路を通す。 */
+                    onRetryWrong={(chapterId, targets) => startFocusedRetry(chapterId, targets, appMode)}
+                    onNextChapter={(chapterId) => handleSelectChapter(chapterId, 0, false, null, appMode)}
+                    onNextRound={(chapterId, index) => handleSelectChapter(chapterId, index, false, { startIndex: index, endIndex: index }, appMode)}
+                    onHome={() => navigateMain('home')}
+                  />
+                )}
               </React.Suspense>
             )}
             {appState === 'study_hub' && <StudyHub view={studyHubView} onViewChange={setStudyHubView} onBack={() => setAppState('home')} onPractice={() => handleSelectMode('practice')} isGuest={isGuest} onSelectNote={(note) => { setSelectedNote(note); setAppState('note_detail'); }} onReview={handleReviewNote} onRetry={(t) => { void handleReviewNote({ chapterId: t.chapterId, questionId: t.questionId, subQuestionIds: t.wrongOnly ? t.subQuestionIds : undefined, wholeQuestion: !t.wrongOnly }); }} />}
