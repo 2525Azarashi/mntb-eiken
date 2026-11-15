@@ -47,8 +47,8 @@ interface ChapterSelectionProps {
   onGroupChange?: (group: string) => void;
   backLabel?: string;
   subject?: SubjectKey;
-  /** 英検の級別画面から、その級の「一次筆記 通し模試」を直接開く */
-  onOpenMock?: () => void;
+  /** 英検の級別画面から、その級の「一次筆記／リスニング 通し模試」を直接開く */
+  onOpenMock?: (examKind?: 'written' | 'listening') => void;
   /** 英検の級別大問タブ（大問4・5 ライティング）から特定の回・課題を直接開く */
   onOpenWriting?: (taskKey: string) => void;
 }
@@ -318,11 +318,11 @@ export function ChapterSelection({
         {isEiken && onOpenMock && (
           <button
             type="button"
-            onClick={onOpenMock}
+            onClick={() => onOpenMock(isEikenListeningGroup || subject === 'eiken_1' ? 'listening' : 'written')}
             className="shrink-0 rounded-full border border-[#3e9c93]/55 bg-[#fffdf8] px-3 py-2 text-xs font-extrabold text-[#1f5c53] shadow-[0_2px_0_#d8ebe6] transition hover:bg-[#edf9f6] cursor-pointer"
             data-chapter-open-mock
           >
-            通し演習へ
+            {isEikenListeningGroup || subject === 'eiken_1' ? 'リスニング通し演習へ' : '通し演習へ'}
           </button>
         )}
         <DoorMascot subject={subject} showSpeech={false} size="mini" className="unit-head-mascot w-auto" />

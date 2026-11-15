@@ -514,11 +514,19 @@ function buildG3OrPre2DialogueUnit(
       const places = isG3
         ? ['the planetarium', 'the history museum', 'the botanical garden', 'the aquarium', 'the science hall', 'the craft studio', 'the folk museum', 'the art gallery', 'the railway park', 'the marine center', 'the glass museum', 'the castle tower', 'the nature center', 'the sports museum', 'the pottery hall']
         : ['the modern art wing', 'the city archives', 'the robotics expo', 'the trade fair', 'the photography gallery', 'the university library', 'the design museum', 'the civic observatory', 'the textile museum', 'the culinary fair', 'the film archive', 'the architecture tour', 'the book symposium', 'the natural history hall', 'the ceramic exhibition'];
+      const placesJa = isG3
+        ? ['プラネタリウム', '歴史博物館', '植物園', '水族館', '科学館', '工芸スタジオ', '民俗資料館', '美術館', '鉄道公園', '海洋センター', 'ガラス美術館', '天守閣', '自然センター', 'スポーツ博物館', '陶芸館']
+        : ['現代美術棟', '市公文書館', 'ロボット博覧会', '見本市', '写真ギャラリー', '大学図書館', 'デザイン博物館', '市民天文台', '繊維博物館', 'グルメフェア', '映像アーカイブ', '建築ツアー', 'ブックシンポジウム', '自然史ホール', '陶磁器展'];
       const acts = isG3
         ? ['eat lunch at the noodle shop', 'visit the souvenir shop', 'walk around the rose park', 'borrow an audio guide', 'check the locker room']
         : ['have coffee at the museum cafe', 'pick up the discount vouchers', 'register at the welcome booth', 'leave coats in the cloakroom', 'buy the exhibition catalog'];
+      const actsJa = isG3
+        ? ['麺類のお店で昼食を食べる', 'お土産店をのぞく', 'バラ園を散策する', '音声ガイドを借りる', 'ロッカー室を確認する']
+        : ['館内カフェでコーヒーを飲む', '割引引換券を受け取る', '受付ブースで登録を済ませる', 'クロークにコートを預ける', '展示図録を購入する'];
       const pl = places[round - 1];
+      const plJa = placesJa[round - 1];
       const act = acts[(round - 1) % 5];
+      const actJa = actsJa[(round - 1) % 5];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Hi ${n1}, we finally arrived at ${pl}! Shall we go straight into the main hall now?` },
         { ...sp2, text: `Wait, ${n2}. Look at the sign—entry for our ticket group starts in forty minutes.` },
@@ -529,7 +537,7 @@ function buildG3OrPre2DialogueUnit(
       ];
       return {
         turns,
-        ja: `${pl}に到着したが、入場開始まで40分あるため、外で待つ代わりにまず「${act}」をしてから1時30分に戻ることにした。`,
+        ja: `${plJa}に到着したが、入場開始まで40分あるため、外で待つ代わりにまず「${actJa}」をしてから1時30分に戻ることにした。`,
         prompt: `What will they do before entering ${pl}?`,
         correct: act[0].toUpperCase() + act.slice(1) + '.',
         cReason: `so let's ${act} first に相手が Sounds good to me! と同意している。`,
@@ -549,9 +557,15 @@ function buildG3OrPre2DialogueUnit(
       const goods = isG3
         ? ['running jacket', 'canvas backpack', 'badminton racket', 'wool cardigan', 'desk lamp', 'waterproof watch', 'hiking boots', 'folding umbrella', 'travel pouch', 'tennis skirt', 'fleece vest', 'leather belt', 'bike helmet', 'laptop sleeve', 'insulated mug']
         : ['wireless keyboard', 'linen blazer', 'camping lantern', 'ceramic kettle', 'yoga mat', 'running shoes', 'leather briefcase', 'desk organizer', 'rain parka', 'thermal flask', 'reading lamp', 'cotton cardigan', 'carry-on bag', 'badminton shoes', 'bluetooth speaker'];
+      const goodsJa = isG3
+        ? ['ランニングジャケット', '帆布リュック', 'バドミントンラケット', 'ウールのカーディガン', '電気スタンド', '防水腕時計', '登山靴', '折りたたみ傘', 'トラベルポーチ', 'テニススカート', 'フリースベスト', '革ベルト', '自転車ヘルメット', 'ノートPCケース', '保温マグカップ']
+        : ['ワイヤレスキーボード', '麻のブレザー', 'キャンプ用ランタン', '陶器ケトル', 'ヨガマット', 'ランニングシューズ', '革のビジネスバッグ', '卓上整理ボックス', 'レインパーカー', '保温ボトル', '読書灯', '綿のカーディガン', '機内持込バッグ', 'バドミントンシューズ', 'ワイヤレススピーカー'];
       const colors = ['navy blue', 'forest green', 'dark gray', 'burgundy', 'light beige'];
+      const colorsJa = ['紺色', '深緑色', '濃いグレー', 'ワインレッド', '明るいベージュ'];
       const item = goods[round - 1];
+      const itemJa = goodsJa[round - 1];
       const col = colors[(round - 1) % 5];
+      const colJa = colorsJa[(round - 1) % 5];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Excuse me, I really like this ${item}, but do you have it in ${col}?` },
         { ...sp2, text: `Let me check our stockroom... I am sorry, ${col} is sold out at this branch today.` },
@@ -562,7 +576,7 @@ function buildG3OrPre2DialogueUnit(
       ];
       return {
         turns,
-        ja: `客は${col}の${item}を探しているが在庫切れのため、他店舗から取り寄せてもらい火曜午後に受け取ることにした。`,
+        ja: `客は${colJa}の${itemJa}を探しているが在庫切れのため、他店舗から取り寄せてもらい火曜午後に受け取ることにした。`,
         prompt: `What will ${who1} do?`,
         correct: `Have the store order the ${item}.`,
         cReason: `Can you order it from another store? と尋ね、最後に please order one for me と注文を依頼している。`,
@@ -586,9 +600,15 @@ function buildG3OrPre2DialogueUnit(
       const reasons = isG3
         ? ['helped a lost child find the station', 'had to wait for a delayed train', 'went back home for a forgotten textbook', 'had a flat tire on the bicycle', 'waited for the dentist to finish']
         : ['assisted an elderly passenger on the platform', 'waited because of a signal inspection', 'had to reschedule a clinic appointment', 'returned home to lock the front door', 'dealt with a sudden bicycle chain problem'];
+      const reasonsJa = isG3
+        ? ['迷子の子どもが駅を探すのを手伝った', '遅れていた電車を待たなければならなかった', '忘れた教科書を取りに家へ戻った', '自転車がパンクしてしまった', '歯科の治療が終わるのを待っていた']
+        : ['駅のホームで高齢の乗客を手助けした', '信号点検のため足止めされた', 'クリニックの予約変更手続きをしていた', '玄関の鍵を閉めに家へ引き返した', '自転車のチェーンが急に外れて対処した'];
       const events = ['choir rehearsal', 'project meeting', 'tennis practice', 'study session', 'club interview', 'volunteer orientation', 'drama practice', 'band rehearsal', 'committee meeting', 'cooking lesson', 'debate practice', 'art workshop', 'cleanup event', 'science seminar', 'reading circle'];
+      const eventsJa = ['合唱のリハーサル', 'プロジェクト会議', 'テニスの練習', '勉強会', '部活の面接', 'ボランティア説明会', '演劇の練習', 'バンドのリハーサル', '委員会の集まり', '料理教室', 'ディベートの練習', '美術ワークショップ', '清掃イベント', '科学セミナー', '読書会'];
       const rsn = reasons[(round - 1) % 5];
+      const rsnJa = reasonsJa[(round - 1) % 5];
       const ev = events[round - 1];
+      const evJa = eventsJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Sorry I am fifteen minutes late for our ${ev}, ${n1}!` },
         { ...sp2, text: `No worries, ${n2}. Did your bus get stuck in traffic again?` },
@@ -598,7 +618,7 @@ function buildG3OrPre2DialogueUnit(
       ];
       return {
         turns,
-        ja: `${ev}に15分遅れて到着した理由として、バスの渋滞ではなく「途中で${rsn}ため」と説明している。`,
+        ja: `${evJa}に15分遅れて到着した理由として、バスの渋滞ではなく「途中で${rsnJa}ため」と説明している。`,
         prompt: `Why was ${who1} late for the ${ev}?`,
         correct: `${sp1.roleLabel === 'Man' ? 'He' : 'She'} ${rsn}.`,
         cReason: `but I ${rsn} on my way here と遅れた本当の理由を述べている。`,
@@ -622,10 +642,16 @@ function buildG3OrPre2DialogueUnit(
       const myTasks = isG3
         ? ['print fifty copies of the program', 'buy drinks and snacks at the supermarket', 'set up the microphone and speakers', 'make name tags for the guests', 'decorate the welcome board']
         : ['prepare the slideshow on the laptop', 'contact the guest speaker by email', 'reserve seats at the restaurant', 'check the budget spreadsheet', 'arrange transportation from the station'];
+      const myTasksJa = isG3
+        ? ['プログラムを50部印刷する', 'スーパーで飲み物とお菓子を買う', 'マイクとスピーカーを設置する', '来賓用の名札を作る', 'ウェルカムボードを飾りつける']
+        : ['ノートPCでスライドショーを準備する', 'ゲスト講師にメールで連絡する', 'レストランの席を予約する', '予算の集計表を確認する', '駅からの送迎手段を手配する'];
       const otherTasks = ['sweep the hall floor', 'borrow extra folding chairs', 'put up posters at the gate'];
       const task = myTasks[(round - 1) % 5];
+      const taskJa = myTasksJa[(round - 1) % 5];
       const events = ['farewell party', 'cultural fair', 'speech contest', 'charity concert', 'open campus day', 'book exchange', 'science fair', 'alumni tea party', 'international day', 'music night', 'art showcase', 'debate forum', 'winter festival', 'club welcome day', 'poster session'];
+      const eventsJa = ['送別会', '文化フェア', 'スピーチ大会', 'チャリティーコンサート', 'オープンキャンパス', '本の交換会', '科学フェア', '同窓生茶話会', '国際交流デー', '音楽の夕べ', '美術作品展', '討論フォーラム', '冬祭り', '新入部員歓迎デー', 'ポスター発表会'];
       const ev = events[round - 1];
+      const evJa = eventsJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Our ${ev} is tomorrow morning, ${n1}. Have we finished preparing everything?` },
         { ...sp2, text: `Almost! I will ${otherTasks[0]} right now, and Kenji will ${otherTasks[1]}.` },
@@ -635,7 +661,7 @@ function buildG3OrPre2DialogueUnit(
       ];
       return {
         turns,
-        ja: `明日の${ev}に向けて3人の作業を整理し、最初の話者は本日5時までに「${task}」を担当することになった。`,
+        ja: `明日の${evJa}に向けて3人の作業を整理し、最初の話者は本日5時までに「${taskJa}」を担当することになった。`,
         prompt: `What will ${who1} do today?`,
         correct: task[0].toUpperCase() + task.slice(1) + '.',
         cReason: `Then I will ${task} before five o'clock today. と本人が担当を宣言している。`,
@@ -658,18 +684,20 @@ function buildG3OrPre2DialogueUnit(
     () => {
       const courses = isG3
         ? [
-            ['two-hour boat tour', 'fifteen hundred yen', 'twelve hundred yen', 'two thousand yen', 'three thousand yen', '2時間ボートツアー'],
-            ['beginner climbing lesson', 'eighteen hundred yen', 'fifteen hundred yen', 'twenty-two hundred yen', 'twenty-five hundred yen', '初心者クライミング講座'],
-            ['pottery painting course', 'fourteen hundred yen', 'one thousand yen', 'sixteen hundred yen', 'two thousand yen', '絵付け体験コース'],
+            ['two-hour boat tour', 'fifteen hundred yen', 'twelve hundred yen', 'two thousand yen', 'three thousand yen', '2時間ボートツアー', '1,500円', '2,000円'],
+            ['beginner climbing lesson', 'eighteen hundred yen', 'fifteen hundred yen', 'twenty-two hundred yen', 'twenty-five hundred yen', '初心者クライミング講座', '1,800円', '2,200円'],
+            ['pottery painting course', 'fourteen hundred yen', 'one thousand yen', 'sixteen hundred yen', 'two thousand yen', '絵付け体験コース', '1,400円', '1,600円'],
           ]
         : [
-            ['weekend museum pass', 'sixteen hundred yen', 'twelve hundred yen', 'two thousand yen', 'twenty-four hundred yen', '週末ミュージアムパス'],
-            ['guided kayaking session', 'twenty-five hundred yen', 'two thousand yen', 'three thousand yen', 'thirty-five hundred yen', 'ガイド付きカヤック体験'],
-            ['one-day cycling package', 'nineteen hundred yen', 'fifteen hundred yen', 'twenty-three hundred yen', 'twenty-eight hundred yen', '1日サイクリングパック'],
+            ['weekend museum pass', 'sixteen hundred yen', 'twelve hundred yen', 'two thousand yen', 'twenty-four hundred yen', '週末ミュージアムパス', '1,600円', '2,000円'],
+            ['guided kayaking session', 'twenty-five hundred yen', 'two thousand yen', 'three thousand yen', 'thirty-five hundred yen', 'ガイド付きカヤック体験', '2,500円', '3,000円'],
+            ['one-day cycling package', 'nineteen hundred yen', 'fifteen hundred yen', 'twenty-three hundred yen', 'twenty-eight hundred yen', '1日サイクリングパック', '1,900円', '2,300円'],
           ];
-      const [cName, ansP, w1, w2, w3, jaName] = courses[(round - 1) % 3];
+      const [cName, ansP, w1, w2, w3, jaName, ansPJa, w2Ja] = courses[(round - 1) % 3];
       const spots = ['Lake Aoba', 'Mount Midori', 'Harbor Craft Park', 'Sunny Bay', 'Maple Valley', 'Blue River', 'Cedar Hill', 'Coral Beach', 'Star Highland', 'Clover Ranch', 'Breeze Island', 'Silver Falls', 'Amber Forest', 'Sunrise Cape', 'birch Park'].map(s => s[0].toUpperCase() + s.slice(1));
+      const spotsJa = ['青葉湖', 'みどり山', 'ハーバー工芸パーク', 'サニー湾', 'メイプル渓谷', 'ブルーリバー', 'シダーヒル', 'コーラルビーチ', 'スター高原', 'クローバー牧場', 'ブリーズ島', 'シルバー滝', 'アンバーの森', 'サンライズ岬', '白樺公園'];
       const spot = spots[round - 1];
+      const spotJa = spotsJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Welcome to ${spot}! Are you interested in our ${cName}?` },
         { ...sp2, text: `Yes! The brochure says the regular fee is ${w2}, right?` },
@@ -679,7 +707,7 @@ function buildG3OrPre2DialogueUnit(
       ];
       return {
         turns,
-        ja: `${spot}の${jaName}は通常${w2}だが、平日割引が適用されて水曜日の今日は1人${ansP}になる。`,
+        ja: `${spotJa}の${jaName}は通常${w2Ja}だが、平日割引が適用されて水曜日の今日は1人${ansPJa}になる。`,
         prompt: `How much will ${who2} pay for the ${cName}?`,
         correct: ansP[0].toUpperCase() + ansP.slice(1) + '.',
         cReason: `平日割引により so it is ${ansP} per person と案内され、水曜なのでその金額で支払っている。`,
@@ -703,10 +731,16 @@ function buildG3OrPre2DialogueUnit(
       const advices = isG3
         ? ['talk to Ms. Carter in the English room', 'practice speaking in front of a mirror', 'borrow a CD from the school library', 'join the Friday lunchtime chat table', 'watch short English news videos']
         : ['speak with the academic advisor today', 'attend the free trial workshop on Thursday', 'review the vocabulary list every morning', 'record his or her own voice on a phone', 'read short science articles aloud'];
+      const advicesJa = isG3
+        ? ['英語準備室のカーター先生に相談する', '鏡の前でスピーキング練習をする', '学校図書館でCDを借りる', '金曜昼休みの英会話テーブルに参加する', '短い英語ニュース動画を見る']
+        : ['今日中に学習アドバイザーに相談する', '木曜の無料体験ワークショップに出席する', '毎朝単語リストを復習する', 'スマホで自分の声を録音する', '短い科学記事を声に出して読む'];
       const rawAdv = advices[(round - 1) % 5];
       const adv = rawAdv.replace('his or her', sp1.roleLabel === 'Man' ? 'his' : 'her');
+      const advJa = advicesJa[(round - 1) % 5];
       const goals = ['improve English pronunciation', 'prepare for the interview test', 'memorize speech lines', 'gain confidence in discussions', 'understand fast conversations', 'pass the speaking exam', 'give a clear presentation', 'learn natural expressions', 'host foreign visitors', 'lead the English tour', 'enter the recitation contest', 'study abroad next spring', 'join the debate match', 'read stories to kids', 'make an audio guide'];
+      const goalsJa = ['英語の発音を上達させる', '面接テストに備える', 'スピーチ原稿を暗記する', 'ディスカッションに自信をつける', '速い会話を聞き取れるようにする', 'スピーキング試験に合格する', 'わかりやすいプレゼンをする', '自然な英語表現を身につける', '外国人ゲストを案内する', '英語ガイドツアーを担当する', '暗唱大会に出場する', '来春に留学する', 'ディベート大会に参加する', '子どもに英語の絵本を読み聞かせる', '音声ガイドを制作する'];
       const goal = goals[round - 1];
+      const goalJa = goalsJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `I want to ${goal}, ${n1}, but I am not sure how to start.` },
         { ...sp2, text: `Well, ${n2}, when I had the same goal last term, one thing worked really well.` },
@@ -717,7 +751,7 @@ function buildG3OrPre2DialogueUnit(
       ];
       return {
         turns,
-        ja: `${goal}という目標に対し、高い参考書を買う必要はなく「${adv}」をするよう助言している。`,
+        ja: `「${goalJa}」という目標に対し、高い参考書を買う必要はなく「${advJa}」よう助言している。`,
         prompt: `What does ${who2} advise ${who1} to do?`,
         correct: adv[0].toUpperCase() + adv.slice(1) + '.',
         cReason: `Instead, you should ${adv}. と具体的に助言し、相手も試すと答えている。`,
@@ -741,9 +775,15 @@ function buildG3OrPre2DialogueUnit(
       const bests = isG3
         ? ['watching the sunrise from the hilltop', 'trying fresh seafood at the morning market', 'riding the steam train through the valley', 'making handmade paper with local artisans', 'listening to folk music around the fire']
         : ['joining the guided night walk in the forest', 'talking with local potters in their studio', 'cycling across the suspension bridges', 'learning regional cooking from a chef', 'observing migratory birds at the wetland'];
+      const bestsJa = isG3
+        ? ['丘の上から日の出を見たこと', '朝市で新鮮な魚介を味わったこと', '渓谷を走る蒸気機関車に乗ったこと', '地元の職人と手すき和紙を作ったこと', 'たき火を囲んで民族音楽を聴いたこと']
+        : ['森のガイド付きナイトウォークに参加したこと', '工房で地元の陶芸家と語り合ったこと', 'つり橋を渡るサイクリングをしたこと', 'シェフから郷土料理を習ったこと', '湿地で渡り鳥を観察したこと'];
       const best = bests[(round - 1) % 5];
+      const bestJa = bestsJa[(round - 1) % 5];
       const regions = ['Nagano', 'Kanazawa', 'Hakodate', 'Matsue', 'Takayama', 'Kagoshima', 'Sendai', 'Kurashiki', 'Otaru', 'Nikko', 'wakayama', 'Nagasaki', 'Toyama', 'Aomori', 'Kumamoto'].map(s => s[0].toUpperCase() + s.slice(1));
+      const regionsJa = ['長野', '金沢', '函館', '松江', '高山', '鹿児島', '仙台', '倉敷', '小樽', '日光', '和歌山', '長崎', '富山', '青森', '熊本'];
       const reg = regions[round - 1];
+      const regJa = regionsJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Welcome back from your trip to ${reg}, ${n1}! Did you enjoy the famous castle there?` },
         { ...sp2, text: `The castle was under repair, so we could only see the outside gate.` },
@@ -753,7 +793,7 @@ function buildG3OrPre2DialogueUnit(
       ];
       return {
         turns,
-        ja: `${reg}旅行では城が修理中だったが、一番良かった体験は「${best}」だったと振り返っている。`,
+        ja: `${regJa}旅行では城が修理中だったが、一番良かった体験は「${bestJa}」だったと振り返っている。`,
         prompt: `What did ${who2} enjoy most on the trip to ${reg}?`,
         correct: best[0].toUpperCase() + best.slice(1) + '.',
         cReason: `What was the best part ...? に対し Definitely ${best}. と最も楽しかったことを挙げている。`,
@@ -775,11 +815,17 @@ function buildG3OrPre2DialogueUnit(
     // u=8: 順番・時系列の把握（〜したあとに何をするか）
     () => {
       const step1s = ['clean the art tables', 'submit the permission slip', 'check the microphone battery', 'finish the warm-up run', 'put the groceries in the fridge'];
+      const step1sJa = ['美術室のテーブルを拭く', '参加同意書を提出する', 'マイクの電池を確認する', '準備ランニングを終える', '食料品を冷蔵庫にしまう'];
       const afters = isG3
         ? ['carry the paintings to the hallway', 'pick up the uniform at the gym', 'test the projector screen', 'practice passing drills in pairs', 'peel potatoes for beef stew']
         : ['hang the exhibition labels on the wall', 'attend the captain\'s briefing in Room B', 'adjust the stage lighting angles', 'review the video of last week\'s game', 'marinate the chicken for thirty minutes'];
+      const aftersJa = isG3
+        ? ['絵画を廊下へ運ぶ', '体育館でユニフォームを受け取る', 'プロジェクターのスクリーンを試す', 'ペアでパス練習をする', 'ビーフシチュー用のじゃがいもの皮をむく']
+        : ['展示ラベルを壁に掲示する', 'B室での部長ミーティングに出る', 'ステージ照明の角度を調整する', '先週の試合映像を見直す', '鶏肉を下味に30分間漬け込む'];
       const s1 = step1s[(round - 1) % 5];
+      const s1Ja = step1sJa[(round - 1) % 5];
       const s2 = afters[(round - 1) % 5];
+      const s2Ja = aftersJa[(round - 1) % 5];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Excuse me ${n1}, it is period ${round} break—should we ${s2} right now?` },
         { ...sp2, text: `Hold on, ${n2}. First we must ${s1} so everything is ready.` },
@@ -789,7 +835,7 @@ function buildG3OrPre2DialogueUnit(
       ];
       return {
         turns,
-        ja: `最初に「${s1}」を済ませ、その直後に「${s2}」を行う手順を確認している。`,
+        ja: `最初に「${s1Ja}」を済ませ、その直後に「${s2Ja}」を行う手順を確認している。`,
         prompt: `What will they do right after they ${s1}?`,
         correct: s2[0].toUpperCase() + s2.slice(1) + '.',
         cReason: `right after we ${s1}, we will ${s2} に Exactly と同意している。`,
@@ -811,13 +857,15 @@ function buildG3OrPre2DialogueUnit(
     // u=9: 病院・修理・予約日時の変更
     () => {
       const days = [
-        ['Thursday at four thirty', 'Tuesday at three', 'Wednesday at five', 'Friday at two'],
-        ['Wednesday at five o\'clock', 'Monday at four', 'Thursday at two', 'Saturday at ten'],
-        ['Friday at ten thirty', 'Tuesday at eleven', 'Wednesday at nine', 'Saturday at one'],
+        ['Thursday at four thirty', 'Tuesday at three', 'Wednesday at five', 'Friday at two', '木曜の4時30分', '火曜の3時', '水曜の5時'],
+        ['Wednesday at five o\'clock', 'Monday at four', 'Thursday at two', 'Saturday at ten', '水曜の5時', '月曜の4時', '木曜の2時'],
+        ['Friday at ten thirty', 'Tuesday at eleven', 'Wednesday at nine', 'Saturday at one', '金曜の10時30分', '火曜の11時', '水曜の9時'],
       ];
-      const [ansD, oldD, w2, w3] = days[(round - 1) % 3];
+      const [ansD, oldD, w2, w3, ansDJa, oldDJa, w2Ja] = days[(round - 1) % 3];
       const clinics = ['Midori Dental Office', 'Sakura Eye Clinic', 'Aoba Hair Salon', 'Harbor Bike Repair', 'Maple Piano Studio', 'Clover Animal Clinic', 'Star Optical Shop', 'Sunny Skin Clinic', 'River Watch Repair', 'Hilltop Orthodontics', 'Breeze Violin Shop', 'Crown Tailor Shop', 'Forest Counseling Room', 'Central Photo Studio', 'Sunrise Tutoring Desk'];
+      const clinicsJa = ['みどり歯科医院', 'さくら眼科クリニック', '青葉ヘアサロン', 'ハーバー自転車修理店', 'メイプルピアノ教室', 'クローバー動物病院', 'スター眼鏡店', 'サニー皮膚科クリニック', 'リバー時計修理店', 'ヒルトップ矯正歯科', 'ブリーズバイオリン工房', 'クラウン仕立て店', 'フォレスト相談室', '中央写真館', 'サンライズ個別指導受付'];
       const cl = clinics[round - 1];
+      const clJa = clinicsJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Hello, ${cl}. How may I help you today?` },
         { ...sp2, text: `Hello, this is ${n1}. I have an appointment on ${oldD}, but I have to work late that day.` },
@@ -828,7 +876,7 @@ function buildG3OrPre2DialogueUnit(
       ];
       return {
         turns,
-        ja: `${cl}の予約変更の電話。元の${oldD}や候補の${w2}ではなく、「${ansD}」に新しい予約が確定した。`,
+        ja: `${clJa}への予約変更の電話。元の${oldDJa}や候補の${w2Ja}ではなく、「${ansDJa}」に新しい予約が確定した。`,
         prompt: `When is ${who2}'s new appointment?`,
         correct: `On ${ansD}.`,
         cReason: `${ansD} would be great と希望し、受付も All set for ${ansD} と確定している。`,
@@ -847,18 +895,20 @@ function buildG3OrPre2DialogueUnit(
     () => {
       const items = isG3
         ? [
-            ['a navy umbrella with a wooden handle', 'a navy umbrella with a plastic handle', 'a black umbrella with a wooden handle', 'a red folding umbrella'],
-            ['a canvas tote bag with two outside pockets', 'a leather bag with no pockets', 'a canvas tote bag with a zipper only', 'a black sports backpack'],
-            ['a silver water bottle with a star sticker', 'a gold water bottle with a star sticker', 'a silver water bottle with a name tag', 'a blue plastic cup'],
+            ['a navy umbrella with a wooden handle', 'a navy umbrella with a plastic handle', 'a black umbrella with a wooden handle', 'a red folding umbrella', '木の持ち手がついた紺色の傘'],
+            ['a canvas tote bag with two outside pockets', 'a leather bag with no pockets', 'a canvas tote bag with a zipper only', 'a black sports backpack', '外ポケットが2つある帆布トートバッグ'],
+            ['a silver water bottle with a star sticker', 'a gold water bottle with a star sticker', 'a silver water bottle with a name tag', 'a blue plastic cup', '星のシールが貼られた銀色の水筒'],
           ]
         : [
-            ['a brown leather notebook with a brass clip', 'a black leather notebook with a ribbon', 'a brown cloth notebook with a zipper', 'a gray plastic file folder'],
-            ['a gray wool scarf with white stripes', 'a gray silk scarf with black dots', 'a navy wool scarf with fringes only', 'a beige cotton shawl'],
-            ['a black glasses case with a green lining', 'a black glasses case with a red lining', 'a silver metal case with no lining', 'a brown soft pouch'],
+            ['a brown leather notebook with a brass clip', 'a black leather notebook with a ribbon', 'a brown cloth notebook with a zipper', 'a gray plastic file folder', '真鍮クリップ付きの茶色い革製手帳'],
+            ['a gray wool scarf with white stripes', 'a gray silk scarf with black dots', 'a navy wool scarf with fringes only', 'a beige cotton shawl', '白いストライプ入りの灰色のウールマフラー'],
+            ['a black glasses case with a green lining', 'a black glasses case with a red lining', 'a silver metal case with no lining', 'a brown soft pouch', '内側が緑色の黒い眼鏡ケース'],
           ];
-      const [ans, w1, w2, w3] = items[(round - 1) % 3];
+      const [ans, w1, w2, w3, ansJa] = items[(round - 1) % 3];
       const desks = ['Central Station Lost and Found', 'City Library Front Desk', 'Civic Hall Information', 'Harbor Mall Counter', 'Green Park Office', 'West Bus Terminal', 'Sakura Theater Lobby', 'Museum Security Desk', 'Sports Arena Reception', 'Aquarium Service Booth', 'Airport Desk Three', 'Youth Plaza Counter', 'Botanical House Desk', 'Ferry Terminal Office', 'Science Dome Counter'];
+      const desksJa = ['中央駅の忘れ物取扱所', '市立図書館フロント', '市民ホール案内所', 'ハーバーモールのカウンター', '緑公園の管理事務所', '西バスターミナル窓口', 'さくら劇場ロビー', '博物館の警備受付', 'スポーツアリーナ受付', '水族館サービスブース', '空港3番カウンター', '青少年プラザ窓口', '植物館デスク', 'フェリーターミナル事務所', '科学ドーム受付'];
       const desk = desks[round - 1];
+      const deskJa = desksJa[round - 1];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Excuse me, is this ${desk}? I left my item on a bench twenty minutes ago.` },
         { ...sp2, text: `Several items were turned in today. Could you describe what yours looks like?` },
@@ -868,7 +918,7 @@ function buildG3OrPre2DialogueUnit(
       ];
       return {
         turns,
-        ja: `${desk}で忘れ物の特徴を尋ねられ、「${ans}」と答えて無事受け取っている。`,
+        ja: `${deskJa}で忘れ物の特徴を尋ねられ、「${ansJa}」と答えて無事受け取っている。`,
         prompt: `Which item belongs to ${who1}?`,
         correct: ans[0].toUpperCase() + ans.slice(1) + '.',
         cReason: `It is ${ans}. と色・素材・細部の特徴まで一致している。`,
@@ -934,15 +984,21 @@ function buildG3OrPre2PassageUnit(
     // 1: 地域イベント・案内放送
     () => {
       const towns = ['Midori Town', 'Kaede City', 'Aoba Village', 'Harbor District', 'Sakura Ward', 'Wakaba City', 'Minato Town', 'Kogen Village', 'Asahi Ward', 'komorebi Town', 'Izumi City', 'Kasumi Ward', 'Tachibana Town', 'Nagisa City', 'suzukaze Town'].map(s => s[0].toUpperCase() + s.slice(1));
+      const townsJa = ['みどり町', 'かえで市', '青葉村', 'ハーバー地区', 'さくら区', 'わかば市', 'みなと町', '高原村', 'あさひ区', 'こもれび町', 'いずみ市', 'かすみ区', 'たちばな町', 'なぎさ市', '涼風町'];
       const benefits = isG3
         ? ['a reusable cotton shopping bag', 'a cup of hot ginger tea', 'a packet of sunflower seeds', 'a handmade cedar coaster', 'a local map and sticker set']
         : ['a voucher for the farmers\' market', 'a guided tour of the old lighthouse', 'a booklet of traditional recipes', 'a sample jar of local wildflower honey', 'a free shuttle pass for the day'];
+      const benefitsJa = isG3
+        ? ['繰り返し使える綿のエコバッグ', '温かいしょうが茶1杯', 'ヒマワリの種の小袋', '手作りの杉コースター', '地域マップとステッカーのセット']
+        : ['朝市で使える引換券', '古い灯台のガイドツアー', '伝統料理レシピの小冊子', '地元産百花はちみつの試供品瓶', '当日使える無料シャトル乗車券'];
       const town = towns[round - 1];
+      const townJa = townsJa[round - 1];
       const ben = benefits[(round - 1) % 5];
+      const benJa = benefitsJa[(round - 1) % 5];
       const text = `Welcome to the ${town} Autumn Festival! Events are taking place in three parks until five o'clock today. Visitors who collect stamps from all three booths can receive ${ben} at the main tent near the fountain. Also, the folk dance performance will start at two thirty on the east stage.`;
       return {
         text,
-        ja: `${town}秋祭りへの案内放送。3つのブースすべてのスタンプを集めた来場者は、噴水近くの本部テントで「${ben}」を受け取れる。`,
+        ja: `${townJa}秋祭りへの案内放送。3つのブースすべてのスタンプを集めた来場者は、噴水近くの本部テントで「${benJa}」を受け取れる。`,
         prompt: 'What can visitors receive if they collect stamps from all three booths?',
         correct: ben[0].toUpperCase() + ben.slice(1) + '.',
         cReason: `Visitors who collect stamps from all three booths can receive ${ben} と明言されている。`,
@@ -960,13 +1016,13 @@ function buildG3OrPre2PassageUnit(
     // 2: 歴史・文化のミニ解説
     () => {
       const subjects = [
-        ['the historic wooden clock tower in Bellville', 'a local watchmaker donated it in eighteen ninety', 'to help farmers check the time from the fields'],
-        ['the stone arched bridge in Riverdale', 'town merchants built it over two summers', 'to carry heavy tea carts safely across the river'],
-        ['the red brick library in Oakwood', 'a retired ship captain funded the building', 'to give young sailors free books to study'],
-        ['the hilltop windomill in Meadowbrook', 'villagers worked together to raise its sails', 'to grind wheat during dry summer months'],
-        ['the glass botanical dome in Sunport', 'botanists brought rare tropical trees by ship', 'to teach schoolchildren about rainforest plants'],
+        ['the historic wooden clock tower in Bellville', 'a local watchmaker donated it in eighteen ninety', 'to help farmers check the time from the fields', '1890年に地元の時計職人が寄贈した', '農家の人々が畑から時刻を確認できるようにする'],
+        ['the stone arched bridge in Riverdale', 'town merchants built it over two summers', 'to carry heavy tea carts safely across the river', '町の商人たちが2つの夏をかけて建設した', '重い茶葉の荷車を安全に川の向こうへ運ぶ'],
+        ['the red brick library in Oakwood', 'a retired ship captain funded the building', 'to give young sailors free books to study', '引退した船長が建設資金を出した', '若い船乗りたちに無料で学べる本を提供する'],
+        ['the hilltop windomill in Meadowbrook', 'villagers worked together to raise its sails', 'to grind wheat during dry summer months', '村人たちが力を合わせて羽根を組み上げた', '乾燥する夏の間に小麦をひく'],
+        ['the glass botanical dome in Sunport', 'botanists brought rare tropical trees by ship', 'to teach schoolchildren about rainforest plants', '植物学者たちが船で珍しい熱帯樹を運んできた', '小学生たちに熱帯雨林の植物について教える'],
       ];
-      const [sub, fact, purpose] = subjects[(round - 1) % 5];
+      const [sub, fact, purpose, factJa, purposeJa] = subjects[(round - 1) % 5];
       const intros = [
         'Good morning, tour guests!', 'Welcome to stop number two!', 'Hello everyone, look ahead!',
         'Thank you for joining our walk!', 'Here is an interesting landmark!', 'Let us stop here for a moment!',
@@ -977,7 +1033,7 @@ function buildG3OrPre2PassageUnit(
       const text = `${intros[round - 1]} We are now looking at ${sub.replace('windomill', 'windmill')}. Records show that ${fact}. Originally, it was created ${purpose}. Today, it remains one of the most photographed spots in the region.`;
       return {
         text,
-        ja: `観光ガイドによる解説。${fact}という経緯があり、もともとは「${purpose}」という目的で作られた。`,
+        ja: `観光ガイドによる解説。${factJa}という経緯があり、もともとは「${purposeJa}」という目的で作られた。`,
         prompt: 'Why was this landmark originally created?',
         correct: purpose[0].toUpperCase() + purpose.slice(1) + '.',
         cReason: `Originally, it was created ${purpose}. と創建の目的が述べられている。`,
@@ -999,6 +1055,7 @@ function buildG3OrPre2PassageUnit(
     // 3: 電車・交通機関の車内放送
     () => {
       const lines = ['Express Blue Liner', 'Rapid Coastal Train', 'Airport Shuttle Green', 'Mountain View Limited', 'Harbor Loop Line', 'Northern Valley Express', 'Sunrise Commuter Rapid', 'Silver Lake Liner', 'Central Metro Express', 'Maple Canyon Train', 'Westward Rapid', 'Bayfront Liner', 'Highland Express', ' Riverfront Rapid', 'Starlight Airport Line'].map(s => s.trim());
+      const linesJa = ['特急ブルーライナー', '快速コースタル号', '空港シャトル・グリーン号', 'マウンテンビュー特急', 'ハーバー環状線', '北渓谷急行', 'サンライズ通勤快速', 'シルバーレイクライナー', '中央メトロ急行', 'メイプル渓谷列車', 'ウエストワード快速', 'ベイフロントライナー', 'ハイランド急行', 'リバーフロント快速', 'スターライト空港線'];
       const changes = [
         ['transfer at Eastgate Station to Platform Four', '東ゲート駅の4番ホームで乗り換える'],
         ['move to the first three cars before Oak Station', 'オーク駅の手前で前3両へ移動する'],
@@ -1007,11 +1064,12 @@ function buildG3OrPre2PassageUnit(
         ['exit from the rear doors at Hilltop Stop', 'ヒルトップ停留所では後ろのドアから降りる'],
       ];
       const line = lines[round - 1];
+      const lineJa = linesJa[round - 1];
       const [chgEn, chgJa] = changes[(round - 1) % 5];
       const text = `Ladies and gentlemen, thank you for riding the ${line}. Due to track maintenance ahead, this train will terminate one stop early today. Passengers heading to the final terminal should ${chgEn}. We apologize for the inconvenience.`;
       return {
         text,
-        ja: `${line}の車内放送。前方の線路点検のため1駅手前で運転を打ち切るため、終点へ向かう乗客は「${chgJa}」必要がある。`,
+        ja: `${lineJa}の車内放送。前方の線路点検のため1駅手前で運転を打ち切るため、終点へ向かう乗客は「${chgJa}」必要がある。`,
         prompt: 'What should passengers heading to the final terminal do?',
         correct: chgEn[0].toUpperCase() + chgEn.slice(1) + '.',
         cReason: `Passengers heading to the final terminal should ${chgEn}. と明確に指示されている。`,
@@ -1109,13 +1167,13 @@ function buildG3OrPre2PassageUnit(
     // 6: 学校・職場のスケジュール連絡
     () => {
       const items = [
-        ['annual health checkup', 'gymnasium', 'school library', 'bring your health card', '健康診断', '健康カードを持参する'],
-        ['career talk by local engineers', 'Room Ten', 'main auditorium', 'submit one question in advance', '地元エンジニアによる進路講話', '事前に質問を1つ提出する'],
-        ['winter coat donation drive', 'entrance hall', 'student council room', 'wash coats before bringing them', '冬物コート寄付活動', '持参前にコートを洗う'],
-        ['bicycle safety inspection', 'east parking lot', 'covered court', 'attach your registration sticker', '自転車安全点検', '登録ステッカーを貼っておく'],
-        ['international food cooking day', 'Home Economics Room', 'Cooking Annex', 'tie back long hair with a band', '国際料理デー', '長い髪をゴムで束ねる'],
+        ['annual health checkup', 'gymnasium', 'school library', 'bring your health card', '健康診断', '健康カードを持参する', '体育館', '学校図書館'],
+        ['career talk by local engineers', 'Room Ten', 'main auditorium', 'submit one question in advance', '地元エンジニアによる進路講話', '事前に質問を1つ提出する', '10番教室', '大講堂'],
+        ['winter coat donation drive', 'entrance hall', 'student council room', 'wash coats before bringing them', '冬物コート寄付活動', '持参前にコートを洗う', '玄関ホール', '生徒会室'],
+        ['bicycle safety inspection', 'east parking lot', 'covered court', 'attach your registration sticker', '自転車安全点検', '登録ステッカーを貼っておく', '東駐輪場', '屋根付きコート'],
+        ['international food cooking day', 'Home Economics Room', 'Cooking Annex', 'tie back long hair with a band', '国際料理デー', '長い髪をゴムで束ねる', '家庭科室', '調理別館'],
       ];
-      const [evEn, oldLoc, newLoc, ruleEn, evJa, ruleJa] = items[(round - 1) % 5];
+      const [evEn, oldLoc, newLoc, ruleEn, evJa, ruleJa, oldLocJa, newLocJa] = items[(round - 1) % 5];
       const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'next Monday', 'next Tuesday', 'next Wednesday', 'next Thursday', 'next Friday', 'this Wednesday', 'this Thursday', 'this Friday', 'tomorrow morning', 'tomorrow afternoon'];
       const salutations = [
         'Good morning, first-year students.', 'Attention, second-year classes.', 'Good afternoon, third-year students.',
@@ -1127,7 +1185,7 @@ function buildG3OrPre2PassageUnit(
       const text = `${salutations[round - 1]} Regarding the ${evEn} scheduled for ${days[round - 1]}, we have changed the venue from the ${oldLoc} to the ${newLoc}. Also, all students must ${ruleEn}. Thank you for your cooperation.`;
       return {
         text,
-        ja: `${evJa}についての連絡。会場が${oldLoc}から${newLoc}へ変更され、さらに全員「${ruleJa}」必要がある。`,
+        ja: `${evJa}についての連絡。会場が${oldLocJa}から${newLocJa}へ変更され、さらに全員「${ruleJa}」必要がある。`,
         prompt: `What must all students do for the ${evEn}?`,
         correct: ruleEn[0].toUpperCase() + ruleEn.slice(1) + '.',
         cReason: `Also, all students must ${ruleEn}. と必須の指示が述べられている。`,
@@ -1149,6 +1207,7 @@ function buildG3OrPre2PassageUnit(
     // 7: ラジオの天気・週末お出かけ情報
     () => {
       const regions = ['Northern Bay', 'Maple Valley', 'Green Highlands', 'Sunset Coast', 'Crystal Lake', 'Cedar Peninsula', 'Harbor Hills', 'Silver Plains', 'Amber Island', 'Cloudy Ridge', 'Breeze Basin', 'Starlight Cape', 'Clover Meadow', 'River Delta', 'Oak Plateau'];
+      const regionsJa = ['ノーザン湾', 'メイプル渓谷', 'グリーン高原', 'サンセット海岸', 'クリスタル湖', 'シダー半島', 'ハーバー丘陵', 'シルバー平野', 'アンバー島', 'クラウディ尾根', 'ブリーズ盆地', 'スターライト岬', 'クローバー草原', 'リバーデルタ', 'オーク台地'];
       const forecasts = [
         ['sunny skies in the morning, followed by rain in the evening', '午前は晴れ、夕方は雨'],
         ['cloudy weather until noon, then clear blue skies all afternoon', '正午まで曇り、午後は快晴'],
@@ -1157,11 +1216,12 @@ function buildG3OrPre2PassageUnit(
         ['cool temperatures all day, with brief showers around three', '一日中涼しく、3時ごろ短い通り雨'],
       ];
       const reg = regions[round - 1];
+      const regJa = regionsJa[round - 1];
       const [fcEn, fcJa] = forecasts[(round - 1) % 5];
       const text = `Here is the weekend weather update for ${reg}. Tomorrow we expect ${fcEn}. If you are planning outdoor sports or picnics, please check hourly updates before leaving home.`;
       return {
         text,
-        ja: `${reg}の週末天気予報。明日は「${fcJa}」となる見込み。`,
+        ja: `${regJa}の週末天気予報。明日は「${fcJa}」となる見込み。`,
         prompt: `What weather is expected in ${reg} tomorrow?`,
         correct: fcEn[0].toUpperCase() + fcEn.slice(1) + '.',
         cReason: `Tomorrow we expect ${fcEn}. と明日の天気がそのまま述べられている。`,
@@ -1183,6 +1243,7 @@ function buildG3OrPre2PassageUnit(
     // 8: ボイスメール（注文・配達・修理の連絡）
     () => {
       const shops = ['Takahashi Books', 'Aoba Tailoring', 'Midori Camera Service', 'Harbor Florist', 'Sakura Bakery', 'Maple Framing Shop', 'Star Music Repair', 'Clover Pet Grooming', 'Sunny Curtain Store', 'River Shoe Repair', 'Hilltop Pottery', 'Breeze Cycle Shop', 'Crown Stationery', 'Forest Furniture', 'Sunrise Print Shop'];
+      const shopsJa = ['高橋書店', '青葉テーラー', 'みどりカメラサービス', 'ハーバー生花店', 'さくらベーカリー', 'メイプル額縁店', 'スター楽器修理店', 'クローバーペットサロン', 'サニーカーテン専門店', 'リバー靴修理店', 'ヒルトップ陶芸店', 'ブリーズ自転車店', 'クラウン文具店', 'フォレスト家具店', 'サンライズ印刷店'];
       const actions = [
         ['confirm whether you want gift wrapping', 'ギフト包装を希望するか確認する'],
         ['check the spelling of the name on the card', 'カードの氏名のつづりを確認する'],
@@ -1191,11 +1252,12 @@ function buildG3OrPre2PassageUnit(
         ['inform you that your custom order arrived early', '特注品が予定より早く届いたと知らせる'],
       ];
       const shop = shops[round - 1];
+      const shopJa = shopsJa[round - 1];
       const [actEn, actJa] = actions[(round - 1) % 5];
       const text = `Hello ${personM}, this is ${shop} calling about your order number forty-${round}. Everything is going smoothly, and we are calling to ${actEn}. Please call us back before six o'clock this evening.`;
       return {
         text,
-        ja: `${shop}から${personM}への留守番電話。注文の件で「${actJa}」ために連絡しており、夕方6時までに折り返しを求めている。`,
+        ja: `${shopJa}から${personM}への留守番電話。注文の件で「${actJa}」ために連絡しており、夕方6時までに折り返しを求めている。`,
         prompt: `Why is ${shop} calling ${personM}?`,
         correct: `To ${actEn}.`,
         cReason: `we are calling to ${actEn} と電話の目的をはっきり伝えている。`,
@@ -1225,11 +1287,13 @@ function buildG3OrPre2PassageUnit(
       ];
       const [progName, descEn, progJa, descJa] = programs[(round - 1) % 5];
       const schools = ['North High', 'East Junior High', 'West Academy', 'South High', 'Maple School', 'Aoba High', 'Sakura Academy', 'Harbor Junior High', 'Hilltop High', 'River School', 'Cedar High', 'Clover Junior High', 'Star Academy', 'Breeze High', 'Sunrise School'];
+      const schoolsJa = ['北高校', '東中学校', '西学園', '南高校', 'メイプル学園', '青葉高校', 'さくら学園', 'ハーバー中学校', 'ヒルトップ高校', 'リバー学園', 'シダー高校', 'クローバー中学校', 'スター学園', 'ブリーズ高校', 'サンライズ学園'];
       const sch = schools[round - 1];
+      const schJa = schoolsJa[round - 1];
       const text = `Starting next month at ${sch}, we will introduce a new program called ${progName}. Under this program, students will ${descEn}. Teachers hope this will make school life more enjoyable and meaningful.`;
       return {
         text,
-        ja: `来月から${sch}で始まる新プログラム「${progJa}」。生徒は「${descJa}」ことになり、学校生活の充実を目指している。`,
+        ja: `来月から${schJa}で始まる新プログラム「${progJa}」。生徒は「${descJa}」ことになり、学校生活の充実を目指している。`,
         prompt: `What will students do under the ${progName} program?`,
         correct: descEn[0].toUpperCase() + descEn.slice(1) + '.',
         cReason: `Under this program, students will ${descEn}. と活動内容が明記されている。`,
@@ -1251,6 +1315,7 @@ function buildG3OrPre2PassageUnit(
     // 10: 旅行・コンテスト応募要項
     () => {
       const contests = ['Teen Eco Poster Contest', 'City Short Story Award', 'Junior Invention Fair', 'Hometown Photo Prize', 'Student Recipe Challenge', 'Spring Haiku Contest', 'Local Bird Sketch Prize', 'Youth Choir Audition', 'Bridge Design Contest', 'Bookmark Art Award', 'Clean River Slogan Prize', ' Town Mascot Contest', 'Book Review Award', 'Solar Car Mini Race', 'Speech Video Contest'].map(s => s.trim());
+      const contestsJa = ['中高生エコポスターコンテスト', '市民短編小説賞', 'ジュニア発明展', 'ふるさと写真コンテスト', '学生レシピチャレンジ', '春の俳句コンテスト', '地域の野鳥スケッチ賞', '青少年合唱団オーディション', '橋のデザインコンテスト', 'しおりアート賞', '清流スローガンコンクール', '町のマスコットコンテスト', '読書感想文賞', 'ミニソーラーカーレース', 'スピーチ動画コンテスト'];
       const prizes = [
         ['a tablet stylus and art kit', 'タブレットペンと画材セット'],
         ['a ten-thousand-yen book card', '1万円分の図書カード'],
@@ -1259,6 +1324,7 @@ function buildG3OrPre2PassageUnit(
         ['a set of stainless steel pans', 'ステンレス鍋セット'],
       ];
       const ct = contests[round - 1];
+      const ctJa = contestsJa[round - 1];
       const [prEn, prJa] = prizes[(round - 1) % 5];
       const hooks = [
         'Do you enjoy expressing new ideas?',
@@ -1280,7 +1346,7 @@ function buildG3OrPre2PassageUnit(
       const text = `${hooks[round - 1]} Entries are now open for the ${ct}! Anyone aged twelve to eighteen can enter for free before October twentieth. The grand prize winner will receive ${prEn}, and top entries will be displayed at City Hall.`;
       return {
         text,
-        ja: `${ct}の募集案内。12〜18歳は10月20日まで無料で応募でき、最優秀賞受賞者には「${prJa}」が贈られ、上位作品は市役所に展示される。`,
+        ja: `${ctJa}の募集案内。12〜18歳は10月20日まで無料で応募でき、最優秀賞受賞者には「${prJa}」が贈られ、上位作品は市役所に展示される。`,
         prompt: `What will the grand prize winner of the ${ct} receive?`,
         correct: prEn[0].toUpperCase() + prEn.slice(1) + '.',
         cReason: `The grand prize winner will receive ${prEn} と最優秀賞の賞品が明言されている。`,
@@ -1347,11 +1413,13 @@ function buildPre2Part1(examId: string, round: number, u: number): ListeningAudi
     // 1: 締切・仕事の進捗確認
     () => {
       const docs = ['sales summary', 'biology lab report', 'club budget sheet', 'event poster draft', 'reading assignment', 'internship form', 'survey chart', 'newsletter article', 'safety checklist', 'travel itinerary', 'speech outline', 'book club flyer', 'volunteer schedule', 'practice menu', 'seminar handout'];
+      const docsJa = ['売上集計表', '生物の実験レポート', '部活の予算表', 'イベントポスターの下書き', '読書課題レポート', 'インターン申込書', 'アンケート集計図', '会報記事', '安全点検リスト', '旅行の行程表', 'スピーチ構成メモ', '読書会のチラシ', 'ボランティア予定表', '練習メニュー表', 'セミナー配布資料'];
       const doc = docs[round - 1];
+      const docJa = docsJa[round - 1];
       return {
         l1: `Hi ${n1}, have you finished writing the ${doc} yet?`,
         l2: `Almost, ${n2}. I just need to check the numbers on the last page. When does Mr. Ross need it?`,
-        j1: `やあ${n1}、${doc}はもう書き終わった？`,
+        j1: `やあ${n1}、${docJa}はもう書き終わった？`,
         j2: `もう少しだよ。最後のページの数字を確認するだけなんだ。ロス先生はいつまでに必要としてる？`,
         correct: 'By noon tomorrow, so you still have time.',
         cReason: `When does Mr. Ross need it?（いつまでに必要か）に対し、「明日の正午までだからまだ時間があるよ」と期限を答えている。`,
@@ -1368,12 +1436,14 @@ function buildPre2Part1(examId: string, round: number, u: number): ListeningAudi
     // 2: 提案への間接的な断り・代替案
     () => {
       const meals = ['spicy Thai curry', 'garlic steak', 'seafood ramen', 'double cheeseburgers', 'fried chicken baskets', 'pepperoni pizza', 'beef tacos', 'cream pasta', 'roast pork sandwiches', 'hot pot noodles', 'lamb kebabs', 'fried oyster plates', 'barbecue ribs', 'crab omelette', 'chili hot dogs'];
+      const mealsJa = ['辛いタイカレー', 'ガーリックステーキ', '海鮮ラーメン', 'ダブルチーズバーガー', 'フライドチキンバスケット', 'ペパロニピザ', 'ビーフタコス', 'クリームパスタ', 'ローストポークサンド', '鍋焼き麺', 'ラムケバブ', 'カキフライ定食', 'バーベキューリブ', 'カニオムレツ', 'チリホットドッグ'];
       const meal = meals[round - 1];
+      const mealJa = mealsJa[round - 1];
       return {
         l1: `I am starving after tennis practice, ${n1}!`,
         l2: `Me too, ${n2}. Let's go eat ${meal} at that new diner across the street!`,
         j1: `テニスの練習の後でおなかペコペコだよ！`,
-        j2: `私も。通りの向かいの新しい食堂で${meal}を食べに行こう！`,
+        j2: `私も。通りの向かいの新しい食堂で${mealJa}を食べに行こう！`,
         correct: 'Actually, my stomach feels heavy—could we get something lighter?',
         cReason: `こってり・辛い食事の誘いに対し、「実は胃が重いからもっと軽いものにしない？」と自然に対案を出している。`,
         wrongs: ['The tennis court closes at eight.', 'I bought a new racket last week.'] as [string, string],
@@ -1443,11 +1513,13 @@ function buildPre2Part1(examId: string, round: number, u: number): ListeningAudi
     // 4: 料金・割引条件の質問
     () => {
       const places = ['botanical conservatory', 'modern art museum', 'indoor climbing gym', 'city swimming complex', 'science planetarium', 'historic castle keep', 'ice skating arena', 'maritime museum', 'ceramic workshop', 'observatory deck', 'folk craft hall', 'butterfly house', 'railway heritage park', 'outdoor cinema', 'pottery gallery'];
+      const placesJa = ['植物園の温室', '近代美術館', '屋内クライミングジム', '市営水泳場', '科学館のプラネタリウム', '歴史ある天守閣', 'アイススケート場', '海洋博物館', '陶芸工房', '展望デッキ', '民芸館', '蝶の温室', '鉄道遺産パーク', '野外映画館', '陶磁器ギャラリー'];
       const pl = places[round - 1];
+      const plJa = placesJa[round - 1];
       return {
         l1: `Let's buy our tickets for the ${pl}, ${n1}.`,
         l2: `Hold on, ${n2}. Do high school students get a discount if we show our IDs?`,
-        j1: `${pl}のチケットを買おう。`,
+        j1: `${plJa}のチケットを買おう。`,
         j2: `ちょっと待って。生徒証を見せれば高校生割引になるのかな？`,
         correct: 'Yes, it makes the ticket half price!',
         cReason: `高校生割引があるか（Do high school students get a discount ...?）に対し、「うん、半額になるよ！」と明確に答えている。`,
@@ -1464,11 +1536,13 @@ function buildPre2Part1(examId: string, round: number, u: number): ListeningAudi
     // 5: 相手の意図・感想への共感
     () => {
       const classes = ['Professor Kim\'s economics lecture', 'Ms. Bell\'s creative writing class', 'Coach Grant\'s fitness bootcamp', 'Dr. Ota\'s astronomy seminar', 'Mr. Penn\'s photography course', 'Ms. Lin\'s debate workshop', 'Chef Marco\'s baking class', 'Dr. Reed\'s ocean biology talk', 'Mr. Cole\'s guitar clinic', 'Ms. Hara\'s calligraphy course', 'Coach Diaz\'s tennis camp', 'Dr. Shaw\'s history lecture', 'Ms. Park\'s pottery studio', 'Mr. Ford\'s coding seminar', 'Ms. Ito\'s translation class'];
+      const classesJa = ['キム教授の経済学の講義', 'ベル先生の創作ライティングの授業', 'グラントコーチのフィットネス講座', '太田博士の天文学ゼミ', 'ペン先生の写真講座', 'リン先生のディベート演習', 'マルコ・シェフの製パン教室', 'リード博士の海洋生物学講座', 'コール先生のギタークリニック', '原先生の書道講座', 'ディアスコーチのテニス合宿', 'ショウ博士の歴史講義', 'パク先生の陶芸教室', 'フォード先生のプログラミング講座', '伊藤先生の翻訳クラス'];
       const cls = classes[round - 1];
+      const clsJa = classesJa[round - 1];
       return {
         l1: `We just finished our first day of ${cls}, ${n1}.`,
         l2: `Yeah, ${n2}. Honestly, the pace was much faster than I expected. Could you keep up with everything?`,
-        j1: `${cls}の初日が終わったね。`,
+        j1: `${clsJa}の初日が終わったね。`,
         j2: `うん。正直思ったよりずっとペースが速かったな。全部ついていけた？`,
         correct: 'Barely! Let\'s review our notes together later.',
         cReason: `Could you keep up with everything?（全部ついていけた？）に対し、「やっとだったよ！あとで一緒にノートを見直そう」と自然に応じている。`,
@@ -1485,12 +1559,14 @@ function buildPre2Part1(examId: string, round: number, u: number): ListeningAudi
     // 6: 道順・乗り換えの確認
     () => {
       const stations = ['Riverside Hospital', 'the Civic Concert Hall', 'Northgate University', 'Harbor Convention Center', 'Greenview Stadium', 'Maple Science Park', 'Westside Art Museum', 'Sunrise Airport Terminal', 'Central Library Plaza', 'Oakwood Botanic Park', 'Silver Bay Pier', 'Crown Theatre', 'Cedar Tech Hub', 'Coral Aquarium', 'Hillside Medical Center'];
+      const stationsJa = ['リバーサイド病院駅', '市民コンサートホール駅', 'ノースゲート大学前駅', 'ハーバー国際会議場駅', 'グリーンビュースタジアム駅', 'メイプルサイエンスパーク駅', 'ウエストサイド美術館駅', 'サンライズ空港ターミナル駅', '中央図書館プラザ駅', 'オークウッド植物公園駅', 'シルバーベイ桟橋駅', 'クラウン劇場前駅', 'シダーテックハブ駅', 'コーラル水族館前駅', 'ヒルサイド医療センター駅'];
       const st = stations[round - 1];
+      const stJa = stationsJa[round - 1];
       return {
         l1: `Excuse me, does this rapid train stop at ${st}?`,
         l2: `No, this rapid skips ${st}. Oh—wait, do you know where I should transfer? Actually, let me ask the staff: where should this passenger change trains for ${st}?`,
-        j1: `すみません、この快速電車は${st}に止まりますか？`,
-        j2: `いいえ、通過します。駅員さん、${st}へはどこで乗り換えればいいですか？`,
+        j1: `すみません、この快速電車は${stJa}に止まりますか？`,
+        j2: `いいえ、通過します。駅員さん、${stJa}へはどこで乗り換えればいいですか？`,
         correct: 'Get off at the next stop and take the local train.',
         cReason: `where should ... change trains?（どこで乗り換えるべきか）に「次の駅で降りて普通列車に乗ってください」と的確に案内している。`,
         wrongs: ['The train was built five years ago.', 'Yes, I commute here every morning.'] as [string, string],
@@ -1506,11 +1582,13 @@ function buildPre2Part1(examId: string, round: number, u: number): ListeningAudi
     // 7: 予約・変更の依頼
     () => {
       const venues = ['Italian bistro', 'badminton court', 'karaoke room', 'study booth', 'barbecue site', 'music studio', 'dental checkup', 'haircut appointment', 'pottery wheel', 'tennis lesson', 'bicycle rental', 'kayak tour', 'cooking studio', 'meeting room', 'camping cabin'];
+      const venuesJa = ['イタリアンビストロ', 'バドミントンコート', 'カラオケルーム', '自習ブース', 'バーベキュー場', '音楽スタジオ', '歯科検診', '美容院のカット予約', '陶芸ろくろ体験', 'テニスレッスン', 'レンタサイクル', 'カヤックツアー', '料理スタジオ', '会議室', 'キャンプ場のキャビン'];
       const vn = venues[round - 1];
+      const vnJa = venuesJa[round - 1];
       return {
         l1: `Hi ${n1}, six people want to join our ${vn} reservation now instead of four!`,
         l2: `Really, ${n2}? Should I call them right now to see if they have space for six?`,
-        j1: `ねえ、${vn}の予約に4人じゃなくて6人参加したいって！`,
+        j1: `ねえ、${vnJa}の予約に4人じゃなくて6人参加したいって！`,
         j2: `本当？6人分の空きがあるか、今すぐ電話して聞いてみようか？`,
         correct: 'Please do! Here is their phone number.',
         cReason: `Should I call them right now ...? という申し出に Please do!（ぜひお願い！これが電話番号だよ）と応じている。`,

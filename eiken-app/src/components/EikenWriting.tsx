@@ -56,6 +56,36 @@ function shortTaskKind(item: UnifiedWritingTask): { label: string; kind: 'email'
   return { label: item.title, kind: 'basic' };
 }
 
+function parseTargetRange(target: string): [number, number] | null {
+  const m = target.match(/(\d+)\s*[〜～-]\s*(\d+)\s*語/);
+  if (!m) return null;
+  const min = Number(m[1]);
+  const max = Number(m[2]);
+  return Number.isFinite(min) && Number.isFinite(max) && max > 0 ? [min, max] : null;
+}
+
+function structureHintsForKind(kind: 'email' | 'summary' | 'essay' | 'basic'): string[] {
+  if (kind === 'email') {
+    return [
+      '① 相手の質問・提案への回答と理由を1〜2文で明確に書く',
+      '② 場面に沿った具体的な質問を2つ（疑問文の語順で）添える',
+    ];
+  }
+  if (kind === 'summary') {
+    return [
+      '① 第1段落の導入・背景を自分の言葉で1文に圧縮する',
+      '② 利点と課題（または対比）を落とさず指定語数内に収める',
+    ];
+  }
+  if (kind === 'essay') {
+    return [
+      '① 冒頭で自分の立場（賛成／反対）を明確に宣言する',
+      '② 互いに重ならない2つの理由（First, ... / Second, ...）と具体例を述べ、結論で締める',
+    ];
+  }
+  return ['課題の条件をすべて満たし、主語・動詞の対応と時制を確認する'];
+}
+
 export function EikenWriting({
   uid,
   grade: selectedGrade,
@@ -153,6 +183,13 @@ export function EikenWriting({
   };
 
   const reviewedCount = gradeTasks.filter(t => saved.data.drafts[t.key]?.reviewed).length;
+  const currentWords = wordCount(current.text);
+  const targetRange = parseTargetRange(task.target);
+  const taskKindInfo = shortTaskKind(task);
+  const structureHints = structureHintsForKind(taskKindInfo.kind);
+  const inTargetRange = targetRange ? currentWords >= targetRange[0] && currentWords <= targetRange[1] : false;
+  const overTargetRange = targetRange ? currentWords > targetRange[1] : false;
+  const gaugePct = targetRange ? Math.min(100, Math.round((currentWords / targetRange[1]) * 100)) : 0;
 
   return (
     <main className="ew-page" data-writing>
@@ -259,6 +296,14 @@ export function EikenWriting({
           <p style={{ whiteSpace: 'pre-wrap' }}>{task.instruction}</p>
           {task.source && <blockquote lang="en">{task.source}</blockquote>}
           <p className="ew-target">{task.target}</p>
+          <div className="ew-structure-guide" aria-label="構成のヒント">
+            <strong>構成ガイド（{taskKindInfo.label}）</strong>
+            <ul>
+              {structureHints.map(hint => (
+                <li key={hint}>{hint}</li>
+              ))}
+            </ul>
+          </div>
           <p className="ew-disclaimer">独自の重点練習です。自動採点・合否判定は行いません。5級・4級の筆記ライティング課題は設けていません。</p>
         </section>
 
@@ -274,12 +319,39 @@ export function EikenWriting({
             onChange={event => save({ text: event.target.value, checked: [], reviewed: false })}
           />
           <div className="ew-save">
-            <span data-writing-count><strong>{wordCount(current.text)}</strong> words</span>
+            <span data-writing-count>
+              <strong>{currentWords}</strong> words
+              {targetRange && (
+                <em
+                  className={`ew-word-badge ${
+                    inTargetRange ? 'is-ok' : overTargetRange ? 'is-over' : ''
+                  }`}
+                >
+                  {inTargetRange
+                    ? '適正語数クリア'
+                    : overTargetRange
+                    ? `目安上限 +${currentWords - targetRange[1]}語`
+                    : currentWords > 0
+                    ? `あと ${targetRange[0] - currentWords}語で目安到達`
+                    : `目標 ${targetRange[0]}〜${targetRange[1]}語`}
+                </em>
+              )}
+            </span>
             <span role="status">
               <Save size={14} />
               {message || (current.updatedAt ? '保存した下書きから再開' : '入力はこの端末・アカウントに保存されます')}
             </span>
           </div>
+          {targetRange && (
+            <div className="ew-word-meter" aria-hidden="true">
+              <div
+                className={`ew-word-meter-fill ${
+                  inTargetRange ? 'is-ok' : overTargetRange ? 'is-over' : ''
+                }`}
+                style={{ width: `${gaugePct}%` }}
+              />
+            </div>
+          )}
           <p className="ew-sync-note">クラウド連携が有効なアカウントでは、他の学習記録と同じ同期対象です。「端末に保存済み」はクラウド送信完了の意味ではありません。</p>
           {auth.currentUser && (FIREBASE_CONFIGURED || USE_EMULATORS) && (
             <button

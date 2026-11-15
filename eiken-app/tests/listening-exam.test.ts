@@ -13,6 +13,7 @@ import {
 } from '../src/eiken/materials/listening-booklets';
 import { LISTENING_AUDIO_URLS } from '../src/eiken/listeningAudio.generated';
 import { LISTENING_IMAGE_URLS } from '../src/eiken/listeningImages.generated';
+import { scoreListeningMockExam } from '../src/eiken/mockProgress';
 import { partsForGrade } from '../src/eiken/questions';
 
 describe('Eiken Listening 120-Round Mock Exam Bank', () => {
@@ -105,9 +106,40 @@ describe('Eiken Listening 120-Round Mock Exam Bank', () => {
       expect(ch.abstractTitle).toMatch(/^第\d+回（全\d+問）$/);
       for (const p of ch.practiceProblems) {
         expect(p.audioTracks?.[0]?.audioUrl).toMatch(/^\/eiken_audio\/eiken_5\/eiken_5_listening_r\d+_part[123]_\d+\.mp3$/);
-        // Japanese translation for Grade 5 must be natural Japanese without untranslated multi-word English leftovers
-        expect(p.audioTracks?.[0]?.translation ?? '').not.toMatch(/[a-z]{3,}\s+[a-z]{3,}/i);
       }
+    }
+
+    // Natural Japanese translation verification across all 8 grades (excluding Real-Life English table plan names in Pre-1/1 Part 3)
+    for (const exam of ALL_LISTENING_EXAMS) {
+      for (const unit of exam.units) {
+        if ((exam.grade === 'eiken_pre1' || exam.grade === 'eiken_1') && unit.part === 'part3') continue;
+        expect(unit.translation, unit.audioId).not.toMatch(/[a-z]{3,}\s+[a-z]{3,}/i);
+      }
+    }
+  });
+
+  it('scores full and part-scoped Listening Mock Exams accurately across all 8 grades', () => {
+    for (const grade of EIKEN_GRADES) {
+      const exam = LISTENING_EXAMS_BY_GRADE[grade.id][0];
+      const bp = LISTENING_BLUEPRINTS[grade.id];
+      const allCorrectAnswers = Object.fromEntries(
+        exam.units.flatMap(u => u.questions.map(q => [q.id, q.answer])),
+      );
+      const fullScore = scoreListeningMockExam(exam, allCorrectAnswers, 'all');
+      expect(fullScore.total).toBe(bp.totalQuestions);
+      expect(fullScore.correct).toBe(bp.totalQuestions);
+      expect(fullScore.unanswered).toBe(0);
+      expect(fullScore.accuracyPct).toBe(100);
+      expect(fullScore.parts).toHaveLength(bp.parts.length);
+
+      const firstPart = bp.parts[0];
+      const partialAnswers = { ...allCorrectAnswers };
+      const firstQuestionId = exam.units[0].questions[0].id;
+      delete partialAnswers[firstQuestionId];
+      const partScore = scoreListeningMockExam(exam, partialAnswers, firstPart.id);
+      expect(partScore.total).toBe(firstPart.questionCount);
+      expect(partScore.correct).toBe(firstPart.questionCount - 1);
+      expect(partScore.unanswered).toBe(1);
     }
   });
 
