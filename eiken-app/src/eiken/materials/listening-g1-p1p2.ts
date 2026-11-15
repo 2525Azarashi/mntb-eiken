@@ -45,12 +45,14 @@ export function buildG1Part1Unit(examId: string, round: number, u: number): List
     // 1: 企業買収デューデリジェンスと契約条項の修正
     () => {
       const assets = ['patent portfolio in solid-state sensors', 'regional cold-chain warehousing subsidiary', 'specialty polymer manufacturing division', 'maritime telemetry software platform', 'precision optical coating facility'];
+      const assetsJa = ['固体センサーの特許ポートフォリオ', '地域コールドチェーン倉庫子会社', '特殊ポリマー製造事業部', '海事遠隔計測ソフトウェア基盤', '精密光学コーティング施設'];
       const clauses = [
         ['hold fifteen percent of the purchase price in escrow pending environmental sign-off', '環境監査の承認が下りるまで買収代金の15%をエスクロー口座に留保する'],
         ['insert a two-year non-solicitation covenant covering senior R&D engineers', '上級研究開発エンジニアを対象とする2年間の引き抜き禁止条項を盛り込む'],
         ['tie the final earn-out payment to verified renewal rates among hospital clients', '最終アーンアウト支払いを病院顧客の契約更新実績に連動させる'],
       ];
       const asset = assets[(round - 1) % 5];
+      const assetJa = assetsJa[(round - 1) % 5];
       const [clEn, clJa] = clauses[(round - 1) % 3];
       const turns: DialogueTurn[] = [
         { ...sp1, text: `Good morning ${nTo1}. Following our ${rWord.toLowerCase()} ${sWord.toLowerCase()} legal audit of the ${asset}, the valuation metrics look compelling, yet one contingent liability still troubles our board.` },
@@ -62,7 +64,7 @@ export function buildG1Part1Unit(examId: string, round: number, u: number): List
       ];
       return {
         turns,
-        ja: `${asset}の買収監査をめぐる協議。交渉決裂は避けたいが無条件クロージングはリスクが高いため、表面上の評価額は維持しつつ「${clJa}」条項を第9条に盛り込むことで合意した。`,
+        ja: `${assetJa}の買収監査をめぐる協議。交渉決裂は避けたいが無条件クロージングはリスクが高いため、表面上の評価額は維持しつつ「${clJa}」条項を第9条に盛り込むことで合意した。`,
         prompt: `How have the speakers agreed to address the board's concern about acquiring the ${asset}?`,
         correct: `They will ${clEn}.`,
         cReason: `provided we ${clEn} という構造的折衷案に That strikes a judicious balance と同意している。`,
@@ -84,12 +86,14 @@ export function buildG1Part1Unit(examId: string, round: number, u: number): List
     // 2: 学術誌の査読コメントに対する反論と追加検証（3話者会話 M1/F1/M2）
     () => {
       const fields = ['paleoclimate ice-core chronology', 'urban heat-island micro-modeling', 'bilingual lexical retrieval latency', 'antimicrobial peptide folding', 'electoral redistricting econometrics'];
+      const fieldsJa = ['古気候の氷床コア年代学', '都市ヒートアイランド微気象モデリング', '二言語話者の語彙検索反応時間', '抗菌ペプチドの立体構造形成', '選挙区再編の計量経済分析'];
       const steps = [
         ['run a sensitivity check excluding outlier stations and put it in an online appendix', '外れ値観測点を除いた感度分析を回しオンライン補遺に掲載する'],
         ['re-analyze the raw spectral files with an independent calibration curve', '独立した検量線で生の分光ファイルを再解析する'],
         ['replicate the regression across a second longitudinal cohort from northern districts', '北部地区の別コホートデータで回帰分析を再現検証する'],
       ];
       const fld = fields[(round - 1) % 5];
+      const fldJa = fieldsJa[(round - 1) % 5];
       const [stEn, stJa] = steps[round % 3];
       const turns: DialogueTurn[] = [
         { speaker: 'M1', roleLabel: 'Man', text: `Colleagues, in our ${rWord.toLowerCase()} ${sWord.toLowerCase()} editorial debrief on the ${fld} manuscript, Referee Two claims our sample timeframe skews the variance.` },
@@ -101,7 +105,7 @@ export function buildG1Part1Unit(examId: string, round: number, u: number): List
       ];
       return {
         turns,
-        ja: `${fld}論文に対する査読者2の批判への3名による対応協議。手紙での反論だけでは編集者を説得しにくいため、本文は変えずに10日以内で「${stJa}」追加実証を行うことで合意した。`,
+        ja: `「${fldJa}」論文に対する査読者2の批判への3名による対応協議。手紙での反論だけでは編集者を説得しにくいため、本文は変えずに10日以内で「${stJa}」追加実証を行うことで合意した。`,
         prompt: 'What have the researchers decided to do in response to Referee Two?',
         correct: stEn[0].toUpperCase() + stEn.slice(1) + '.',
         cReason: `We can ${stEn} within ten days に全員が Agreed と合意している。`,
@@ -125,64 +129,88 @@ export function buildG1Part1Unit(examId: string, round: number, u: number): List
       const catalog = [
         {
           ctx: 'municipal desalination plant tender',
+          ctxJa: '市営海水淡水化プラントの入札',
           problem: 'the lowest bidder relies on proprietary membrane cartridges available from only a single vendor',
+          problemJa: '最安応札社は単一メーカーからしか調達できない独自規格の逆浸透膜カートリッジに依存している',
           trap: 'selecting the lowest upfront bid regardless of lifecycle lock-in',
+          trapJa: '長期のベンダー囲い込みを度外視して初期費用の最安応札を選ぶこと',
           decision: 'award the contract to the second-lowest consortium that uses standardized open-spec membranes',
           decisionJa: '標準化されたオープン規格膜を採用する次点コンソーシアムに発注する',
           sk: '会話：皮肉・婉曲',
         },
         {
           ctx: 'symphony hall acoustic refurbishment',
+          ctxJa: 'シンフォニーホールの音響改修工事',
           problem: 'replacing the aged plaster ceiling panels threatens to dull the hall\'s signature warm reverberation',
+          problemJa: '経年劣化した漆喰天井パネルを安易に取り替えるとホール特有の温かみある残響が損なわれかねない',
           trap: 'installing synthetic foam tiles to speed up winter construction',
+          trapJa: '冬季の工期短縮のために合成発泡タイルを貼ること',
           decision: 'cast custom high-density lime-plaster replicas molded directly from the original panels',
           decisionJa: '元のパネルから型取りした高密度漆喰の特注レプリカを鋳造する',
           sk: '会話：前提の共有',
         },
         {
           ctx: 'clinical trial recruitment protocol',
+          ctxJa: '臨床試験の被験者募集プロトコル',
           problem: 'weekday daytime screening hours inadvertently exclude full-time shift workers from the study cohort',
+          problemJa: '平日昼間のみのスクリーニング時間では常勤の交代勤務者が意図せず被験者集団から外れてしまう',
           trap: 'extrapolating results solely from retired volunteers',
+          trapJa: '退職世代のボランティアのみから得られた結果をそのまま外挿すること',
           decision: 'open mobile Saturday and evening screening clinics near industrial transit hubs',
           decisionJa: '工業地帯の交通拠点近くに土曜・夜間の移動スクリーニング外来を開設する',
           sk: '会話：含意',
         },
         {
           ctx: 'archival digitization grant agreement',
+          ctxJa: '歴史公文書デジタル化助成契約',
           problem: 'a private sponsor requested twelve months of exclusive paywall access before public release',
+          problemJa: '民間スポンサーが一般公開前に12か月間の有料独占公開権を要求してきた',
           trap: 'granting private paywall exclusivity that violates the library charter',
+          trapJa: '図書館憲章に反する有料独占権を民間企業に認めること',
           decision: 'decline the exclusivity clause and co-fund the scanning with a public university consortium',
           decisionJa: '独占公開条項を断り公立大学コンソーシアムとの共同出資でスキャンを進める',
           sk: '会話：多者交渉',
         },
         {
           ctx: 'grid-scale battery siting proposal',
+          ctxJa: '系統用大型蓄電所の立地計画',
           problem: 'locating the transformer station on the floodplain risks inundation during once-in-fifty-year storm surges',
+          problemJa: '氾濫原に変電所を置くと50年に一度規模の高潮で浸水する恐れがある',
           trap: 'building a higher concrete seawall around the low-lying parcel',
+          trapJa: '低地用地の周囲に高いコンクリート防潮堤を築くこと',
           decision: 'relocate the substation to the elevated quarry parcel two kilometers inland',
           decisionJa: '変電設備を2キロ内陸の高台にある旧採石場区画へ移設する',
           sk: '会話：前提の共有',
         },
         {
           ctx: 'pharmaceutical cold-storage audit',
+          ctxJa: '医薬品低温保管倉庫の監査',
           problem: 'manual paper temperature logs at regional depots failed to flag brief weekend power dips',
+          problemJa: '地方拠点の手書き温度記録では週末の短時間の電圧低下を見逃していた',
           trap: 'hiring extra night guards to read wall thermometers every hour',
+          trapJa: '夜警を増員して毎時壁掛け温度計を目視確認させること',
           decision: 'deploy tamper-evident cellular telemetry loggers with automated SMS escalation',
           decisionJa: '自動SMS警報付きの改ざん防止セルラー遠隔温度ロガーを配備する',
           sk: '会話：含意',
         },
         {
           ctx: 'international art loan indemnity',
+          ctxJa: '国際美術品貸出の補償手配',
           problem: 'maritime humidity fluctuations make sea freight perilous for seventeenth-century panel paintings',
+          problemJa: '海上の湿度変動は17世紀の板絵にとって船便輸送を極めて危険なものにする',
           trap: 'packing all twelve oil panels into a single ocean container',
+          trapJa: '油彩板絵12点すべてを1つの海上コンテナに詰め込むこと',
           decision: 'split the loan across two climate-stabilized cargo flights accompanied by a courier conservator',
           decisionJa: 'クーリエ修復士が同乗する空調管理貨物便2便に作品を分散輸送する',
           sk: '会話：皮肉・婉曲',
         },
         {
           ctx: 'pension fund ESG rebalancing',
+          ctxJa: '年金基金のESGリバランス方針',
           problem: 'blanket divestment from heavy industry would prevent the fund from voting on decarbonization targets',
+          problemJa: '重工業株を一律売却すると脱炭素目標に関する議決権を行使できなくなる',
           trap: 'selling off every manufacturing share before next month\'s annual meetings',
+          trapJa: '来月の株主総会前に製造業株をすべて売却してしまうこと',
           decision: 'retain a strategic stake and co-file binding shareholder resolutions on emissions reporting',
           decisionJa: '戦略的持分を維持し排出量開示に関する拘束力ある株主提案を共同提出する',
           sk: '会話：多者交渉',
@@ -199,7 +227,7 @@ export function buildG1Part1Unit(examId: string, round: number, u: number): List
       ];
       return {
         turns,
-        ja: `${item.ctx}に関する協議。一見手っ取り早い案（${item.trap}）は「${item.problem}」という重大な欠陥を抱えているため退け、「${item.decisionJa}」方針を運営委員会へ勧告することで一致した。`,
+        ja: `${item.ctxJa}に関する協議。一見手っ取り早い案（${item.trapJa}）は「${item.problemJa}」という重大な欠陥を抱えているため退け、「${item.decisionJa}」方針を運営委員会へ勧告することで一致した。`,
         prompt: `What course of action will the speakers recommend for the ${item.ctx}?`,
         correct: item.decision[0].toUpperCase() + item.decision.slice(1) + '.',
         cReason: `we ought to ${item.decision} に Unquestionably と完全合意している。`,
@@ -260,17 +288,19 @@ export function buildG1Part2Unit(examId: string, round: number, u: number): List
     // 1: 地球化学・促進岩石風化
     () => {
       const regions = ['temperate cereal plains', 'humid subtropical river basins', 'volcanic highland terraces', 'irrigated alluvial valleys', 'acidic pastureland plateaus'];
+      const regionsJa = ['温帯の穀倉平野', '湿潤亜熱帯の河川流域', '火山性の高地段丘', '灌漑された沖積谷', '酸性の牧草台地'];
       const coBenefits = [
         ['neutralized soil acidity and reduced farmers\' need for quarried agricultural lime', '土壌酸性度を中和し農業用石灰の散布量を減らした'],
         ['released trace silicate and magnesium that strengthened crop stalks against lodging', '微量ケイ酸とマグネシウムを放出し作物の倒伏耐性を高めた'],
         ['stabilized rhizosphere pH and curbed nitrous oxide emissions from fertilized plots', '根圏pHを安定させ施肥区画からの一酸化二窒素排出を抑えた'],
       ];
       const reg = regions[(round - 1) % 5];
+      const regJa = regionsJa[(round - 1) % 5];
       const [cbEn, cbJa] = coBenefits[(round - 1) % 3];
       const body = `Geoscience Monograph ${rWord} ${sWord}: Enhanced rock weathering seeks to accelerate a slow planetary thermostat by spreading finely pulverized basalt across cropland. As rainwater carbonic acid reacts with silicate grains, atmospheric carbon is locked into dissolved bicarbonate ions that eventually wash into the oceans for millennial storage. Multi-year field trials across ${reg} confirmed a welcome agronomic bonus: the crushed mineral dust ${cbEn}. Yet geochemists warn of a measurement hurdle—verifying net carbon removal requires tracking downstream river alkalinity rather than relying solely on theoretical dissolution models, especially where dry spells temporarily stall chemical reactions.`;
       return {
         body,
-        ja: `粉砕玄武岩を農地に散布する促進岩石風化の解説。${reg}での試験では炭素固定に加え「${cbJa}」効果も確認されたが、乾燥期の反応停滞を踏まえ下流河川のアルカリ度追跡が不可欠と警告されている。`,
+        ja: `粉砕玄武岩を農地に散布する促進岩石風化の解説。${regJa}での試験では炭素固定に加え「${cbJa}」効果も確認されたが、乾燥期の反応停滞を踏まえ下流河川のアルカリ度追跡が不可欠と警告されている。`,
         q1Prompt: `What agronomic benefit was observed in field trials across ${reg}?`,
         q1Correct: `The crushed basalt ${cbEn}.`,
         q1CReason: `the crushed mineral dust ${cbEn} と野外試験で確認された副次効果が述べられている。`,
@@ -308,17 +338,19 @@ export function buildG1Part2Unit(examId: string, round: number, u: number): List
     // 2: 経済史・海上保険制度の成立
     () => {
       const ports = ['Genoese merchant syndicates', 'Venetian Adriatic convoys', 'Antwerp bourse underwriters', 'Hanseatic Baltic guilds', 'Amsterdam maritime chambers'];
+      const portsJa = ['ジェノヴァの商人シンジケート', 'ヴェネツィアのアドリア海船団', 'アントワープ取引所の保険引受人組合', 'ハンザ同盟のバルト海ギルド', 'アムステルダムの海事会議所'];
       const innovations = [
         ['splitting a single hull risk across dozens of fractional investors who had never met the captain', '面識のない多数の小口出資者に1隻の船体リスクを分散引き受けさせたこと'],
         ['publishing standardized premium tables graded by season, hull age, and convoy escort', '季節・船齢・護衛船の有無で段階化した標準保険料率表を公表したこと'],
         ['establishing specialized commercial courts empowered to settle cargo disputes within days', '積荷紛争を数日以内に裁定できる専門海事裁判所を創設したこと'],
       ];
       const port = ports[(round - 1) % 5];
+      const portJa = portsJa[(round - 1) % 5];
       const [inEn, inJa] = innovations[round % 3];
       const body = `Economic History ${rWord} ${sWord}: Long before modern joint-stock corporations emerged, ${port} pioneered financial instruments to tame maritime uncertainty. Early sea loans bundled credit with catastrophe protection: a lender advanced capital for spices or timber and forfeited repayment if the vessel sank. While effective on familiar coastal runs, sea loans tied up vast capital in single voyages. The decisive institutional breakthrough came with ${inEn}. By separating capital lending from pure risk pricing, merchants with modest savings could finance distant trade routes without risking personal ruin.`;
       return {
         body,
-        ja: `${port}による海上保険制度の発展史。初期の冒険貸借は単一航海に巨額資本が拘束されたが、「${inJa}」という制度革新で融資とリスク価格付けが分離され遠隔交易が広がった。`,
+        ja: `${portJa}による海上保険制度の発展史。初期の冒険貸借は単一航海に巨額資本が拘束されたが、「${inJa}」という制度革新で融資とリスク価格付けが分離され遠隔交易が広がった。`,
         q1Prompt: 'What limitation of early sea loans is mentioned in the lecture?',
         q1Correct: 'They locked large amounts of capital into individual voyages.',
         q1CReason: 'sea loans tied up vast capital in single voyages と限界が指摘されている。',
@@ -356,7 +388,9 @@ export function buildG1Part2Unit(examId: string, round: number, u: number): List
     // 3: 神経科学・グリンパティック系
     () => {
       const waves = ['slow-wave delta oscillations', 'synchronized thalamocortical spindles', 'deep non-REM vascular pulses', 'nocturnal astrocytic channel shifts', 'coupled cerebrospinal fluid waves'];
+      const wavesJa = ['徐波デルタ振動', '同期した視床皮質スピンドル波', '深いノンレム睡眠時の血管拍動', '夜間のアストロサイト水チャネル変化', '連動する脳脊髄液の波動'];
       const wave = waves[(round - 1) % 5];
+      const waveJa = wavesJa[(round - 1) % 5];
       const caveats = [
         ['sedative sleeping pills can induce unconsciousness while suppressing the very wave patterns needed for clearance', '鎮静系睡眠薬は意識を落とせても老廃物排出に必要な脳波パターン自体を抑制してしまう'],
         ['fragmented sleep with frequent brief awakenings disrupts fluid transport even when total hours appear normal', '細切れの覚醒があると合計睡眠時間が正常に見えても髄液輸送が阻害される'],
@@ -366,7 +400,7 @@ export function buildG1Part2Unit(examId: string, round: number, u: number): List
       const body = `Neuroscience Seminar ${rWord} ${sWord}: Unlike peripheral organs, the human brain lacks conventional lymphatic vessels to clear metabolic waste. Over the past decade, neuroimaging studies have illuminated the glymphatic pathway, a perivascular plumbing network driven by ${wave}. During deep sleep, interstitial spaces between neurons expand markedly, allowing cerebrospinal fluid to flush out misfolded proteins accumulated during waking hours. Crucially, clinical neurologists note that ${cvEn}, underscoring that sleep architecture matters far more than sheer time spent in bed.`;
       return {
         body,
-        ja: `脳内の老廃物排出を担うグリンパティック系と「${wave}」の講義。深い睡眠中に細胞間隙が広がり異常タンパク質が洗い流されるが、「${cvJa}」ため睡眠構造の質が重要である。`,
+        ja: `脳内の老廃物排出を担うグリンパティック系と「${waveJa}」の講義。深い睡眠中に細胞間隙が広がり異常タンパク質が洗い流されるが、「${cvJa}」ため睡眠構造の質が重要である。`,
         q1Prompt: 'How does the glymphatic pathway clear metabolic waste during deep sleep?',
         q1Correct: 'Expanded spaces between neurons let cerebrospinal fluid flush proteins out.',
         q1CReason: 'interstitial spaces between neurons expand markedly, allowing cerebrospinal fluid to flush out misfolded proteins と説明されている。',
@@ -404,17 +438,19 @@ export function buildG1Part2Unit(examId: string, round: number, u: number): List
     // 4: 考古学・同位体産地分析
     () => {
       const artifacts = ['Bronze Age cobalt-blue glass beads', 'Roman hydraulic harbor mortars', 'Phoenician silver ingot hoards', 'Tang-era celadon glaze shards', 'Minoan copper oxhide ingots'];
+      const artifactsJa = ['青銅器時代のコバルトブルー・ガラス玉', 'ローマ時代の水硬性港湾モルタル', 'フェニキアの銀インゴット埋納群', '唐代の青磁釉薬陶片', 'ミノア文明の牛皮形銅インゴット'];
       const surprises = [
         ['raw flux minerals traveled over two thousand kilometers along river portages previously thought impassable', '通行不能と考えられていた河川連水陸路を経て原料鉱物が2,000km以上運ばれていた'],
         ['local workshops recycled imported scrap cullet rather than smelting virgin ore on site', '現地の工房は原鉱石を精錬せず輸入ガラス屑を再溶解して成形していた'],
         ['two rival city-states actually shared a single highland quarry despite decades of intermittent warfare', '断続的に交戦していた2都市国家が実際には同一の高地採掘場を共有していた'],
       ];
       const artf = artifacts[(round - 1) % 5];
+      const artfJa = artifactsJa[(round - 1) % 5];
       const [spEn, spJa] = surprises[(round + 2) % 3];
       const body = `Archaeometry Report ${rWord} ${sWord}: Stylistic comparison once led archaeologists to assume that ${artf} were produced exclusively near royal palaces where they were excavated. Laser-ablation isotope analysis, which samples microscopic traces without visibly scarring artifacts, has overturned that consensus. By matching strontium and neodymium ratios against geological reference maps, analysts demonstrated that ${spEn}. Nevertheless, specialists stress that chemical provenance reveals where raw materials originated, not necessarily the cultural identity of the artisans who shaped the finished objects.`;
       return {
         body,
-        ja: `同位体分析による「${artf}」の産地推定研究。王宮周辺生産説を覆し「${spJa}」と判明したが、原料産地と職人の文化的帰属は同一とは限らないと指摘している。`,
+        ja: `同位体分析による「${artfJa}」の産地推定研究。王宮周辺生産説を覆し「${spJa}」と判明したが、原料産地と職人の文化的帰属は同一とは限らないと指摘している。`,
         q1Prompt: `What did laser-ablation isotope analysis reveal about ${artf}?`,
         q1Correct: spEn[0].toUpperCase() + spEn.slice(1) + '.',
         q1CReason: `analysts demonstrated that ${spEn} と分析結果が明示されている。`,
@@ -452,17 +488,19 @@ export function buildG1Part2Unit(examId: string, round: number, u: number): List
     // 5: 海底光ケーブル網の保護規制
     () => {
       const threats = ['deep-sea bottom trawling and dragged ship anchors', 'uncharted turbidity landslides along continental slopes', 'congested chokepoint straits shared with dredging barges', 'delayed coastal repair permits in overlapping jurisdictions', 'aging repeater housings near seismically active trenches'];
+      const threatsJa = ['深海底引き網漁と船舶の走錨（いかりの引きずり）', '大陸斜面で起きる未把握の混濁流海底地滑り', '浚渫船と共用する過密なチョークポイント海峡', '管轄が重複する沿岸域での修理許可の遅れ', '地震活動が活発な海溝付近で老朽化した中継器筐体'];
       const reforms = [
         ['pre-authorizing mutual repair-ship access across neighboring exclusive economic zones', '隣接する排他的経済水域間で修理船の相互立入を事前承認しておく協定'],
         ['establishing acoustic anchor-drag alert corridors around high-capacity fiber landings', '大容量光ケーブル陸揚げ周辺に音響式の走錨警報回廊を設ける対策'],
         ['requiring geographic route diversity before critical financial clearing networks are certified', '重要金融決済網の認証要件として地理的な複数ルート分散を義務づける規制'],
       ];
       const thr = threats[(round - 1) % 5];
+      const thrJa = threatsJa[(round - 1) % 5];
       const [rfEn, rfJa] = reforms[(round - 1) % 3];
       const body = `Infrastructure Analysis ${rWord} ${sWord}: Although satellites capture public imagination, more than ninety-five percent of intercontinental data traffic—including daily sovereign bond settlements—travels through hair-thin glass fibers on the seabed. Most outages stem not from deliberate sabotage but from ${thr}. Because international treaties governing subsea cables largely date back to nineteenth-century telegraph conventions, repair vessels often wait weeks for bureaucratic transit clearances. Consequently, telecommunications regulators are now championing ${rfEn} to slash restoration times from weeks to days.`;
       return {
         body,
-        ja: `大陸間通信の95%以上を担う海底光ケーブルの障害主因（「${thr}」）と、復旧期間短縮のため規制当局が推進する「${rfJa}」についての解説。`,
+        ja: `大陸間通信の95%以上を担う海底光ケーブルの障害主因（「${thrJa}」）と、復旧期間短縮のため規制当局が推進する「${rfJa}」についての解説。`,
         q1Prompt: 'According to the speaker, what causes the majority of subsea cable outages?',
         q1Correct: thr[0].toUpperCase() + thr.slice(1) + '.',
         q1CReason: `Most outages stem not from deliberate sabotage but from ${thr}. と明言されている。`,

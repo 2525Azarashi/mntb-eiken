@@ -110,15 +110,18 @@ export function bookletItemToProblem(exam: WrittenExam, item: WrittenItem): Prob
     },
   ];
 
-  // 単問（短文・会話・語句整序）はまなとび英文法と同じ 1問ずつカード表示（stepwise: true）にする。
-  // 空行を含めず「問N　本文」の形にすることで、会話文 A:/B: や整序トークンも prose: true（Inter ゴシック）で欠落なく描画される。
+  // 5問一括ページ（short / conversation）は EikenClozePageQuiz の splitEikenDialogueTurns と完全互換な素の英文を保ち、
+  // 単問ずつ ProblemPane で解く語句整序（reorder）は「問N　本文」＋ stepwise: true でまなとび英文法と同じカード表示にする。
   const compactPrompt = item.prompt
     .split('\n')
     .map(line => line.trim())
     .filter(Boolean)
     .join('\n');
+  const isBatchClozeItem = !item.passage && (item.section === 'short' || item.section === 'conversation');
   const text = item.passage
     ? [`${item.passage.title}\n${item.passage.text}`, item.prompt, tokens].filter(Boolean).join('\n\n')
+    : isBatchClozeItem
+    ? compactPrompt
     : [`問${number}　${compactPrompt}`, tokens].filter(Boolean).join('\n');
 
   return {
@@ -131,6 +134,7 @@ export function bookletItemToProblem(exam: WrittenExam, item: WrittenItem): Prob
     subQuestions: [sub],
     explanation: [
       item.passage?.translation ? `【本文の和訳】\n${item.passage.translation}` : '',
+      !item.passage && item.translation ? `【訳】 ${item.translation}` : '',
       item.explanation,
       '【選択肢】',
       ...formatChoiceReasons(item),

@@ -102,7 +102,7 @@ export function parseMockState(raw: string | null): MockProgressState {
 }
 
 export interface SectionScoreBreakdown {
-  section: WrittenSection | ListeningPartId;
+  section: WrittenSection;
   label: string;
   kind: 'choice' | 'writing';
   correct: number;
@@ -191,20 +191,33 @@ export function scoreMockExam(
   };
 }
 
+export interface ListeningPartScoreBreakdown {
+  part: ListeningPartId;
+  label: string;
+  correct: number;
+  total: number;
+  answered: number;
+}
+
+export interface ListeningMockScoreSummary {
+  correct: number;
+  total: number;
+  answered: number;
+  unanswered: number;
+  accuracyPct: number;
+  parts: ListeningPartScoreBreakdown[];
+}
+
 export function scoreListeningMockExam(
   exam: ListeningExamRound,
   answers: Record<string, number>,
-  partFilter?: ListeningPartId | 'all',
-): MockScoreSummary {
+  partFilter: ListeningPartId | 'all' = 'all',
+): ListeningMockScoreSummary {
   const blueprint = LISTENING_BLUEPRINTS[exam.grade];
-  const partLabels = new Map<ListeningPartId, string>(
-    blueprint.parts.map(p => [p.id, p.label]),
-  );
-
   let correct = 0;
   let total = 0;
   let answered = 0;
-  const byPart = new Map<ListeningPartId, SectionScoreBreakdown>();
+  const byPart = new Map<ListeningPartId, ListeningPartScoreBreakdown>();
 
   const targetUnits =
     partFilter && partFilter !== 'all'
@@ -214,10 +227,10 @@ export function scoreListeningMockExam(
   for (const unit of targetUnits) {
     let entry = byPart.get(unit.part);
     if (!entry) {
+      const partSpec = blueprint?.parts.find(p => p.id === unit.part);
       entry = {
-        section: unit.part,
-        label: partLabels.get(unit.part) ?? unit.part,
-        kind: 'choice',
+        part: unit.part,
+        label: partSpec?.label ?? unit.part,
         correct: 0,
         total: 0,
         answered: 0,
@@ -246,9 +259,7 @@ export function scoreListeningMockExam(
     answered,
     unanswered: total - answered,
     accuracyPct: total > 0 ? Math.round((correct / total) * 100) : 0,
-    writingDone: 0,
-    writingTotal: 0,
-    sections: [...byPart.values()],
+    parts: [...byPart.values()],
   };
 }
 

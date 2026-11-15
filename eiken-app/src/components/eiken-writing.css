@@ -251,6 +251,64 @@
   padding: 8px 12px;
   border-radius: 10px;
 }
+.ew-structure-guide {
+  background: #f8faf9;
+  border: 1px dashed #b9d4cd;
+  border-radius: 11px;
+  padding: 10px 13px;
+  font-size: 13px;
+  color: #2c4a46;
+}
+.ew-structure-guide strong {
+  display: block;
+  font-size: 12.5px;
+  margin-bottom: 4px;
+  color: #1f4e47;
+}
+.ew-structure-guide ul {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.65;
+}
+.ew-word-badge {
+  font-style: normal;
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 800;
+  background: #eef2f4;
+  color: #4f646f;
+}
+.ew-word-badge.is-ok {
+  background: #d8f3ea;
+  color: #165b4c;
+}
+.ew-word-badge.is-over {
+  background: #fef3c7;
+  color: #92400e;
+}
+.ew-word-meter {
+  height: 7px;
+  width: 100%;
+  margin-top: 7px;
+  border-radius: 999px;
+  background: #e7ecea;
+  overflow: hidden;
+}
+.ew-word-meter-fill {
+  height: 100%;
+  background: #6f8a96;
+  border-radius: 999px;
+  transition: width 0.16s ease, background-color 0.16s ease;
+}
+.ew-word-meter-fill.is-ok {
+  background: #2f7c74;
+}
+.ew-word-meter-fill.is-over {
+  background: #d97706;
+}
 .ew-disclaimer,
 .ew-sync-note {
   font-size: 12.5px;

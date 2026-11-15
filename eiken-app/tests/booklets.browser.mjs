@@ -88,6 +88,31 @@ for (const selected of targets) {
           await page
             .locator(`[data-unit-id="${exam.id}_${section}"] .unit-card-primary`)
             .click();
+          if (section === 'short' || section === 'conversation') {
+            for (let start = 0; start < items.length; start += 5) {
+              const pageItems = items.slice(start, start + 5);
+              await page.getByRole('button', { name: 'このページを採点する', exact: true }).waitFor();
+              assert.equal(await page.getByRole('button', { name: '問題をはじめる', exact: true }).count(), 0);
+              assert.equal(await page.locator('audio[src*="/eiken_audio/"]').count(), 0);
+              for (const [pIdx, item] of pageItems.entries()) {
+                const card = page.locator('[data-eiken-question]').nth(pIdx);
+                await card.getByRole('radio').nth(item.answer).click();
+              }
+              await page.getByRole('button', { name: 'このページを採点する', exact: true }).click();
+              await page.locator('[data-eiken-page-result]').waitFor();
+              for (const [pIdx, item] of pageItems.entries()) {
+                const card = page.locator('[data-eiken-question]').nth(pIdx);
+                const details = card.locator('details.ecp-ex');
+                if ((await details.getAttribute('open')) === null) {
+                  await details.locator('summary').click();
+                }
+                await page.waitForFunction((text) => document.body.innerText.includes(text), item.explanation);
+                checked++;
+              }
+              const nextBtn = page.getByRole('button', { name: /次のページ|結果を見る/ }).first();
+              await nextBtn.click();
+            }
+          } else {
           for (const group of groups) {
             await page.getByRole('button', { name: '解答と解説を見る', exact: true }).waitFor();
             const body = await page.locator('body').innerText();
@@ -121,6 +146,7 @@ for (const selected of targets) {
               checked++;
             }
             await next.click();
+          }
           }
           await page.waitForFunction(() => localStorage.getItem('eiken:v1:savedAppState') === 'explanation');
           await page.evaluate(() => window.__SET_APP_STATE__('home'));

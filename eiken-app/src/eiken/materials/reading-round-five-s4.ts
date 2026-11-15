@@ -1,7 +1,7 @@
 import { question as q, reorder as o, readingRound } from './reading-authoring';
 
 export const WRITTEN_5_R13 = readingRound('eiken_5', [
-  q(['A: What (     ) is your new bicycle?\nB: It is light green.', ['color', 'time', 'date', 'sport'], 0, 'light green（薄い緑色）と色を答えているのでWhat color。', ['What colorで色を尋ねる。', 'timeは時刻。', 'dateは日付。', 'sportはスポーツ。'], 'A：あなたの新しい自転車は何色ですか。B：薄い緑色です。']),
+  q(['A: What (     ) is that flower in the garden?\nB: It is bright pink.', ['color', 'time', 'date', 'sport'], 0, 'bright pink（鮮やかなピンク色）と色を答えているのでWhat color。', ['What colorで色を尋ねる。', 'timeは時刻。', 'dateは日付。', 'sportはスポーツ。'], 'A：庭にあるあの花は何色ですか。B：鮮やかなピンク色です。']),
   q(['Kenji has a sister. (     ) name is Haruka.', ['Hers', 'She', 'Her', 'Him'], 2, '女性（a sister）を受け、名詞nameの直前で「彼女の〜」を表す所有格Her。', ['Hersは後ろに名詞を置かない。', 'Sheは主語。', 'Her＋名詞で「彼女の〜」。', 'Himは男性の目的格。'], 'ケンジには妹がいます。彼女の名前はハルカです。']),
   q(['There are five sweet (     ) in the basket.', ['peach', 'peaches', 'juice', 'tea'], 1, '数fiveの後ろでpeach（モモ）の複数形peaches（chで終わる語にes）を使う。', ['peachは単数形。', 'peachesはpeachの複数形。', 'juiceは数えない名詞。', 'teaも通常数えない名詞。'], 'かごの中に甘いモモが5つあります。']),
   q(['A: Are these gloves yours, Kota?\nB: Yes, they (     ). Thank you!', ['can', 'is', 'do', 'are'], 3, 'Are these gloves ...? の質問には複数代名詞theyで受けてYes, they are.と答える。', ['canはCanの応答。', 'isは単数用。', 'doは一般動詞用。', 'areはAre these ...? に対応する肯定応答。'], 'A：コウタ、この手袋はあなたのものですか。B：はい、そうです。ありがとう！']),
@@ -29,7 +29,7 @@ export const WRITTEN_5_R13 = readingRound('eiken_5', [
 ], 13, null);
 
 export const WRITTEN_5_R14 = readingRound('eiken_5', [
-  q(['A: What (     ) do you usually eat lunch?\nB: At twelve fifteen.', ['color', 'time', 'animal', 'season'], 1, 'At twelve fifteen.（12時15分に）と時刻を答えているのでWhat time。', ['colorは色。', 'What timeで何時に〜するかを尋ねる。', 'animalは動物。', 'seasonは季節。'], 'A：普段は何時に昼食を食べますか。B：12時15分です。']),
+  q(['A: What (     ) does the library open on Saturdays?\nB: At nine thirty.', ['color', 'time', 'animal', 'season'], 1, 'At nine thirty.（9時30分に）と時刻を答えているのでWhat time。', ['colorは色。', 'What timeで何時に〜するかを尋ねる。', 'animalは動物。', 'seasonは季節。'], 'A：土曜日には図書館は何時に開きますか。B：9時30分です。']),
   q(['Look at that cute cat! (     ) tail is very long.', ['Our', 'It', 'They', 'Its'], 3, '単数の動物（that cute cat）を受け、名詞tailの直前で「その〜」を表す所有格Its。', ['Ourは「私たちの」で文脈に合わない。', 'Itは主語・目的語。', 'Theyは複数の主語。', 'Its＋名詞で「その〜（猫のしっぽ）」。'], 'あのかわいい猫を見て！しっぽがとても長いです。']),
   q(['My mother bought six red (     ) at the market.', ['tomatoes', 'tomato', 'bread', 'butter'], 0, '数sixの後ろでtomato（トマト）の複数形tomatoes（esをつける）を使う。', ['tomatoesはtomatoの複数形。', 'tomatoは単数形。', 'breadは数えない名詞。', 'butterも数えない名詞。'], '母は市場で赤いトマトを6個買いました。']),
   q(['A: Can your father speak French, Leo?\nB: Yes, he (     ). Very well!', ['does', 'is', 'can', 'has'], 2, 'Can your father ...? の質問にはYes, he can.と答える。', ['doesはDoes he ...? への答え。', 'isはIs he ...? への答え。', 'canはCan he ...? に対応する肯定応答。', 'hasはこの質問への答えにならない。'], 'A：レオ、お父さんはフランス語を話せますか。B：はい、話せます。とても上手ですよ！']),
@@ -76,7 +76,7 @@ export const WRITTEN_5_R15 = readingRound('eiken_5', [
   q(['A: How do you spell your first name?\nB: (     )', ['From Nagoya.', 'I am twelve.', 'K-E-N-T-A.', 'Yes, it is.'], 2, '名前のつづり方（How do you spell ...?）を聞かれているので1文字ずつK-E-N-T-A.と答える。', ['出身地の答え。', '年齢の答え。', 'アルファベットのつづりを答えている。', 'Yes/Noでは答えない。'], 'A：下の名前はどうつづりますか。B：K-E-N-T-Aです。'], 'conversation'),
   q(['A: Would you like some cold orange juice?\nB: (     ) I\'m very thirsty.', ['Yes, please.', 'I\'m sorry.', 'See you soon.', 'Under the desk.'], 0, 'とても喉が渇いていると言っているので、ジュースの勧めに対してYes, please.（はい、お願いします）と受ける。', ['飲み物の勧めを受ける丁寧な返答。', '謝罪で不自然。', '別れのあいさつ。', '場所で無関係。'], 'A：冷たいオレンジジュースはいかがですか。B：はい、お願いします。とても喉が渇いているんです。'], 'conversation'),
   q(['A: Who is that boy in the yellow cap?\nB: (     )', ['No, he isn\'t.', 'It is a yellow cap.', 'On the playground.', 'He is my cousin, Ren.'], 3, '黄色い帽子の男の子は誰か（Who）を聞かれ、いとこのレンですと答える。', ['Yes/Noでは答えない。', '帽子の説明だけではWhoの答えにならない。', '場所の答え。', '人物を具体的に答えている。'], 'A：黄色い帽子をかぶったあの男の子は誰ですか。B：私のいとこのレンです。'], 'conversation'),
-  q(['A: Excuse me. Is this seat free?\nB: (     ) Please sit here.', ['No, I don\'t.', 'Yes, it is.', 'Two tickets, please.', 'Good night.'], 1, '「この席は空いていますか」と聞かれ、Please sit here.と勧めているのでYes, it is.と答える。', ['Do you ...? の否定で合わない。', 'Is this seat ...? への肯定応答で後半と合う。', '切符を買う表現で無関係。', '夜のあいさつで合わない。'], 'A：すみません。この席は空いていますか。B：はい、空いていますよ。どうぞ座ってください。'], 'conversation'),
+  q(['A: Excuse me. May I sit next to you?\nB: (     ) Let me move my bag.', ['No, I don\'t.', 'Sure, go ahead.', 'Two tickets, please.', 'Good night.'], 1, '「隣に座ってもいいですか」と聞かれ、かばんをどかすねと勧めているのでSure, go ahead.（いいですよ、どうぞ）と答える。', ['Do you ...? の否定で合わない。', '許可を求められたときの快諾で後半のかばんを動かす発言と合う。', '切符を買う表現で無関係。', '夜のあいさつで合わない。'], 'A：すみません。お隣に座ってもいいですか。B：いいですよ、どうぞ。かばんを動かしますね。'], 'conversation'),
   o('私の母は毎朝早く起きます。', 'My mother', ['early', 'up', 'gets', 'every morning'], [3, 2, 1, 4], ['3－4', '2－4', '3－1', '1－2'], 2, '3単現gets up（起きる）＋副詞early＋every morning。'),
   o('図書館では静かにしてください。', 'Please', ['in', 'quiet', 'be', 'the library'], [3, 2, 1, 4], ['1－2', '2－4', '3－4', '3－1'], 3, 'Please＋be quiet（静かにする）＋場所in the library。'),
   o('あなたの兄は上手に泳げますか。', 'Can', ['brother', 'well', 'swim', 'your'], [4, 1, 3, 2], ['4－3', '1－2', '4－2', '3－1'], 0, 'Can＋主語your brother＋原形swim＋well? の語順。'),
