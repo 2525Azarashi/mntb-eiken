@@ -537,17 +537,17 @@ function buildG3OrPre2DialogueUnit(
       ];
       return {
         turns,
-        ja: `${plJa}に到着したが、入場開始まで40分あるため、外で待つ代わりにまず「${actJa}」をしてから1時30分に戻ることにした。`,
+        ja: `${sp1.roleLabel === 'Man' ? '男性' : '女性'}：${n1}、ようやく${plJa}に着いたね！このまま本館へ入ろうか？\n${sp2.roleLabel === 'Woman' ? '女性' : '男性'}：待って、${n2}。案内表示を見て。私たちの整理券グループの入場は40分後だよ。\n${sp1.roleLabel === 'Man' ? '男性' : '女性'}：気がつかなかったよ。外のベンチで待とうか？\n${sp2.roleLabel === 'Woman' ? '女性' : '男性'}：今日は外が肌寒いから、先に「${actJa}」ことにして、1時30分に戻ってこよう。\n${sp1.roleLabel === 'Man' ? '男性' : '女性'}：それがいいね！\n質問：2人は${plJa}に入る前に何をしますか。`,
         prompt: `What will they do before entering ${pl}?`,
         correct: act[0].toUpperCase() + act.slice(1) + '.',
         cReason: `so let's ${act} first に相手が Sounds good to me! と同意している。`,
         wrongs: ['Go straight into the main hall.', 'Wait on the benches outside.', 'Take a bus back to the station.'] as [string, string, string],
         wReasons: [
-          'すぐに入場しようとしたが40分待ちのため変更された。',
-          '外のベンチは肌寒いため却下されている。',
-          'バスで駅へ戻るとは一度も言っていない。',
+          `${plJa}の本館へすぐ入ろうとしたが、入場開始まで40分あるため変更された。`,
+          '外のベンチで待つ案は肌寒いため（chilly outside）却下されている。',
+          `${plJa}からバスで駅へ戻るとは一度も言っていない。`,
         ] as [string, string, string],
-        exp: `入場時刻までの待ち時間に let's ${act} first と決めた行動を聞き取る。`,
+        exp: `すぐ入場する案・外で待つ案が退けられた後の最終提案 let's ${act} first（先に${actJa}）を聞き取る。`,
         ev: `let's ${act} first`,
         skill: '予定変更',
       };
@@ -835,7 +835,7 @@ function buildG3OrPre2DialogueUnit(
       ];
       return {
         turns,
-        ja: `最初に「${s1Ja}」を済ませ、その直後に「${s2Ja}」を行う手順を確認している。`,
+        ja: `${sp1.roleLabel === 'Man' ? '男性' : '女性'}：すみません${n1}、${round}時間目の休み時間だけど、今すぐ「${s2Ja}」べきかな？\n${sp2.roleLabel === 'Woman' ? '女性' : '男性'}：ちょっと待って、${n2}。準備を整えるために、まず「${s1Ja}」必要があるよ。\n${sp1.roleLabel === 'Man' ? '男性' : '女性'}：そうだね！じゃあそれを終えた直後に「${s2Ja}」ということで合っている？\n${sp2.roleLabel === 'Woman' ? '女性' : '男性'}：そのとおり。さあ始めよう！\n質問：「${s1Ja}」直後に2人は何をしますか。`,
         prompt: `What will they do right after they ${s1}?`,
         correct: s2[0].toUpperCase() + s2.slice(1) + '.',
         cReason: `right after we ${s1}, we will ${s2} に Exactly と同意している。`,
@@ -845,11 +845,11 @@ function buildG3OrPre2DialogueUnit(
           'Call the school principal.',
         ] as [string, string, string],
         wReasons: [
-          'そのまま帰宅するとは述べていない。',
+          'その日の作業を切り上げて帰宅するとは述べていない。',
           'カフェから昼食を注文する話は出ていない。',
           '校長先生に電話するという内容も会話にない。',
         ] as [string, string, string],
-        exp: `First と right after の前後関係を整理して ${s2} を選ぶ。`,
+        exp: `時系列マーカー First（最初に${s1Ja}）と right after（その直後に${s2Ja}）の順序を整理して ${s2} を選ぶ。`,
         ev: `we will ${s2}`,
         skill: '出来事の順序',
       };
@@ -1307,7 +1307,7 @@ function buildG3OrPre2PassageUnit(
           '夏に冬服を着るという規則ではない。',
           '夜9時まで学校に残るという制度でもない。',
         ] as [string, string, string],
-        exp: `Under this program, students will ... の新制度の具体的内容を聞き取る。`,
+        exp: `${schJa}の新制度「${progJa}」について、Under this program, students will ${descEn}（${descJa}）の具体的内容を聞き取る。`,
         ev: `students will ${descEn}`,
         skill: '総合',
       };

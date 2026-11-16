@@ -41,6 +41,7 @@ import {
   type ListeningAudioUnit,
   type ListeningExamRound,
   type ListeningPartId,
+  type ListeningQuestionItem,
 } from '../eiken/listeningExamCore';
 import { getGradeListeningPartSpecs, listeningUnitToProblem } from '../eiken/listeningPractice';
 import { bookletItemToProblem, getGradeDaimonSpecs, WRITTEN_SECTION_LABELS } from '../eiken/writtenPractice';
@@ -692,6 +693,118 @@ export function EikenMockExam({
     return () => stopSpeech();
   }, [phase, unitIndex]);
 
+  // Keyboard shortcuts for fast desktop/tablet navigation & choice selection
+  const runnerKeyStateRef = useRef({
+    phase,
+    examKind,
+    unitIndex,
+    units,
+    listeningUnits,
+    zoomImage,
+    confirmSubmit,
+    paletteOpen,
+  });
+  runnerKeyStateRef.current = {
+    phase,
+    examKind,
+    unitIndex,
+    units,
+    listeningUnits,
+    zoomImage,
+    confirmSubmit,
+    paletteOpen,
+  };
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      const s = runnerKeyStateRef.current;
+      if (e.key === 'Escape') {
+        if (s.zoomImage) {
+          e.preventDefault();
+          setZoomImage(null);
+          return;
+        }
+        if (s.confirmSubmit) {
+          e.preventDefault();
+          setConfirmSubmit(false);
+          return;
+        }
+        if (s.paletteOpen) {
+          e.preventDefault();
+          setPaletteOpen(false);
+          return;
+        }
+      }
+
+      if (s.phase !== 'running' || s.zoomImage || s.confirmSubmit) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === 'TEXTAREA' ||
+          target.tagName === 'INPUT' ||
+          target.tagName === 'SELECT' ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+
+      const maxIdx = s.examKind === 'listening' ? s.listeningUnits.length - 1 : s.units.length - 1;
+      if (e.key === 'ArrowLeft' && s.unitIndex > 0) {
+        e.preventDefault();
+        setUnitIndex(i => Math.max(0, i - 1));
+        window.scrollTo(0, 0);
+        return;
+      }
+      if (e.key === 'ArrowRight' && s.unitIndex < maxIdx) {
+        e.preventDefault();
+        setUnitIndex(i => Math.min(maxIdx, i + 1));
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      if (/^[1-4]$/.test(e.key)) {
+        const cIdx = Number(e.key) - 1;
+        if (s.examKind === 'listening') {
+          const curU = s.listeningUnits[s.unitIndex];
+          if (curU && curU.questions.length === 1 && cIdx < curU.questions[0].choices.length) {
+            e.preventDefault();
+            selectMockChoice(curU.questions[0].id, cIdx);
+          }
+        } else {
+          const curU = s.units[s.unitIndex];
+          if (curU && curU.items.length === 1 && curU.items[0].item.kind === 'choice') {
+            const it = curU.items[0].item;
+            if (it.choices && cIdx < it.choices.length) {
+              e.preventDefault();
+              selectMockChoice(it.id, cIdx);
+            }
+          }
+        }
+        return;
+      }
+
+      if (e.key === 'f' || e.key === 'F') {
+        if (s.examKind === 'listening') {
+          const curU = s.listeningUnits[s.unitIndex];
+          if (curU && curU.questions.length === 1) {
+            e.preventDefault();
+            toggleFlag(curU.questions[0].id);
+          }
+        } else {
+          const curU = s.units[s.unitIndex];
+          if (curU && curU.items.length === 1) {
+            e.preventDefault();
+            toggleFlag(curU.items[0].item.id);
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+
   const selectMockChoice = (qKey: string, cIdx: number) => {
     setAnswers(prev => {
       const next = { ...prev };
@@ -1018,6 +1131,36 @@ export function EikenMockExam({
         questionIndex: qNo,
       });
       setSavedNotes(prev => ({ ...prev, [item.id]: true }));
+      notify(
+        uid === 'guest'
+          ? 'ノートに保存しました！（ゲスト利用のため、この端末にだけ保存されます）'
+          : 'ノートに保存しました！',
+      );
+    } catch {
+      notify('保存に失敗しました。');
+    }
+  };
+
+  const handleSaveListeningNote = (
+    exam: ListeningExamRound,
+    unit: ListeningAudioUnit,
+    q: ListeningQuestionItem,
+    partLabel: string,
+  ) => {
+    if (savedNotes[q.id]) return;
+    try {
+      const problem = listeningUnitToProblem(exam, unit);
+      saveQuestionNote({
+        uid: uid || 'guest',
+        question: problem,
+        chapter: {
+          id: `${exam.id}_${unit.part}`,
+          abstractTitle: `第${exam.round}回（${partLabel}）`,
+          realTitle: `${gradeLabel} リスニング`,
+        },
+        questionIndex: q.questionNumber,
+      });
+      setSavedNotes(prev => ({ ...prev, [q.id]: true }));
       notify(
         uid === 'guest'
           ? 'ノートに保存しました！（ゲスト利用のため、この端末にだけ保存されます）'
@@ -1417,8 +1560,20 @@ export function EikenMockExam({
 
                           <div className="eiken-round-actions">
                             {recordedCount > 0 && (
-                              <span className="eiken-round-audio" title="専用リスニング音源収録">
+                              <span
+                                className={`eiken-round-audio ${
+                                  recordedCount === targetUnits.length ? 'is-complete-audio' : ''
+                                }`}
+                                title={
+                                  recordedCount === targetUnits.length
+                                    ? `専用ネイティブ音声 全${recordedCount}音源収録済み`
+                                    : `専用リスニング音源 ${recordedCount}/${targetUnits.length}収録`
+                                }
+                              >
                                 <Headphones size={12} aria-hidden="true" />
+                                {recordedCount === targetUnits.length && (
+                                  <span className="em-audio-badge-txt">専用音声</span>
+                                )}
                               </span>
                             )}
                             {history.length > 0 && (
@@ -2095,6 +2250,9 @@ export function EikenMockExam({
             </span>
             <span className={`em-unit-substatus ${unansweredInUnit === 0 ? 'is-done' : ''}`}>
               {unansweredInUnit === 0 ? 'この音源回答済み' : `この音源未回答 ${unansweredInUnit}`}
+            </span>
+            <span className="em-kbd-hint" aria-hidden="true">
+              1–{currentUnit.questions[0]?.choices.length ?? 4} 選択 ・ ←/→ 移動 ・ F 見直し
             </span>
           </div>
 
@@ -2803,6 +2961,9 @@ export function EikenMockExam({
             <span className={`em-unit-substatus ${unansweredInUnit === 0 ? 'is-done' : ''}`}>
               {unansweredInUnit === 0 ? 'このページ回答済み' : `このページ未回答 ${unansweredInUnit}`}
             </span>
+            <span className="em-kbd-hint" aria-hidden="true">
+              ←/→ ページ移動{currentUnit.items.length === 1 && currentUnit.items[0].item.kind === 'choice' ? ' ・ 1–4 選択 ・ F 見直し' : ''}
+            </span>
           </div>
 
           {unitIndex < units.length - 1 ? (
@@ -2870,6 +3031,22 @@ export function EikenMockExam({
         data-mock-kind="listening"
         style={theme.accent ? ({ '--unit-accent': theme.accent } as React.CSSProperties) : undefined}
       >
+        {zoomImage && (
+          <div
+            className="em-modal-backdrop em-lightbox-backdrop"
+            role="dialog"
+            aria-modal="true"
+            aria-label="問題イラスト拡大表示"
+            onClick={() => setZoomImage(null)}
+          >
+            <div className="em-lightbox" onClick={e => e.stopPropagation()}>
+              <img src={zoomImage.src} alt={zoomImage.alt} />
+              <button type="button" className="em-ghost-btn" onClick={() => setZoomImage(null)}>
+                閉じる
+              </button>
+            </div>
+          </div>
+        )}
         <div className="em-result-inner">
           <header className="em-header">
             <button type="button" className="unit-head-back em-result-back" onClick={() => setPhase('select')}>
@@ -3022,14 +3199,36 @@ export function EikenMockExam({
                         />
                       </div>
 
-                      {imgUrl && (
-                        <div className="em-rev-figure">
-                          <img
-                            src={imgUrl}
-                            alt={unit.image?.sceneSummaryJa || unit.audioId}
-                            className="em-rev-thumb"
-                          />
+                      {problem.audioTracks?.[0]?.material ? (
+                        <div className="em-rev-material-wrap">
+                          <ListeningMaterials material={problem.audioTracks[0].material} />
                         </div>
+                      ) : (
+                        imgUrl && (
+                          <div className="em-rev-figure">
+                            <button
+                              type="button"
+                              className="em-zoom-trigger em-rev-zoom-btn"
+                              onClick={() =>
+                                setZoomImage({
+                                  src: imgUrl,
+                                  alt: unit.image?.sceneSummaryJa || unit.audioId,
+                                })
+                              }
+                              title="タップしてイラストを拡大"
+                            >
+                              <img
+                                src={imgUrl}
+                                alt={unit.image?.sceneSummaryJa || unit.audioId}
+                                className="em-rev-thumb"
+                              />
+                              <span className="em-zoom-chip">
+                                <Maximize2 size={12} aria-hidden="true" />
+                                <span>拡大</span>
+                              </span>
+                            </button>
+                          </div>
+                        )
                       )}
 
                       <div className="em-rev-script-box">
@@ -3049,6 +3248,12 @@ export function EikenMockExam({
                         const hasPicked = Number.isInteger(picked);
                         const isCorrect = picked === q.answer;
                         const singleCol = q.choices.some(c => c.length > 22);
+                        const vocabHits = extractMatchedEikenVocab(
+                          vocabMap,
+                          q.choices,
+                          [q.questionPrompt, ...unit.turns.map(t => t.text)],
+                          4,
+                        );
                         return (
                           <div key={q.id} id={`em-rev-${q.id}`} className="em-rev-subq">
                             <div className="em-rev-head">
@@ -3064,6 +3269,21 @@ export function EikenMockExam({
                               </span>
                               <strong className="em-rev-qno">No. {q.questionNumber}</strong>
                               <span className="em-rev-sec">{partLabel}</span>
+                              {q.skill && <span className="em-rev-skill-chip">{q.skill}</span>}
+                              <button
+                                type="button"
+                                className="ecp-save ecp-save-compact em-rev-note-btn"
+                                data-saved={savedNotes[q.id] || undefined}
+                                disabled={Boolean(savedNotes[q.id])}
+                                onClick={() => handleSaveListeningNote(activeListeningExam, unit, q, partLabel)}
+                              >
+                                {savedNotes[q.id] ? (
+                                  <BookmarkCheck size={13} aria-hidden="true" />
+                                ) : (
+                                  <Bookmark size={13} aria-hidden="true" />
+                                )}
+                                <span>{savedNotes[q.id] ? '保存済' : 'ノート保存'}</span>
+                              </button>
                             </div>
                             {q.questionPrompt && (
                               <p className="em-rev-prompt" lang="en">
@@ -3130,6 +3350,32 @@ export function EikenMockExam({
                                   })}
                                 </ul>
                               </div>
+                              {vocabHits.length > 0 && (
+                                <div className="em-vocab-chips" aria-label="重要語彙・表現チェック">
+                                  {vocabHits.map(v => {
+                                    const vKey = `lvocab:${q.id}:${v.word}`;
+                                    const isSpeakingWord = speakingKey === `${vKey}:1`;
+                                    return (
+                                      <button
+                                        key={v.word}
+                                        type="button"
+                                        className="em-vocab-chip"
+                                        data-speaking={isSpeakingWord || undefined}
+                                        onClick={() => {
+                                          if (!canSpeak) return;
+                                          handleToggleResultSpeak(vKey, v.word, '', v.word, 1);
+                                        }}
+                                        title={v.exampleSentence ? `例文: ${v.exampleSentence}` : v.word}
+                                      >
+                                        {canSpeak && <Volume2 size={11} aria-hidden="true" />}
+                                        <strong lang="en">{v.word}</strong>
+                                        <span>{v.meaning}</span>
+                                        <small>{formatVocabGradeBadge(v.level)}</small>
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              )}
                             </div>
                           </div>
                         );

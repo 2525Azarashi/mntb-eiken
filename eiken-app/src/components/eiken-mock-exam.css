@@ -2623,3 +2623,69 @@
   font-weight: 800;
 }
 
+/* ============================================================
+   Phase 4 Quality Polish:
+   - Keyboard Shortcut Hint Pill (Desktop)
+   - Complete Native Audio Badge on Round Cards
+   - Real-Life Material & Tap-to-Zoom + Note Save in Listening Review
+   ============================================================ */
+.em-kbd-hint {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 767px) {
+  .em-kbd-hint {
+    display: none;
+  }
+}
+
+.eiken-round-audio.is-complete-audio {
+  width: auto;
+  padding: 0 8px;
+  gap: 4px;
+  border-radius: 999px;
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #166534;
+}
+
+.em-audio-badge-txt {
+  font-size: 10.5px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.em-rev-material-wrap {
+  padding: 4px 0;
+}
+
+.em-rev-zoom-btn {
+  border-radius: 10px;
+}
+
+.em-rev-ja {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: #334155;
+  white-space: pre-line;
+}
+
+.em-rev-skill-chip {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.em-rev-note-btn {
+  margin-left: auto;
+}
+
+

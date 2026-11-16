@@ -1018,8 +1018,12 @@ const MID_PASSAGE_SPECS: readonly MidPassageSpec[] = [
             correct: alt[0].toUpperCase() + alt.slice(1) + '.',
             cReason: `During this closure, visitors can ${alt}. と代替手段が明示されている。`,
             wrongs: ['Enter the main building after nine p.m.', 'Apply for construction jobs at the desk.', 'Keep borrowed items forever without returning them.'] as [string, string, string],
-            wReasons: ['夜間9時以降に本館へ入れるとは案内されていない。', '建設作業の求人応募の話は出ていない。', '借りた物を返却せず永久に持っていてよいとは言っていない。'] as [string, string, string],
-            exp: `During this closure, visitors can ... の休館中の代替サービスを聞き取る。`,
+            wReasons: [
+              `${bJa}は改修休館中であり、夜9時以降に本館へ入れるとは案内されていない。`,
+              `${bJa}の改修工事の作業員募集という話は出ていない。`,
+              `${bJa}で借りた物を返却せず永久に保持してよいとは言っていない。`,
+            ] as [string, string, string],
+            exp: `${bJa}の休館案内で During this closure, visitors can ${alt}（${altJa}）と示された代替サービスを聞き取る。`,
             ev: `visitors can ${alt}`,
           };
         },
@@ -1053,8 +1057,12 @@ const MID_PASSAGE_SPECS: readonly MidPassageSpec[] = [
             correct: `${nm} ${early}.`,
             cReason: `originally ${early} for nearly a decade と初期の経歴が述べられている。`,
             wrongs: [`${nm} piloted commercial passenger jets.`, `${nm} practiced law at a supreme court.`, `${nm} coached an Olympic swimming team.`] as [string, string, string],
-            wReasons: ['旅客機のパイロットをしていたとは述べられていない。', '最高裁で弁護士をしていたという経歴はない。', '水泳の五輪コーチだったという記述も本文にない。'] as [string, string, string],
-            exp: `現在の業績と originally ${early} の過去の経歴を取り違えないよう注意する。`,
+            wReasons: [
+              `${nmJa}が旅客機のパイロットをしていたとは述べられていない。`,
+              `${nmJa}が最高裁で弁護士をしていたという経歴はない。`,
+              `${nmJa}が水泳の五輪コーチだったという記述も本文にない。`,
+            ] as [string, string, string],
+            exp: `${nmJa}の現在の業績（${laterJa}）と、originally ${early}（${earlyJa}）で示される初期の経歴を区別して聞き取る。`,
             ev: `originally ${early}`,
           };
         },
@@ -1080,8 +1088,12 @@ const MID_PASSAGE_SPECS: readonly MidPassageSpec[] = [
             correct: `They can ${pk}.`,
             cReason: `Members who sign up ... can ${pk}. と特典内容が明言されている。`,
             wrongs: ['They receive free home delivery by helicopter.', 'They get every item free on Mondays.', 'They can park cars inside the store aisle.'] as [string, string, string],
-            wReasons: ['ヘリコプターでの無料配送などは行われない。', '月曜に全品無料になるという特典はない。', '店内通路に駐車できるという荒唐無稽な話もない。'] as [string, string, string],
-            exp: `Members ... can ${pk} の会員メリットを聞き取る。`,
+            wReasons: [
+              `${stJa}でヘリコプターによる無料配送が行われるとは述べられていない。`,
+              `${stJa}で月曜に全品無料になるという特典はない。`,
+              `${stJa}の店内通路に駐車できるという案内もない。`,
+            ] as [string, string, string],
+            exp: `${stJa}の新プログラムで Members ... can ${pk}（${pkJa}）と案内されている会員特典を聞き取る。`,
             ev: `can ${pk}`,
           };
         },
@@ -1107,8 +1119,12 @@ const MID_PASSAGE_SPECS: readonly MidPassageSpec[] = [
             correct: imp[0].toUpperCase() + imp.slice(1) + '.',
             cReason: `According to the agricultural cooperative, ${imp}. とそのまま報告されている。`,
             wrongs: ['All farms stopped growing the crop permanently.', 'Exports were banned due to a typhoon.', 'Prices rose tenfold overnight.'] as [string, string, string],
-            wReasons: ['栽培を恒久的にやめたとは述べられていない。', '台風で輸出禁止になったという記述はない。', '価格が一晩で10倍になったとも報じられていない。'] as [string, string, string],
-            exp: `According to the agricultural cooperative, ${imp} の報道内容を聞き取る。`,
+            wReasons: [
+              `${crJa}の栽培をすべての農家が恒久的にやめたとは報じられていない。`,
+              `台風により${crJa}が輸出禁止になったという記述はない。`,
+              `${crJa}の価格が一晩で10倍になったとも報じられていない。`,
+            ] as [string, string, string],
+            exp: `今年の${crJa}について According to the agricultural cooperative, ${imp}（${impJa}）と報じられた内容を聞き取る。`,
             ev: imp,
           };
         },
@@ -1134,8 +1150,12 @@ const MID_PASSAGE_SPECS: readonly MidPassageSpec[] = [
             correct: inst[0].toUpperCase() + inst.slice(1) + '.',
             cReason: `please ${inst} と利用者への具体的なお願いが述べられている。`,
             wrongs: ['Wear green staff badges at all times.', 'Clean their own rooms before checkout.', 'Pay an extra fee for elevator use.'] as [string, string, string],
-            wReasons: ['緑のバッジを着けているのは案内スタッフであり客ではない。', 'チェックアウト前に客自身で部屋掃除をする規則はない。', 'エレベーター利用に追加料金がかかるという話もない。'] as [string, string, string],
-            exp: `To ensure smooth service ..., please ${inst} を聞き取る。`,
+            wReasons: [
+              `${vnJa}で緑のバッジを着けているのは多言語対応スタッフであり、来場客ではない。`,
+              `${vnJa}の利用者自身が部屋を掃除する規則はない。`,
+              `${vnJa}のエレベーター利用に追加料金がかかるという案内もない。`,
+            ] as [string, string, string],
+            exp: `${vnJa}の案内放送で To ensure smooth service ..., please ${inst}（${instJa}）と求められている行動を聞き取る。`,
             ev: `please ${inst}`,
           };
         },
