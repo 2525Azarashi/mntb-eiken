@@ -1,6 +1,6 @@
 {
-  "totalIntegratedUnits": 375,
-  "totalPublicAudioMB": 50.87,
+  "totalIntegratedUnits": 1725,
+  "totalPublicAudioMB": 265.93,
   "sourceLicense": "Manus AI generated (user-confirmed commercial use OK, non-official original script)",
   "grades": {
     "eiken_1": {
@@ -11,21 +11,30 @@
     },
     "eiken_2": {
       "expectedUnits": 450,
-      "integratedUnits": 0,
+      "integratedUnits": 450,
       "csvVerifiedUnits": 0,
-      "mismatches": 0
+      "mismatches": 0,
+      "minDurationSec": 21.38,
+      "maxDurationSec": 44.09,
+      "avgDurationSec": 29.19
     },
     "eiken_3": {
       "expectedUnits": 450,
-      "integratedUnits": 0,
+      "integratedUnits": 450,
       "csvVerifiedUnits": 0,
-      "mismatches": 0
+      "mismatches": 0,
+      "minDurationSec": 17.74,
+      "maxDurationSec": 39.22,
+      "avgDurationSec": 29.14
     },
     "eiken_4": {
       "expectedUnits": 450,
-      "integratedUnits": 0,
+      "integratedUnits": 450,
       "csvVerifiedUnits": 0,
-      "mismatches": 0
+      "mismatches": 0,
+      "minDurationSec": 18.34,
+      "maxDurationSec": 32.78,
+      "avgDurationSec": 25.06
     },
     "eiken_5": {
       "expectedUnits": 375,

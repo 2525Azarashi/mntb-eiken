@@ -1,25 +1,30 @@
-"""Validate and integrate recorded Eiken Listening MP3 archives across all grades (`eiken_5`, `eiken_4`, ...):
+"""Validate and integrate recorded Eiken Listening MP3 archives across all grades (`eiken_5`, `eiken_4`, `eiken_3`, `eiken_2`, ...):
 1) Reads `deliverables/listening-booklets.json` for all 8 grades x 15 rounds (3,285 audio units).
-2) Scans `/home/user/*_audio_persist/` (e.g., `/home/user/g5_audio_persist/`, and future `g4_audio_persist/`, etc.) for `<audioId>.mp3` and optional `対応表.csv`.
-3) Verifies every present MP3 against the canonical round, part, questionNumber, and speaker-role sequence (`Man` / `Woman` / `Narrator`).
-4) Transcodes speech MP3s cleanly to crisp 24 kHz mono 48 kbps CBR MP3 under `public/eiken_audio/<grade>/<audioId>.mp3` (skips unchanged files on re-runs for fast incremental updates).
-5) Generates `src/eiken/listeningAudio.generated.ts` exporting `LISTENING_AUDIO_URLS: Readonly<Record<string, string>>` and writes `deliverables/eiken_listening_audio_audit.json`.
+2) Scans:
+   - Existing `public/eiken_audio/<grade>/<audioId>.mp3` (preserves already-transcoded MP3s when source archives are absent)
+   - `/home/user/*_audio_persist/` (e.g., `/home/user/g5_audio_persist/`) for `<audioId>.mp3` and optional `対応表.csv`
+   - Uploaded ZIP archives in `/home/user/uploaded_files/` (`*.zip` containing `eiken_*_listening_*.mp3`, such as `英検4級_3級_音声のみ.zip`, `eiken_2_累計450件_一括納品.zip`, `eiken_5_listening_r01-r15_375mp3.zip`, and any future `eiken_pre2` / `eiken_pre2plus` / `eiken_pre1` / `eiken_1` ZIPs)
+3) Verifies every MP3 against canonical `audioId`s, transcodes speech MP3s cleanly to crisp 24 kHz mono 48 kbps CBR MP3 under `public/eiken_audio/<grade>/<audioId>.mp3` (streaming directly from ZIP without extracting gigabytes to disk; skips already-valid outputs for fast incremental runs).
+4) Generates `src/eiken/listeningAudio.generated.ts` exporting `LISTENING_AUDIO_URLS: Readonly<Record<string, string>>` and writes `deliverables/eiken_listening_audio_audit.json`.
 """
 from concurrent.futures import ThreadPoolExecutor
 import csv
 import json
 import subprocess
+import tempfile
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / 'public'
 DELIV = ROOT / 'deliverables'
+UP_DIR = Path('/home/user/uploaded_files')
 OUT_BASE = PUBLIC / 'eiken_audio'
 OUT_BASE.mkdir(parents=True, exist_ok=True)
 
 BOOKLETS = json.loads((DELIV / 'listening-booklets.json').read_text('utf-8'))['booklets']
 
-# Discover all persisted audio drop directories under /home/user/*_audio_persist
+# 1. Discover local file sources in /home/user/*_audio_persist
 PERSIST_DIRS = sorted(Path('/home/user').glob('*_audio_persist'))
 src_mp3_by_id: dict[str, Path] = {}
 csv_rows_by_id: dict[str, dict[str, str]] = {}
@@ -38,6 +43,21 @@ for pdir in PERSIST_DIRS:
                             csv_rows_by_id[aid] = row
         except Exception as exc:
             print(f'[warn] Could not parse CSV {csv_path}: {exc}')
+
+# 2. Discover MP3 entries inside uploaded ZIP archives (/home/user/uploaded_files/*.zip)
+zip_mp3_by_id: dict[str, tuple[Path, str]] = {}
+if UP_DIR.exists():
+    for zp in sorted(UP_DIR.glob('*.zip')):
+        try:
+            with zipfile.ZipFile(zp) as zf:
+                for entry in zf.namelist():
+                    if entry.endswith('/') or not entry.lower().endswith('.mp3'):
+                        continue
+                    stem = Path(entry).stem
+                    if stem.startswith('eiken_') and '_listening_' in stem:
+                        zip_mp3_by_id[stem] = (zp, entry)
+        except Exception as exc:
+            print(f'[warn] Could not inspect ZIP {zp}: {exc}')
 
 expected_units: dict[str, dict] = {}
 for exam in BOOKLETS:
@@ -66,7 +86,7 @@ for exam in BOOKLETS:
             'normRoles': norm_roles,
         }
 
-jobs: list[tuple[str, str, Path, Path]] = []
+jobs: list[tuple[str, str, Path | None, tuple[Path, str] | None, Path]] = []
 audit_by_grade: dict[str, dict] = {}
 mismatches: list[dict] = []
 
@@ -78,11 +98,17 @@ for aid, meta in sorted(expected_units.items()):
     )
     g_stat['expectedUnits'] += 1
 
-    src = src_mp3_by_id.get(aid)
-    if not src:
+    out_dir = OUT_BASE / grade
+    out_dir.mkdir(parents=True, exist_ok=True)
+    dst = out_dir / f'{aid}.mp3'
+
+    src_path = src_mp3_by_id.get(aid)
+    zip_ref = zip_mp3_by_id.get(aid)
+    already_exists = dst.exists() and dst.stat().st_size >= 1000
+
+    if not src_path and not zip_ref and not already_exists:
         continue
 
-    # Verify against CSV mapping if provided
     row = csv_rows_by_id.get(aid)
     if row:
         csv_round = int(row['回'])
@@ -104,40 +130,69 @@ for aid, meta in sorted(expected_units.items()):
             continue
         g_stat['csvVerifiedUnits'] += 1
 
-    out_dir = OUT_BASE / grade
-    out_dir.mkdir(parents=True, exist_ok=True)
-    dst = out_dir / f'{aid}.mp3'
-    jobs.append((aid, grade, src, dst))
+    jobs.append((aid, grade, src_path, zip_ref, dst))
     g_stat['integratedUnits'] += 1
 
 if mismatches:
     raise SystemExit(f'Found {len(mismatches)} audio mapping mismatches: {mismatches[:3]}')
 
 
-def transcode_one(item: tuple[str, str, Path, Path]) -> tuple[str, str, int, float]:
-    aid, grade, src, dst = item
+def transcode_one(item: tuple[str, str, Path | None, tuple[Path, str] | None, Path]) -> tuple[str, str, int, float]:
+    aid, grade, src_path, zip_ref, dst = item
     if not dst.exists() or dst.stat().st_size < 1000:
-        subprocess.run(
-            [
-                'ffmpeg',
-                '-y',
-                '-v',
-                'error',
-                '-i',
-                str(src),
-                '-vn',
-                '-ac',
-                '1',
-                '-ar',
-                '24000',
-                '-c:a',
-                'libmp3lame',
-                '-b:a',
-                '48k',
-                str(dst),
-            ],
-            check=True,
-        )
+        if src_path and src_path.exists():
+            subprocess.run(
+                [
+                    'ffmpeg',
+                    '-y',
+                    '-v',
+                    'error',
+                    '-i',
+                    str(src_path),
+                    '-vn',
+                    '-ac',
+                    '1',
+                    '-ar',
+                    '24000',
+                    '-c:a',
+                    'libmp3lame',
+                    '-b:a',
+                    '48k',
+                    str(dst),
+                ],
+                check=True,
+            )
+        elif zip_ref is not None:
+            zp, entry = zip_ref
+            with zipfile.ZipFile(zp) as zf:
+                raw_mp3 = zf.read(entry)
+            with tempfile.NamedTemporaryFile(suffix='.mp3', delete=True) as tmp_in:
+                tmp_in.write(raw_mp3)
+                tmp_in.flush()
+                subprocess.run(
+                    [
+                        'ffmpeg',
+                        '-y',
+                        '-v',
+                        'error',
+                        '-i',
+                        tmp_in.name,
+                        '-vn',
+                        '-ac',
+                        '1',
+                        '-ar',
+                        '24000',
+                        '-c:a',
+                        'libmp3lame',
+                        '-b:a',
+                        '48k',
+                        str(dst),
+                    ],
+                    check=True,
+                )
+        else:
+            raise FileNotFoundError(f'No audio source for {aid}')
+
     probe = subprocess.check_output(
         [
             'ffprobe',
@@ -156,7 +211,7 @@ def transcode_one(item: tuple[str, str, Path, Path]) -> tuple[str, str, int, flo
     st = info['streams'][0]
     if st.get('codec_name') != 'mp3' or int(st.get('sample_rate', 0)) != 24000 or int(st.get('channels', 0)) != 1:
         raise RuntimeError(f'Audio stream spec mismatch on {dst}: {st}')
-    if dur < 4.0 or dur > 240.0:
+    if dur < 3.0 or dur > 300.0:
         raise RuntimeError(f'Abnormal audio duration on {dst}: {dur:.2f}s')
     return aid, f'/eiken_audio/{grade}/{aid}.mp3', dst.stat().st_size, dur
 

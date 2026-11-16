@@ -1,10 +1,12 @@
 """Optimize and integrate Listening illustrations across all 5 image-bearing grades:
-1) Grade 5 (271/300; Rounds 1–5 100%) & Grade 4 (150/150 — 100% complete):
-   - Rebuilds from `/home/user/g5_uploaded_persist` & `/home/user/g4_uploaded_persist` when present,
-     or preserves verified WebP mappings from `listeningImages.generated.ts` when raw dirs are absent.
-2) Grade 3 (150/150 — 100% complete):
+1) Grade 5 (300/300 — 100% complete):
+   - Rebuilds baseline from `/home/user/g5_uploaded_persist` when present, or preserves verified WebP mappings from `listeningImages.generated.ts`.
+   - Applies Priority-A 55-illustration update (`g5_priorityA_all_in_one_2026-11-16.zip`: 29 newly generated slots + 26 retaken slots) when present in `/home/user/uploaded_files/`, and cleans up any unreferenced WebP files in `public/eiken_images/eiken_5_shared/`.
+2) Grade 4 (150/150 — 100% complete):
+   - Rebuilds from `/home/user/g4_uploaded_persist` when present, else preserves verified WebP mappings.
+3) Grade 3 (150/150 — 100% complete):
    - Rebuilds from `eiken_3_listening_all_150_images` ZIP if present, else preserves existing WebP mappings.
-3) Grade Pre-1 (75/75 — 100% complete) & Grade 1 (75/75 — 100% complete):
+4) Grade Pre-1 (75/75 — 100% complete) & Grade 1 (75/75 — 100% complete):
    - Rebuilds Real-Life clean header banners from uploaded ZIPs if present, else preserves existing WebP mappings.
 
 Outputs:
@@ -70,9 +72,12 @@ def save_webp_bytes(
     cache_key = f'{out_dir.name}:{digest}'
     if cache_key in hash_to_web_url:
         return hash_to_web_url[cache_key]
-    seq_counter[0] += 1
-    out_name = f'{prefix}_{seq_counter[0]:03d}.webp'
-    out_path = out_dir / out_name
+    while True:
+        seq_counter[0] += 1
+        out_name = f'{prefix}_{seq_counter[0]:03d}.webp'
+        out_path = out_dir / out_name
+        if not out_path.exists():
+            break
     gray = im.convert('L')
     gray.thumbnail(max_box, Image.Resampling.LANCZOS)
     gray.save(out_path, 'WEBP', quality=82, method=6)
@@ -155,26 +160,55 @@ def load_zip_png_map(*zip_paths: Path) -> dict[str, bytes]:
 
 booklets = json.loads((DELIV / 'listening-booklets.json').read_text('utf-8'))
 
-# 1) Grade 5
+# 1) Grade 5 baseline + Priority-A 55-image patch (`g5_priorityA_all_in_one_2026-11-16.zip`)
 if Path('/home/user/g5_uploaded_persist').exists() and (DELIV / 'eiken_5_image_reuse_and_delta_plan.json').exists():
     for old_w in G5_SHARED.glob('*.webp'):
         old_w.unlink()
     g5_plan = json.loads((DELIV / 'eiken_5_image_reuse_and_delta_plan.json').read_text('utf-8'))
     g5_seq = [0]
-    g5_cnt = 0
     for it in g5_plan['items']:
         stem = Path(it['targetPath']).stem
         if it['mode'] == 'reuse':
             src = Path(it['sourceLocal'].replace('/tmp/g5_uploaded/', '/home/user/g5_uploaded_persist/'))
             slot_map[stem] = save_dedup_webp(src, G5_SHARED, 'g5_img', g5_seq)
-            g5_cnt += 1
         else:
             cand = G5_GEN_DIR / f'{stem}.png'
             if cand.exists():
                 slot_map[stem] = save_dedup_webp(cand, G5_SHARED, 'g5_delta', g5_seq)
-                g5_cnt += 1
 else:
-    g5_cnt = load_existing_prefix('eiken_5_')
+    load_existing_prefix('eiken_5_')
+
+g5_priority_zip = find_optional_zip(['g5_priorityA_all_in_one_2026-11-16.zip'])
+if g5_priority_zip:
+    g5_patch_seq = [0]
+    for old_p in G5_SHARED.glob('g5_priority_*.webp'):
+        old_p.unlink()
+    with zipfile.ZipFile(g5_priority_zip) as zf:
+        for entry in sorted(zf.namelist()):
+            m = re.match(r'^webp/g5_(new|retake)_r(\d+)_p(\d+)_(\d+)\.webp$', entry)
+            if not m:
+                continue
+            _, rnd_s, part_s, no_s = m.groups()
+            slot_id = f'eiken_5_listening_r{int(rnd_s):02d}_part{int(part_s)}_{int(no_s):02d}'
+            raw = zf.read(entry)
+            slot_map[slot_id] = save_webp_bytes(
+                Image.open(io.BytesIO(raw)),
+                raw,
+                G5_SHARED,
+                'g5_priority',
+                g5_patch_seq,
+                (880, 660),
+            )
+
+# Remove any orphaned WebP files in G5_SHARED no longer referenced after retakes
+referenced_g5_files = {
+    Path(v).name for k, v in slot_map.items() if k.startswith('eiken_5_')
+}
+for wf in G5_SHARED.glob('*.webp'):
+    if wf.name not in referenced_g5_files:
+        wf.unlink()
+
+g5_cnt = sum(1 for k in slot_map if k.startswith('eiken_5_'))
 
 # 2) Grade 4
 G4_RETAKE_SPEC = {(2, 1), (3, 1), (4, 1), (5, 4), (7, 1), (8, 1)}
