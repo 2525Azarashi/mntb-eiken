@@ -65,21 +65,24 @@ describe('Eiken Listening 120-Round Mock Exam Bank', () => {
     expect(totalImages).toBe(750);
   });
 
-  it('integrates 375/375 Grade 5 MP3 audio files and 721/750 illustrations across Grades 5, 4, 3, Pre-1, and 1', () => {
-    // Audio check (Grade 5: all 375/375 MP3s)
-    const g5AudioKeys = Object.keys(LISTENING_AUDIO_URLS).filter(k => k.startsWith('eiken_5_'));
-    expect(g5AudioKeys).toHaveLength(375);
+  it('integrates 1725 MP3 audio files (Grades 5, 4, 3, 2) and all 750/750 illustrations across Grades 5, 4, 3, Pre-1, and 1', () => {
+    // Audio check (Grade 5: 375/375, Grade 4: 450/450, Grade 3: 450/450, Grade 2: 450/450 => 1,725 MP3s)
+    expect(Object.keys(LISTENING_AUDIO_URLS).filter(k => k.startsWith('eiken_5_'))).toHaveLength(375);
+    expect(Object.keys(LISTENING_AUDIO_URLS).filter(k => k.startsWith('eiken_4_'))).toHaveLength(450);
+    expect(Object.keys(LISTENING_AUDIO_URLS).filter(k => k.startsWith('eiken_3_'))).toHaveLength(450);
+    expect(Object.keys(LISTENING_AUDIO_URLS).filter(k => k.startsWith('eiken_2_'))).toHaveLength(450);
     for (const audioUrl of Object.values(LISTENING_AUDIO_URLS)) {
       expect(audioUrl.startsWith('/eiken_audio/')).toBe(true);
       expect(existsSync(`public${audioUrl}`)).toBe(true);
     }
 
-    // Illustration check (Grade 4: 150/150, Grade 3: 150/150, Pre-1: 75/75, Grade 1: 75/75, Grade 5: 271+/300)
+    // Illustration check (100% complete across all 5 image-bearing grades: 750/750)
+    expect(Object.keys(LISTENING_IMAGE_URLS).filter(k => k.startsWith('eiken_5_'))).toHaveLength(300);
     expect(Object.keys(LISTENING_IMAGE_URLS).filter(k => k.startsWith('eiken_4_'))).toHaveLength(150);
     expect(Object.keys(LISTENING_IMAGE_URLS).filter(k => k.startsWith('eiken_3_'))).toHaveLength(150);
     expect(Object.keys(LISTENING_IMAGE_URLS).filter(k => k.startsWith('eiken_pre1_'))).toHaveLength(75);
     expect(Object.keys(LISTENING_IMAGE_URLS).filter(k => k.startsWith('eiken_1_'))).toHaveLength(75);
-    expect(Object.keys(LISTENING_IMAGE_URLS).filter(k => k.startsWith('eiken_5_')).length).toBeGreaterThanOrEqual(271);
+    expect(Object.keys(LISTENING_IMAGE_URLS)).toHaveLength(750);
 
     for (const webUrl of Object.values(LISTENING_IMAGE_URLS)) {
       expect(webUrl.startsWith('/eiken_images/')).toBe(true);
@@ -168,9 +171,9 @@ describe('Eiken Listening 120-Round Mock Exam Bank', () => {
     }
   });
 
-  it('audits all 721 integrated WebP listening illustrations (Grade 4/3/Pre-1/1 100% + Grade 5)', () => {
+  it('audits all 750 integrated WebP listening illustrations (Grades 5/4/3/Pre-1/1 100%)', () => {
     const entries = Object.entries(LISTENING_IMAGE_URLS);
-    expect(entries).toHaveLength(721);
+    expect(entries).toHaveLength(750);
 
     const byPrefix = {
       eiken_5: 0,
@@ -202,7 +205,7 @@ describe('Eiken Listening 120-Round Mock Exam Bank', () => {
     }
 
     expect(byPrefix).toEqual({
-      eiken_5: 271,
+      eiken_5: 300,
       eiken_4: 150,
       eiken_3: 150,
       eiken_pre1: 75,
