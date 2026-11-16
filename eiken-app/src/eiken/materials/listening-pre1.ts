@@ -118,7 +118,7 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
       ];
       return {
         turns,
-        ja: `「${tpJa}」に関する発表草稿の講評。数値と冒頭の主張は明確だが中盤が抽象的なため、水曜までに「${fxJa}」対応を行うことになった。`,
+        ja: `「${tpJa}」に関する来月の研究発表の草稿講評。統計数値と冒頭の主張は明確だが中盤がやや抽象的なため、水曜までに「${fxJa}」修正を加えて最終提出することになった。`,
         prompt: `What will ${who2} do before submitting the final paper?`,
         correct: fxEn[0].toUpperCase() + fxEn.slice(1) + '.',
         cReason: `Would it strengthen my argument if I ${fxEn} ...? に教授が Definitely と承認している。`,
@@ -395,10 +395,10 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
         ] as [string, string, string],
         wReasons: [
           `${th.rejected} は counterproductive（逆効果）として明確に退けられている。`,
-          '今月末でプロジェクト自体を中止するという話は出ていない。',
-          '海外コンサル会社に1年間の監査を依頼するとも言っていない。',
+          `${th.ctxJa}の計画自体を今月末で中止する話は出ておらず、2週間以内に実行できる改善策を探している。`,
+          `${th.ctxJa}のために海外コンサル会社へ1年間の監査を依頼するとも述べていない。`,
         ] as [string, string, string],
-        exp: `逆効果として退けられた案ではなく、合意に至った ${th.chosen} を選ぶ。`,
+        exp: `${th.ctxJa}をめぐり counterproductive（逆効果）として退けられた案ではなく、What if we ${th.chosen}?（${th.chosenJa}）で合意した改善策を選ぶ。`,
         ev: `What if we ${th.chosen}`,
         skill: th.sk,
       };

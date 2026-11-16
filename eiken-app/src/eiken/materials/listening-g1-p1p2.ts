@@ -64,7 +64,7 @@ export function buildG1Part1Unit(examId: string, round: number, u: number): List
       ];
       return {
         turns,
-        ja: `${assetJa}の買収監査をめぐる協議。交渉決裂は避けたいが無条件クロージングはリスクが高いため、表面上の評価額は維持しつつ「${clJa}」条項を第9条に盛り込むことで合意した。`,
+        ja: `${assetJa}の買収監査をめぐる協議。交渉決裂は避けたいが無条件での契約完了はリスクが高いため、表面上の評価額は維持しつつ「${clJa}」という条件を第9条に盛り込むことで合意した。`,
         prompt: `How have the speakers agreed to address the board's concern about acquiring the ${asset}?`,
         correct: `They will ${clEn}.`,
         cReason: `provided we ${clEn} という構造的折衷案に That strikes a judicious balance と同意している。`,
@@ -105,7 +105,7 @@ export function buildG1Part1Unit(examId: string, round: number, u: number): List
       ];
       return {
         turns,
-        ja: `「${fldJa}」論文に対する査読者2の批判への3名による対応協議。手紙での反論だけでは編集者を説得しにくいため、本文は変えずに10日以内で「${stJa}」追加実証を行うことで合意した。`,
+        ja: `「${fldJa}」論文に対する査読者2の指摘への3名による対応協議。カバーレターでの反論だけでは編集者を説得しにくいため、本文は変えずに10日以内で「${stJa}」という追加実証を行うことで合意した。`,
         prompt: 'What have the researchers decided to do in response to Referee Two?',
         correct: stEn[0].toUpperCase() + stEn.slice(1) + '.',
         cReason: `We can ${stEn} within ten days に全員が Agreed と合意している。`,
@@ -238,10 +238,10 @@ export function buildG1Part1Unit(examId: string, round: number, u: number): List
         ] as [string, string, string],
         wReasons: [
           `${item.trap} は remarkably shortsighted（著しく近視眼的）として冒頭で否定されている。`,
-          '次の10年まで決定を先送りするという話は出ていない。',
-          '報告書を出さずに運営委員会を解散するとも言っていない。',
+          `${item.ctxJa}の判断を次の10年まで先送りする案は出ておらず、本日の午後に運営委員会へ勧告する流れである。`,
+          `${item.ctxJa}について報告書を出さずに運営委員会を解散するとも述べていない。`,
         ] as [string, string, string],
-        exp: `反語・批判的評価で退けられた案ではなく、最終合意した ${item.decision} を選ぶ。`,
+        exp: `${item.ctxJa}に関し remarkably shortsighted として退けられた案ではなく、最終合意した we ought to ${item.decision}（${item.decisionJa}）を選ぶ。`,
         ev: `ought to ${item.decision}`,
         skill: item.sk,
       };

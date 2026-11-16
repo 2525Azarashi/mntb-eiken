@@ -56,6 +56,51 @@ function buildTrackMaterial(unit: ListeningAudioUnit, resolvedImageUrl?: string)
   };
 }
 
+function buildListeningStrategyTips(
+  exam: ListeningExamRound,
+  unit: ListeningAudioUnit,
+  partLabel: string,
+): string[] {
+  const tips: string[] = [];
+  const q0 = unit.questions[0];
+
+  if (unit.material) {
+    tips.push(
+      'Real-Life形式の先読み：音声が始まる10秒間で Situation（自分の立場・条件）と Question、表の注記（*印の例外条件）を先に確認しましょう。',
+    );
+  } else if (q0.choicePresentation === 'read-aloud') {
+    if (exam.grade === 'eiken_5' && unit.part === 'part3') {
+      tips.push(
+        'イラスト一致の鉄則：再生前に「中央の人物が何をしているか（現在進行形 is ~ing）」と「場所」を英語でイメージして待つと迷いません。',
+      );
+    } else {
+      tips.push(
+        '応答選択のコツ：最初の疑問詞（Where / When / How / Why / Who）または依頼・誘い表現（Could you / Let\'s / Do you mind if）を逃さずメモしましょう。',
+      );
+    }
+  } else if (unit.questions.length > 1) {
+    tips.push(
+      '1パッセージ複数設問のコツ：設問の順番は原則として放送の流れに沿っています。1問目の根拠を聞き取ったらすぐに2問目の選択肢へ視線を移しましょう。',
+    );
+  } else {
+    tips.push(
+      '印刷4択の先読み：放送前に選択肢の動詞・名詞の違いに目を通し、「何を聞き取るべきか」を絞ってから聞くと正答率が安定します。',
+    );
+  }
+
+  if (unit.readCount === 1) {
+    tips.push(
+      `${partLabel}は本番1回読み：迷った選択肢には消去スラッシュ（×）を入れ、聞き取れなかった場合も気持ちを切り替えて次の音源の先読みを優先しましょう。`,
+    );
+  } else {
+    tips.push(
+      `${partLabel}は本番2回読み：1回目で大意と疑問文をつかみ、2回目で時刻・数・逆接（but / actually / no）の細部を確定させましょう。`,
+    );
+  }
+
+  return tips;
+}
+
 export function listeningUnitToProblem(exam: ListeningExamRound, unit: ListeningAudioUnit): Problem {
   const blueprint = LISTENING_BLUEPRINTS[exam.grade];
   const partSpec = blueprint.parts.find(p => p.id === unit.part)!;
@@ -166,7 +211,7 @@ export function listeningUnitToProblem(exam: ListeningExamRound, unit: Listening
     subQuestions,
     audioTracks: [track],
     explanation: fullExplanation,
-    surroundingKnowledge: [],
+    surroundingKnowledge: buildListeningStrategyTips(exam, unit, partSpec.label),
     deepDiveTopics: [],
   };
 }

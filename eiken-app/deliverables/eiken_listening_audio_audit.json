@@ -1,13 +1,16 @@
 {
-  "totalIntegratedUnits": 1725,
-  "totalPublicAudioMB": 265.93,
+  "totalIntegratedUnits": 2385,
+  "totalPublicAudioMB": 447.9,
   "sourceLicense": "Manus AI generated (user-confirmed commercial use OK, non-official original script)",
   "grades": {
     "eiken_1": {
       "expectedUnits": 315,
-      "integratedUnits": 0,
+      "integratedUnits": 315,
       "csvVerifiedUnits": 0,
-      "mismatches": 0
+      "mismatches": 0,
+      "minDurationSec": 32.57,
+      "maxDurationSec": 94.85,
+      "avgDurationSec": 50.26
     },
     "eiken_2": {
       "expectedUnits": 450,
@@ -47,9 +50,12 @@
     },
     "eiken_pre1": {
       "expectedUnits": 345,
-      "integratedUnits": 0,
+      "integratedUnits": 345,
       "csvVerifiedUnits": 0,
-      "mismatches": 0
+      "mismatches": 0,
+      "minDurationSec": 26.57,
+      "maxDurationSec": 64.06,
+      "avgDurationSec": 46.21
     },
     "eiken_pre2": {
       "expectedUnits": 450,
