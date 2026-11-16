@@ -65,15 +65,17 @@ describe('Eiken Listening 120-Round Mock Exam Bank', () => {
     expect(totalImages).toBe(750);
   });
 
-  it('integrates 2385 MP3 audio files (Grades 5, 4, 3, 2, Pre-1, 1) and all 750/750 illustrations across Grades 5, 4, 3, Pre-1, and 1', () => {
-    // Audio check (Grade 5: 375, Grade 4: 450, Grade 3: 450, Grade 2: 450, Pre-1: 345, Grade 1: 315 => 2,385 MP3s)
+  it('integrates all 3285/3285 MP3 audio files across all 8 grades and all 750/750 illustrations across Grades 5, 4, 3, Pre-1, and 1', () => {
+    // Audio check (100% complete across all 8 grades: 3,285/3,285 MP3s)
     expect(Object.keys(LISTENING_AUDIO_URLS).filter(k => k.startsWith('eiken_5_'))).toHaveLength(375);
     expect(Object.keys(LISTENING_AUDIO_URLS).filter(k => k.startsWith('eiken_4_'))).toHaveLength(450);
     expect(Object.keys(LISTENING_AUDIO_URLS).filter(k => k.startsWith('eiken_3_'))).toHaveLength(450);
+    expect(Object.keys(LISTENING_AUDIO_URLS).filter(k => k.startsWith('eiken_pre2_'))).toHaveLength(450);
+    expect(Object.keys(LISTENING_AUDIO_URLS).filter(k => k.startsWith('eiken_pre2plus_'))).toHaveLength(450);
     expect(Object.keys(LISTENING_AUDIO_URLS).filter(k => k.startsWith('eiken_2_'))).toHaveLength(450);
     expect(Object.keys(LISTENING_AUDIO_URLS).filter(k => k.startsWith('eiken_pre1_'))).toHaveLength(345);
     expect(Object.keys(LISTENING_AUDIO_URLS).filter(k => k.startsWith('eiken_1_'))).toHaveLength(315);
-    expect(Object.keys(LISTENING_AUDIO_URLS)).toHaveLength(2385);
+    expect(Object.keys(LISTENING_AUDIO_URLS)).toHaveLength(3285);
     for (const audioUrl of Object.values(LISTENING_AUDIO_URLS)) {
       expect(audioUrl.startsWith('/eiken_audio/')).toBe(true);
       expect(existsSync(`public${audioUrl}`)).toBe(true);
