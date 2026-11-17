@@ -996,7 +996,9 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
         ja: `${clubJa}の部員にお知らせします。今日1番教室は塗装中のため、4時15分に5番教室に集まります。今日の活動のために忘れずに${itemJa}を持ってきてください。`,
         qJa: `${clubJa}の部員は今日何を持っていくべきですか。`,
         prompt: `What should the ${club} members bring today?`,
-        correct: item[0].toUpperCase() + item.slice(1) + '.',
+        correct: (item[0].toUpperCase() + item.slice(1))
+          .replace(/^Your script book$/, 'Their script books')
+          .replace(/^Your own paddle$/, 'Their own paddles') + '.',
         correctReason: `Please remember to bring ${item} for today's activity. と持参物が明示されている。`,
         wrongs: wrongItems.map(w => w[0].toUpperCase() + w.slice(1) + '.') as [string, string, string],
         wrongReasons: [
@@ -1205,7 +1207,7 @@ function buildG4Part3(examId: string, round: number, u: number): ListeningAudioU
         ja: `みなさんこんにちは！今日のワークショップでは${dishJa}を作ります。道具や材料に触る前に、まず${stepJa}ください。そのあと黒板でステップ2を確認しましょう。`,
         qJa: '参加者は最初に何をすべきですか。',
         prompt: 'What should the participants do first?',
-        correct: step[0].toUpperCase() + step.slice(1) + '.',
+        correct: (step[0].toUpperCase() + step.slice(1)).replace(/\byour\b/g, 'their') + '.',
         correctReason: `first please ${step} と最初の工程が明示されている。`,
         wrongs: ['Write their names on the board.', 'Take their work home.', 'Clean the workshop floor.'] as [string, string, string],
         wrongReasons: [
