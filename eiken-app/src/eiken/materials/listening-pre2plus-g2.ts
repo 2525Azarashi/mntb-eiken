@@ -480,12 +480,12 @@ const MID_DIALOGUE_SPECS: readonly MidDialogueSpec[] = [
         l4: `Neither—my doctor simply told me to ${rawTip.replace('his or her', 'my')}, and it helped within a week.`,
         ja: `${symJa}に悩む話者に対し、相手は自分の経験から「${tipJa}」という医師のアドバイスが効果的だったと伝えている。`,
         prompt: `What worked well for ${who2} last year?`,
-        correct: `Choosing to ${tip.replace(/\b(his|her)\b/, 'one\'s')}.`.replace('Choosing to ', '').replace(/^(.)/, c => c.toUpperCase()),
+        correct: tip[0].toUpperCase() + tip.slice(1) + '.',
         cReason: `told me to ... and it helped within a week と実際に効果があった習慣を述べている。`,
         wrongs: [
-          'Taking strong medicine twice a day.',
-          'Having surgery at a city hospital.',
-          'Quitting all exercise for six months.',
+          'Take strong medicine twice a day.',
+          'Have surgery at a city hospital.',
+          'Quit all exercise for six months.',
         ],
         wReasons: [
           '薬は飲んでいない（Neither）と明確に否定している。',
@@ -605,9 +605,9 @@ const MID_DIALOGUE_SPECS: readonly MidDialogueSpec[] = [
         correct: out[0].toUpperCase() + out.slice(1) + '.',
         cReason: `Unexpectedly, ${out} と継続して得られた予想外の良さを述べている。`,
         wrongs: [
-          'Winning a million-yen cash lottery.',
-          'Moving to an apartment in Paris.',
-          'Becoming a television news anchor.',
+          'It brought a million-yen cash prize.',
+          'It led to a job offer in Paris.',
+          'It resulted in a television show role.',
         ],
         wReasons: [
           '100万円の宝くじに当たったという話は出てこない。',
@@ -884,9 +884,9 @@ const MID_PASSAGE_SPECS: readonly MidPassageSpec[] = [
       return {
         text,
         ja: `${siteJa}の見学前の案内。「${whyJa}」という目的のため、入場前に全員「${ruleJa}」必要がある。`,
-        prompt: `What are visitors required to do before the tour begins?`,
-        correct: ruleEn[0].toUpperCase() + ruleEn.slice(1) + '.',
-        cReason: `all visitors are required to ${ruleEn} と入場前の必須事項が述べられている。`,
+            prompt: `What are visitors required to do before the tour begins?`,
+            correct: (ruleEn[0].toUpperCase() + ruleEn.slice(1)).replace(/\byour\b/g, 'their') + '.',
+            cReason: `all visitors are required to ${ruleEn} と入場前の必須事項が述べられている。`,
         wrongs: [
           'Pick up free samples before entering.',
           'Sign a two-year employment contract.',
@@ -1147,7 +1147,7 @@ const MID_PASSAGE_SPECS: readonly MidPassageSpec[] = [
             text: txt,
             ja: `${vnJa}での利用者案内。円滑な運営のため「${instJa}」よう協力を求めている。`,
             prompt: `What are guests at ${vn} asked to do?`,
-            correct: inst[0].toUpperCase() + inst.slice(1) + '.',
+            correct: ((inst[0].toUpperCase() + inst.slice(1)).replace(/\byour\b/g, 'their').replace(/\.+$/, '')) + '.',
             cReason: `please ${inst} と利用者への具体的なお願いが述べられている。`,
             wrongs: ['Wear green staff badges at all times.', 'Clean their own rooms before checkout.', 'Pay an extra fee for elevator use.'] as [string, string, string],
             wReasons: [

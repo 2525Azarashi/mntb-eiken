@@ -1187,7 +1187,9 @@ function buildG3OrPre2PassageUnit(
         text,
         ja: `${evJa}についての連絡。会場が${oldLocJa}から${newLocJa}へ変更され、さらに全員「${ruleJa}」必要がある。`,
         prompt: `What must all students do for the ${evEn}?`,
-        correct: ruleEn[0].toUpperCase() + ruleEn.slice(1) + '.',
+        correct: (ruleEn[0].toUpperCase() + ruleEn.slice(1))
+          .replace(/^Bring your health card$/, 'Bring their health cards')
+          .replace(/^Attach your registration sticker$/, 'Attach their registration stickers') + '.',
         cReason: `Also, all students must ${ruleEn}. と必須の指示が述べられている。`,
         wrongs: [
           `Gather in the ${oldLoc}.`,

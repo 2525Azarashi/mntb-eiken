@@ -232,7 +232,15 @@ export function buildG1Part1Unit(examId: string, round: number, u: number): List
         correct: item.decision[0].toUpperCase() + item.decision.slice(1) + '.',
         cReason: `we ought to ${item.decision} に Unquestionably と完全合意している。`,
         wrongs: [
-          item.trap[0].toUpperCase() + item.trap.slice(1) + '.',
+          item.trap
+            .replace(/^selecting\b/, 'Select')
+            .replace(/^installing\b/, 'Install')
+            .replace(/^extrapolating\b/, 'Extrapolate')
+            .replace(/^granting\b/, 'Grant')
+            .replace(/^building\b/, 'Build')
+            .replace(/^hiring\b/, 'Hire')
+            .replace(/^packing\b/, 'Pack')
+            .replace(/^selling\b/, 'Sell') + '.',
           'Postpone any decision until the next decade.',
           'Dissolve the steering committee without filing a report.',
         ] as [string, string, string],

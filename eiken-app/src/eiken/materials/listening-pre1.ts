@@ -244,7 +244,7 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
         turns,
         ja: `港湾混雑で${ptJa}の到着が9日遅れる事態に対し、工場停止による違約金を防ぐため「${solJa}」ことでラインを止めずに乗り切る決定をした。`,
         prompt: `How will the speakers deal with the delayed shipment of ${pt}?`,
-        correct: `They will ${solEn}.`,
+        correct: `They will ${solEn.replace('our certified supplier', 'their certified supplier')}.`,
         cReason: `Can we ${solEn} ...? に対し Let's authorize it now. と承認している。`,
         wrongs: [
           'They will shut down the assembly plant for nine days.',
@@ -389,7 +389,13 @@ function buildPre1Part1Unit(examId: string, round: number, u: number): Listening
         correct: th.chosen[0].toUpperCase() + th.chosen.slice(1) + '.',
         cReason: `What if we ${th.chosen}? に対して Excellent proposal. と採用が決定している。`,
         wrongs: [
-          th.rejected[0].toUpperCase() + th.rejected.slice(1) + '.',
+          th.rejected
+            .replace(/^imposing\b/, 'Impose')
+            .replace(/^reverting\b/, 'Revert')
+            .replace(/^delaying\b/, 'Delay')
+            .replace(/^keeping\b/, 'Keep')
+            .replace(/^cutting\b/, 'Cut')
+            .replace(/^removing\b/, 'Remove') + '.',
           'Cancel the entire project at the end of this month.',
           'Hire an overseas consulting firm for a year-long audit.',
         ] as [string, string, string],
